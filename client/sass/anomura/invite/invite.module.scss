@@ -1,0 +1,45 @@
+.app{
+    width: 100%;
+    height: 100vh;
+    background: 50% 30%/cover url("/img/anomura/invite/bg01.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board{
+    width: clamp(700px,40vw,100vh);
+    aspect-ratio: clamp(1,6/5,9/7);
+    background: center/contain no-repeat url("/img/anomura/invite/board_small.png");
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    padding: 1vh;
+    &_title{
+        width: clamp(100px,50%,75vh);      
+    }
+    &_welcome{
+        width: clamp(200px,70%,75vh);
+    }
+    &_button{
+        width:clamp(350px,70%,95vh);
+        min-height: 10%;
+        background: center/contain no-repeat url("/img/anomura/invite/button_wallet.png");
+        font-size: 1.75rem;
+        &:hover{
+            width: 60%;       
+        }
+    }
+}
+
+.foreground{
+    position: absolute;
+    bottom: 0;
+    top: 48%;
+    width: 100%;
+    background: top/cover url("/img/anomura/invite/fg01.png");
+    z-index: 2;
+    pointer-events: none;
+}

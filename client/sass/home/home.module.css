@@ -1,0 +1,911 @@
+/*Main Site colors*/
+/*Font colors*/
+/*Span bg colors */
+@-webkit-keyframes interference {
+  10% {
+    filter: opacity(0.94);
+  }
+  20% {
+    filter: opacity(1);
+  }
+  30% {
+    filter: opacity(0.8);
+  }
+  41% {
+    filter: opacity(1);
+  }
+  50% {
+    filter: opacity(0.98);
+  }
+  60% {
+    filter: opacity(0.78);
+  }
+  70% {
+    filter: opacity(0.78);
+  }
+  80% {
+    filter: opacity(0.64);
+  }
+  90% {
+    filter: opacity(1);
+  }
+}
+@keyframes interference {
+  10% {
+    filter: opacity(0.94);
+  }
+  20% {
+    filter: opacity(1);
+  }
+  30% {
+    filter: opacity(0.8);
+  }
+  41% {
+    filter: opacity(1);
+  }
+  50% {
+    filter: opacity(0.98);
+  }
+  60% {
+    filter: opacity(0.78);
+  }
+  70% {
+    filter: opacity(0.78);
+  }
+  80% {
+    filter: opacity(0.64);
+  }
+  90% {
+    filter: opacity(1);
+  }
+}
+.App {
+  width: 100%;
+  position: relative;
+  background: url("/img/home/backgrounds/Sky.png") no-repeat;
+  background-size: 100% 25%;
+  padding-bottom: 60%;
+}
+@media only screen and (max-width: 3800px) {
+  .App {
+    background-size: 100% 29%;
+  }
+}
+@media only screen and (max-width: 2400px) {
+  .App {
+    background-size: 100% 31%;
+  }
+}
+@media only screen and (max-width: 1600px) {
+  .App {
+    background-size: 100% 37%;
+    line-height: 1.2;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .App {
+    background-size: 100% 40%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .App {
+    background-size: 100% 48%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .App {
+    background-size: 100% 52%;
+    padding-bottom: 65%;
+  }
+}
+
+.sunlight {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  max-width: 60%;
+  -webkit-animation: interference 1.5s infinite linear;
+          animation: interference 1.5s infinite linear;
+}
+
+.parallax_group {
+  position: relative;
+}
+
+/* Nav Bar Area */
+.nav_menu {
+  display: flex;
+  background: url("/img/home/menu.png") no-repeat;
+  background-size: contain;
+  width: max(750px, 85%);
+  height: max(110px, 6vw);
+  padding: 0 2vw 0 4vw;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
+  position: relative;
+}
+.nav_list {
+  margin-left: 4rem;
+  height: 65%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav_item {
+  font-size: 3rem;
+  margin-bottom: 1%;
+}
+.nav_logo {
+  width: 80%;
+  margin-top: calc(50% - 55px + 2.9658478131%);
+}
+.nav_icons {
+  display: flex;
+  align-items: flex-start;
+  gap: 35px;
+  margin: 0.5vw 1vw 0 0;
+}
+
+.shop_zone {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  padding-top: 7%;
+}
+.shop_text {
+  flex-basis: 35%;
+  z-index: 2;
+}
+.shop_img {
+  width: min(60vw, 850px);
+  z-index: 2;
+}
+.shop_heading {
+  background-color: #4cdebc;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+
+.sand_zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.sand_zone_sand {
+  width: 100%;
+  background: url("/img/home/backgrounds/Layer2.png") no-repeat;
+  background-position: 0 0;
+  background-size: 100%;
+  position: absolute;
+  top: -3vh;
+  padding-bottom: 65%;
+  height: clamp(400px, 24vh, 2888px);
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media only screen and (min-width: 2000px) {
+  .sand_zone_sand {
+    background: url("/img/home/backgrounds/repeat_Layer2.png") no-repeat;
+  }
+}
+
+.follow_text {
+  width: min(48vw, 680px);
+  z-index: 2;
+  text-align: center;
+  color: #0D6C5D;
+  font-size: 2rem;
+  line-height: 1;
+}
+.follow_text_paragraph {
+  padding: 5px 0px 10px 10px;
+}
+.follow_img {
+  width: min(60vw, 850px);
+  position: relative;
+}
+.follow_iconContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: min(30vw, 425px);
+}
+.follow_iconContainer a {
+  z-index: 2;
+}
+.follow_iconContainer_twitter {
+  width: 26%;
+  height: 0;
+  padding-bottom: 21%;
+}
+.follow_iconContainer_twitter:hover {
+  background: url("/img/home/follow_us/follow_icons_twitter_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.follow_iconContainer_discord {
+  width: 26%;
+  height: 0;
+  padding-bottom: 21%;
+}
+.follow_iconContainer_discord:hover {
+  background: url("/img/home/follow_us/follow_icons_discord_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.follow_iconContainer_instagram {
+  width: 26%;
+  height: 0;
+  padding-bottom: 21%;
+}
+.follow_iconContainer_instagram:hover {
+  margin-top: 1.5%;
+  background: url("/img/home/follow_us/follow_icons_instagram_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.follow_iconContainer_icons {
+  pointer-events: none;
+  position: absolute;
+  width: min(30vw, 425px);
+}
+.follow_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sandBottom_zone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 2s;
+  pointer-events: none;
+}
+.sandBottom_left {
+  flex: 20%;
+}
+.sandBottom_icons {
+  align-self: flex-end;
+  width: min(30vw, 425px);
+}
+.sandBottom_center {
+  position: relative;
+  align-self: flex-end;
+  width: min(30vw, 425px);
+  margin-left: 3%;
+}
+.sandBottom_center_icons {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  height: 120px;
+  left: 17%;
+  width: 54%;
+}
+.sandBottom_center_icons a {
+  z-index: 2;
+}
+.sandBottom_center_icons_twitter {
+  width: 26%;
+  height: 0;
+  padding-bottom: 21%;
+}
+.sandBottom_center_icons_twitter:hover {
+  background: url("/img/home/follow_us/follow_icons_twitter_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.sandBottom_center_icons_discord {
+  width: 26%;
+  height: 0;
+  padding-bottom: 20%;
+}
+.sandBottom_center_icons_discord:hover {
+  margin-top: 0.9px;
+  width: 25.5%;
+  background: url("/img/home/follow_us/follow_icons_discord_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.sandBottom_center_icons_instagram {
+  width: 26%;
+  height: 0;
+  padding-bottom: 20%;
+}
+.sandBottom_center_icons_instagram:hover {
+  width: 26.5%;
+  margin-top: 3px;
+  background: url("/img/home/follow_us/follow_icons_instagram_on_x3.png") no-repeat;
+  background-size: contain;
+}
+.sandBottom_right {
+  width: min(20vw, 250px);
+  flex: 20%;
+  position: relative;
+}
+.sandBottom_right_container {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: min(12vw, 120px);
+  display: flex;
+  flex-direction: column;
+}
+.sandBottom_right_container_discord {
+  width: auto;
+  margin-top: 8%;
+  height: 35%;
+}
+.sandBottom_right_container_soundOff {
+  height: 27%;
+  width: 41%;
+  margin-top: 6%;
+  margin-left: 25%;
+}
+.sandBottom_image {
+  height: auto;
+  width: min(12vw, 120px);
+  margin-left: auto;
+}
+
+.nft {
+  pointer-events: none;
+  width: 100%;
+  background-image: url("/img/home/backgrounds/Layer3.png");
+  background-size: cover;
+  position: absolute;
+  z-index: 3;
+  padding-bottom: 65%;
+  display: flex;
+  justify-content: center;
+  shape-outside: url("/img/home/backgrounds/Layer3.png");
+}
+.nft_text {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40%;
+  position: relative;
+}
+.nft_bubble1 {
+  position: absolute;
+  height: auto;
+  left: 8%;
+  top: -15vw;
+  width: 42px;
+}
+@media only screen and (max-width: 1200px) {
+  .nft_bubble1 {
+    width: 32px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .nft_bubble1 {
+    width: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .nft_bubble1 {
+    width: 15px;
+  }
+}
+.nft_bubble2 {
+  position: absolute;
+  height: auto;
+  right: 8%;
+  top: -15vw;
+  width: 42px;
+}
+@media only screen and (max-width: 1200px) {
+  .nft_bubble2 {
+    width: 32px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .nft_bubble2 {
+    width: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .nft_bubble2 {
+    width: 15px;
+  }
+}
+.nft_heading {
+  background-color: #4cdebc;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+.nft_paragraph {
+  padding: 5px 0px 3px 10px;
+}
+
+.crab_anat {
+  width: 100%;
+  background-image: url("/img/home/backgrounds/Layer4.png");
+  background-size: cover;
+  position: absolute;
+  z-index: 4;
+  padding-bottom: 60%;
+  display: flex;
+  justify-content: center;
+}
+.crab_text {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30%;
+}
+.crab_rarityContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3%;
+  position: relative;
+}
+.crab_rarityBlock {
+  display: flex;
+  flex-direction: column;
+}
+.crab_inline {
+  padding-left: 10px;
+}
+.crab_normal {
+  background-color: #4cdebc;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+.crab_magical {
+  background-color: #5afef9;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+.crab_rare {
+  background-color: #805bfe;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+.crab_legend {
+  background-color: #93fe5a;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+.crab_bubble1 {
+  position: absolute;
+  height: auto;
+  left: 5%;
+  top: 10vw;
+  width: 42px;
+}
+@media only screen and (max-width: 1200px) {
+  .crab_bubble1 {
+    width: 32px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .crab_bubble1 {
+    width: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .crab_bubble1 {
+    width: 15px;
+  }
+}
+.crab_bubble2 {
+  position: absolute;
+  height: auto;
+  right: 13%;
+  top: -15vw;
+  width: 42px;
+}
+@media only screen and (max-width: 1200px) {
+  .crab_bubble2 {
+    width: 32px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .crab_bubble2 {
+    width: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .crab_bubble2 {
+    width: 15px;
+  }
+}
+
+.when_zone {
+  width: 100%;
+  background-image: url("/img/home/backgrounds/Layer5Eyes.png");
+  background-size: cover;
+  position: absolute;
+  z-index: 5;
+  padding-bottom: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60%;
+}
+.when_text {
+  margin-top: 30%;
+}
+.when_paragraph {
+  padding: 3px 5px 3px 10px;
+}
+.when_highlight {
+  background-color: #4cdebc;
+  color: #191226;
+  padding: 3px 10px 3px 10px;
+  min-width: 130px;
+  font-weight: 600;
+}
+
+.treasure_zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.treasure_image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 2%;
+  width: clamp(50vw, 75%, 100%);
+  padding-bottom: 35%;
+  left: -5vw;
+}
+.treasure_card {
+  position: absolute;
+  left: 48%;
+  /* for reading card text properly */
+  width: clamp(8vw, 25%, 225px);
+}
+.treasure_chest {
+  position: absolute;
+  top: min(210px, 16vw);
+  z-index: 2;
+}
+.treasure_chestFloor {
+  pointer-events: none;
+  position: absolute;
+  top: min(210px, 16vw);
+  -webkit-animation: interference 1.5s infinite ease-out;
+          animation: interference 1.5s infinite ease-out;
+  z-index: 1;
+  opacity: 0.7;
+}
+.treasure_chestLight {
+  pointer-events: none;
+  position: absolute;
+  top: min(210px, 16vw);
+  -webkit-animation: interference 1.5s infinite linear;
+          animation: interference 1.5s infinite linear;
+  z-index: 3;
+  opacity: 0.7;
+}
+
+.footer_zone {
+  pointer-events: none;
+  width: 100%;
+  background-image: url("/img/home/backgrounds/Layer6.png");
+  background-size: cover;
+  position: absolute;
+  z-index: 6;
+  padding-bottom: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer_logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 38.5%;
+  margin-bottom: 5%;
+}
+.footer_logo > img {
+  width: min(400px, 20%);
+}
+.footer_social {
+  display: flex;
+  justify-content: center;
+}
+.footer_text {
+  width: 40%;
+  text-align: center;
+  margin-top: 2%;
+}
+
+@media only screen and (max-width: 1400px) {
+  .nav_list {
+    height: 55%;
+  }
+  .nav_item {
+    font-size: 2.5rem;
+  }
+
+  .treasure_zone {
+    padding-bottom: 35%;
+  }
+
+  .crab_text {
+    margin-top: 30%;
+    font-weight: 600;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .nav_list {
+    align-items: start;
+  }
+  .nav_item {
+    font-size: 2rem;
+  }
+
+  .shop_img {
+    width: max(65vw, 600px);
+  }
+
+  .nft_text {
+    margin-top: 45%;
+  }
+
+  .crab_text {
+    margin-top: 30%;
+    width: 80%;
+  }
+  .crab_rarityContainer {
+    margin-top: 4%;
+  }
+
+  .treasure_image {
+    margin-top: 10%;
+  }
+
+  .footer_zone {
+    padding-bottom: 20%;
+  }
+  .footer_text {
+    width: 65%;
+  }
+}
+/* ----------- General ipads ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) and (-webkit-min-device-pixel-ratio: 2) {
+  .App {
+    background-size: 100% 46%;
+  }
+
+  .shop_zone {
+    padding-top: 20%;
+  }
+  .shop_text {
+    margin-top: -10%;
+    font-size: 1.3rem;
+  }
+  .shop_img {
+    width: max(65vw, 600px);
+  }
+
+  .follow_img {
+    padding-top: 2%;
+  }
+
+  .nft_text {
+    width: 75%;
+    margin-top: 50%;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .crab_text {
+    margin-top: 40%;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .nav_list {
+    height: 55%;
+  }
+  .nav_item {
+    font-size: 1.5rem;
+  }
+
+  .shop_img {
+    width: max(65vw, 600px);
+  }
+
+  .crab_text {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .shop_img {
+    width: min(55vh, 600px);
+  }
+}
+@media only screen and (max-width: 800px) {
+  .nav_menu {
+    display: none;
+  }
+  .nav_list {
+    display: none;
+  }
+
+  .shop_zone {
+    flex-direction: column;
+    justify-content: center;
+    max-width: 85%;
+  }
+  .shop_img {
+    width: 95vw;
+  }
+  .shop_text {
+    font-size: 1.1rem;
+  }
+
+  .follow_img {
+    margin-top: 0.7vh;
+    margin-left: 15px;
+    width: 84vw;
+  }
+  .follow_input {
+    font-size: 1.3rem;
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+
+  .nft {
+    padding-bottom: 57%;
+  }
+  .nft_text {
+    margin: 40% 10% 0 10%;
+    padding-top: 15%;
+  }
+
+  .crab_anat {
+    padding-bottom: 80%;
+  }
+  .crab_text {
+    margin-top: 45%;
+  }
+  .crab_rarityContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+  }
+  .crab_rarityBlock {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .crab_rarityBlock div:nth-child(2) {
+    text-align: right;
+  }
+
+  .when {
+    padding-bottom: 100%;
+  }
+  .when_text {
+    margin: 40% 10% 0 10%;
+  }
+
+  .treasure_zone {
+    margin-top: 5%;
+    padding-bottom: 60%;
+  }
+
+  .footer_zone {
+    padding-bottom: 35%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .crab_text {
+    font-weight: 500;
+    margin: 40% 10% 0 10%;
+  }
+
+  .treasure_chestContainer {
+    margin-top: 10%;
+    margin-bottom: 75%;
+  }
+
+  .footer_text {
+    margin: 15% 10% 0 10%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .follow_iconContainer {
+    margin-top: 1.2vh;
+    transform: scale(1.3);
+  }
+
+  .treasure_image {
+    left: -5vw;
+    margin-top: 5vh;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .shop_text {
+    font-size: 0.95rem;
+  }
+
+  .sandBottom_left {
+    flex: 20%;
+  }
+  .sandBottom_icons {
+    width: min(60vw, 850px);
+  }
+  .sandBottom_center {
+    width: min(60vw, 850px);
+    margin-left: 0%;
+  }
+  .sandBottom_center_icons a {
+    width: 25%;
+    height: 0;
+    padding-bottom: 21%;
+  }
+  .sandBottom_right_container {
+    width: min(15vw, 150px);
+  }
+  .sandBottom_image {
+    width: min(15vw, 150px);
+  }
+
+  .follow_img {
+    margin-top: 1vh;
+  }
+  .follow_input {
+    background-size: cover;
+    min-height: 45px;
+    width: min(65vw, 300px);
+    font-size: 0.95rem;
+    padding-bottom: 3%;
+  }
+
+  .nft_text {
+    font-size: 0.95rem;
+  }
+
+  .crab_text {
+    padding-top: 15%;
+    font-size: 1rem;
+  }
+
+  .when_text {
+    line-height: 1.5rem;
+  }
+
+  .footer_zone {
+    padding-bottom: 50%;
+  }
+  .footer_text {
+    width: 75%;
+  }
+}/*# sourceMappingURL=home.module.css.map */

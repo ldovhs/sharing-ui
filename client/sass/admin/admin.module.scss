@@ -1,0 +1,50 @@
+.navbar{
+    &_zone{
+        display: block;
+       
+        background-color: blue;
+        height:5%; padding-top: 1%;
+    }
+    &_container{
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    &_text{
+        
+        color: black!important;
+    }
+
+}
+
+.search {
+     &_zone {
+
+     }
+
+     &_container {
+
+     }
+
+     &_form {
+
+        &_item{
+            display: flex;
+            align-items: center;
+            min-height: 2rem;
+            margin-bottom:1rem;
+
+            &_formInput{
+
+            
+
+            }
+            &_formInputToken{
+
+            
+
+            }
+        }
+     }
+}

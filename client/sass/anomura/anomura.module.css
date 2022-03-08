@@ -1,0 +1,95 @@
+.app {
+  background: center 73vh/contain no-repeat url("/img/anomura/backgrounds/snow_background.png"), center 350vh/contain no-repeat url("/img/anomura/backgrounds/metal_tree.png"), center 235vh/contain no-repeat url("/img/anomura/backgrounds/lava_background.png"), center 450vh/contain no-repeat url("/img/anomura/backgrounds/pond_background.png"), top/contain no-repeat url("/img/anomura/backgrounds/sky_background.png");
+}
+
+.sky_anomura {
+  width: 15vw;
+}
+.sky_anomura.wood {
+  position: relative;
+  left: 10vw;
+}
+.sky_anomura.metal {
+  position: relative;
+  bottom: 15vh;
+  right: 10vw;
+}
+.sky_anomura.snow {
+  position: relative;
+  bottom: 25vh;
+  left: 10vw;
+}
+.sky_anomura_zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sky_text {
+  text-align: center;
+}
+
+.snow_zone {
+  width: 100%;
+}
+.snow_protect {
+  margin-top: 25vh;
+}
+
+.lava_zone {
+  padding-top: 90%;
+}
+.lava_banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.lava_banner_icon {
+  min-width: 10vw;
+}
+.lava_banner_header {
+  font-size: 5.5rem;
+}
+.lava_banner_text {
+  width: 70%;
+}
+
+.pond_zone {
+  width: 100%;
+  padding-top: 10vh;
+}
+.pond_box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.pond_footage {
+  width: 50vw;
+}
+.pond_anomura {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  right: 10vw;
+  top: 5vh;
+}
+
+.star {
+  width: 3rem;
+  height: 3rem;
+}
+
+.text_outlined {
+  font-size: 7rem;
+  color: #FFF591;
+  text-shadow: #FF368a -0.3rem 0 1px, #FF368a 0.3rem 0 1px, #FF368a 0 0.3rem 1px, #FF368a 0 -0.3rem 1px;
+}
+.text_outlined_blue {
+  font-size: 7rem;
+  color: #9bFeFF;
+  text-shadow: #00c6c6 -0.3rem 0 1px, #00c6c6 0.3rem 0 1px, #00c6c6 0 0.3rem 1px, #00c6c6 0 -0.3rem 1px;
+}
+.text_earn_sub {
+  color: #FFe57a;
+  font-size: 2.5rem;
+}/*# sourceMappingURL=anomura.module.css.map */

@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model WhiteList {
+  id              Int    @id @default(autoincrement())
+  wallet          String
+  discordID       String
+  numberOfInvites Int
+}
+
+model Anomuras {
+  id Int    @id @default(autoincrement())
+  owner String
+  crabId Int @unique
+  background String
+  legs String
+  shell String
+  claws String
+  body String
+  image String @default("null")
+  headpieces String @default("null")
+
+  Players       Players? @relation(fields: [playersWallet], references: [wallet])
+  playersWallet String?
+}
+
+model Players {
+  wallet        String     @id
+  ownedAnomuras Anomuras[]
+}

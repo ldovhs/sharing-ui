@@ -1,0 +1,116 @@
+.app{
+	background: center 73vh/contain no-repeat url("/img/anomura/backgrounds/snow_background.png"),
+	center 350vh/contain no-repeat url("/img/anomura/backgrounds/metal_tree.png"),
+	center 235vh/contain no-repeat url("/img/anomura/backgrounds/lava_background.png"),
+	center 450vh/contain no-repeat url("/img/anomura/backgrounds/pond_background.png"),
+top / contain no-repeat url("/img/anomura/backgrounds/sky_background.png");
+}
+
+.sky {
+	&_anomura{
+		&.wood{
+			position: relative;
+			left: 10vw;
+		}
+		&.metal{
+			position: relative;
+			bottom: 15vh;
+			right: 10vw;
+		}
+		&.snow{
+			position: relative;
+			bottom: 25vh;
+			left: 10vw;
+		}
+		&_zone{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		}
+		width: 15vw;
+	}
+	&_text {
+		text-align: center;
+	}
+}
+
+
+.snow{
+	&_zone{
+		width: 100%;
+	}
+	&_protect{
+		margin-top: 25vh;
+	}
+}
+
+.lava{
+	&_zone{
+		padding-top: 90%;
+	}
+	&_banner{
+		display: flex;
+		flex-direction: column;
+		align-items:  center;
+		text-align: center;
+		&_icon{
+			min-width: 10vw;
+		}
+		&_header{
+			font-size: 5.5rem;
+		}
+		&_text{
+			width: 70%;
+		}
+	}
+}
+.pond{
+	&_zone{
+		width: 100%;
+		padding-top: 10vh;
+	}
+	&_box{
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+	}
+	&_footage{
+		width: 50vw;
+	}
+	&_anomura{
+		position: relative;
+		width: 350px;
+		height: 350px;
+		right: 10vw;
+		top:5vh;
+	
+	}
+}
+
+.star{
+	width: 3rem;
+	height: 3rem;
+}
+.text{
+	&_outlined{
+		font-size: 7rem;
+		color: #FFF591;
+		text-shadow:#FF368a -.3rem 0 1px,
+		#FF368a .3rem 0 1px,
+		#FF368a 0 .3rem 1px,
+		#FF368a 0 -.3rem 1px;
+	}
+
+	&_outlined_blue{
+		font-size: 7rem;
+		color: #9bFeFF;
+		text-shadow:#00c6c6 -.3rem 0 1px,
+		#00c6c6 .3rem 0 1px,
+		#00c6c6 0 .3rem 1px,
+		#00c6c6 0 -.3rem 1px;
+	}
+	&_earn_sub{
+		color: #FFe57a;
+		font-size: 2.5rem;
+	}
+}

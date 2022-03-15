@@ -3,9 +3,11 @@ import AdminNavbar from "./Navbar";
 
 export default function AdminLayout({ children }) {
     return (
-        <div className="min-h-screen bg-green-200">
+        <div className="min-h-screen admin ">
             <AdminNavbar />
-            <main className="mt-5">{children}</main>
+            <main className="">
+                <div className="container"> {children}</div>
+            </main>
         </div>
     );
 }

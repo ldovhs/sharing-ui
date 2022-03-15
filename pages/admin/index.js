@@ -1,15 +1,8 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import s from "/sass/home/home.module.css";
 import { useRecoilValue } from "recoil";
 import { AdminLayout } from "/components/admin/ComponentIndex";
 import React, { useEffect, useState } from "react";
-
-// const { NFT, CrabAnat, WhenIsItOut, Footer } = {
-//     NFT: dynamic(() => import("/containers/home/ContainerIndex").then((module) => module.NFT), {
-//         ssr: false,
-//     }),
-// };
 
 function Admin() {
     useEffect(() => {}, []);

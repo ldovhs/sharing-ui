@@ -13,9 +13,20 @@ datasource db {
 
 model WhiteList {
   id              Int    @id @default(autoincrement())
+  userId          String @unique @default(uuid())
   wallet          String
+  twitter          String
   discordID       String
   numberOfInvites Int
+  rewards Reward[]
+}
+
+model Reward{
+  id     Int     @id @default(autoincrement())
+  type   String
+  tokens Int @default(0)
+  user WhiteList @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId String
 }
 
 model Anomuras {

@@ -9,7 +9,7 @@ function Admin() {
 
     return (
         <>
-            <div>this is admin inde sdsdssdsdsdsx</div>
+            <div>this is admin home</div>
             {/* Css modules cant have a none pure style in 
              /  it like body so making a JSS style here 
              /  and applying it globally */}

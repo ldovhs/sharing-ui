@@ -1,0 +1,5 @@
+https://www.prisma.io/docs/guides/general-guides/database-workflows/unique-constraints-and-indexes/postgresql
+
+
+TRUNCATE ONLY .....
+RESTART IDENTITY;

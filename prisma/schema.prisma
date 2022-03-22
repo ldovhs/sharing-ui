@@ -12,34 +12,66 @@ datasource db {
 }
 
 model WhiteList {
-  id              Int    @id @default(autoincrement())
-  userId          String @unique @default(uuid())
+  id              Int             @id @default(autoincrement())
+  userId          String          @unique @default(uuid())
   wallet          String
-  twitter          String
-  discordID       String
-  numberOfInvites Int
-  rewards Reward[]
+  twitter         String? @default("")
+  discordId       String? @default("")
+  numberOfInvites Int @default(0)
+  rewards         Reward[]
+  PendingReward   PendingReward[]
 }
 
-model Reward{
-  id     Int     @id @default(autoincrement())
-  type   String
-  tokens Int @default(0)
-  user WhiteList @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  userId String
+model PendingReward {
+  id           Int     @id @default(autoincrement())
+  discordId    String? @default("")
+  twitter      String? @default("")
+  wallet       String
+  tokens       Int     @default(0)
+  generatedURL String @default(uuid())
+  isClaimed    Boolean @default(false)
+
+  user         WhiteList  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId       String
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  rewardTypeId Int
+
+  @@unique([wallet, rewardTypeId, generatedURL, tokens])
+}
+
+model Reward {
+  id           Int     @id @default(autoincrement())
+  discordId    String? @default("")
+  twitter      String? @default("")
+  wallet       String
+  tokens       Int     @default(0)
+
+  user         WhiteList  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId       String
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  rewardTypeId Int
+
+  @@unique([wallet, rewardTypeId])
+}
+
+model RewardType {
+  id            Int             @id @default(autoincrement())
+  reward        String
+  rewards       Reward[]
+  pendingRewards PendingReward[]
 }
 
 model Anomuras {
-  id Int    @id @default(autoincrement())
-  owner String
-  crabId Int @unique
+  id         Int    @id @default(autoincrement())
+  owner      String
+  crabId     Int    @unique
   background String
-  legs String
-  shell String
-  claws String
-  body String
-  image String @default("null")
-  headpieces String @default("null")
+  legs       String
+  shell      String
+  claws      String
+  body       String
+  image      String @default("null")
+  headpieces String? @default("null")
 
   Players       Players? @relation(fields: [playersWallet], references: [wallet])
   playersWallet String?

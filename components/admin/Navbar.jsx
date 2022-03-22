@@ -57,7 +57,7 @@ export default function AdminNavbar() {
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link href="/admin/rewards">
+                                            <Link href="/admin/reward">
                                                 <a className="nav-link">Rewards</a>
                                             </Link>
                                         </li>

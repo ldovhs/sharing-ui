@@ -6,20 +6,20 @@ export default function MultiSelect({ items, onSelectedItem, onDeSelectedItem })
     const [selectedItems, setSelected] = useState([]);
 
     const toogleDropdown = () => {
-        console.log(123);
         setDropdown(!dropdown);
     };
 
-    const addTag = (item) => {
-        if (!selectedItems.includes(item)) {
-            setSelected(selectedItems.concat(item));
+    const addTag = (itemId) => {
+        let item = items.find((i) => i.id === itemId);
+
+        if (!selectedItems.includes(item.name)) {
+            setSelected(selectedItems.concat(item.name));
             onSelectedItem(item);
             toogleDropdown();
         }
     };
 
     const removeTag = (e, item) => {
-        console.log(456);
         e.stopPropagation();
         const filtered = selectedItems.filter((e) => e !== item);
         onDeSelectedItem(item);
@@ -121,11 +121,11 @@ const DropdownList = ({ list, addItem }) => {
                         <div
                             key={key}
                             className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
-                            onClick={() => addItem(item)}
+                            onClick={() => addItem(item.id)}
                         >
                             <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-teal-100">
                                 <div className="w-full items-center flex">
-                                    <div className="mx-2 leading-6  ">{item}</div>
+                                    <div className="mx-2 leading-6  ">{item.name}</div>
                                 </div>
                             </div>
                         </div>

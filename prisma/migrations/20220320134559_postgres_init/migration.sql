@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "WhiteList" ALTER COLUMN "twitter" DROP NOT NULL,
+ALTER COLUMN "discordId" DROP NOT NULL;

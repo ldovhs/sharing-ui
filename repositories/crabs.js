@@ -1,4 +1,4 @@
-import { prisma } from "./PrismaContext";
+import { prisma } from "../context/PrismaContext";
 
 export const getCrabById = async (crabId) => {
     return await prisma.anomuras.findFirst({
@@ -18,7 +18,7 @@ export const getAllCrabs = async (crabId) => {
 
 export const updateCrabById = async (crabData) => {
     const { crabId, image, body, legs, claws, shell, headpieces, background } = crabData;
-    console.log("*****prisma update anomura image by id")
+    console.log("*****prisma update anomura image by id");
     return await prisma.anomuras.update({
         where: {
             id: crabId,
@@ -47,7 +47,7 @@ export const createCrab = async (crabData) => {
             claws,
             body,
             image,
-            headpieces
+            headpieces,
         },
     });
 };

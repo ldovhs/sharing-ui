@@ -1,7 +1,6 @@
-import { prisma } from "repositories/PrismaContext";
+import { prisma } from "@context/PrismaContext";
 
 export default async function handler(req, res) {
-
     if (req.method !== "POST") {
         return res.status(405).json({ message: "Method not allowed" });
     }
@@ -11,10 +10,9 @@ export default async function handler(req, res) {
     const savedWhiteList = await prisma.whiteList.create({
         data: {
             wallet: whiteListData.wallet,
-            discordID: whiteListData.discordID,
-        }
+            discordId: whiteListData.discordId,
+        },
     });
     console.log(whiteListData);
     res.json(savedWhiteList);
-};
-
+}

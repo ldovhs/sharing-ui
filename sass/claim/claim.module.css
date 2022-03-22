@@ -1,0 +1,138 @@
+.app {
+  width: 100%;
+  height: 100vh;
+  background: 50% 30%/cover url("/img/sharing-ui/invite/bg01.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: clamp(700px, 40vw, 100vh);
+  aspect-ratio: 1.2;
+  background: center/contain no-repeat url("/img/sharing-ui/invite/board_small.png");
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+  padding: 1vh;
+}
+.board_congrats {
+  position: absolute;
+  color: #fff;
+  font-size: 6rem;
+  top: -20%;
+}
+.board_title {
+  width: clamp(100px, 50%, 75vh);
+  margin-top: 28%;
+}
+.board_welcome {
+  width: clamp(200px, 70%, 75vh);
+}
+.board_button {
+  width: clamp(350px, 70%, 95vh);
+  min-height: 10%;
+  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
+  font-size: 2rem;
+}
+.board_button:hover {
+  width: 60%;
+}
+
+.boardBig {
+  width: clamp(900px, 50vw, 100vh);
+  aspect-ratio: 1.2;
+  background: center/contain no-repeat url("/img/sharing-ui/invite/board_big.png");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  z-index: 3;
+}
+.boardBig_contentContainer {
+  width: 60%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+  padding: 0.5vh;
+}
+.boardBig_title {
+  margin-top: 35%;
+  font-size: 2rem;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.boardBig_rewardContainer {
+  display: flex;
+  flex-direction: row;
+}
+.boardBig_rewardText {
+  flex: 2 1 auto;
+  margin-left: 5%;
+}
+.boardBig_rewardButtons {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 5%;
+}
+.boardBig_rewardButton {
+  margin-right: 5px;
+  width: 80px;
+  height: 35px;
+  position: relative;
+  color: #FFFFFF !important;
+  display: flex;
+  justify-content: center;
+}
+.boardBig_rewardButton > img {
+  width: min(100%, 200px);
+}
+.boardBig_rewardButton > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 80%;
+}
+.boardBig_rewardButton > div > span {
+  font-family: Safety Goggles;
+}
+.boardBig_claimBtn {
+  position: absolute;
+  bottom: 10%;
+  width: clamp(300px, 60%, 80vh);
+  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
+  font-size: 2rem;
+}
+.boardBig_claimBtn:hover {
+  width: 60%;
+}
+.boardBig_claimBtn:disabled {
+  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
+  font-size: 2rem -1;
+}
+
+.foreground {
+  position: absolute;
+  bottom: 0;
+  top: 48%;
+  width: 100%;
+  background: top/cover url("/img/sharing-ui/invite/fg01.png");
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.foreground > div {
+  margin-top: 12%;
+  font-size: 2rem;
+  color: #fff;
+}/*# sourceMappingURL=claim.module.css.map */

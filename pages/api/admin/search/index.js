@@ -1,4 +1,4 @@
-import { prisma } from "../../../../repositories/PrismaContext";
+import { prisma } from "@context/PrismaContext";
 
 export default async function adminSearch(req, res) {
     const { method } = req;
@@ -6,28 +6,68 @@ export default async function adminSearch(req, res) {
     switch (method) {
         case "GET":
             try {
-                //let result = await getAllCrabs();
-
-                let data = await prisma.whiteList.findMany({
-                    include: {
-                        rewards: true,
-                    },
-                });
-
-                res.status(200).json(data);
+                throw new Error("Not implemented");
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });
             }
             break;
         case "POST":
+            console.log(req.body);
+            const { wallet, userId, twitter, discord, rewards } = req.body;
+
+            let userCondition = {},
+                rewardCondition = [];
+
+            if (wallet !== "") {
+                userCondition.wallet = wallet;
+            }
+            if (userId !== "") {
+                userCondition.userId = userId;
+            }
+            if (twitter !== "") {
+                userCondition.twitter = twitter;
+            }
+            if (discord !== "") {
+                userCondition.discordId = discord;
+            }
+            if (rewards.length > 0) {
+                rewards.forEach((reward) => {
+                    rewardCondition.push({
+                        rewardTypeId: reward.typeId,
+                        AND: [
+                            {
+                                tokens: {
+                                    gte: parseInt(reward.minTokens),
+                                    lte: parseInt(reward.maxTokens),
+                                },
+                            },
+                        ],
+                    });
+                });
+            }
+
             try {
-                let data = await prisma.whiteList.findMany({
-                    include: {
-                        rewards: true,
+                let searchRes = await prisma.whiteList.findMany({
+                    where: userCondition,
+                    select: {
+                        id: true,
+                        userId: true,
+                        wallet: true,
+                        twitter: true,
+                        discordId: true,
+                        rewards: {
+                            where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
+                            select: {
+                                tokens: true,
+                                rewardType: true,
+                            },
+                        },
                     },
                 });
-                res.status(200).json(data);
+
+                const result = searchRes.filter((r) => r.rewards.length > 0);
+                res.status(200).json(result);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });

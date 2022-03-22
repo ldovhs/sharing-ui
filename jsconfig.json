@@ -9,7 +9,9 @@
             "@components/*": ["components/*"],
             "@styles/*": ["styles/*"],
             "@utils/*": ["utils/*"],
-            "@repository/*": ["repository/*"]
+            "@repository/*": ["repository/*"],
+            "@context/*": ["context/*"]
+
           }
     },
      "include": [

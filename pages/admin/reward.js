@@ -41,4 +41,5 @@ const AdminRewards = () => {
 };
 
 AdminRewards.Layout = AdminLayout;
+AdminRewards.requireAdmin = true;
 export default AdminRewards;

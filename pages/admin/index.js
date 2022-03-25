@@ -26,5 +26,7 @@ function Admin() {
     );
 }
 
+Admin.requireAdmin = true;
 Admin.Layout = AdminLayout;
+
 export default Admin;

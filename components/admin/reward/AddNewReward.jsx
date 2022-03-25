@@ -26,7 +26,6 @@ const initialValues = {
 };
 
 const RewardSchema = object().shape({
-    username: string().required(),
     wallet: string().required(),
     quantity: number().required().min(1),
 });
@@ -35,12 +34,15 @@ const fetcher = async (url, req) => await axios.post(url, req).then((res) => res
 
 const AddNewReward = () => {
     const [rewardTypes, setRewardTypes] = useState([]);
+    const [avatar, setAvatar] = useState(null);
     const generatedRef = React.createRef();
 
     useEffect(async () => {
         const res = await axios.get("/api/admin/rewardType");
         if (res) {
             setRewardTypes(res.data);
+            let ava = avatars[Math.floor(Math.random() * avatars.length)];
+            setAvatar(ava);
         }
     }, []);
 
@@ -60,7 +62,7 @@ const AddNewReward = () => {
                     });
                 } else {
                     console.log(res.data.generatedURL);
-                    generatedRef.current.value = res.data.generatedURL;
+                    generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${fields.username}?specialcode=${res.data.generatedURL}`;
                 }
             }}
         >
@@ -71,7 +73,7 @@ const AddNewReward = () => {
                             <div className="d-flex align-items-center mb-3">
                                 <img
                                     className="me-3 rounded-circle me-0 me-sm-3"
-                                    src={avatars[Math.floor(Math.random() * avatars.length)]}
+                                    src={avatar}
                                     width="55"
                                     height="55"
                                     alt=""

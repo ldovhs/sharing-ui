@@ -2,37 +2,26 @@ import discord, { Intents, User } from "discord.js";
 
 const { DISCORD_BOT_TOKEN } = process.env;
 
-// const discordClient = new discord.Client({
-//     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-// });
+var discordClient;
 
-// // When the client is ready, run this code (only once)
-// discordClient.once("ready", () => {
-//     console.log("Discord Ready!");
-// });
-
-// // Login to Discord with your client's token
-// discordClient.login(DISCORD_BOT_TOKEN);
-
-// export default discordClient;
-
-var client;
+global.discordClient = discordClient;
 class DiscordContext {
     constructor() {}
 
     async getInstance() {
-        if (client == null) {
+        if (discordClient == null) {
             console.log("Discord client is null, creating new Discord Client");
-            client = new discord.Client({
+            discordClient = new discord.Client({
                 intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
             });
-            client.once("ready", () => {
+            discordClient.once("ready", () => {
                 console.log("Discord Ready!");
             });
-            await client.login(DISCORD_BOT_TOKEN);
-            return client;
+            await discordClient.login(DISCORD_BOT_TOKEN);
+            return discordClient;
         }
-        return client;
+        console.log("Discord client existed, returning the instance");
+        return discordClient;
     }
 }
 

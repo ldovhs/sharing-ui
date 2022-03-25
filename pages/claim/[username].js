@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 import s from "/sass/claim/claim.module.css";
 import { SiteContext } from "@context/SiteContext";
 import axios from "axios";
+import { Web3Context } from "@context/Web3Context";
+import { useSession } from "next-auth/react";
+const util = require("util");
 
 function Claim() {
     const router = useRouter();
@@ -11,10 +14,15 @@ function Claim() {
     const [claimableReward, setClaimableReward] = useState("");
     const [error, setError] = useState(null);
     const [showTask, setShowTask] = useState(true);
-    const { ConnectWallet, currentAccount } = useContext(SiteContext);
-    let ethereum;
+    // const { ConnectWallet, currentAccount } = useContext(SiteContext);
+    // let ethereum;
 
-    // get claimable data
+    const { data: session, status } = useSession({ required: false });
+    const { web3Error, TryConnectAsUser } = useContext(Web3Context);
+    if (session) {
+        console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
+    }
+
     useEffect(async () => {
         if (!router.isReady) return;
 
@@ -38,10 +46,10 @@ function Claim() {
     }),
         [];
 
-    useEffect(() => {
-        if (currentAccount) console.log(currentAccount);
-    }),
-        [currentAccount];
+    // useEffect(() => {
+    //     if (currentAccount) console.log(currentAccount);
+    // }),
+    //     [currentAccount];
 
     const onSkip = (e) => {
         e.stopPropagation();
@@ -50,10 +58,10 @@ function Claim() {
     };
 
     const renderClaimBoard = () => {
-        //we have the metamask account, we need to check if the metamask matches with db
+        // user is logged in, we need to check if the wallet account matches with our database
         if (
             claimableReward &&
-            currentAccount.toLowerCase() === claimableReward.wallet.toLowerCase()
+            session.user?.address?.toLowerCase() === claimableReward.wallet.toLowerCase()
         ) {
             return (
                 <div className={s.boardBig}>
@@ -105,7 +113,7 @@ function Claim() {
                 <div className={s.boardBig}>
                     <div className={s.boardBig_contentContainer}>
                         <div className={s.boardBig_title}>
-                            Sorry your metamask account does not match the account for this reward
+                            Sorry your account does not match the account for this reward
                         </div>
                         <div className={s.boardBig_rewardContainer}></div>
                     </div>
@@ -129,7 +137,7 @@ function Claim() {
                     alt="welcome"
                 />
                 {claimableReward && (
-                    <button onClick={() => ConnectWallet(ethereum, "")} className={s.board_button}>
+                    <button onClick={() => TryConnectAsUser()} className={s.board_button}>
                         Connect your wallet
                     </button>
                 )}
@@ -173,7 +181,8 @@ function Claim() {
 
     return (
         <div className={s.app}>
-            {!currentAccount ? renderConnectToWallet() : renderClaimBoard()}
+            {/* {!currentAccount ? renderConnectToWallet() : renderClaimBoard()} */}
+            {!session ? renderConnectToWallet() : renderClaimBoard()}
             <div className={s.foreground}>
                 {claimableReward && (
                     <div>

@@ -33,4 +33,5 @@ const AdminSearch = () => {
 };
 
 AdminSearch.Layout = AdminLayout;
+AdminSearch.requireAdmin = true;
 export default AdminSearch;

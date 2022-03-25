@@ -4,11 +4,9 @@ import { AdminLayout } from "/components/admin/ComponentIndex";
 import React, { useEffect, useState } from "react";
 
 function Admin() {
-    useEffect(() => {}, []);
-
     return (
         <>
-            <div>this is admin page</div>
+            <div>home page</div>
             {/* Css modules cant have a none pure style in 
              /  it like body so making a JSS style here 
              /  and applying it globally */}

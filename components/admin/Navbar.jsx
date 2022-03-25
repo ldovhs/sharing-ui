@@ -1,11 +1,14 @@
 import s from "/sass/admin/admin.module.css";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Web3Context } from "@context/Web3Context";
 
 const ThemeSwitch = dynamic(() => import("./elements/ThemeSwitch.js"), {
     ssr: false,
 });
+
 /**
  * The main navbar for the website.
  * @returns
@@ -13,6 +16,22 @@ const ThemeSwitch = dynamic(() => import("./elements/ThemeSwitch.js"), {
 export default function AdminNavbar() {
     const [isToggled, setToggled] = useState(false);
     const toggleTrueFalse = () => setToggled(!isToggled);
+    const { TryConnectAsAdmin } = useContext(Web3Context);
+    const { data: session, status } = useSession({ required: false });
+
+    const handleLogin = () => {
+        TryConnectAsAdmin();
+    };
+
+    const handleLogout = () => {
+        // WEB3_CONNECT_CACHED_PROVIDER
+        const web3ModalCache = localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER");
+        if (web3ModalCache) {
+            console.log("found local storage item");
+            localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
+        }
+        signOut();
+    };
     return (
         <div className="header landing">
             <div className="container">
@@ -23,7 +42,7 @@ export default function AdminNavbar() {
                                 <div className="brand-logo">
                                     <Link href="/">
                                         <a>
-                                            <img
+                                            {/* <img
                                                 src="/images/logo.png"
                                                 alt=""
                                                 className="logo-primary"
@@ -32,7 +51,7 @@ export default function AdminNavbar() {
                                                 src="/images/logow.png"
                                                 alt=""
                                                 className="logo-white"
-                                            />
+                                            /> */}
                                         </a>
                                     </Link>
                                 </div>
@@ -71,9 +90,23 @@ export default function AdminNavbar() {
 
                                 <div className="signin-btn d-flex align-items-center">
                                     <ThemeSwitch />
-                                    <Link href="/connect">
-                                        <a className="btn btn-primary">Connect</a>
-                                    </Link>
+                                    {!session ? (
+                                        <button
+                                            onClick={() => handleLogin()}
+                                            className="btn btn-primary"
+                                        >
+                                            Connect
+                                        </button>
+                                    ) : (
+                                        <>
+                                            <button
+                                                onClick={() => handleLogout()}
+                                                className="btn btn-danger"
+                                            >
+                                                Disconnect
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </nav>
                         </div>

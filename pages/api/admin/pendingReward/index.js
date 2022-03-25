@@ -1,17 +1,18 @@
 import discordInstance from "@context/DiscordContext";
 import DiscordFactory from "@context/DiscordContext";
 // import discord, { Intents, User } from "discord.js";
-import { prisma } from "../../../../context/PrismaContext";
+import { prisma } from "@context/PrismaContext";
+import { getSession } from "next-auth/react";
 
 export default async function PendingRewardAPI(req, res) {
     const { method } = req;
+    const session = await getSession({ req });
 
     switch (method) {
         case "GET":
             try {
                 const { username, generatedURL } = req.query;
-                console.log(username);
-                console.log(generatedURL);
+
                 // search for username either from discord, or twitter
                 let pendingReward = await prisma.pendingReward.findFirst({
                     where: {
@@ -39,17 +40,25 @@ export default async function PendingRewardAPI(req, res) {
             break;
 
         /* 
+            0. Check if req is from an admin
             1. Look for user in database if exists
             2. Create a pending reward since we found the user
             3. Show in discord if ShowInDiscord is true
             4. TODO: Post on main Twitter account in order to get the tweetId for Tweeting later?
         */
         case "POST":
+            if (!session.user?.isAdmin) {
+                res.status(400).json({
+                    message: "Not authenticated to send reward",
+                    isError: true,
+                });
+            }
+
             try {
                 const { username, type, wallet, rewardTypeId, quantity, showInDiscord } = req.body;
 
                 let userCondition = { wallet };
-                console.log(req.body);
+
                 switch (type) {
                     case "Discord":
                         userCondition = { ...userCondition, discordId: username };
@@ -107,7 +116,6 @@ export default async function PendingRewardAPI(req, res) {
                         `***** New Pending Reward: Create a discord message for pending reward...`
                     );
 
-                    console.log(pendingReward);
                     let discordClient = await discordInstance.getInstance();
                     if (discordClient) {
                         await discordClient.channels.cache.get("954167590677258245").send({

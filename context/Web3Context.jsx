@@ -4,6 +4,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 import { ethers, utils } from "ethers";
 import axios from "axios";
+import Enums from "enums";
 
 const util = require("util");
 
@@ -113,9 +114,7 @@ export function Web3Provider({ children }) {
                 const signer = await providerInstance.getSigner();
                 console.log(signer);
 
-                const signature = await signer.signMessage(
-                    `${process.env.NEXT_PUBLIC_NEXTAUTH_TEXT}: ${nonce}`
-                );
+                const signature = await signer.signMessage(`${Enums.ADMIN_SIGN_MSG}: ${nonce}`);
                 const address = await signer.getAddress();
 
                 signIn("admin-authenticate", {
@@ -179,9 +178,7 @@ export function Web3Provider({ children }) {
             signMessageTimeout = setTimeout(async () => {
                 const signer = await providerInstance.getSigner();
 
-                const signature = await signer.signMessage(
-                    `${process.env.NEXT_PUBLIC_AUTHREWARD_TEXT}`
-                );
+                const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
                 const address = await signer.getAddress();
 
                 signIn("non-admin-authenticate", {

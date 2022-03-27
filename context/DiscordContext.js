@@ -1,3 +1,4 @@
+/*
 import discord, { Intents, User } from "discord.js";
 
 const { DISCORD_BOT_TOKEN } = process.env;
@@ -51,3 +52,4 @@ class DiscordContext {
 const discordInstance = new DiscordContext();
 Object.freeze(discordInstance);
 export default discordInstance;
+*/

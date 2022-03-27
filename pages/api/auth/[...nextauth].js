@@ -4,6 +4,7 @@ import { recoverPersonalSignature } from "eth-sig-util";
 import { bufferToHex } from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
 import { ethers, utils } from "ethers";
+import Enums from "enums";
 const CryptoJS = require("crypto-js");
 
 export default NextAuth({
@@ -32,7 +33,7 @@ export default NextAuth({
                 if (!admin) throw new Error("Wallet address not belong to any admin!");
 
                 const nonce = admin.nonce.trim();
-                const msg = `${process.env.NEXT_PUBLIC_NEXTAUTH_TEXT}: ${nonce}`;
+                const msg = `${Enums.ADMIN_SIGN_MSG}: ${nonce}`;
 
                 const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
                 const originalAddress = recoverPersonalSignature({
@@ -83,7 +84,7 @@ export default NextAuth({
                 if (!user) {
                     throw new Error("This wallet is not in our record.");
                 }
-                const msg = `${process.env.NEXT_PUBLIC_AUTHREWARD_TEXT}`;
+                const msg = `${Enums.USER_SIGN_MSG}`;
                 console.log(123);
                 const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
                 const originalAddress = recoverPersonalSignature({

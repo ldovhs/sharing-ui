@@ -29,7 +29,7 @@ const AdminRewards = () => {
                         <div className="card-body">
                             <img
                                 className=""
-                                src="/img/sharing-ui/invite/preview.jpg"
+                                src="/img/sharing-ui/invite/preview.png"
                                 alt="reward-preview"
                             />
                         </div>

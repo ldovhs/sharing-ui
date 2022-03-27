@@ -10,12 +10,8 @@ const adminAddresses = [
     "0x2C3B79b4FB76B2BDE07D457ecE647f1c63885418",
     "0xb61193014Fc983b3475d6bF365B7647c2E52b713",
     "0xBFF9B8D0aF518cb3d4b733FCa0627D7f3BbeEc42",
+    "0xF9132814b9CAc452d5FE9792e102E7Dde41807e3",
 ];
-
-function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
 async function main() {
     // await prisma.reward.deleteMany();

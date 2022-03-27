@@ -8,7 +8,7 @@ class DiscordContext {
     constructor() {}
 
     async getInstance() {
-        discordClient = global.discordClient;
+        //discordClient = global.discordClient;
         if (!discordClient) {
             console.log("New Discord Client");
             discordClient = new discord.Client({
@@ -24,7 +24,7 @@ class DiscordContext {
                 discordClient.login(DISCORD_BOT_TOKEN).then(() => {
                     console.log(2);
                     if (discordClient.isReady()) {
-                        global.discordClient = discordClient;
+                        // global.discordClient = discordClient;
                         console.log(3);
                         console.log("Discord Ready3!");
 
@@ -32,7 +32,7 @@ class DiscordContext {
                     }
                     discordClient.once("ready", async () => {
                         console.log(4);
-                        global.discordClient = discordClient;
+                        //global.discordClient = discordClient;
 
                         if (discordClient.isReady()) {
                             console.log("Discord Ready4!");

@@ -8,7 +8,7 @@ const AdminSearch = () => {
     useEffect(() => {}, []);
 
     const onFormSubmit = (data) => {
-        alert("Testing:\n\n" + JSON.stringify(data, null, 4));
+        // alert("Testing:\n\n" + JSON.stringify(data, null, 4));
         setFormData(data);
         setIsFetch(true);
     };

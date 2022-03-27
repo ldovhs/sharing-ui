@@ -1,8 +1,7 @@
-import s from "/sass/admin/admin.module.css";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import React, { useState, useContext } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Web3Context } from "@context/Web3Context";
 
 const ThemeSwitch = dynamic(() => import("./elements/ThemeSwitch.js"), {
@@ -16,7 +15,7 @@ const ThemeSwitch = dynamic(() => import("./elements/ThemeSwitch.js"), {
 export default function AdminNavbar() {
     const [isToggled, setToggled] = useState(false);
     const toggleTrueFalse = () => setToggled(!isToggled);
-    const { TryConnectAsAdmin } = useContext(Web3Context);
+    const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);
     const { data: session, status } = useSession({ required: false });
 
     const handleLogin = () => {
@@ -24,14 +23,9 @@ export default function AdminNavbar() {
     };
 
     const handleLogout = () => {
-        // WEB3_CONNECT_CACHED_PROVIDER
-        const web3ModalCache = localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER");
-        if (web3ModalCache) {
-            console.log("found local storage item");
-            localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
-        }
-        signOut();
+        SignOut();
     };
+
     return (
         <div className="header landing">
             <div className="container">

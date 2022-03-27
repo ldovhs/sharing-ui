@@ -128,6 +128,32 @@ $heading-mobile-font-size: 1.75rem;
             font-size: $heading-desktop-font-size -1 ;
         }
     }
+    &_disconnectBtn {
+        position: absolute;
+        bottom: 3%;
+        width: 120px;
+        height: 45px;
+      
+		color: #FFFFFF!important;
+		display:flex;
+		justify-content: center;
+        & > img {
+            width: min(100%, 200px);
+        }
+        & > div {
+            position:absolute;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            height: 80%;
+            & > span { 
+                font-family: Safety Goggles;
+            }
+        }
+        &:hover {
+            cursor: pointer;    
+        }
+    }
     z-index:3;
 }
 

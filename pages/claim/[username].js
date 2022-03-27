@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import s from "/sass/claim/claim.module.css";
-import { SiteContext } from "@context/SiteContext";
 import axios from "axios";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
+
 const util = require("util");
 
 function Claim() {
@@ -14,14 +14,24 @@ function Claim() {
     const [claimableReward, setClaimableReward] = useState("");
     const [error, setError] = useState(null);
     const [showTask, setShowTask] = useState(true);
-    // const { ConnectWallet, currentAccount } = useContext(SiteContext);
-    // let ethereum;
 
     const { data: session, status } = useSession({ required: false });
-    const { web3Error, TryConnectAsUser } = useContext(Web3Context);
-    if (session) {
-        console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
+    const { web3Error, TryConnectAsUser, SignOut } = useContext(Web3Context);
+    const isAuthenticating = status === "loading";
+
+    // if (session) {
+    //     console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
+    // }
+    if (isAuthenticating) console.log(isAuthenticating);
+    if (web3Error) {
+        console.log(web3Error);
     }
+
+    useEffect(() => {
+        if (web3Error) {
+            setError(web3Error);
+        }
+    }, [web3Error]);
 
     useEffect(async () => {
         if (!router.isReady) return;
@@ -33,10 +43,17 @@ function Claim() {
             },
         });
 
-        if (!res.data.pendingReward) {
-            setError("Invalid claim");
+        if (
+            session &&
+            (res.data.isError ||
+                res.data.pendingReward.wallet.toLowerCase() !==
+                    session?.user?.address?.toLowerCase())
+        ) {
+            setError(`Your login account does not have this reward`);
         } else {
-            console.log(res.data.pendingReward);
+            console.log(`pending reward: ${JSON.stringify(res.data.pendingReward)}`, {
+                deep: true,
+            });
             setClaimableReward(res.data.pendingReward);
         }
     }, [router.isReady]);
@@ -46,11 +63,6 @@ function Claim() {
     }),
         [];
 
-    // useEffect(() => {
-    //     if (currentAccount) console.log(currentAccount);
-    // }),
-    //     [currentAccount];
-
     const onSkip = (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -59,10 +71,7 @@ function Claim() {
 
     const renderClaimBoard = () => {
         // user is logged in, we need to check if the wallet account matches with our database
-        if (
-            claimableReward &&
-            session.user?.address?.toLowerCase() === claimableReward.wallet.toLowerCase()
-        ) {
+        if (claimableReward && !error) {
             return (
                 <div className={s.boardBig}>
                     <div className={s.boardBig_contentContainer}>
@@ -103,18 +112,22 @@ function Claim() {
                             onClick={onClaim}
                             disabled={claimableReward.isClaimed}
                         >
-                            {!claimableReward.isClaimed ? "Claim" : "Claimed previously"}
+                            {!claimableReward.isClaimed ? "Claim" : "Already Claimed"}
                         </button>
-                    </div>{" "}
+                        <div className={s.boardBig_disconnectBtn} onClick={() => SignOut()}>
+                            <img src="/img/sharing-ui/invite/button1.png" />
+                            <div>
+                                <span>Disconnect</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         } else {
             return (
                 <div className={s.boardBig}>
                     <div className={s.boardBig_contentContainer}>
-                        <div className={s.boardBig_title}>
-                            Sorry your account does not match the account for this reward
-                        </div>
+                        {/* <div className={s.boardBig_title}>{error}</div> */}
                         <div className={s.boardBig_rewardContainer}></div>
                     </div>
                 </div>
@@ -137,8 +150,21 @@ function Claim() {
                     alt="welcome"
                 />
                 {claimableReward && (
-                    <button onClick={() => TryConnectAsUser()} className={s.board_button}>
-                        Connect your wallet
+                    <button
+                        onClick={() => TryConnectAsUser()}
+                        className={s.board_button}
+                        disabled={isAuthenticating}
+                    >
+                        {isAuthenticating ? `Authenticating...` : `Connect your wallet`}
+                    </button>
+                )}
+                {!session && error && (
+                    <button
+                        onClick={() => SignOut()}
+                        className={s.board_button}
+                        disabled={isAuthenticating}
+                    >
+                        Disconnect
                     </button>
                 )}
             </div>
@@ -146,24 +172,13 @@ function Claim() {
     };
 
     const onClaim = async () => {
-        const {
-            discordId,
-            generatedURL,
-            isClaimed,
-            rewardTypeId,
-            tokens,
-            twitter,
-            userId,
-            wallet,
-        } = claimableReward;
+        const { generatedURL, isClaimed, rewardTypeId, tokens, userId, wallet } = claimableReward;
 
         const res = await axios.post("/api/admin/claimReward", {
-            discordId,
             generatedURL,
             isClaimed,
             rewardTypeId,
             tokens,
-            twitter,
             userId,
             wallet,
         });
@@ -184,7 +199,7 @@ function Claim() {
             {/* {!currentAccount ? renderConnectToWallet() : renderClaimBoard()} */}
             {!session ? renderConnectToWallet() : renderClaimBoard()}
             <div className={s.foreground}>
-                {claimableReward && (
+                {claimableReward && !error && (
                     <div>
                         You won {claimableReward.tokens} {claimableReward.rewardType.reward}
                     </div>

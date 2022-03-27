@@ -30,8 +30,6 @@ const RewardSchema = object().shape({
     quantity: number().required().min(1),
 });
 
-const fetcher = async (url, req) => await axios.post(url, req).then((res) => res.data);
-
 const AddNewReward = () => {
     const [rewardTypes, setRewardTypes] = useState([]);
     const [avatar, setAvatar] = useState(null);
@@ -57,12 +55,18 @@ const AddNewReward = () => {
 
                 const res = await axios.post("/api/admin/pendingReward", fields);
                 if (res.data?.isError) {
+                    generatedRef.current.value = "";
                     setErrors({
                         username: res.data?.message,
                     });
                 } else {
-                    console.log(res.data.generatedURL);
-                    generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${fields.username}?specialcode=${res.data.generatedURL}`;
+                    // console.log(res.data);
+                    let user =
+                        res.data.user.discordId.trim().length > 0
+                            ? res.data.user.discordId
+                            : res.data.user.wallet;
+
+                    generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${user}?specialcode=${res.data.generatedURL}`;
                 }
             }}
         >
@@ -142,7 +146,6 @@ const AddNewReward = () => {
                             >
                                 {rewardTypes &&
                                     rewardTypes.map((type, index) => {
-                                        console.log(type);
                                         return (
                                             <option key={index} value={type.id}>
                                                 {type.reward}

@@ -15,6 +15,8 @@ export function AdminGuard({ children }) {
     }),
         [];
 
+    useEffect(async () => {}, [session]);
+
     if (web3Error) {
         return (
             <div className="d-flex justify-content-center align-items-center fs-1 text-red-500">

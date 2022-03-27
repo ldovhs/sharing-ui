@@ -118,6 +118,31 @@
   background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
   font-size: 2rem -1;
 }
+.boardBig_disconnectBtn {
+  position: absolute;
+  bottom: 3%;
+  width: 120px;
+  height: 45px;
+  color: #FFFFFF !important;
+  display: flex;
+  justify-content: center;
+}
+.boardBig_disconnectBtn > img {
+  width: min(100%, 200px);
+}
+.boardBig_disconnectBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 80%;
+}
+.boardBig_disconnectBtn > div > span {
+  font-family: Safety Goggles;
+}
+.boardBig_disconnectBtn:hover {
+  cursor: pointer;
+}
 
 .foreground {
   position: absolute;

@@ -1,5 +1,6 @@
-import { prisma } from "../../../../context/PrismaContext";
+import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
+import discordInstance from "@context/DiscordContext";
 
 const rewardChannel = "954167590677258245";
 
@@ -24,21 +25,12 @@ export default async function ClaimRewardAPI(req, res) {
         */
         case "POST":
             try {
-                const {
-                    discordId,
-                    generatedURL,
-                    isClaimed,
-                    rewardTypeId,
-                    tokens,
-                    twitter,
-                    userId,
-                    wallet,
-                } = req.body;
+                const { generatedURL, isClaimed, rewardTypeId, tokens, userId, wallet } = req.body;
 
-                console.log(`***** Checking if wallet ${wallet} is claiming the reward`);
+                console.log(`***** Checking if proper wallet ${wallet} is claiming the reward`);
                 if (session.user?.address.toLowerCase() === wallet) {
                     res.status(400).json({
-                        message: "Not authenticated to claim reward",
+                        message: "Not authenticated to claim this reward.",
                         isError: true,
                     });
                 }
@@ -46,54 +38,35 @@ export default async function ClaimRewardAPI(req, res) {
                 console.log(
                     `***** Assure this pending reward ${generatedURL} exists and not claimed`
                 );
-                const pendingReward = await prisma.pendingReward.findFirst({
+                const pendingReward = await prisma.pendingReward.findUnique({
                     where: {
-                        OR: [
-                            {
-                                discordId,
-                                wallet,
-                                rewardTypeId,
-                                tokens,
-                                generatedURL,
-                                userId,
-                                isClaimed,
-                            },
-                            {
-                                twitter: twitter,
-                                wallet,
-                                rewardTypeId,
-                                tokens,
-                                generatedURL,
-                                userId,
-                                isClaimed,
-                            },
-                        ],
+                        wallet_rewardTypeId_generatedURL_tokens: {
+                            wallet,
+                            rewardTypeId,
+                            generatedURL,
+                            tokens,
+                        },
                     },
                 });
 
                 if (!pendingReward) {
                     res.status(200).json({
                         isError: true,
-                        message: `Cannot find reward associated to user ${
-                            discordId || twitter
-                        }, url ${generatedURL} , please contact administrator!`,
+                        message: `Cannot find reward associated to user ${wallet}, url ${generatedURL} , please contact administrator!`,
                     });
                     return;
                 }
 
                 let claimedReward;
-                console.log();
                 if (!pendingReward.isClaimed) {
                     console.log(
-                        `***** Claimedreward ${generatedURL}, creating new or update existing one`
+                        `***** Claiming Reward ${generatedURL}, creating new or update existing one`
                     );
                     claimedReward = await prisma.reward.upsert({
                         where: {
                             wallet_rewardTypeId: { wallet, rewardTypeId },
                         },
                         create: {
-                            discordId: discordId ?? "",
-                            twitter: twitter ?? "",
                             wallet,
                             tokens,
                             userId,
@@ -104,18 +77,24 @@ export default async function ClaimRewardAPI(req, res) {
                                 increment: tokens,
                             },
                         },
+                        select: {
+                            wallet: true,
+                            tokens: true,
+                            user: true,
+                            rewardTypeId: true,
+                            rewardType: true,
+                        },
                     });
                 }
+
                 if (!claimedReward) {
                     res.status(200).json({
                         isError: true,
-                        message: `Reward cannot be claimed for user ${
-                            discordId || twitter
-                        } or already claimed, userId ${userId} , please contact administrator!`,
+                        message: `Reward cannot be claimed for user ${wallet} or already claimed, userId ${userId} , please contact administrator!`,
                     });
                     return;
                 }
-
+                console.log(claimedReward);
                 console.log(`***** Updating pending reward ${generatedURL} to claimed`);
                 await prisma.pendingReward.update({
                     where: {
@@ -131,11 +110,30 @@ export default async function ClaimRewardAPI(req, res) {
                     },
                 });
 
-                if (discordId.length > 0) {
+                let user = await prisma.whiteList.findUnique({
+                    where: {
+                        wallet,
+                    },
+                });
+
+                if (user && user.discordId.length > 0) {
                     let discordClient = await discordInstance.getInstance();
+
                     if (discordClient) {
+                        let claimedRewardUser;
+
+                        const Guilds = await discordClient.guilds.cache.map((guild) => guild);
+
+                        if (claimedReward.user.discordId.trim().length > 0) {
+                            claimedRewardUser = await Guilds[0].members
+                                .fetch(claimedReward.user.discordId)
+                                .catch(console.error);
+                        } else {
+                            claimedRewardUser = claimedReward.user.wallet;
+                        }
+
                         await discordClient.channels.cache.get(rewardChannel).send({
-                            content: `** *${discordId}* has claimed their free ${pendingReward.rewardType.reward}** `,
+                            content: `** *${claimedRewardUser}* has claimed their free ${claimedReward.rewardType.reward}** `,
                             embeds: [
                                 {
                                     image: {

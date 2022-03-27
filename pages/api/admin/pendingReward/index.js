@@ -1,36 +1,63 @@
 import discordInstance from "@context/DiscordContext";
-import DiscordFactory from "@context/DiscordContext";
-// import discord, { Intents, User } from "discord.js";
 import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
+import Enums from "enums";
+
+const DISCORD_REWARD_CHANNEL = "954167590677258245";
 
 export default async function PendingRewardAPI(req, res) {
     const { method } = req;
     const session = await getSession({ req });
 
     switch (method) {
+        /* Get pending reward from db*/
         case "GET":
             try {
                 const { username, generatedURL } = req.query;
 
-                // search for username either from discord, or twitter
-                let pendingReward = await prisma.pendingReward.findFirst({
+                /* Finding user info from WhiteList based on username*/
+
+                console.log(`***** Finding user wallet for pending reward, username: ${username}`);
+
+                let user = await prisma.whiteList.findFirst({
                     where: {
                         OR: [
                             {
                                 discordId: username,
-                                generatedURL,
                             },
                             {
                                 twitter: username,
-                                generatedURL,
+                            },
+                            {
+                                wallet: username,
                             },
                         ],
+                    },
+                });
+
+                if (!user) {
+                    return res.status(200).json({
+                        message: `Cannot find record for user ${username}`,
+                        isError: true,
+                    });
+                }
+
+                /* search for pending reward from the wallet info */
+                let pendingReward = await prisma.pendingReward.findFirst({
+                    where: {
+                        generatedURL,
+                        wallet: user.wallet,
                     },
                     include: {
                         rewardType: true,
                     },
                 });
+                if (!pendingReward) {
+                    return res.status(200).json({
+                        message: `Pending reward null, mostly user does not own this reward`,
+                        isError: true,
+                    });
+                }
 
                 res.status(200).json({ pendingReward, isError: false });
             } catch (err) {
@@ -39,16 +66,19 @@ export default async function PendingRewardAPI(req, res) {
             }
             break;
 
-        /* 
-            0. Check if req is from an admin
-            1. Look for user in database if exists
-            2. Create a pending reward since we found the user
-            3. Show in discord if ShowInDiscord is true
-            4. TODO: Post on main Twitter account in order to get the tweetId for Tweeting later?
-        */
         case "POST":
-            if (!session.user?.isAdmin) {
-                res.status(400).json({
+            /*  
+                @dev Create a new pending reward
+
+                0. Check if req is from an admin
+                1. Look for user in database if exists
+                2. Create a pending reward since we found the user
+                3. Show in discord if ShowInDiscord is true
+                4. TODO: Post on main Twitter account in order to get the tweetId for Tweeting later?
+            */
+            //console.log(session);
+            if (!session || !session.user?.isAdmin) {
+                return res.status(400).json({
                     message: "Not authenticated to send reward",
                     isError: true,
                 });
@@ -59,15 +89,14 @@ export default async function PendingRewardAPI(req, res) {
 
                 let userCondition = { wallet };
 
-                switch (type) {
-                    case "Discord":
-                        userCondition = { ...userCondition, discordId: username };
-                        break;
-                    case "Twitter":
-                        userCondition = { ...userCondition, twitter: username };
-                        break;
-                    default:
-                        throw new Error("Unknown type of social media user");
+                if (type === Enums.DISCORD && username.trim().length > 0) {
+                    userCondition = { ...userCondition, discordId: username };
+                }
+                if (type === Enums.TWITTER && username.trim().length > 0) {
+                    userCondition = { ...userCondition, twitter: username };
+                }
+                if (username.trim().length === 0) {
+                    userCondition = { ...userCondition, wallet };
                 }
 
                 console.log(`***** New Pending Reward: Finding user wallet: ${wallet}`);
@@ -78,7 +107,7 @@ export default async function PendingRewardAPI(req, res) {
                 if (!user) {
                     res.status(200).json({
                         message: `Cannot find any user with ${
-                            type === "Discord" ? "DiscordId" : "Twitter"
+                            type === Enums.DISCORD ? "Discord Id" : "Twitter"
                         } : ${username}, on wallet ${wallet}.`,
                         isError: true,
                     });
@@ -90,9 +119,7 @@ export default async function PendingRewardAPI(req, res) {
                 );
                 let pendingReward = await prisma.pendingReward.create({
                     data: {
-                        wallet,
-                        discordId: type === "Discord" ? username : "",
-                        twitter: type === "Twitter" ? username : "",
+                        //wallet,
                         tokens: quantity,
                         isClaimed: false,
                         rewardType: {
@@ -102,32 +129,80 @@ export default async function PendingRewardAPI(req, res) {
                         },
                         user: {
                             connect: {
-                                userId: user.userId,
+                                wallet: user.wallet,
                             },
                         },
                     },
                     include: {
                         rewardType: true,
+                        user: true,
                     },
                 });
 
-                if (pendingReward && showInDiscord) {
-                    console.log(
-                        `***** New Pending Reward: Create a discord message for pending reward...`
-                    );
-
+                if (
+                    pendingReward &&
+                    // type === EnumAuth.DISCORD &&
+                    // username.trim().length > 0 &&
+                    showInDiscord
+                ) {
                     let discordClient = await discordInstance.getInstance();
+
+                    console.log("waiting discord");
+
                     if (discordClient) {
-                        await discordClient.channels.cache.get("954167590677258245").send({
-                            content: `**Aedi has granted *${username}* with ${quantity} ${pendingReward.rewardType.reward}** `,
-                            embeds: [
-                                {
-                                    image: {
-                                        url: "https://anomura-landing.vercel.app/img/home/shop.gif",
+                        console.log(
+                            `***** New Pending Reward: Create a discord message for pending reward...`
+                        );
+
+                        let imageUrl;
+
+                        switch (pendingReward.rewardType.reward) {
+                            case Enums.REWARDTYPE.MYSTERYBOWL:
+                                imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                                break;
+                            case Enums.REWARDTYPE.NUDE:
+                                imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.webp`;
+                                break;
+                            case Enums.REWARDTYPE.BOREDAPE:
+                                imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.webp`;
+                                break;
+                            case Enums.REWARDTYPE.MINTLIST:
+                                imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.webp`;
+                                break;
+                            default:
+                                imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.webp`;
+                                break;
+                        }
+
+                        let receivingUser;
+                        const Guilds = await discordClient.guilds.cache.map((guild) => guild);
+
+                        const bot = await Guilds[0].members
+                            .fetch(process.env.NEXT_PUBLIC_DISCORD_BOT)
+                            .catch(console.error);
+
+                        if (pendingReward.user.discordId.trim().length > 0) {
+                            receivingUser = await Guilds[0].members
+                                .fetch(pendingReward.user.discordId)
+                                .catch(console.error);
+                        } else {
+                            receivingUser = pendingReward.user.wallet;
+                        }
+
+                        console.log(receivingUser);
+
+                        await discordClient?.channels?.cache
+                            ?.get(process.env.NEXT_PUBLIC_DISCORD_REWARD_CHANNEL)
+                            .send({
+                                content: `** ${bot} has granted *${receivingUser}* with ${quantity} ${pendingReward.rewardType.reward}** `,
+                                embeds: [
+                                    {
+                                        image: {
+                                            url: imageUrl,
+                                        },
                                     },
-                                },
-                            ],
-                        });
+                                ],
+                            });
                     }
                 }
 

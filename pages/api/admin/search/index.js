@@ -20,16 +20,16 @@ export default async function adminSearch(req, res) {
                 rewardCondition = [];
 
             if (wallet !== "") {
-                userCondition.wallet = wallet;
+                userCondition.wallet = { contains: wallet.trim() };
             }
             if (userId !== "") {
-                userCondition.userId = userId;
+                userCondition.userId = { contains: userId.trim() };
             }
             if (twitter !== "") {
-                userCondition.twitter = twitter;
+                userCondition.twitter = { contains: twitter.trim() };
             }
             if (discord !== "") {
-                userCondition.discordId = discord;
+                userCondition.discordId = { contains: discord.trim() };
             }
             if (rewards.length > 0) {
                 rewards.forEach((reward) => {

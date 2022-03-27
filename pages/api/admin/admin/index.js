@@ -7,13 +7,13 @@ export default async function adminAPI(req, res) {
         case "GET":
             try {
                 const { address } = req.query;
-                console.log(address);
+
                 const admin = await prisma.Admin.findFirst({
                     where: {
                         wallet: { equals: address, mode: "insensitive" },
                     },
                 });
-                console.log(admin);
+
                 res.status(200).json(admin);
             } catch (err) {
                 console.log(err);

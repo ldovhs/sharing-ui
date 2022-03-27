@@ -102,19 +102,17 @@ export default NextAuth({
     ],
     session: {
         jwt: true,
-        maxAge: 60, //  30 * 24 * 60 * 60
+        maxAge: 60 * 5, //  30 * 24 * 60 * 60
     },
     jwt: {
         signingKey: process.env.NEXTAUTH_SECRET,
     },
     callbacks: {
         async session({ session, token }) {
-            console.log("called back is called in session");
             session.user = token.user;
             return session;
         },
         async jwt({ token, user }) {
-            console.log("called back is called in jwt");
             if (user) {
                 token.user = user;
             }

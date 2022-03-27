@@ -11,42 +11,36 @@ datasource db {
 model WhiteList {
   id              Int             @id @default(autoincrement())
   userId          String          @unique @default(uuid())
-  wallet          String
-  twitter         String? @default("")
-  discordId       String? @default("")
+  wallet          String          @unique
+  twitter         String?         @default("")
+  discordId       String?         @unique @default("")
   numberOfInvites Int @default(0)
   rewards         Reward[]
-  PendingReward   PendingReward[]
+  pendingRewards  PendingReward[]
 }
 
 model PendingReward {
-  id           Int     @id @default(autoincrement())
-  discordId    String? @default("")
-  twitter      String? @default("")
+  id           Int            @id @default(autoincrement())
   wallet       String
-  tokens       Int     @default(0)
-  generatedURL String @default(uuid())
-  isClaimed    Boolean @default(false)
-
-  user         WhiteList  @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  userId       String
-  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
   rewardTypeId Int
+  tokens       Int            @default(0)
+  generatedURL String         @default(uuid())
+  isClaimed    Boolean        @default(false)
 
+  user         WhiteList      @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
+  rewardType   RewardType     @relation(fields: [rewardTypeId], references: [id])
+ 
   @@unique([wallet, rewardTypeId, generatedURL, tokens])
 }
 
 model Reward {
-  id           Int     @id @default(autoincrement())
-  discordId    String? @default("")
-  twitter      String? @default("")
+  id           Int            @id @default(autoincrement())
   wallet       String
-  tokens       Int     @default(0)
-
-  user         WhiteList  @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  userId       String
-  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
   rewardTypeId Int
+  tokens       Int            @default(0)
+
+  user         WhiteList      @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
+  rewardType   RewardType     @relation(fields: [rewardTypeId], references: [id])
 
   @@unique([wallet, rewardTypeId])
 }
@@ -81,6 +75,6 @@ model Players {
 
 model Admin {
   id Int    @id @default(autoincrement())
-  wallet String
+  wallet String @unique
   nonce String?
 }

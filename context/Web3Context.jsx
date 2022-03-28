@@ -22,6 +22,11 @@ export function Web3Provider({ children }) {
             name: "MetaMask",
             type: "injected",
             check: "isMetaMask",
+            display: {
+                logo: "",
+                name: "Injected",
+                description: "Metamask",
+            },
         },
         walletconnect: {
             package: WalletConnectProvider,
@@ -75,6 +80,15 @@ export function Web3Provider({ children }) {
             cacheProvider: true,
             providerOptions,
         });
+
+        await web3Modal.updateTheme({
+            background: "./img/sharing-ui/invite/board_popup.png",
+            main: "rgb(199, 199, 199)",
+            secondary: "rgb(136, 136, 136)",
+            border: "rgba(195, 195, 195, 0.14)",
+            hover: "rgb(16, 26, 32)",
+        });
+
         try {
             provider = await web3Modal.connect();
             //   await provider.enable();

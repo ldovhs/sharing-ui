@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 
@@ -6,9 +6,13 @@ const fetcher = async (url, req) => await axios.post(url, req).then((res) => res
 
 export default function SearchResults({ formData }) {
     const { data, error } = useSWR(["/api/admin/search", formData], fetcher);
+    const [csvData, setCsvData] = useState(null);
 
-    useEffect(() => {
-        //console.log(data);
+    useEffect(async () => {
+        if (data) {
+            let csv = await BuildCsv(data);
+            setCsvData(csv);
+        }
     }, [data]);
 
     if (error) {
@@ -20,7 +24,26 @@ export default function SearchResults({ formData }) {
     return (
         <>
             <div className="card-header px-0">
-                <h4 className=" mb-0">Result</h4> <small>Search Results: {data?.length}</small>
+                <h4 className=" mb-0">Result</h4>
+                <div className="d-flex ">
+                    {csvData && (
+                        <a
+                            href={`data:text/csv;charset=utf-8,${csvData}`}
+                            download={`Search - ${new Date().toISOString()}.csv`}
+                            className="mr-2"
+                        >
+                            Export as CSV
+                        </a>
+                    )}
+                    <a
+                        href={`data:text/plain;charset=utf-8,${JSON.stringify(data)}`}
+                        download={`Search - ${new Date().toISOString()}.json`}
+                        className="mr-2"
+                    >
+                        Export as Json
+                    </a>
+                    <div className="text-green-600 font-bold">Search Results: {data?.length}</div>
+                </div>
             </div>
             {data?.length > 0 && (
                 <div className="card">
@@ -40,7 +63,6 @@ export default function SearchResults({ formData }) {
                                     <tbody>
                                         {data &&
                                             data.map((el, index) => {
-                                                console.log(el);
                                                 return (
                                                     <tr key={index}>
                                                         <td className="col-2">{el.userId}</td>
@@ -80,3 +102,28 @@ export default function SearchResults({ formData }) {
         </>
     );
 }
+
+const BuildCsv = async (data) => {
+    const csvString = [
+        ["UserID", "Wallet", "Twitter", "Discord", "Rewards"],
+        ...data.map((item) => [
+            item.userId,
+            item.wallet,
+            item.twitter,
+            item.discorId,
+            flattenRewards(item.rewards),
+        ]),
+    ]
+        .map((e) => e.join(","))
+        .join("\n");
+
+    return csvString;
+};
+
+const flattenRewards = (rewards) => {
+    let res = "";
+    rewards.map((r) => {
+        res = res + ` ${r.rewardType.reward}(${r.tokens}),`;
+    });
+    return res;
+};

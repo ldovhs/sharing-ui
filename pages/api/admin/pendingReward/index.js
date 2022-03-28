@@ -3,7 +3,8 @@ import { getSession } from "next-auth/react";
 import Enums from "enums";
 import axios from "axios";
 
-const { DISCORD_BOT_ID, DISCORD_BOT_TOKEN, DISCORD_REWARD_CHANNEL } = process.env;
+const { DISCORD_BOT_ID, DISCORD_BOT_TOKEN, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } =
+    process.env;
 
 export default async function PendingRewardAPI(req, res) {
     const { method } = req;
@@ -149,19 +150,19 @@ export default async function PendingRewardAPI(req, res) {
 
                     switch (pendingReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.webp`;
+                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.webp`;
+                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.webp`;
+                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.gif`;
                             break;
                         default:
-                            imageUrl = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.webp`;
+                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
                             break;
                     }
 

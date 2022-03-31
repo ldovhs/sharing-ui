@@ -15,7 +15,7 @@ const TwitterFollowQuest = ({
 }) => {
     const initialValues = {
         type: Enums.FOLLOW_TWITTER,
-        followAccount: quest?.twitterToFollow ?? "",
+        followAccount: quest?.followAccount ?? "",
         text: quest?.text || "Follow Twitter Account",
         description: quest?.description ?? "Require the user to follow a Twitter Account",
         completedText: quest?.completedText || "Completed",

@@ -72,7 +72,6 @@ function Claim() {
     };
 
     const renderClaimBoard = () => {
-        console.log(123);
         // user is logged in, we need to check if the wallet account matches with our database
         if (
             claimableReward &&

@@ -85,7 +85,7 @@ export default NextAuth({
                     throw new Error("This wallet is not in our record.");
                 }
                 const msg = `${Enums.USER_SIGN_MSG}`;
-                console.log(123);
+
                 const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
                 const originalAddress = recoverPersonalSignature({
                     data: msgBufferHex,

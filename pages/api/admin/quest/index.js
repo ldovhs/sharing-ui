@@ -9,15 +9,17 @@ export default async function QuestQuery(req, res) {
 
     switch (method) {
         case "GET":
-            if (!session || !session.user?.isAdmin) {
-                return res.status(400).json({
-                    message: "Not authenticated to get quests",
-                    isError: true,
-                });
-            }
+            // TODO
+            // if (!session || !session.user) {
+            //     return res.status(400).json({
+            //         message: "Not authenticated to get quests",
+            //         isError: true,
+            //     });
+            // }
             try {
+                console.log(132323);
                 let quests = await prisma.quest.findMany();
-                res.status(200).json(quests);
+                return res.status(200).json(quests);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });

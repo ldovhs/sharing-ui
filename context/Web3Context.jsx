@@ -128,11 +128,13 @@ export function Web3Provider({ children }) {
                 }).then(({ ok, error }) => {
                     if (ok) {
                         console.log(ok);
+                        return true;
                     } else {
                         console.log(error);
                         setWeb3Error("Authentication failed");
-                        router.push("/admin");
-                        return error;
+                        return false;
+                        //router.push("/admin");
+                        //return error;
                     }
                 });
             }, 1000);
@@ -202,9 +204,11 @@ export function Web3Provider({ children }) {
                 }).then(({ ok, error }) => {
                     if (ok) {
                         // console.log(ok);
+                        return true;
                     } else {
                         console.log(error);
-                        return error;
+                        return false;
+                        // return error;
                     }
                 });
             }, 1000);

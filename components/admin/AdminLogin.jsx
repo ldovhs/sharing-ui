@@ -3,11 +3,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/admin/admin.module.css";
 
-const AdminLogin = (props) => {
+const AdminLogin = ({ closeModal }) => {
     const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-
+    console.log(closeModal);
     useEffect(() => {
         if (
             /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
@@ -22,11 +22,11 @@ const AdminLogin = (props) => {
             setIsMobile(false);
         }
         const ethereum = window.ethereum;
-        console.log(ethereum);
+        // console.log(ethereum);
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
     }, []);
 
-    console.log(isMetamaskDisabled);
+    // console.log(isMetamaskDisabled);
     return (
         <div className={s.nonPixelModal_card}>
             {/*METAMASK */}
@@ -34,8 +34,9 @@ const AdminLogin = (props) => {
                 {!isMetamaskDisabled && !isMobile && (
                     <div
                         className={s.nonPixelModal_container}
-                        onClick={() => {
-                            TryConnectAsAdmin(Enums.METAMASK);
+                        onClick={async () => {
+                            await TryConnectAsAdmin(Enums.METAMASK);
+                            closeModal();
                         }}
                     >
                         <div className={s.nonPixelModal_providerIcon}>
@@ -72,8 +73,10 @@ const AdminLogin = (props) => {
             <div className={s.nonPixelModal_wrapper}>
                 <div
                     className={s.nonPixelModal_container}
-                    onClick={() => {
-                        TryConnectAsAdmin(Enums.WALLETCONNECT);
+                    onClick={async () => {
+                        let res = await TryConnectAsAdmin(Enums.WALLETCONNECT);
+                        console.log(1);
+                        closeModal();
                     }}
                 >
                     <div className={s.nonPixelModal_providerIcon}>

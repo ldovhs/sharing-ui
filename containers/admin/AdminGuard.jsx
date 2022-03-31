@@ -6,9 +6,9 @@ const util = require("util");
 export function AdminGuard({ children }) {
     const { data: session, status } = useSession({ required: false });
     const { web3Error } = useContext(Web3Context);
-    if (session) {
-        console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
-    }
+    // if (session) {
+    //     console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
+    // }
 
     useEffect(async () => {}, [session]);
 

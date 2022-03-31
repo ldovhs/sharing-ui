@@ -121,7 +121,7 @@ export default async function PendingRewardAPI(req, res) {
                 let pendingReward = await prisma.pendingReward.create({
                     data: {
                         //wallet,
-                        tokens: quantity,
+                        quantity,
                         isClaimed: false,
                         rewardType: {
                             connect: {

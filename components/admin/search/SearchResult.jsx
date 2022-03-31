@@ -77,8 +77,8 @@ export default function SearchResults({ formData }) {
                                                                         className="text-blue-500"
                                                                     >
                                                                         {rIndex === 0
-                                                                            ? `${reward.rewardType.reward} (${reward.tokens})`
-                                                                            : `, ${reward.rewardType.reward} (${reward.tokens})`}
+                                                                            ? `${reward.rewardType.reward} (${reward.quantity})`
+                                                                            : `, ${reward.rewardType.reward} (${reward.quantity})`}
                                                                     </span>
                                                                 );
                                                             })}
@@ -123,7 +123,7 @@ const BuildCsv = async (data) => {
 const flattenRewards = (rewards) => {
     let res = "";
     rewards.map((r) => {
-        res = res + ` ${r.rewardType.reward}(${r.tokens}),`;
+        res = res + ` ${r.rewardType.reward}(${r.quantity}),`;
     });
     return res;
 };

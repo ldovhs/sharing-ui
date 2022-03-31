@@ -45,6 +45,12 @@ const whitelistAddresses = [
         discordId: "619631363762552842",
         wallet: "0xF9132814b9CAc452d5FE9792e102E7Dde41807e3",
     },
+    {
+        // zern / Issac
+        twitter: "",
+        discordId: "79257676269236224",
+        wallet: "0x6b2210bEd7E8f2d946C4258Cc3C0c19B7e4f397c",
+    },
 ];
 
 async function main() {

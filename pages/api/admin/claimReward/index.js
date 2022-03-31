@@ -27,7 +27,8 @@ export default async function ClaimRewardAPI(req, res) {
         */
         case "POST":
             try {
-                const { generatedURL, isClaimed, rewardTypeId, tokens, userId, wallet } = req.body;
+                const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
+                    req.body;
 
                 console.log(`***** Checking if proper wallet ${wallet} is claiming the reward`);
                 if (session.user?.address.toLowerCase() === wallet) {
@@ -42,11 +43,10 @@ export default async function ClaimRewardAPI(req, res) {
                 );
                 const pendingReward = await prisma.pendingReward.findUnique({
                     where: {
-                        wallet_rewardTypeId_generatedURL_tokens: {
+                        wallet_rewardTypeId_generatedURL: {
                             wallet,
                             rewardTypeId,
                             generatedURL,
-                            tokens,
                         },
                     },
                 });
@@ -70,18 +70,18 @@ export default async function ClaimRewardAPI(req, res) {
                         },
                         create: {
                             wallet,
-                            tokens,
+                            quantity,
                             userId,
                             rewardTypeId,
                         },
                         update: {
-                            tokens: {
-                                increment: tokens,
+                            quantity: {
+                                increment: quantity,
                             },
                         },
                         select: {
                             wallet: true,
-                            tokens: true,
+                            quantity: true,
                             user: true,
                             rewardTypeId: true,
                             rewardType: true,
@@ -100,11 +100,10 @@ export default async function ClaimRewardAPI(req, res) {
                 console.log(`***** Updating pending reward ${generatedURL} to claimed`);
                 await prisma.pendingReward.update({
                     where: {
-                        wallet_rewardTypeId_generatedURL_tokens: {
+                        wallet_rewardTypeId_generatedURL: {
                             wallet,
                             rewardTypeId,
                             generatedURL,
-                            tokens,
                         },
                     },
                     data: {

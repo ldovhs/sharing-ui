@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, array, string, number, ref } from "yup";
+import { object, array, string, number } from "yup";
 import axios from "axios";
-import useSWR from "swr";
+import { utils } from "ethers";
 
 const avatars = [
     "/img/sharing-ui/invite/ava1.png",
@@ -26,7 +26,12 @@ const initialValues = {
 };
 
 const RewardSchema = object().shape({
-    wallet: string().required(),
+    wallet: string()
+        .required()
+        .test("valid address", "Wallet Address is not valid", function () {
+            if (utils.isAddress(this.parent.wallet)) return true;
+            else return false;
+        }),
     quantity: number().required().min(1),
 });
 

@@ -51,7 +51,7 @@ function Claim() {
         ) {
             setError(`Your login account does not have this reward`);
         } else {
-            console.log(`pending reward: ${JSON.stringify(res.data.pendingReward)}`, {
+            console.log(`claimable reward: ${JSON.stringify(res.data.pendingReward)}`, {
                 deep: true,
             });
             setClaimableReward(res.data.pendingReward);
@@ -71,12 +71,16 @@ function Claim() {
 
     const renderClaimBoard = () => {
         // user is logged in, we need to check if the wallet account matches with our database
-        if (claimableReward && !error) {
+        if (
+            claimableReward &&
+            !error &&
+            claimableReward.wallet.toLowerCase() === session?.user?.address?.toLowerCase()
+        ) {
             return (
                 <div className={s.boardBig}>
                     <div className={s.boardBig_contentContainer}>
                         <div className={s.boardBig_title}>
-                            You won {claimableReward.tokens} {claimableReward.rewardType.reward}
+                            You won {claimableReward.quantity} {claimableReward.rewardType.reward}
                         </div>
                         {showTask && (
                             <div className={s.boardBig_rewardContainer}>
@@ -128,7 +132,14 @@ function Claim() {
                 <div className={s.boardBig}>
                     <div className={s.boardBig_contentContainer}>
                         {/* <div className={s.boardBig_title}>{error}</div> */}
-                        <div className={s.boardBig_rewardContainer}></div>
+                        <div className={s.boardBig_rewardContainer}>
+                            <div className={s.boardBig_disconnectBtn} onClick={() => SignOut()}>
+                                <img src="/img/sharing-ui/invite/button1.png" />
+                                <div>
+                                    <span>Disconnect</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
@@ -172,13 +183,13 @@ function Claim() {
     };
 
     const onClaim = async () => {
-        const { generatedURL, isClaimed, rewardTypeId, tokens, userId, wallet } = claimableReward;
+        const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } = claimableReward;
 
         const res = await axios.post("/api/admin/claimReward", {
             generatedURL,
             isClaimed,
             rewardTypeId,
-            tokens,
+            quantity,
             userId,
             wallet,
         });
@@ -201,10 +212,10 @@ function Claim() {
             <div className={s.foreground}>
                 {claimableReward && !error && (
                     <div>
-                        You won {claimableReward.tokens} {claimableReward.rewardType.reward}
+                        You won {claimableReward.quantity} {claimableReward.rewardType.reward}
                     </div>
                 )}
-                {error && <div>{error}</div>}
+                {error && <div>{error} </div>}
             </div>
         </div>
     );

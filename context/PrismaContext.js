@@ -6,7 +6,7 @@ export const prisma =
         errorFormat: "pretty",
         log: [
             { level: "warn", emit: "event" },
-            // { level: 'info', emit: 'event' },
+            { level: "info", emit: "event" },
             { level: "error", emit: "event" },
         ],
     });

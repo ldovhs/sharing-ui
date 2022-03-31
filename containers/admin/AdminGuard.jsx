@@ -10,11 +10,6 @@ export function AdminGuard({ children }) {
         console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
     }
 
-    useEffect(() => {
-        ethereum = window.ethereum;
-    }),
-        [];
-
     useEffect(async () => {}, [session]);
 
     if (web3Error) {
@@ -28,13 +23,27 @@ export function AdminGuard({ children }) {
     if (session && session.user.isAdmin) {
         return <>{children}</>;
     }
+
     if (session && !session.user?.isAdmin) {
         return <>You are not admin.</>;
     }
+    if (web3Error) {
+        <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">
+            {web3Error}
+        </div>;
+    }
+
+    // if (session) {
+    //     return (
+    //         <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">
+    //             test {session?.user?.address}
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">
-            PLEASE LOGIN
+            PLEASE LOGIN {web3Error} {session}
         </div>
     );
 }

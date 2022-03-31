@@ -1,16 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { AdminLayout, SearchForm, SearchResult } from "/components/admin/ComponentIndex";
-import { SiteContext } from "@context/SiteContext";
+import { AdminLayout } from "/components/admin/ComponentIndex";
+
 import AddNewReward from "@components/admin/reward/AddNewReward";
 
 const AdminRewards = () => {
-    const { ConnectWallet, currentAccount } = useContext(SiteContext);
-    let ethereum;
-
-    useEffect(async () => {
-        ethereum = window.ethereum;
-        console.log(ethereum);
-    }, []);
+    useEffect(async () => {}, []);
 
     return (
         <div className="container">

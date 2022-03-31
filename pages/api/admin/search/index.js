@@ -37,9 +37,9 @@ export default async function adminSearch(req, res) {
                         rewardTypeId: reward.typeId,
                         AND: [
                             {
-                                tokens: {
-                                    gte: parseInt(reward.minTokens),
-                                    lte: parseInt(reward.maxTokens),
+                                quantity: {
+                                    gte: parseInt(reward.minQty),
+                                    lte: parseInt(reward.maxQty),
                                 },
                             },
                         ],
@@ -59,15 +59,19 @@ export default async function adminSearch(req, res) {
                         rewards: {
                             where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
                             select: {
-                                tokens: true,
+                                quantity: true,
                                 rewardType: true,
                             },
                         },
                     },
                 });
 
-                const result = searchRes.filter((r) => r.rewards.length > 0);
-                res.status(200).json(result);
+                if (rewardCondition.length > 0) {
+                    const result = searchRes.filter((r) => r.rewards.length > 0);
+                    return res.status(200).json(result);
+                } else {
+                    res.status(200).json(searchRes);
+                }
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });

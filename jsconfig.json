@@ -10,8 +10,8 @@
             "@styles/*": ["styles/*"],
             "@utils/*": ["utils/*"],
             "@repository/*": ["repository/*"],
-            "@context/*": ["context/*"]
-
+            "@context/*": ["context/*"],
+            "@shared/*": ["shared/*"]
           }
     },
      "include": [

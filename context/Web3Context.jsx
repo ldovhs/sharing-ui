@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { signIn, signOut } from "next-auth/react";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import Web3Modal from "web3modal";
+
 import { ethers, utils } from "ethers";
 import axios from "axios";
 import Enums from "enums";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const util = require("util");
 
@@ -12,41 +12,37 @@ export const Web3Context = React.createContext();
 
 export function Web3Provider({ children }) {
     const [web3Error, setWeb3Error] = useState(null);
-    let web3Modal;
-    let provider;
     let signMessageTimeout;
 
-    let providerOptions = {
-        metamask: {
-            id: "injected",
-            name: "MetaMask",
-            type: "injected",
-            check: "isMetaMask",
-            display: {
-                logo: "",
-                name: "Injected",
-                description: "Metamask",
-            },
-        },
-        walletconnect: {
-            package: WalletConnectProvider,
-            options: {
-                infuraId: "8422374653a5417ca923479ca904ed65", // Required
-                // network: "rinkeby",
-                qrcodeModalOptions: {
-                    mobileLinks: ["metamask", "trust"],
-                },
-            },
-        },
-    };
+    function iOS() {
+        return (
+            [
+                "iPad Simulator",
+                "iPhone Simulator",
+                "iPod Simulator",
+                "iPad",
+                "iPhone",
+                "iPod",
+            ].includes(navigator.platform) ||
+            // iPad on iOS 13 detection
+            (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+        );
+    }
 
     useEffect(() => {
+        RemoveLocalStorageWalletConnect();
+        document.addEventListener("visibilitychange", function () {
+            // if (window.visibilityState === "hidden") {
+            localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+            //  }
+        });
+
         return () => {
             if (signMessageTimeout) {
                 clearTimeout(signMessageTimeout);
             }
         };
-    });
+    }, []);
 
     const SubscribeProvider = async (provider) => {
         provider.on("error", (e) => console.error("WS Error", e));
@@ -74,38 +70,32 @@ export function Web3Provider({ children }) {
         });
     };
 
-    const TryConnectAsAdmin = async () => {
-        web3Modal = new Web3Modal({
-            network: "mainnet",
-            cacheProvider: true,
-            providerOptions,
-        });
+    const TryConnectAsAdmin = async (walletType) => {
+        if (!walletType) {
+            throw new Error("Missing type of wallet when trying to setup wallet provider");
+        }
 
-        await web3Modal.updateTheme({
-            background: "./img/sharing-ui/invite/board_popup.png",
-            main: "rgb(199, 199, 199)",
-            secondary: "rgb(136, 136, 136)",
-            border: "rgba(195, 195, 195, 0.14)",
-            hover: "rgb(16, 26, 32)",
-        });
+        let addresses, providerInstance;
+        if (walletType === Enums.METAMASK) {
+            providerInstance = new ethers.providers.Web3Provider(window.ethereum);
+            addresses = await providerInstance.send("eth_requestAccounts", []);
+            SubscribeProvider(window.ethereum);
+        } else if (walletType === Enums.WALLETCONNECT) {
+            let provider = new WalletConnectProvider({
+                infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                qrcodeModalOptions: {
+                    mobileLinks: [, "metamask", "trust"],
+                    desktopLinks: ["encrypted ink"],
+                },
+            });
+            await provider.enable();
+
+            providerInstance = new ethers.providers.Web3Provider(provider);
+            addresses = provider.accounts;
+            SubscribeProvider(provider);
+        }
 
         try {
-            provider = await web3Modal.connect();
-            //   await provider.enable();
-            SubscribeProvider(provider);
-
-            const providerInstance = new ethers.providers.Web3Provider(provider);
-
-            let addresses;
-
-            if (provider.isMetaMask) {
-                console.log("Login using metamask ");
-                addresses = await providerInstance.send("eth_requestAccounts", []);
-            } else {
-                console.log("Login using wallet connect ");
-                addresses = provider.accounts;
-            }
-
             if (addresses.length === 0) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
@@ -140,6 +130,7 @@ export function Web3Provider({ children }) {
                         console.log(ok);
                     } else {
                         console.log(error);
+                        setWeb3Error("Authentication failed");
                         router.push("/admin");
                         return error;
                     }
@@ -151,78 +142,66 @@ export function Web3Provider({ children }) {
     };
 
     const TryConnectAsUser = async () => {
-        web3Modal = new Web3Modal({
-            network: "rinkeby",
-            cacheProvider: true,
-            providerOptions,
-        });
-        try {
-            provider = await web3Modal.connect();
-            SubscribeProvider(provider);
-
-            const providerInstance = new ethers.providers.Web3Provider(provider);
-
-            let addresses;
-            if (provider.isMetaMask) {
-                console.log("Login using metamask ");
-                addresses = await providerInstance.send("eth_requestAccounts", []);
-            } else {
-                console.log("Login using wallet connect ");
-                addresses = provider.accounts;
-            }
-
-            if (addresses.length === 0) {
-                setWeb3Error("Account is locked, or is not connected, or is in pending request.");
-                return;
-            }
-
-            const user = await axios.get("/api/user", {
-                params: {
-                    address: addresses[0],
-                },
-            });
-
-            console.log(user);
-            if (user.data?.isError === true) {
-                console.log(123);
-                setWeb3Error(user.data?.message);
-                return;
-            }
-
-            signMessageTimeout = setTimeout(async () => {
-                const signer = await providerInstance.getSigner();
-
-                const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
-                const address = await signer.getAddress();
-
-                signIn("non-admin-authenticate", {
-                    redirect: false,
-                    signature,
-                    address,
-                }).then(({ ok, error }) => {
-                    if (ok) {
-                        console.log(ok);
-                    } else {
-                        console.log(error);
-                        return error;
-                    }
-                });
-            }, 1000);
-        } catch (error) {
-            console.log(error);
-        }
+        // web3Modal = new Web3Modal({
+        //     network: "rinkeby",
+        //     cacheProvider: true,
+        //     providerOptions,
+        // });
+        // try {
+        //     provider = await web3Modal.connect();
+        //     SubscribeProvider(provider);
+        //     const providerInstance = new ethers.providers.Web3Provider(provider);
+        //     let addresses;
+        //     if (provider.isMetaMask) {
+        //         console.log("Login using metamask ");
+        //         addresses = await providerInstance.send("eth_requestAccounts", []);
+        //     } else {
+        //         console.log("Login using wallet connect ");
+        //         addresses = provider.accounts;
+        //     }
+        //     if (addresses.length === 0) {
+        //         setWeb3Error("Account is locked, or is not connected, or is in pending request.");
+        //         return;
+        //     }
+        //     const user = await axios.get("/api/user", {
+        //         params: {
+        //             address: addresses[0],
+        //         },
+        //     });
+        //     console.log(user);
+        //     if (user.data?.isError === true) {
+        //         console.log(123);
+        //         setWeb3Error(user.data?.message);
+        //         return;
+        //     }
+        //     signMessageTimeout = setTimeout(async () => {
+        //         const signer = await providerInstance.getSigner();
+        //         const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
+        //         const address = await signer.getAddress();
+        //         signIn("non-admin-authenticate", {
+        //             redirect: false,
+        //             signature,
+        //             address,
+        //         }).then(({ ok, error }) => {
+        //             if (ok) {
+        //                 console.log(ok);
+        //             } else {
+        //                 console.log(error);
+        //                 return error;
+        //             }
+        //         });
+        //     }, 1000);
+        // } catch (error) {
+        //     console.log(error);
+        // }
     };
 
     const SignOut = async () => {
-        if (web3Modal) {
-            await web3Modal.clearCachedProvider();
-        }
-        const web3ModalCache = localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER");
-        if (web3ModalCache) {
-            localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
-        }
+        RemoveLocalStorageWalletConnect();
+
         signOut();
     };
+
     return (
         <Web3Context.Provider
             value={{
@@ -236,3 +215,14 @@ export function Web3Provider({ children }) {
         </Web3Context.Provider>
     );
 }
+
+const RemoveLocalStorageWalletConnect = () => {
+    const walletConnectCache = localStorage.getItem("walletconnect");
+    if (walletConnectCache) {
+        localStorage.removeItem("walletconnect");
+    }
+    const walletMobileCache = localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE");
+    if (walletMobileCache) {
+        localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+    }
+};

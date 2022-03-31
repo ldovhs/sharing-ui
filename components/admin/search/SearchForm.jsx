@@ -17,8 +17,8 @@ const SearchInfoSchema = object().shape({
         object().shape({
             type: string().required(),
             typeId: number(),
-            minTokens: number().required().min(0),
-            maxTokens: number().required().min(0),
+            minQty: number().required().min(0),
+            maxQty: number().required().min(0),
         })
     ),
 });
@@ -38,10 +38,10 @@ export default function SearchForm({ onFormSubmit }) {
             setRewardTypes(rewards);
         }
     }, []);
-    const validateTokens = (rewards, index) => {
+    const validateQty = (rewards, index) => {
         let error = null;
 
-        if (parseInt(rewards[index].minTokens) > parseInt(rewards[index].maxTokens)) {
+        if (parseInt(rewards[index].minQty) > parseInt(rewards[index].maxQty)) {
             error = `Min token cannot be larger than max token for ${rewards[index].type}`;
         }
         console.log(error);
@@ -103,8 +103,8 @@ export default function SearchForm({ onFormSubmit }) {
                                                         arrayHelpers.push({
                                                             type: item.name,
                                                             typeId: item.id,
-                                                            minTokens: 1,
-                                                            maxTokens: 1000,
+                                                            minQty: 1,
+                                                            maxQty: 1000,
                                                         });
                                                     }}
                                                     onDeSelectedItem={(item) => {
@@ -136,7 +136,7 @@ export default function SearchForm({ onFormSubmit }) {
                                                                     disabled={true}
                                                                 />
                                                                 <ErrorMessage
-                                                                    name={`${fieldName}.minTokens`}
+                                                                    name={`${fieldName}.minQty`}
                                                                     component="div"
                                                                     className="text-red-500"
                                                                 />
@@ -144,7 +144,7 @@ export default function SearchForm({ onFormSubmit }) {
 
                                                             <div className="col-xxl-2 col-xl-2 col-lg-2 mb-3">
                                                                 <Field
-                                                                    name={`${fieldName}.minTokens`}
+                                                                    name={`${fieldName}.minQty`}
                                                                     type="text"
                                                                     className={
                                                                         "form-control" +
@@ -155,7 +155,7 @@ export default function SearchForm({ onFormSubmit }) {
                                                                             : "")
                                                                     }
                                                                     validate={() =>
-                                                                        validateTokens(
+                                                                        validateQty(
                                                                             values.rewards,
                                                                             index
                                                                         )
@@ -164,7 +164,7 @@ export default function SearchForm({ onFormSubmit }) {
                                                             </div>
                                                             <div className="col-xxl-2 col-xl-2 col-lg-2 mb-3">
                                                                 <Field
-                                                                    name={`${fieldName}.maxTokens`}
+                                                                    name={`${fieldName}.maxQty`}
                                                                     type="text"
                                                                     className={
                                                                         "form-control" +
@@ -175,7 +175,7 @@ export default function SearchForm({ onFormSubmit }) {
                                                                             : "")
                                                                     }
                                                                     validate={() =>
-                                                                        validateTokens(
+                                                                        validateQty(
                                                                             values.rewards,
                                                                             index
                                                                         )

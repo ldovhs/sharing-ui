@@ -33,11 +33,11 @@ async function main() {
                     create: [
                         {
                             type: type1,
-                            tokens: randomIntFromInterval(1, 500),
+                            quantity: randomIntFromInterval(1, 500),
                         },
                         {
                             type: type2,
-                            tokens: randomIntFromInterval(1, 500),
+                            quantity: randomIntFromInterval(1, 500),
                         },
                     ],
                 },

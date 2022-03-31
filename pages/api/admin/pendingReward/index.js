@@ -36,6 +36,8 @@ export default async function PendingRewardAPI(req, res) {
                     },
                 });
 
+                //console.log(user);
+
                 if (!user) {
                     return res.status(200).json({
                         message: `Cannot find record for user ${username}`,
@@ -59,6 +61,8 @@ export default async function PendingRewardAPI(req, res) {
                         isError: true,
                     });
                 }
+
+                console.log(pendingReward);
 
                 res.status(200).json({ pendingReward, isError: false });
             } catch (err) {

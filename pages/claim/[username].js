@@ -4,12 +4,14 @@ import s from "/sass/claim/claim.module.css";
 import axios from "axios";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
+import { Modal, UserLogin } from "@components/admin/ComponentIndex";
 
 const util = require("util");
 
 function Claim() {
     const router = useRouter();
     const { username, specialcode } = router.query;
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const [claimableReward, setClaimableReward] = useState("");
     const [error, setError] = useState(null);
@@ -22,10 +24,6 @@ function Claim() {
     // if (session) {
     //     console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
     // }
-    if (isAuthenticating) console.log(isAuthenticating);
-    if (web3Error) {
-        console.log(web3Error);
-    }
 
     useEffect(() => {
         if (web3Error) {
@@ -49,14 +47,18 @@ function Claim() {
                 res.data.pendingReward.wallet.toLowerCase() !==
                     session?.user?.address?.toLowerCase())
         ) {
-            setError(`Your login account does not have this reward`);
+            console.log(res.data.pendingReward.wallet.toLowerCase());
+            console.log(session?.user?.address?.toLowerCase());
+            setError(
+                `Your login account ${session?.user?.address?.toLowerCase()} does not have this reward`
+            );
         } else {
             console.log(`claimable reward: ${JSON.stringify(res.data.pendingReward)}`, {
                 deep: true,
             });
             setClaimableReward(res.data.pendingReward);
         }
-    }, [router.isReady]);
+    }, [router.isReady, session]);
 
     useEffect(() => {
         ethereum = window.ethereum;
@@ -70,6 +72,7 @@ function Claim() {
     };
 
     const renderClaimBoard = () => {
+        console.log(123);
         // user is logged in, we need to check if the wallet account matches with our database
         if (
             claimableReward &&
@@ -162,7 +165,8 @@ function Claim() {
                 />
                 {claimableReward && (
                     <button
-                        onClick={() => TryConnectAsUser()}
+                        // onClick={() => TryConnectAsUser()}
+                        onClick={() => setModalOpen(true)}
                         className={s.board_button}
                         disabled={isAuthenticating}
                     >
@@ -206,18 +210,27 @@ function Claim() {
     };
 
     return (
-        <div className={s.app}>
-            {/* {!currentAccount ? renderConnectToWallet() : renderClaimBoard()} */}
-            {!session ? renderConnectToWallet() : renderClaimBoard()}
-            <div className={s.foreground}>
-                {claimableReward && !error && (
-                    <div>
-                        You won {claimableReward.quantity} {claimableReward.rewardType.reward}
-                    </div>
-                )}
-                {error && <div>{error} </div>}
+        <>
+            <div className={s.app}>
+                {/* {!currentAccount ? renderConnectToWallet() : renderClaimBoard()} */}
+                {!session ? renderConnectToWallet() : renderClaimBoard()}
+                <div className={s.foreground}>
+                    {claimableReward && !error && (
+                        <div>
+                            You won {claimableReward.quantity} {claimableReward.rewardType.reward}
+                        </div>
+                    )}
+                    {error && <div>{error} </div>}
+                </div>
             </div>
-        </div>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)}
+                title="Test"
+                render={(modal) => <UserLogin closeModal={() => setModalOpen(false)} />}
+                isConfirm={true}
+            />
+        </>
     );
 }
 

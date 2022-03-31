@@ -33,7 +33,7 @@ const TwitterFollowQuest = ({
     });
 
     const onSubmit = async (fields, { setStatus }) => {
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+        //alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
         try {
             let res = await onUpsert(fields);
 
@@ -208,13 +208,14 @@ const TwitterFollowQuest = ({
                                     className="btn btn-success mr-2"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? "Saving" : "Save"}
+                                    {isLoading ? "Saving..." : "Save"}
                                 </button>
 
                                 <button
                                     type="button"
                                     className="btn btn-primary"
                                     onClick={closeModal}
+                                    disabled={isLoading}
                                 >
                                     Close
                                 </button>

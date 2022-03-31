@@ -22,10 +22,6 @@ export default function AdminNavbar() {
     const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);
     const { data: session, status } = useSession({ required: false });
 
-    const handleLogin = () => {
-        TryConnectAsAdmin();
-    };
-
     const handleLogout = () => {
         SignOut();
     };

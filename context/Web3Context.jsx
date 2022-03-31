@@ -141,59 +141,76 @@ export function Web3Provider({ children }) {
         }
     };
 
-    const TryConnectAsUser = async () => {
-        // web3Modal = new Web3Modal({
-        //     network: "rinkeby",
-        //     cacheProvider: true,
-        //     providerOptions,
-        // });
-        // try {
-        //     provider = await web3Modal.connect();
-        //     SubscribeProvider(provider);
-        //     const providerInstance = new ethers.providers.Web3Provider(provider);
-        //     let addresses;
-        //     if (provider.isMetaMask) {
-        //         console.log("Login using metamask ");
-        //         addresses = await providerInstance.send("eth_requestAccounts", []);
-        //     } else {
-        //         console.log("Login using wallet connect ");
-        //         addresses = provider.accounts;
-        //     }
-        //     if (addresses.length === 0) {
-        //         setWeb3Error("Account is locked, or is not connected, or is in pending request.");
-        //         return;
-        //     }
-        //     const user = await axios.get("/api/user", {
-        //         params: {
-        //             address: addresses[0],
-        //         },
-        //     });
-        //     console.log(user);
-        //     if (user.data?.isError === true) {
-        //         console.log(123);
-        //         setWeb3Error(user.data?.message);
-        //         return;
-        //     }
-        //     signMessageTimeout = setTimeout(async () => {
-        //         const signer = await providerInstance.getSigner();
-        //         const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
-        //         const address = await signer.getAddress();
-        //         signIn("non-admin-authenticate", {
-        //             redirect: false,
-        //             signature,
-        //             address,
-        //         }).then(({ ok, error }) => {
-        //             if (ok) {
-        //                 console.log(ok);
-        //             } else {
-        //                 console.log(error);
-        //                 return error;
-        //             }
-        //         });
-        //     }, 1000);
-        // } catch (error) {
-        //     console.log(error);
-        // }
+    const TryConnectAsUser = async (walletType) => {
+        if (!walletType) {
+            throw new Error("Missing type of wallet when trying to setup wallet provider");
+        }
+
+        let addresses, providerInstance;
+
+        if (walletType === Enums.METAMASK) {
+            providerInstance = new ethers.providers.Web3Provider(window.ethereum);
+            addresses = await providerInstance.send("eth_requestAccounts", []);
+            SubscribeProvider(window.ethereum);
+        } else if (walletType === Enums.WALLETCONNECT) {
+            let provider = new WalletConnectProvider({
+                infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                qrcodeModalOptions: {
+                    mobileLinks: [, "metamask", "trust"],
+                    desktopLinks: ["encrypted ink"],
+                },
+            });
+            await provider.enable();
+
+            providerInstance = new ethers.providers.Web3Provider(provider);
+            addresses = provider.accounts;
+            SubscribeProvider(provider);
+        }
+        try {
+            // SubscribeProvider(provider);
+            // const providerInstance = new ethers.providers.Web3Provider(provider);
+            // let addresses;
+            // if (provider.isMetaMask) {
+            //     console.log("Login using metamask ");
+            //     addresses = await providerInstance.send("eth_requestAccounts", []);
+            // } else {
+            //     console.log("Login using wallet connect ");
+            //     addresses = provider.accounts;
+            // }
+            if (addresses.length === 0) {
+                setWeb3Error("Account is locked, or is not connected, or is in pending request.");
+                return;
+            }
+            const user = await axios.get("/api/user", {
+                params: {
+                    address: addresses[0],
+                },
+            });
+            console.log(user);
+            if (user.data?.isError === true) {
+                setWeb3Error(user.data?.message);
+                return;
+            }
+            signMessageTimeout = setTimeout(async () => {
+                const signer = await providerInstance.getSigner();
+                const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
+                const address = await signer.getAddress();
+                signIn("non-admin-authenticate", {
+                    redirect: false,
+                    signature,
+                    address,
+                }).then(({ ok, error }) => {
+                    if (ok) {
+                        // console.log(ok);
+                    } else {
+                        console.log(error);
+                        return error;
+                    }
+                });
+            }, 1000);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const SignOut = async () => {

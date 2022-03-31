@@ -55,7 +55,7 @@ const AddNewReward = () => {
             validationSchema={RewardSchema}
             validateOnBlur={true}
             validateOnChange={false}
-            onSubmit={async (fields, { setErrors }) => {
+            onSubmit={async (fields, { setErrors, resetForm }) => {
                 alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
 
                 const res = await axios.post("/api/admin/pendingReward", fields);
@@ -71,6 +71,9 @@ const AddNewReward = () => {
                             ? res.data.user.discordId
                             : res.data.user.wallet;
 
+                    //let user = res.data.user.wallet;
+
+                    resetForm();
                     generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${user}?specialcode=${res.data.generatedURL}`;
                 }
             }}

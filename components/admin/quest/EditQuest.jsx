@@ -35,6 +35,7 @@ const EditQuest = ({ quest, closeModal }) => {
 
                         {quest.type === Enums.TWITTER_AUTH && rewardTypes && (
                             <TwitterAuthQuest
+                                quest={quest}
                                 rewardTypes={rewardTypes}
                                 SaveQuest={SaveQuest}
                                 closeModal={closeModal}
@@ -43,6 +44,7 @@ const EditQuest = ({ quest, closeModal }) => {
 
                         {quest.type === Enums.FOLLOW_TWITTER && rewardTypes && (
                             <TwitterFollowQuest
+                                quest={quest}
                                 rewardTypes={rewardTypes}
                                 SaveQuest={SaveQuest}
                                 closeModal={closeModal}

@@ -13,14 +13,13 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
 
     const [isModalOpen, setModalOpen] = useState(false);
-    console.log(quests);
+
     return (
         <>
             <div className="card">
                 {quests && quests.length > 0 && (
                     <div className="card-body">
                         {quests.map((item, index, row) => {
-                            console.log(item);
                             return (
                                 <React.Fragment key={index}>
                                     <div className="verify-content">

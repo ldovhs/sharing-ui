@@ -160,4 +160,246 @@
   margin-top: 12%;
   font-size: 2rem;
   color: #fff;
+}
+
+.boardQuest {
+  width: 85%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 3;
+}
+@media (min-width: 39.8em) {
+  .boardQuest {
+    width: 40em;
+  }
+}
+@media (min-width: 54.5em) {
+  .boardQuest {
+    width: 40em;
+  }
+}
+@media (min-width: 90em) {
+  .boardQuest {
+    width: 55em;
+  }
+}
+@media (min-width: 160em) {
+  .boardQuest {
+    width: 70em;
+  }
+}
+.boardQuest_wrapperImg {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 125%;
+  background: url("/img/sharing-ui/invite/board_big.png") no-repeat;
+  background-size: contain;
+}
+.boardQuest_wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+@media (min-width: 39.8em) {
+  .boardQuest_wrapper {
+    padding: 0 1rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardQuest_wrapper {
+    padding: 0 5rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardQuest_wrapper {
+    padding: 0 5rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardQuest_wrapper {
+    padding: 0 5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardQuest_wrapper {
+    padding: 0 5rem;
+  }
+}
+.boardQuest_footer {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  height: auto;
+  padding-bottom: 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+.boardQuest_footer_line {
+  width: 80%;
+  border-bottom: 1px solid #F55690;
+  position: absolute;
+}
+.boardQuest_disconnect {
+  font-size: 0.75rem;
+  font-family: PFRondaSeven;
+  text-align: center;
+  background-image: url("/img/sharing-ui/invite/button1.png");
+  background-size: cover;
+  margin-top: 2%;
+  width: 4.6rem;
+  height: 2.16rem;
+}
+@media only screen and (min-width: 2560px) {
+  .boardQuest_disconnect {
+    font-size: 6.67rem;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .boardQuest_disconnect {
+    font-size: 5.15rem;
+  }
+}
+@media only screen and (min-width: 850px) {
+  .boardQuest_disconnect {
+    font-size: 3.1875rem;
+  }
+}
+@media only screen and (min-width: 39.8em) {
+  .boardQuest_disconnect {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .boardQuest_disconnect {
+    width: 94px;
+    height: 44px;
+  }
+}
+.boardQuest_title {
+  font-size: 0.875rem;
+  font-family: Safety Goggles;
+  text-align: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 30%;
+}
+@media only screen and (min-width: 2560px) {
+  .boardQuest_title {
+    font-size: 6.67rem;
+    line-height: 31px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .boardQuest_title {
+    font-size: 5.15rem;
+    line-height: 31px;
+  }
+}
+@media only screen and (min-width: 850px) {
+  .boardQuest_title {
+    font-size: 3.1875rem;
+    line-height: 2.4rem;
+  }
+}
+@media only screen and (min-width: 39.8em) {
+  .boardQuest_title {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .boardQuest_title {
+    margin-top: 30%;
+  }
+}
+@media (min-width: 50em) {
+  .boardQuest_title {
+    margin-top: 30%;
+  }
+}
+@media (min-width: 75em) {
+  .boardQuest_title {
+    margin-top: 30%;
+  }
+}
+@media (min-width: 90em) {
+  .boardQuest_title {
+    margin-top: 30%;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardQuest_title {
+    margin-top: 30%;
+  }
+}
+.boardQuest_scrollableArea {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom: 1rem;
+}
+.boardQuest_scrollableArea::-webkit-scrollbar {
+  display: none;
+}
+.boardQuest_rewardContainer {
+  display: flex;
+  flex-direction: row;
+}
+.boardQuest_rewardText {
+  flex: 2 1 auto;
+  margin-left: 5%;
+}
+.boardQuest_rewardButtons {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 5%;
+}
+.boardQuest_rewardButton {
+  margin-right: 5px;
+  width: 80px;
+  height: 35px;
+  position: relative;
+  color: #FFFFFF !important;
+  display: flex;
+  justify-content: center;
+}
+.boardQuest_rewardButton > img {
+  width: min(100%, 200px);
+}
+.boardQuest_rewardButton > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 80%;
+}
+.boardQuest_rewardButton > div > span {
+  font-family: Safety Goggles;
+}
+.boardQuest_claimBtn {
+  position: absolute;
+  bottom: 10%;
+  width: clamp(300px, 60%, 80vh);
+  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
+  font-size: 2rem;
+}
+.boardQuest_claimBtn:hover {
+  width: 60%;
+}
+.boardQuest_claimBtn:disabled {
+  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
+  font-size: 2rem -1;
 }/*# sourceMappingURL=claim.module.css.map */

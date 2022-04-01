@@ -72,109 +72,130 @@ function Claim() {
         //     claimableReward.wallet.toLowerCase() === session?.user?.address?.toLowerCase()
         // ) {
         return (
-            <div className={s.boardBig}>
-                <div className={s.boardBig_contentContainer}>
-                    <div className={s.boardBig_title}>Quests Page test</div>
-                    <div className="card">
-                        {showTask && (
-                            <div className={s.boardBig_rewardContainer}>
-                                <div className="card-body">
-                                    {quests &&
-                                        quests?.map((item, index, row) => {
-                                            console.log(item);
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    <div className="verify-content">
-                                                        <div className="d-flex align-items-center">
-                                                            <div className="primary-number">
-                                                                <h5 className="mb-0">quest text</h5>
-                                                                {/* <small>{item.description}</small> */}
-                                                                <br />
-                                                                <span className="text-success">
-                                                                    {/* {item.isRequired
-                                                                ? "Required"
-                                                                : "Optional"} */}
-                                                                    Completed
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <button className=" btn btn-outline-primary">
-                                                            {/* <Link
-                                                        href={`${router.pathname}/?id=${item.id}`}
-                                                    > */}
-                                                            Manage
-                                                            {/* </Link> */}
-                                                        </button>
-                                                    </div>
-
-                                                    {index + 1 !== row.length && (
-                                                        <hr className="dropdown-divider my-4" />
-                                                    )}
-                                                </React.Fragment>
-                                            );
-                                        })}
-                                    {/* <div className={s.boardBig_rewardText}>
-                                    Share your Reward, and get a chance to get more rewards.
-                                </div> */}
-                                    {/* <div className={s.boardBig_rewardButtons}>
-                                <a
-                                    target="_blank"
-                                    href="https://twitter.com/intent/tweet?text=Thank%20you%20Aedi%20for%20the%20Gitfs!%0a%0aJoin us at anomuragame.com/share?code=a1234%0a%0ahttps://twitter.com/AnomuraGame/status/012345678910."
-                                    className={s.boardBig_rewardButton}
-                                >
-                                    <img src="/img/sharing-ui/invite/button1.png" />
-                                    <div>
-                                        <span>Tweet</span>
+            <div className={s.boardQuest}>
+                <div className={s.boardQuest_wrapperImg}>
+                    <div className={s.boardQuest_wrapper}>
+                        <div className={s.boardQuest_title}>Quests Page test</div>
+                        <div className={s.boardQuest_scrollableArea}>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
                                     </div>
-                                </a>
-                                <a
-                                    className={s.boardBig_rewardButton}
-                                    href=""
-                                    onClick={(e) => onSkip(e)}
-                                >
-                                    <img src="/img/sharing-ui/invite/button1.png" />
-                                    <div>
-                                        <span>Skip</span>
-                                    </div>
-                                </a>
-                            </div> */}
                                 </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
                             </div>
-                        )}
-                        {/* <button
-                        className={s.boardBig_claimBtn}
-                        onClick={onClaim}
-                        disabled={claimableReward.isClaimed}
-                    >
-                        {!claimableReward.isClaimed ? "Claim" : "Already Claimed"}
-                    </button>
-                    <div className={s.boardBig_disconnectBtn} onClick={() => SignOut()}>
-                        <img src="/img/sharing-ui/invite/button1.png" />
-                        <div>
-                            <span>Disconnect</span>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">Manage</button>
+                            </div>
+                            <div class="verify-content">
+                                <div class="d-flex align-items-center">
+                                    <div class="primary-number">
+                                        <h5 class="mb-0">quest text</h5>
+                                        <br />
+                                        <span class="text-success">Completed</span>
+                                    </div>
+                                </div>
+                                <button class=" btn btn-outline-primary">LAST</button>
+                            </div>
                         </div>
-                    </div> */}
+                        <div className={s.boardQuest_footer}>
+                            <span className={s.boardQuest_footer_line} />
+                            <button className={s.boardQuest_disconnect}>Disconnect</button>
+                        </div>
                     </div>
                 </div>
             </div>
         );
-        // } else {
-        //     return (
-        //         <div className={s.boardBig}>
-        //             <div className={s.boardBig_contentContainer}>
-        //                 {/* <div className={s.boardBig_title}>{error}</div> */}
-        //                 <div className={s.boardBig_rewardContainer}>
-        //                     <div className={s.boardBig_disconnectBtn} onClick={() => SignOut()}>
-        //                         <img src="/img/sharing-ui/invite/button1.png" />
-        //                         <div>
-        //                             <span>Disconnect</span>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     );
-        // }
     };
 
     // const renderConnectToWallet = () => {

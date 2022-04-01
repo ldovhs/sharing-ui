@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
-	src: url("/fonts/AtlantisInternational.ttf");
-	font-family: Atlantis;
+	src: url("/fonts/AtlantisInternational.ttf") format("TrueType");
+	font-family: "Atlantis";
 	font-display: swap;
+}
+@font-face {
+	src: url("/fonts/ronda_revised.ttf") format("TrueType");
+	font-family: "PFRondaSeven";
+	font-display: swap;
+}
+@font-face {
+	src: url("/fonts/Safety Goggles.ttf");
+	font-family: "Safety Goggles";
+	/* font-display: swap; */
 }
 * {
 	box-sizing: border-box;

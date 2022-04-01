@@ -14,11 +14,6 @@ const EditQuest = ({ quest, closeModal }) => {
         }
     }, []);
 
-    const SaveQuest = (fields) => {
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
-        //closeModal();
-    };
-
     return (
         <div className="row d-flex ">
             <div className="col-xxl-12">
@@ -28,7 +23,6 @@ const EditQuest = ({ quest, closeModal }) => {
                             <DiscordAuthQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
-                                SaveQuest={SaveQuest}
                                 closeModal={closeModal}
                             />
                         )}
@@ -37,7 +31,6 @@ const EditQuest = ({ quest, closeModal }) => {
                             <TwitterAuthQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
-                                SaveQuest={SaveQuest}
                                 closeModal={closeModal}
                             />
                         )}
@@ -46,7 +39,6 @@ const EditQuest = ({ quest, closeModal }) => {
                             <TwitterFollowQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
-                                SaveQuest={SaveQuest}
                                 closeModal={closeModal}
                             />
                         )}

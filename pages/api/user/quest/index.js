@@ -20,6 +20,13 @@ export default async function QuestQuery(req, res) {
                 let { username } = req.query;
 
                 console.log(`** If current session is a valid address in db **`);
+                if (utils.getAddress(username) !== utils.getAddress(session.user.address)) {
+                    return res.status(200).json({
+                        message: "You are doing someone else'quest, King Octopus will haunt you",
+                        isError: true,
+                    });
+                }
+
                 console.log(session.user.address);
                 let sessionWallet = utils.getAddress(session.user.address);
                 let user = await prisma.whiteList.findFirst({

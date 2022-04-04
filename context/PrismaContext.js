@@ -4,15 +4,19 @@ export const prisma =
     global.prisma ||
     new PrismaClient({
         errorFormat: "pretty",
-        log: [
-            { level: "warn", emit: "event" },
-            { level: "info", emit: "event" },
-            { level: "error", emit: "event" },
-        ],
+        // log: [
+        //     { level: "warn", emit: "event" },
+        //     { level: "info", emit: "event" },
+        //     { level: "error", emit: "event" },
+        // ],
     });
 
+prisma.$on("info", (e) => {
+    console.log("on info");
+    console.log(e);
+});
 prisma.$on("warn", (e) => {
-    //console.log(e);
+    console.log(e);
 });
 
 prisma.$on("error", (e) => {

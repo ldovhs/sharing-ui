@@ -16,5 +16,6 @@ const Enums = {
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
     FOLLOW_TWITTER: "Follow Twitter Account",
+    ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
 };
 export default Enums;

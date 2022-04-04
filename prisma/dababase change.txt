@@ -5,3 +5,21 @@ npx prisma format
 
 locally to apply on production:
 dotenv -e .env.production -- npx prisma migrate deploy
+
+
+````````Apply manually```````````
++ generate a file
+dotenv -e .env.development -- npx prisma migrate dev --create-only 
+
++ edit the file with some extras postgresql code
+
++ apply changes 
+dotenv -e .env.development -- npx prisma migrate dev
+
+-- fixing advisory lock
+
+SELECT * FROM pg_stat_activity
+SELECT pg_terminate_backend(9696) 
+SELECT pg_terminate_backend(pg_stat_activity.procpid) --  
+ FROM pg_stat_get_activity(NULL::integer) 
+ WHERE datid=(SELECT oid from pg_database where datname = 'db name ');

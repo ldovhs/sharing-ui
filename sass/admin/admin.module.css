@@ -27,7 +27,7 @@
   margin-left: -50vw;
   top: 0px;
   left: 50%;
-  z-index: 2;
+  z-index: 999;
   will-change: opacity;
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;

@@ -22,11 +22,10 @@ const UserLogin = (props) => {
             setIsMobile(false);
         }
         const ethereum = window.ethereum;
-        console.log(ethereum);
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
     }, []);
 
-    console.log(isMetamaskDisabled);
+    // console.log(isMetamaskDisabled);
     return (
         <div className={s.nonPixelModal_card}>
             {/*METAMASK */}

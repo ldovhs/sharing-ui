@@ -1,9 +1,12 @@
-import Enums from "enums";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DiscordAuthQuest from "./DiscordAuthQuest";
-import TwitterAuthQuest from "./TwitterAuthQuest";
-import TwitterFollowQuest from "./TwitterFollowQuest";
+import {
+    DiscordAuthQuest,
+    TwitterAuthQuest,
+    TwitterFollowQuest,
+    AnomuraSeeFoodQuest,
+} from "./index";
+import Enums from "enums";
 
 const EditQuest = ({ quest, closeModal }) => {
     const [rewardTypes, setRewardTypes] = useState([]);
@@ -37,6 +40,14 @@ const EditQuest = ({ quest, closeModal }) => {
 
                         {quest.type === Enums.FOLLOW_TWITTER && rewardTypes && (
                             <TwitterFollowQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type === Enums.ANOMURA_SUBMISSION_QUEST && (
+                            <AnomuraSeeFoodQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

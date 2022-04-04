@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
-import axios from "axios";
 import Enums from "enums";
 import { Modal, AdminLogin } from "/components/admin/ComponentIndex";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { route } from "next/dist/server/router";
 import { EditQuest, AddQuest } from "../ComponentIndex";
 import { withQuestQuery } from "shared/HOC/quest";
 
@@ -13,7 +10,7 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
 
     const [isModalOpen, setModalOpen] = useState(false);
-
+    console.log(quests);
     return (
         <>
             <div className="card">
@@ -29,10 +26,14 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                                             </span>
                                             <div className="primary-number">
                                                 <h5 className="mb-0">
-                                                    {item.type}{" "}
-                                                    {item.type === Enums.FOLLOW_TWITTER &&
-                                                        `@${item.followAccount}`}
+                                                    {item.text}
+                                                    {item.type === Enums.FOLLOW_TWITTER && (
+                                                        <span className="text-yellow-600 ml-1">
+                                                            {item.extendedQuestData.followAccount}
+                                                        </span>
+                                                    )}
                                                 </h5>
+
                                                 <small>{item.description}</small>
                                                 <br />
                                                 <span className="text-success">
@@ -66,7 +67,6 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
 
             {/* {router.query.typeId && ( */}
             <Modal
-                //isOpen={router.query?.typeId !== null ? router.query.typeId : isModalOpen}
                 isOpen={router.query?.id ? true : isModalOpen}
                 onClose={() => {
                     router.push(`${router.pathname}`);

@@ -1,7 +1,7 @@
-import Enums from "enums";
 import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/admin/admin.module.css";
+import Enums from "enums";
 
 const AdminLogin = ({ closeModal }) => {
     const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);

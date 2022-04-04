@@ -92,6 +92,7 @@ export function Web3Provider({ children }) {
 
             providerInstance = new ethers.providers.Web3Provider(provider);
             addresses = provider.accounts;
+
             SubscribeProvider(provider);
         }
 
@@ -153,6 +154,9 @@ export function Web3Provider({ children }) {
         if (walletType === Enums.METAMASK) {
             providerInstance = new ethers.providers.Web3Provider(window.ethereum);
             addresses = await providerInstance.send("eth_requestAccounts", []);
+            console.log("Ethers");
+            console.log(addresses[0]);
+            console.log(ethers.utils.getAddress(addresses[0]));
             SubscribeProvider(window.ethereum);
         } else if (walletType === Enums.WALLETCONNECT) {
             let provider = new WalletConnectProvider({

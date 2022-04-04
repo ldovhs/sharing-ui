@@ -20,14 +20,8 @@ export default async function QuestUpsert(req, res) {
 
         case "POST":
             /*  
-                    @dev Create a new pending reward
-    
-                    0. Check if req is from an admin
-                    1. Look for user in database if exists
-                    2. Create a pending reward since we found the user
-                    3. Show in discord if ShowInDiscord is true
-                    4. TODO: Post on main Twitter account in order to get the tweetId for Tweeting later?
-                */
+                @dev Create a new quest
+            */
             //console.log(session);
             if (!session || !session.user?.isAdmin) {
                 return res.status(400).json({
@@ -47,25 +41,15 @@ export default async function QuestUpsert(req, res) {
                     quantity,
                     isEnabled,
                     isRequired,
+                    extendedQuestData,
                 } = req.body;
-                //  console.log(req.body);
+                console.log(req.body);
 
-                // let userCondition = { wallet };
-
-                // if (type === Enums.DISCORD && username.trim().length > 0) {
-                //     userCondition = { ...userCondition, discordId: username };
-                // }
-                // if (type === Enums.TWITTER && username.trim().length > 0) {
-                //     userCondition = { ...userCondition, twitter: username };
-                // }
-                // if (username.trim().length === 0) {
-                //     userCondition = { ...userCondition, wallet };
-                // }
+                //TODO add guard for app submission app request
+                let newExtendedQuestData;
                 if (id === 0) {
-                    //create new
-                    //try to look for any existing quest with type == Discord auth or twitter auth
+                    //try to look for any existing quest with type == Discord auth or twitter auth before creating a new quest
                     let existingQuests = await prisma.quest.findMany();
-                    console.log(existingQuests[0]);
 
                     let discordAuthQuest = existingQuests.filter(
                         (q) => q.type === Enums.DISCORD_AUTH
@@ -74,10 +58,7 @@ export default async function QuestUpsert(req, res) {
                     let twitterAuthQuest = existingQuests.filter(
                         (q) => q.type === Enums.TWITTER_AUTH
                     );
-                    console.log(discordAuthQuest?.length >= 1 && type === Enums.DISCORD_AUTH);
-                    console.log(type === Enums.DISCORD_AUTH);
-                    console.log(discordAuthQuest.length);
-                    // console.log(twitterAuthQuest);
+
                     if (
                         (discordAuthQuest?.length >= 1 && type === Enums.DISCORD_AUTH) ||
                         (twitterAuthQuest?.length >= 1 && type === Enums.TWITTER_AUTH)
@@ -86,6 +67,19 @@ export default async function QuestUpsert(req, res) {
                             message: `Cannot add more than one quest of this quest type ${type} `,
                             isError: true,
                         });
+                    }
+                } else {
+                    // updating, we need to get original extendedQuestData and create a new object to avoid data loss
+                    let originalQuest = await prisma.quest.findUnique({
+                        where: { id },
+                    });
+
+                    if (originalQuest) {
+                        console.log(originalQuest.extendedQuestData);
+                        newExtendedQuestData = {
+                            ...originalQuest.extendedQuestData,
+                            ...extendedQuestData,
+                        };
                     }
                 }
 
@@ -107,7 +101,7 @@ export default async function QuestUpsert(req, res) {
                         quantity,
                         isEnabled,
                         isRequired,
-                        followAccount: req.body.followAccount ?? null,
+                        extendedQuestData,
                     },
                     update: {
                         description,
@@ -121,7 +115,7 @@ export default async function QuestUpsert(req, res) {
                         quantity,
                         isEnabled,
                         //isRequired,
-                        followAccount: req.body.followAccount ?? null,
+                        extendedQuestData: newExtendedQuestData,
                     },
                 });
 

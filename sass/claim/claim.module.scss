@@ -1,3 +1,4 @@
+@use "../mixins" as m;
 
 $bp-small: 24em;            // 384
 $bp-small-2: 39.8em;        // 636
@@ -9,151 +10,209 @@ $bp-xl: 90em;               // 1440
 $bp-xl-2: 123.75em;         // 1980
 $bp-xl-3: 160em;            // 2560
 
-$heading-desktop-font-size: 2rem;
-
-$heading-font-size-small: 0.875rem;
-$heading-font-size-small-3: 1.5rem;
-$heading-font-size-med: 1.75rem;
-$heading-font-size-large: 1.5rem;
+$heading-font-size-small: 1rem;
+$heading-font-size-small-2: 1.25rem;
+$heading-font-size-med: 1.5rem;
+$heading-font-size-large: 1.75rem;
 
 $text-font-size-small: 0.75rem;
-$text-font-size-small-3: 1.125rem;
-$text-font-size-med: 1.75rem;
+$text-font-size-small-2: 1.125rem;
+$text-font-size-med: 1.375rem;
 $text-font-size-large: 1.5rem;
 
 @mixin heading(){
-	font-size: $heading-font-size-small; // based on Miro size 60px;
-	// line-height: 2.6rem; // to not have space below this font-family;
-	font-family: Safety Goggles;
-	// margin-bottom: $header-space-bottom;
+	font-size: $heading-font-size-small;
+	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
 	text-align: center;
 
-	@media only screen and (min-width: 2560px) {
-		font-size: 6.67rem;
-		line-height: 31px;
-	} 
-
-	@media only screen and (min-width: 1440px) {
-		font-size: 5.15rem;
-		line-height: 31px;
-	} 
-
-	@media only screen and (min-width: 850px) {
-		font-size: 3.1875rem;
-		line-height: 2.4rem;
-	} 
-
-	@media only screen and (min-width: $bp-small-2) {
-		font-size: $heading-font-size-small-3;
-	} 
+	@media (min-width: $bp-small-2) {  
+        font-size: $heading-font-size-small-2;
+    }
+    @media (min-width: $bp-med-2) {  
+        font-size: $heading-font-size-med;
+    }
+    @media (min-width: $bp-large-2) {  
+        font-size: $heading-font-size-med;
+    }
+    @media (min-width: $bp-xl) {  
+        font-size: $heading-font-size-large;
+    }
+    @media (min-width: $bp-xl-2) {  
+        font-size: $heading-font-size-large;
+    }
 }
 
-@mixin text(){
-	font-size: $text-font-size-small; // based on Miro size 60px;
-	// line-height: 2.6rem; // to not have space below this font-family;
-	font-family: PFRondaSeven;
-	// margin-bottom: $header-space-bottom;
+@mixin text() {
+    font-family: PFRondaSeven;
 	text-align: center;
-
-	@media only screen and (min-width: 2560px) {
-		font-size: 6.67rem;
-	
-	} 
-
-	@media only screen and (min-width: 1440px) {
-		font-size: 5.15rem;
-	
-	} 
-
-	@media only screen and (min-width: 850px) {
-		font-size: 3.1875rem;
-		
-	} 
-
-	@media only screen and (min-width: $bp-small-2) {
+	font-size: $text-font-size-small;
+	@media (min-width: $bp-small-2) {
 		font-size: $text-font-size-small;
 	} 
-}
-
-@mixin paragraphContainer(){
-	font-size: 1.125rem;
-	font-weight: 400;
-	font-style: normal;
-	text-align: center;
-	position: relative;
-	font-family: PFRondaSeven;
-	line-height: 31px;
-
-	& > p {
-		margin-bottom:30px;
-	}
-	& > p:last-child {
-		margin-bottom:0px;
-	}
-	margin-bottom: 60px;
-
-	@media only screen and (min-width: 2560px) {
-		font-size: 2rem;
-		line-height: 31px;
-	} 
-
-	@media only screen and (min-width: 1440px) {
-		font-size: 1.546rem;
-		line-height: 31px;
-	} 
-
-	@media only screen and (max-width: 600px) {
-		font-size: 0.875rem;
-		line-height: 23px;
-		// margin-bottom: 30px;
-		
-		// & > p {
-		// 	// margin-bottom:15px;
-		// }
-	} 
-}
+    @media (min-width: $bp-med-2) {  
+        font-size: $text-font-size-small;
+    }
+    @media (min-width: $bp-large-2) {  
+        font-size: $text-font-size-small;
+    }
+    @media (min-width: $bp-xl) {  
+        font-size: $text-font-size-small;
+    }
+    @media (min-width: $bp-xl-2) {  
+        font-size: $text-font-size-small;
+    }
+}	
 
 .app {
     width: 100%;
     height: 100vh;
     background: 50% 30%/cover url("/img/sharing-ui/invite/bg01.png");
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include m.flex-master(null, center, center);
 }
-.board {
-    width: clamp(700px,40vw,100vh);
-    aspect-ratio: clamp(1,6/5,9/7);
-    background: center/contain no-repeat url("/img/sharing-ui/invite/board_small.png");
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
-    gap: 3vh;
-    padding: 1vh;
 
-    &_congrats { 
+ // &_congrats { 
+    //     position: absolute;
+    //     color: #fff;
+    //     font-size: 6rem;
+    //     top: -20%;
+    // }
+.board {
+    // margin-top:60%;
+    // z-index: 3;
+    // @include m.flex-master(column, null, center);
+    // width: clamp(700px,40vw,100vh);
+    // min-width: fit-content;
+ 
+    // background: center/contain no-repeat url("/img/sharing-ui/invite/board_small.png");
+    // position: relative;
+ 
+    // gap: 2vh;
+    // padding: 3vh;
+    @include m.flex-master(column, center, center);
+    width: 85%;
+    height:100%;
+    position: relative;
+    color: #fff;  
+
+    @media (min-width: $bp-large) { width: 45em; }
+    // @media (min-width: $bp-xl) { width: 45em; }
+    // @media (min-width: $bp-xl-3) { width: 45em; }
+
+    &_container {
+        position: relative;
+        width: 100%;
+        height:0;
+        padding-top: 71.13%;
+        background: url("/img/sharing-ui/invite/board_small.png") no-repeat;
+        background-size: contain;
+    }
+
+    &_wrapper {
         position: absolute;
-        color: #fff;
-        font-size: 6rem;
-        top: -20%;
+        width: 100%;
+        height: 100%;
+        top:0;
+        left:0;
+        padding: 0 2.4rem;
+        @include m.flex-master(column, null, center);
+        justify-content:space-between;
+        
+        @media (min-width: $bp-small) {  
+            padding: 0 3.2rem;
+        }
+        @media (min-width: $bp-small-2) {  
+            padding: 0 4rem;
+        }
+        @media (min-width: $bp-med-2) {  
+            padding: 0 5rem;
+        }
+        @media (min-width: $bp-large-2) {  
+            padding: 0 5rem;
+        }
+        @media (min-width: $bp-xl) {  
+            padding: 0 5rem;
+        }
+        @media (min-width: $bp-xl-2) {  
+            padding: 0 5rem;
+        }
+    }
+
+    &_content {
+        margin-top:30%;  
+        width: 100%;
+        height: 60%;
+        
+        & > div {
+            @include m.flex-master(column, space-between, center);
+            width: 100%;
+            height: 100%;     
+        }
     }
    
-    &_title{
-        width: clamp(100px,50%,75vh);   
-        margin-top:28%;   
+    &_title {     
+        width: clamp(100px,70%,75vh);   
+        margin-bottom: 1rem;
     }
     &_welcome{
         width: clamp(200px,70%,75vh);
+        margin-bottom: 1rem;
     }
-    &_button{
-        width:clamp(350px,70%,95vh);
-        min-height: 10%;
-        background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-        font-size: $heading-desktop-font-size;
-        &:hover{
-            width: 60%;       
+    // &_button {
+    //     width:clamp(350px,70%,95vh);
+    //     min-height: 10%;
+    //     background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
+    //     font-size: $heading-font-size-small;
+    //     &:hover{
+    //         width: 60%;       
+    //     }
+    // }
+    &_orangeBtn { 
+        @include text();
+        @include m.flex-master(row, center, center);
+        background-image: url('/img/sharing-ui/invite/button_wallet.png'); // 166 x 31
+        background-size: cover;
+        
+        width: 10.375rem;
+        height: 1.9375rem;
+        @media (min-width: $bp-small) {  
+            width: 15.5625rem;
+            height: 2.90675rem; 
+            font-size: 1rem;
         }
+        @media (min-width: $bp-small-2) {  
+            width: 20.875rem;
+            height: 3.875rem; 
+            font-size: 1.375rem;
+        }
+    }
+    &_tealBtn { 
+        @include text();
+        @include m.flex-master(row, center, center);
+        background-image: url('/img/sharing-ui/invite/button_scanwallet.png'); // 166 x 31
+        background-size: cover;
+        
+        width: 10.375rem;
+        height: 1.9375rem;
+        @media (min-width: $bp-small) {  
+            width: 15.5625rem;
+            height: 2.90675rem; 
+            font-size: 1rem;
+        }
+        @media (min-width: $bp-small-2) {  
+            width: 20.875rem;
+            height: 3.875rem; 
+            font-size: 1.375rem;
+        }
+    }
+
+    &_web3 {
+        height: 50%;
+        width:100%;
+        @include m.flex-master(column, center, center);
+        font-family: PFRondaSeven;
+    }
+    &_web3:nth-child(1) {  
+        border-bottom: 3px solid rgb(29,84,122);
     }
 }
 .boardBig {
@@ -177,7 +236,7 @@ $text-font-size-large: 1.5rem;
     }
     &_title{
         margin-top: 35%;
-        font-size: $heading-desktop-font-size;   
+        font-size: $heading-font-size-small;   
         margin-left: 5%;
         margin-right: 5%;
     }
@@ -225,14 +284,14 @@ $text-font-size-large: 1.5rem;
         bottom: 10%;
         width: clamp(300px, 60%, 80vh);
         background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-        font-size: $heading-desktop-font-size;
+        font-size: $heading-font-size-small;
     
         &:hover {
             width: 60%;       
         }
         &:disabled {
             background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
-            font-size: $heading-desktop-font-size -1 ;
+            font-size: $heading-font-size-small -1 ;
         }
     }
     &_disconnectBtn {
@@ -278,37 +337,22 @@ $text-font-size-large: 1.5rem;
 
     & > div {
         margin-top: 12%;
-        font-size: $heading-desktop-font-size;  
+        font-size: $heading-font-size-small;  
         color: #fff;  
     }
 }
 .boardQuest {
-   // width: clamp(900px, 50vw, 100vh);
+    @include m.flex-master(column, center, center);
     width: 85%;
     height:100%;
-    //height:0;
-    // height: auto;
     position: relative;
-    //padding-top: 106%;
-    //aspect-ratio: 1; //  aspect-ratio: clamp(1,6/5,9/7);
-    //background: center/contain no-repeat url("/img/sharing-ui/invite/board_big.png");
-    //background: url("/img/sharing-ui/invite/board_big.png") no-repeat;
-    //background-size:100% auto;
-    //background-size: contain;
-    //background-position: center;
-    // background-position: 0% 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     color: #fff;  
 
-    @media (min-width: $bp-small-2) { width: 40em; }
-    @media (min-width: $bp-large) { width: 40em; }
-    @media (min-width: $bp-xl) { width: 55em; }
-    @media (min-width: $bp-xl-3) { width: 70em; }
+    @media (min-width: $bp-large) { width: 35em; }
+    @media (min-width: $bp-xl) { width: 38em; }
+    @media (min-width: $bp-xl-3) { width: 45em; }
 
-    &_wrapperImg{
+    &_container {
         position: relative;
         width: 100%;
         height:0;
@@ -323,37 +367,58 @@ $text-font-size-large: 1.5rem;
         height: 100%;
         top:0;
         left:0;
-        display: flex;
-        flex-direction: column;
+        @include m.flex-master(column, null, null);
 
-        padding: 0 2rem;
+        padding: 0 2.4rem;
+        @media (min-width: $bp-small) {  
+            padding: 0 3.2rem;
+        }
         @media (min-width: $bp-small-2) {  
-            padding: 0 1rem;
+            padding: 0 4rem;
         }
         @media (min-width: $bp-med-2) {  
-            padding: 0 5rem;
+            padding: 0 4.5rem;
         }
-        @media (min-width: $bp-large-2) {  
-            padding: 0 5rem;
+         @media (min-width: $bp-large-2) {  
+             padding: 0 4.5rem;
+         }
+        // @media (min-width: $bp-xl) {  
+        //     padding: 0 5rem;
+        // }
+        // @media (min-width: $bp-xl-2) {  
+        //     padding: 0 5rem;
+        // }
+    }
+
+    &_title {
+        @include heading();
+        overflow-wrap: break-word;
+        margin-top: 30%;
+        @media (min-width: $bp-small-2) {  
+            margin-top: 28%;
         }
-        @media (min-width: $bp-xl) {  
-            padding: 0 5rem;
+        @media (min-width: $bp-med-2) {  
+            margin-top: 30%;
         }
-        @media (min-width: $bp-xl-2) {  
-            padding: 0 5rem;
-        }
+        // @media (min-width: $bp-large-2) {  
+        //     margin-top: 30%;
+        // }
+        // @media (min-width: $bp-xl) {  
+        //     margin-top: 30%;
+        // }
+        // @media (min-width: $bp-xl-2) {  
+        //     margin-top: 30%;
+        // }
     }
 
     &_footer {
-        position: sticky;
+        @include m.flex-master(row, center, null);
+        flex: 12%;
         width: 100%;
         height:auto;
-        
-        padding-bottom: 20px;
+        padding-bottom: 1.5rem;
         z-index: 10;
-        display: flex;
-        justify-content: center;
-
+    
         &_line {
             width: 80%;
 			border-bottom: 1px solid #F55690;
@@ -361,13 +426,59 @@ $text-font-size-large: 1.5rem;
         }
     }
 
-    &_disconnect { 
+    &_pinkBtn { 
         @include text();
+        @include m.flex-master(row, center, center);
         background-image: url('/img/sharing-ui/invite/button1.png'); // 47 x 22
         background-size: cover;
         margin-top: 2%;
-        // width: 2.93rem;
-        // height: 1.375rem;
+        color: #F8D61D;
+        
+        width: 4.6rem;
+        height: 2.16rem;
+        @media (min-width: $bp-small-2) {  
+            width: 94px;
+            height: 44px; 
+        }
+        &:disabled{
+            background-image: url('/img/sharing-ui/invite/pink_button_disabled.png'); // 47 x 22
+            background-size: cover;
+            &:hover {
+                color: #F8D61D;
+            }
+        }
+    }
+    &_orangeBtn { 
+        @include text();
+        @include m.flex-master(row, center, center);
+        background-image: url('/img/sharing-ui/invite/button_wallet.png'); // 166 x 31
+        background-size: cover;
+        margin-top: 0.75rem;
+        width: 10.375rem;
+        height: 1.9375rem;
+        @media (min-width: $bp-small) {  
+            width: 15.5625rem;
+            height: 2.90675rem; 
+            font-size: 1rem;
+        }
+        @media (min-width: $bp-small-2) {  
+            width: 20.875rem;
+            height: 3.875rem; 
+            font-size: 1.375rem;
+        }
+        &:disabled {
+            background-image: url('/img/sharing-ui/invite/button_wallet-disable.png'); // 166 x 31
+            background-size: cover;
+        }
+    }
+
+    &_yellowText { 
+        @include text();
+        margin-top: 2%;
+        color: #F8D61D;
+        align-self: center;
+        @include m.flex-master(row, center, null);
+
         width: 4.6rem;
         height: 2.16rem;
         @media (min-width: $bp-small-2) {  
@@ -376,95 +487,122 @@ $text-font-size-large: 1.5rem;
         }
     }
 
-    &_title {
-        @include heading();
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 30%;
-        @media (min-width: $bp-small-2) {  
-            margin-top: 30%;
-        }
-        @media (min-width: $bp-med-2) {  
-            margin-top: 30%;
-        }
-        @media (min-width: $bp-large-2) {  
-            margin-top: 30%;
-        }
-        @media (min-width: $bp-xl) {  
-            margin-top: 30%;
-        }
-        @media (min-width: $bp-xl-2) {  
-            margin-top: 30%;
-        }
-    }
-
     &_scrollableArea {
         width:100%;
+        flex: 75%;
+        margin-top: 1.25rem;
         overflow-x: hidden;
         overflow-y: scroll;
         padding-bottom: 1rem;
 
+        @include m.flex-master(column, null, null);
+        gap: 1.375rem;
         &::-webkit-scrollbar {
             display: none;
         }
     }
 
-
-    &_rewardContainer{
-        // width: clamp(200px,70%,75vh);
-        display: flex;
-        flex-direction: row;
-    }
-    &_rewardText{
-      flex: 2 1 auto;
-      margin-left: 5%;
-    }
-    &_rewardButtons{
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-right: 5%;
-    }
-    &_rewardButton {
-    
-        margin-right: 5px;
-        width: 80px;
-        height: 35px;
-        position:relative;
-		color: #FFFFFF!important;
-		display:flex;
-		justify-content: center;
-        & > img {
-            width: min(100%, 200px);
+    &_list {
+        &_container {
+            @include m.flex-master(row, space-between, null);
+            @include text();
+            text-align: left;
         }
-        & > div {
-            position:absolute;
-            display: flex;
-            text-align: center;
-            align-items: center;
-            height: 80%;
-            & > span { 
-                font-family: Safety Goggles;
+    
+        &_content {
+            @include m.flex-master(column, null, null);
+            width: 85%;
+            & > div:nth-child(2) {
+                color:#00FFFF;
+            }
+            overflow-wrap: break-word;
+        }
+        &_result {
+            @include m.flex-master(null, center, center);
+            flex: 10%;
+            text-align: right;
+            & > span {
+            
+            }
+            & > button {
+
+            }
+
+            @media (max-width: $bp-small-2) {  
+                @include m.flex-master(column, center, center);
+                row-gap: 0.5rem;
             }
         }
     }
-    &_claimBtn {
-        position: absolute;
-        bottom: 10%;
-        width: clamp(300px, 60%, 80vh);
-        background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-        font-size: $heading-desktop-font-size;
+
+
+    // &_rewardContainer{
+    //     display: flex;
+    // }
+    // &_rewardText{
+    //   flex: 2 1 auto;
+    //   margin-left: 5%;
+    // }
+    // &_rewardButtons{
+    //     flex: 1 1 auto;
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: center;
+    //     margin-right: 5%;
+    // }
+    // &_rewardButton {
     
-        &:hover {
-            width: 60%;       
-        }
-        &:disabled {
-            background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
-            font-size: $heading-desktop-font-size -1 ;
-        }
-    }
+    //     margin-right: 5px;
+    //     width: 80px;
+    //     height: 35px;
+    //     position:relative;
+	// 	color: #FFFFFF!important;
+	// 	display:flex;
+	// 	justify-content: center;
+    //     & > img {
+    //         width: min(100%, 200px);
+    //     }
+    //     & > div {
+    //         position:absolute;
+    //         display: flex;
+    //         text-align: center;
+    //         align-items: center;
+    //         height: 80%;
+    //         & > span { 
+    //             font-family: Safety Goggles;
+    //         }
+    //     }
+    // }
+    // &_claimBtn {
+    //     position: absolute;
+    //     bottom: 10%;
+    //     width: clamp(300px, 60%, 80vh);
+    //     background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
+    //     font-size: $heading-font-size-small;
+    
+    //     &:hover {
+    //         width: 60%;       
+    //     }
+    //     &:disabled {
+    //         background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
+    //         font-size: $heading-font-size-small -1 ;
+    //     }
+    // }
     z-index:3;
 }
 
+.close {
+    animation: bounce-out 1.5s 0.5s 3 ease-in ;
+}
+.open {
+    animation: bounce-in 1.5s  ease-in ;
+}
+@keyframes bounce-in{
+    0%    {opacity: 0;   transform: scale(0.5);}
+    100%  {opacity: 1;   transform: scale(1);}
+}
+@keyframes bounce-out{
+    0%    {opacity: 1;   transform: scale(1);}
+    100%  {opacity: 0;   transform: scale(0.5);}
+}
 

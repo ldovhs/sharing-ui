@@ -15,7 +15,7 @@ const TwitterFollowQuest = ({
 }) => {
     const initialValues = {
         type: Enums.FOLLOW_TWITTER,
-        followAccount: quest?.followAccount ?? "",
+        extendedQuestData: quest?.extendedQuestData ?? { followAccount: "" },
         text: quest?.text || "Follow Twitter Account",
         description: quest?.description ?? "Require the user to follow a Twitter Account",
         completedText: quest?.completedText || "Completed",
@@ -26,15 +26,16 @@ const TwitterFollowQuest = ({
         id: quest?.id || 0,
     };
     const TwitterFollowQuestSchema = object().shape({
-        followAccount: string().required("A Twitter account is required!"),
+        extendedQuestData: object().shape({
+            followAccount: string().required("A Twitter account is required!"),
+        }),
         text: string().required("Quest text is required"),
         completedText: string().required("Complete Text is required"),
         quantity: number().required().min(0), //optional
     });
 
     const onSubmit = async (fields, { setStatus }) => {
-        //alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
-
+        alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
         try {
             let res = await onUpsert(fields);
 
@@ -59,27 +60,29 @@ const TwitterFollowQuest = ({
             {({ values, errors, status, touched, handleChange }) => {
                 return (
                     <Form>
-                        <h4 className="card-title mb-3">Edit Quest</h4>
+                        <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
                         <small>Create a Twitter Follow Requirement</small>
                         <div className="row">
                             {/* Follow Twitter Account */}
                             <div className="col-xxl-12 col-xl-12 col-lg-12">
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                     <label className="form-label">
-                                        Follow Twitter Account (@user123)
+                                        Follow Twitter Account (whale.drop)
                                     </label>
                                     <Field
-                                        name="followAccount"
+                                        name="extendedQuestData.followAccount"
                                         type="text"
                                         className={
                                             "form-control" +
-                                            (errors.followAccount && touched.followAccount
+                                            (errors.extendedQuestData &&
+                                            errors.extendedQuestData.followAccount &&
+                                            touched.extendedQuestData.followAccount
                                                 ? " is-invalid"
                                                 : "")
                                         }
                                     />
                                     <ErrorMessage
-                                        name="followAccount"
+                                        name="extendedQuestData.followAccount"
                                         component="div"
                                         className="invalid-feedback"
                                     />

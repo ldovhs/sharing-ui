@@ -29,7 +29,7 @@ export default async function ClaimRewardAPI(req, res) {
             try {
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
-
+                console.log(req.body);
                 console.log(`***** Checking if proper wallet ${wallet} is claiming the reward`);
                 if (session.user?.address.toLowerCase() === wallet) {
                     res.status(400).json({
@@ -38,9 +38,7 @@ export default async function ClaimRewardAPI(req, res) {
                     });
                 }
 
-                console.log(
-                    `***** Assure this pending reward ${generatedURL} exists and not claimed`
-                );
+                console.log(`**Assure this pending reward ${generatedURL} exists and not claimed`);
                 const pendingReward = await prisma.pendingReward.findUnique({
                     where: {
                         wallet_rewardTypeId_generatedURL: {
@@ -61,9 +59,7 @@ export default async function ClaimRewardAPI(req, res) {
 
                 let claimedReward;
                 if (!pendingReward.isClaimed) {
-                    console.log(
-                        `***** Claiming Reward ${generatedURL}, creating new or update existing one`
-                    );
+                    console.log(`** Claiming Reward ${generatedURL}`);
                     claimedReward = await prisma.reward.upsert({
                         where: {
                             wallet_rewardTypeId: { wallet, rewardTypeId },
@@ -71,7 +67,6 @@ export default async function ClaimRewardAPI(req, res) {
                         create: {
                             wallet,
                             quantity,
-                            userId,
                             rewardTypeId,
                         },
                         update: {
@@ -96,7 +91,7 @@ export default async function ClaimRewardAPI(req, res) {
                     });
                     return;
                 }
-                console.log(claimedReward);
+
                 console.log(`***** Updating pending reward ${generatedURL} to claimed`);
                 await prisma.pendingReward.update({
                     where: {

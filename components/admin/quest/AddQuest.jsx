@@ -3,9 +3,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import axios from "axios";
-import DiscordAuthQuest from "./DiscordAuthQuest";
-import TwitterAuthQuest from "./TwitterAuthQuest";
-import TwitterFollowQuest from "./TwitterFollowQuest";
+import {
+    DiscordAuthQuest,
+    TwitterAuthQuest,
+    TwitterFollowQuest,
+    AnomuraSeeFoodQuest,
+} from "./index";
 
 const AddQuest = ({ closeModal }) => {
     const [questTypes, setQuestTypes] = useState([
@@ -21,11 +24,15 @@ const AddQuest = ({ closeModal }) => {
             id: 3,
             type: Enums.FOLLOW_TWITTER,
         },
+        {
+            id: 4,
+            type: Enums.ANOMURA_SUBMISSION_QUEST,
+        },
     ]);
 
     const [typeOfQuest, setTypeOfQuest] = useState();
-
     const [rewardTypes, setRewardTypes] = useState([]);
+
     useEffect(async () => {
         const res = await axios.get("/api/admin/rewardType");
         if (res) {
@@ -72,6 +79,14 @@ const AddQuest = ({ closeModal }) => {
 
                         {typeOfQuest === Enums.FOLLOW_TWITTER && (
                             <TwitterFollowQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {typeOfQuest === Enums.ANOMURA_SUBMISSION_QUEST && (
+                            <AnomuraSeeFoodQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

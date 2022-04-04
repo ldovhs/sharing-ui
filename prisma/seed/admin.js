@@ -12,6 +12,7 @@ const adminAddresses = [
     "0xBFF9B8D0aF518cb3d4b733FCa0627D7f3BbeEc42",
     "0xF9132814b9CAc452d5FE9792e102E7Dde41807e3",
     "0x6b2210bEd7E8f2d946C4258Cc3C0c19B7e4f397c",
+    "0xfb11EAFa478C6D65E7c001a6f40a79A7Ac0E663e",
 ];
 
 async function main() {

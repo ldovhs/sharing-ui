@@ -478,7 +478,7 @@ $text-font-size-large: 1.5rem;
         color: #F8D61D;
         align-self: center;
         @include m.flex-master(row, center, null);
-
+        
         width: 4.6rem;
         height: 2.16rem;
         @media (min-width: $bp-small-2) {  

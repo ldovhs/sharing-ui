@@ -53,6 +53,9 @@ export default async function QuestQuery(req, res) {
                     where: {
                         isEnabled: true,
                     },
+                    include: {
+                        rewardType: true,
+                    },
                 });
                 console.log(availableQuests);
 

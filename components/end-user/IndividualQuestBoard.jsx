@@ -92,6 +92,7 @@ export default function IndividualQuestBoard({ session }) {
                                         rewardTypeId,
                                         extendedQuestData,
                                         isDone,
+                                        rewardType,
                                     } = item;
 
                                     console.log(item);
@@ -111,13 +112,20 @@ export default function IndividualQuestBoard({ session }) {
                                                     {isDone && <div>Completed</div>}
                                                 </div>
                                                 <div className={s.boardQuest_list_result}>
-                                                    <button
-                                                        className={s.boardQuest_pinkBtn}
-                                                        onClick={() => DoQuest(item)}
-                                                        disabled={isDone}
-                                                    >
-                                                        {isDone ? "Finished" : "Do"}
-                                                    </button>
+                                                    {!isDone && (
+                                                        <button
+                                                            className={s.boardQuest_pinkBtn}
+                                                            onClick={() => DoQuest(item)}
+                                                            disabled={isDone}
+                                                        >
+                                                            Do
+                                                        </button>
+                                                    )}
+                                                    {isDone && (
+                                                        <span className={s.boardQuest_yellowText}>
+                                                            +{quantity} {rewardType.reward}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
                                         </React.Fragment>

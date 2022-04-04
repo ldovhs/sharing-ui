@@ -33,7 +33,7 @@ export const withQuestQuery =
     (Component) =>
     ({ ...props }) => {
         const { data, error, status, isLoading } = useQuery("queryQuest", () =>
-            axios.get("/api/user/quest/")
+            axios.get("/api/admin/quest/")
         );
 
         return <Component {...props} isLoading={isLoading} quests={data?.data} error={error} />;

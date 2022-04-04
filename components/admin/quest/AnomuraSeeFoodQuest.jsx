@@ -35,7 +35,7 @@ const AnomuraSeeFoodQuest = ({
     });
 
     const onSubmit = async (fields, { setStatus }) => {
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+        // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
         try {
             let res = await onUpsert(fields);
 
@@ -79,8 +79,8 @@ const AnomuraSeeFoodQuest = ({
                                         className={
                                             "form-control" +
                                             (errors.extendedQuestData &&
-                                            errors.extendedQuestData.discordChannel &&
-                                            touched.extendedQuestData.discordChannel
+                                            errors.extendedQuestData?.discordChannel &&
+                                            touched.extendedQuestData?.discordChannel
                                                 ? " is-invalid"
                                                 : "")
                                         }

@@ -142,21 +142,21 @@ const discordHelper = async (wallet, extendedQuestData) => {
     let discordChannel = extendedQuestData.discordChannel;
 
     let url = [
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/01.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/02.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/03.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/04.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/05.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/06.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/07.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/08.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/09.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/10.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/11.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/12.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/13.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/14.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/test/15.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/01.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/02.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/03.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/04.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/05.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/06.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/07.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/08.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/09.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/10.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/11.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/12.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/13.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/14.png`,
+        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/15.png`,
     ];
     let imageUrl = url[Math.floor(Math.random() * url.length)];
 

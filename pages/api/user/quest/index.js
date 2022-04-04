@@ -29,14 +29,19 @@ export default async function QuestQuery(req, res) {
 
                 console.log(session.user.address);
                 let sessionWallet = utils.getAddress(session.user.address);
-                let user = await prisma.whiteList.findFirst({
+                let findUserBySession = await prisma.whiteList.findFirst({
                     where: {
-                        AND: [{ wallet: sessionWallet }, { wallet: username }],
+                        wallet: sessionWallet,
                     },
                 });
-                if (!user) {
+                let findUserByWallet = await prisma.whiteList.findFirst({
+                    where: {
+                        wallet: username,
+                    },
+                });
+                if (!findUserBySession || !findUserByWallet) {
                     return res.status(200).json({
-                        message: "Not a valid user in db",
+                        message: "Not authenticated session or trying to do quest of someone else",
                         isError: true,
                     });
                 }

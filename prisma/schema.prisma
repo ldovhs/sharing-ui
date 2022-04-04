@@ -34,7 +34,7 @@ model PendingReward {
   user                WhiteList   @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
   rewardType          RewardType  @relation(fields: [rewardTypeId], references: [id])
 
-  @@unique([wallet, rewardTypeId, generatedURL])704023
+  @@unique([wallet, rewardTypeId, generatedURL])
 }
 
 model Reward {

@@ -29,7 +29,7 @@ export default async function ClaimRewardAPI(req, res) {
             try {
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
-                console.log(req.body);
+
                 console.log(`***** Checking if proper wallet ${wallet} is claiming the reward`);
                 if (session.user?.address.toLowerCase() === wallet) {
                     res.status(400).json({

@@ -10,8 +10,7 @@ function claimReward() {
     const [error, setError] = useState(null);
 
     const { data: session, status } = useSession({ required: false });
-    const { web3Error, SignOut } = useContext(Web3Context);
-    const isAuthenticating = status === "loading";
+    const { web3Error } = useContext(Web3Context);
 
     useEffect(() => {
         if (web3Error) {

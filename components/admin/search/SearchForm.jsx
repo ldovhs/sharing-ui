@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik, FieldArray, getIn } from "formik";
 import { object, array, string, number, ref } from "yup";
 import MultiSelect from "@components/admin/elements/MultiSelect";
 import axios from "axios";
+import { withRewardTypeQuery } from "shared/HOC/reward";
 
 const initialValues = {
     wallet: "",
@@ -23,13 +24,13 @@ const SearchInfoSchema = object().shape({
     ),
 });
 
-export default function SearchForm({ onFormSubmit }) {
-    const [rewardTypes, setRewardTypes] = useState([]);
+const SearchForm = ({ onFormSubmit, rewardTypes }) => {
+    const [rewardTypeItems, setRewardTypes] = useState(rewardTypes);
+
     useEffect(async () => {
-        const res = await axios.get("/api/admin/rewardType");
-        if (res) {
+        if (rewardTypes) {
             let rewards = [];
-            res.data.forEach((reward) => {
+            rewardTypes.forEach((reward) => {
                 rewards.push({
                     id: reward.id,
                     name: reward.reward,
@@ -37,7 +38,7 @@ export default function SearchForm({ onFormSubmit }) {
             });
             setRewardTypes(rewards);
         }
-    }, []);
+    }, [rewardTypes]);
     const validateQty = (rewards, index) => {
         let error = null;
 
@@ -98,7 +99,7 @@ export default function SearchForm({ onFormSubmit }) {
                                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3 flex items-center">
                                                 <label className="form-label mr-3">Rewards</label>
                                                 <MultiSelect
-                                                    items={rewardTypes}
+                                                    items={rewardTypeItems}
                                                     onSelectedItem={(item) => {
                                                         arrayHelpers.push({
                                                             type: item.name,
@@ -212,4 +213,6 @@ export default function SearchForm({ onFormSubmit }) {
             </Formik>
         </>
     );
-}
+};
+
+export default withRewardTypeQuery(SearchForm);

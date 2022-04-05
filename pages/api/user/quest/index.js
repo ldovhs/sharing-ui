@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import { utils } from "ethers";
 import Enums from "enums";
 
-/* non protected route*/
+/* user protected route*/
 export default async function QuestQuery(req, res) {
     const { method } = req;
     const session = await getSession({ req });
@@ -30,7 +30,6 @@ export default async function QuestQuery(req, res) {
                     });
                 }
 
-                console.log(session.user.address);
                 let sessionWallet = utils.getAddress(session.user.address);
                 let findUserBySession = await prisma.whiteList.findFirst({
                     where: {
@@ -48,7 +47,7 @@ export default async function QuestQuery(req, res) {
                         isError: true,
                     });
                 }
-                console.log(`** Get all quests **`);
+                console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await prisma.quest.findMany({
                     where: {
                         isEnabled: true,
@@ -57,7 +56,6 @@ export default async function QuestQuery(req, res) {
                         rewardType: true,
                     },
                 });
-                console.log(availableQuests);
 
                 console.log(`** Get quests done by this user **`);
                 let finishedQuest = await prisma.userQuest.findMany({
@@ -65,16 +63,17 @@ export default async function QuestQuery(req, res) {
                         wallet: sessionWallet,
                     },
                 });
-                console.log(finishedQuest);
 
-                availableQuests.forEach((aq) => {
-                    if (finishedQuest.some((q) => q.questId == aq.questId)) {
-                        console.log("Found quest done");
-                        aq.isDone = true;
-                    } else {
-                        aq.isDone = false;
-                    }
-                });
+                await Promise.all(
+                    availableQuests.map((aq) => {
+                        if (finishedQuest.some((q) => q.questId == aq.questId)) {
+                            aq.isDone = true;
+                            console.log("found something");
+                        } else {
+                            aq.isDone = false;
+                        }
+                    })
+                );
 
                 return res.status(200).json(availableQuests);
             } catch (err) {

@@ -10,16 +10,6 @@ export default async function submitIndividualQuest(req, res) {
     const { method } = req;
 
     switch (method) {
-        case "GET":
-            try {
-                throw new Error("Not implemented");
-
-                res.status(200).json(user);
-            } catch (err) {
-                console.log(err);
-                res.status(500).json({ err });
-            }
-            break;
         case "POST":
             const session = await getSession({ req });
             if (
@@ -52,7 +42,7 @@ export default async function submitIndividualQuest(req, res) {
                 }
 
                 let userQuest = await submitNewUserQuest(req.body);
-                console.log(userQuest);
+
                 let discordMsg = await discordHelper(userWallet, extendedQuestData);
 
                 if (!discordMsg) {

@@ -173,16 +173,6 @@ export function Web3Provider({ children }) {
             SubscribeProvider(provider);
         }
         try {
-            // SubscribeProvider(provider);
-            // const providerInstance = new ethers.providers.Web3Provider(provider);
-            // let addresses;
-            // if (provider.isMetaMask) {
-            //     console.log("Login using metamask ");
-            //     addresses = await providerInstance.send("eth_requestAccounts", []);
-            // } else {
-            //     console.log("Login using wallet connect ");
-            //     addresses = provider.accounts;
-            // }
             if (addresses.length === 0) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
@@ -192,7 +182,7 @@ export function Web3Provider({ children }) {
                     address: addresses[0],
                 },
             });
-            console.log(user);
+
             if (user.data?.isError === true) {
                 setWeb3Error(user.data?.message);
                 return;
@@ -207,12 +197,10 @@ export function Web3Provider({ children }) {
                     address,
                 }).then(({ ok, error }) => {
                     if (ok) {
-                        // console.log(ok);
                         return true;
                     } else {
                         console.log(error);
                         return false;
-                        // return error;
                     }
                 });
             }, 1000);
@@ -223,7 +211,6 @@ export function Web3Provider({ children }) {
 
     const SignOut = async () => {
         RemoveLocalStorageWalletConnect();
-
         signOut();
     };
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Enums from "enums";
-import { Modal, AdminLogin } from "/components/admin/ComponentIndex";
+import { Modal } from "/components/admin/ComponentIndex";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { EditQuest, AddQuest } from "../ComponentIndex";
-import { withQuestQuery } from "shared/HOC/quest";
+import { withAdminQuestQuery } from "shared/HOC/quest";
 
 const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
@@ -103,4 +103,4 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
     );
 };
 
-export default withQuestQuery(CurrentQuests);
+export default withAdminQuestQuery(CurrentQuests);

@@ -20,9 +20,6 @@ export default async function adminAPI(req, res) {
                 res.status(500).json({ err });
             }
             break;
-        case "POST":
-            throw new Error("Not implemented");
-            break;
         default:
             res.setHeader("Allow", ["GET", "PUT"]);
             res.status(405).end(`Method ${method} Not Allowed`);

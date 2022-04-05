@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import axios from "axios";
 import { utils } from "ethers";
-
+import { withRewardTypeQuery } from "shared/HOC/reward";
 const avatars = [
     "/img/sharing-ui/invite/ava1.png",
     "/img/sharing-ui/invite/ava2.png",
@@ -35,19 +35,24 @@ const RewardSchema = object().shape({
     quantity: number().required().min(1),
 });
 
-const AddNewReward = () => {
-    const [rewardTypes, setRewardTypes] = useState([]);
+const AddNewReward = ({ isFetchingRewardType, rewardTypes }) => {
+    // const [rewardTypes, setRewardTypes] = useState([]);
     const [avatar, setAvatar] = useState(null);
-    const generatedRef = React.createRef();
+    const generatedRef = useRef();
 
     useEffect(async () => {
-        const res = await axios.get("/api/admin/rewardType");
-        if (res) {
-            setRewardTypes(res.data);
-            let ava = avatars[Math.floor(Math.random() * avatars.length)];
-            setAvatar(ava);
-        }
+        // const res = await axios.get("/api/admin/rewardType");
+        // if (res) {
+        // setRewardTypes(res.data);
+        let ava = avatars[Math.floor(Math.random() * avatars.length)];
+        setAvatar(ava);
+        // }
     }, []);
+
+    useEffect(() => {
+        // print the ref to the console
+        console.log(generatedRef);
+    });
 
     return (
         <Formik
@@ -74,6 +79,7 @@ const AddNewReward = () => {
                     //let user = res.data.user.wallet;
 
                     resetForm();
+                    console.log(generatedRef);
                     generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${user}?specialcode=${res.data.generatedURL}`;
                 }
             }}
@@ -216,4 +222,4 @@ const AddNewReward = () => {
         </Formik>
     );
 };
-export default AddNewReward;
+export default withRewardTypeQuery(AddNewReward);

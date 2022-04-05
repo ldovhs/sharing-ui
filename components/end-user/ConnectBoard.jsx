@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useRouter } from "next/router";
 import s from "/sass/claim/claim.module.css";
-import axios from "axios";
 import { Web3Context } from "@context/Web3Context";
-import { useSession } from "next-auth/react";
-import { Modal, UserLogin, AdminLogin } from "@components/admin/ComponentIndex";
 import Enums from "enums";
 
 const util = require("util");
@@ -34,7 +30,10 @@ export default function ConnectBoard() {
             <div className={s.board_container}>
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
-                        {currentPrompt === CONNECT_WALLET && (
+                        {web3Error && (
+                            <>{web3Error}</>
+                        )}
+                        {currentPrompt === CONNECT_WALLET && !web3Error && (
                             <div ref={connectWalletRef}>
                                 <img
                                     className={s.board_title}
@@ -54,7 +53,7 @@ export default function ConnectBoard() {
                                 </button>
                             </div>
                         )}
-                        {currentPrompt === WALLET_AUTH && (
+                        {currentPrompt === WALLET_AUTH && !web3Error && (
                             <div className={`${s.open}`} ref={authWalletRef}>
                                 <div
                                     className={s.board_web3}

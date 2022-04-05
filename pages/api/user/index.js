@@ -15,10 +15,10 @@ export default async function whitelistAPI(req, res) {
                         wallet: { equals: address, mode: "insensitive" },
                     },
                 });
-
+                console.log(user);
                 if (!user) {
                     res.status(200).json({
-                        message: "Login user is not authenticatd to claim this reward",
+                        message: `Login user ${address} is not authenticatd to claim this reward`,
                         isError: true,
                     });
                     return;

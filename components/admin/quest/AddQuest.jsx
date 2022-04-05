@@ -1,7 +1,5 @@
 import Enums from "enums";
 import React, { useEffect, useState, useContext } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, array, string, number } from "yup";
 import axios from "axios";
 import {
     DiscordAuthQuest,
@@ -10,7 +8,9 @@ import {
     AnomuraSeeFoodQuest,
 } from "./index";
 
-const AddQuest = ({ closeModal }) => {
+import { withRewardTypeQuery } from "shared/HOC/reward";
+
+const AddQuest = ({ closeModal, rewardTypes }) => {
     const [questTypes, setQuestTypes] = useState([
         {
             id: 1,
@@ -31,14 +31,8 @@ const AddQuest = ({ closeModal }) => {
     ]);
 
     const [typeOfQuest, setTypeOfQuest] = useState();
-    const [rewardTypes, setRewardTypes] = useState([]);
 
-    useEffect(async () => {
-        const res = await axios.get("/api/admin/rewardType");
-        if (res) {
-            setRewardTypes(res.data);
-        }
-    }, []);
+    useEffect(async () => {}, []);
 
     const handleOnSelectChange = (e) => {
         setTypeOfQuest(e.target.value);
@@ -99,4 +93,4 @@ const AddQuest = ({ closeModal }) => {
     );
 };
 
-export default AddQuest;
+export default withRewardTypeQuery(AddQuest);

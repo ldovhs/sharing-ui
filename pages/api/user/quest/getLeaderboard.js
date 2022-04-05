@@ -23,25 +23,38 @@ export default async function getQuestLeaderBoard(req, res) {
                     },
                 });
 
-                if (questData) {
+                if (!questData) {
+                    return res.status(200).json({ isError: true, message: "Not a valid quest." });
+                }
+                if (questData.userQuests.length == 0) {
+                    return res.status(200).json(questData);
+                }
+
+                if (questData.userQuests.length > 0) {
                     let discordChannel =
                         questData.userQuests[0].extendedUserQuestData.discordChannel;
+
+                    let channelMessages = await axios.get(
+                        `https://discord.com/api/channels/${discordChannel}/messages`,
+
+                        {
+                            headers: {
+                                Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
 
                     let result = await Promise.all(
                         questData.userQuests.map(async (q) => {
                             let messageId = q.extendedUserQuestData.messageId;
-                            let userMessage = await axios.get(
-                                `https://discord.com/api/channels/${discordChannel}/messages/${messageId}`,
-
-                                {
-                                    headers: {
-                                        Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
-                                        "Content-Type": "application/json",
-                                    },
-                                }
+                            let messageIdInChannel = channelMessages.data.find(
+                                (m) => m.id == messageId
                             );
-                            if (userMessage.data.reactions) {
-                                userMessage.data.reactions.map((r) => {
+                            // console.log(messageIdInChannel);
+                            // console.log(12);
+                            if (messageIdInChannel.hasOwnProperty("reactions")) {
+                                messageIdInChannel.reactions.map((r) => {
                                     if (r.emoji.name === "🍓") {
                                         console.log(r);
                                         q.extendedUserQuestData.messageReactions = {
@@ -58,28 +71,16 @@ export default async function getQuestLeaderBoard(req, res) {
                                     count: 0,
                                 };
                             }
-
                             return q;
                         })
                     );
 
-                    // // (promise);
-                    // console.log(result[0].extendedUserQuestData);
-                    // console.log(result[1].extendedUserQuestData);
                     res.status(200).json(questData);
-                } else {
-                    return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
-                // console.log(questData);
-                // console.log(questData.userQuests);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });
             }
-            break;
-        case "POST":
-            throw new Error("Not implemented");
-
             break;
         default:
             res.setHeader("Allow", ["GET", "PUT"]);

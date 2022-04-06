@@ -68,7 +68,9 @@ export default function Leaderboard({ questData }) {
                                             <div className={s.boardQuest_list_content}>
                                                 <div>
                                                     {index + 1}.{" "}
-                                                    {user.discordUserDiscriminator || user.wallet}
+                                                    {user.discordUserDiscriminator !== ""
+                                                        ? user.discordUserDiscriminator
+                                                        : user.wallet}
                                                 </div>
                                                 {/* <div>place holder</div> */}
                                             </div>

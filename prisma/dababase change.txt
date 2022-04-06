@@ -23,3 +23,16 @@ SELECT pg_terminate_backend(9696)
 SELECT pg_terminate_backend(pg_stat_activity.procpid) --  
  FROM pg_stat_get_activity(NULL::integer) 
  WHERE datid=(SELECT oid from pg_database where datname = 'db name ');
+
+
+``` seeding ```
+dotenv -e .env.development -- node ./prisma/seed/whitelist.js
+
+
+
+``` baselining existing database
+dotenv -e .env.development -- npx prisma db pull
+dotenv -e .env.development -- npx prisma migrate dev --name initial-migration --create-only
+dotenv -e .env.development -- npx prisma migrate dev
+
+dotenv -e .env.production -- npx prisma migrate resolve --applied 20220406232532_initial_migration

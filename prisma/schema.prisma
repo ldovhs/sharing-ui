@@ -3,51 +3,49 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgres"
+  provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model WhiteList {
-  id                                 Int                   @id @default(autoincrement())
-  userId                             String                @unique @default(uuid())
-  wallet                             String                @unique
-  twitter                            String?               @default("")
-  discordId                          String?               @default("")
-  numberOfInvites                    Int                   @default(0)
-  rewards                            Reward[]      
-  pendingRewards                     PendingReward[]     
-  userQuest                          UserQuest[]     
-  createdAt                          DateTime              @default(now())
-  updatedAt                          DateTime              @updatedAt @default(now())
-  discordUserDiscriminator           String?               @default("")
+  id                       Int             @id @default(autoincrement())
+  wallet                   String          @unique
+  twitter                  String?         @default("")
+  userId                   String          @unique @default(uuid())
+  discordId                String?         @default("")
+  createdAt                DateTime        @default(now())
+  updatedAt                DateTime        @default(now()) @updatedAt
+  discordUserDiscriminator String?         @default("")
+  numberOfInvites          Int             @default(0)
+  pendingRewards           PendingReward[]
+  rewards                  Reward[]
+  userQuest                UserQuest[]
 }
 
 model PendingReward {
-  id                  Int         @id @default(autoincrement())
-  wallet              String      
-  rewardTypeId        Int
-  quantity            Int         @default(0)
-  generatedURL        String      @default(uuid())
-  isClaimed           Boolean     @default(false)
-  createdAt           DateTime    @default(now())
-
-  user                WhiteList   @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
-  rewardType          RewardType  @relation(fields: [rewardTypeId], references: [id])
+  id           Int        @id @default(autoincrement())
+  wallet       String
+  generatedURL String     @default(uuid())
+  isClaimed    Boolean    @default(false)
+  rewardTypeId Int
+  quantity     Int        @default(0)
+  createdAt    DateTime   @default(now())
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  user         WhiteList  @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
 
   @@unique([wallet, rewardTypeId, generatedURL])
 }
 
 model Reward {
-  id                Int           @id @default(autoincrement())
-  wallet            String        
-  rewardTypeId      Int
-  quantity          Int           @default(0)
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt @default(now())
-
-  user              WhiteList     @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
-  rewardType        RewardType    @relation(fields: [rewardTypeId], references: [id])
+  id           Int        @id @default(autoincrement())
+  rewardTypeId Int
+  wallet       String
+  quantity     Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  user         WhiteList  @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
 
   @@unique([wallet, rewardTypeId])
 }
@@ -55,45 +53,43 @@ model Reward {
 model RewardType {
   id             Int             @id @default(autoincrement())
   reward         String
-  rewards        Reward[]
   pendingRewards PendingReward[]
   quests         Quest[]
+  rewards        Reward[]
   userQuests     UserQuest[]
 }
 
 model UserQuest {
-  id                        Int                @id @default(autoincrement())
-  wallet                    String             
-  questId                   String             @default(uuid())
-  rewardedTypeId            Int?
-  rewardedQty               Int?
-  extendedUserQuestData     Json?
-  createdAt                 DateTime           @default(now())
+  id                    Int         @id @default(autoincrement())
+  wallet                String
+  questId               String      @default(uuid())
+  extendedUserQuestData Json?
+  createdAt             DateTime    @default(now())
+  rewardedQty           Int?
+  rewardedTypeId        Int?
+  quest                 Quest       @relation(fields: [questId], references: [questId])
+  rewardType            RewardType? @relation(fields: [rewardedTypeId], references: [id])
+  user                  WhiteList   @relation(fields: [wallet], references: [wallet])
 
-  user                      WhiteList          @relation(fields: [wallet], references: [wallet])
-  quest                     Quest              @relation(fields: [questId], references: [questId])
-  rewardType                RewardType?        @relation(fields: [rewardedTypeId], references: [id])
-  
   @@unique([wallet, questId])
 }
 
 model Quest {
-  id                    Int             @id @default(autoincrement())
-  type                  String        
-  description           String?         @default("")
-  text                  String        
-  completedText         String        
-  rewardTypeId          Int       
-  quantity              Int             @default(0)
-  isEnabled             Boolean         @default(true)
-  isRequired            Boolean         @default(false)
-  questId               String          @unique @default(uuid())
-
-  extendedQuestData     Json?   
-  userQuests            UserQuest[]   
-  createdAt             DateTime        @default(now())
-  updatedAt             DateTime        @updatedAt @default(now())
-  rewardType            RewardType      @relation(fields: [rewardTypeId], references: [id])
+  id                Int         @id @default(autoincrement())
+  type              String
+  text              String
+  completedText     String
+  rewardTypeId      Int
+  quantity          Int         @default(0)
+  isEnabled         Boolean     @default(true)
+  isRequired        Boolean     @default(false)
+  description       String?     @default("")
+  extendedQuestData Json?
+  questId           String      @unique @default(uuid())
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @default(now()) @updatedAt
+  rewardType        RewardType  @relation(fields: [rewardTypeId], references: [id])
+  userQuests        UserQuest[]
 }
 
 model Admin {
@@ -103,23 +99,22 @@ model Admin {
 }
 
 model Anomuras {
-  id         Int     @id @default(autoincrement())
-  owner      String
-  crabId     Int     @unique
-  background String
-  legs       String
-  shell      String
-  claws      String
-  body       String
-  image      String  @default("")
-  headpieces String? @default("")
-
+  id            Int      @id @default(autoincrement())
+  owner         String
+  crabId        Int      @unique
+  background    String
+  legs          String
+  shell         String
+  claws         String
+  body          String
+  image         String   @default("")
+  playersWallet String?
+  headpieces    String?  @default("")
   Players       Players? @relation(fields: [playersWallet], references: [wallet])
-  playersWallet String?    
 }
 
 model Players {
-  id            Int        @id @default(autoincrement())
   wallet        String     @unique
+  id            Int        @id @default(autoincrement())
   ownedAnomuras Anomuras[]
 }

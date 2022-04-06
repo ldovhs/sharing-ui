@@ -15,9 +15,6 @@ export default async function getQuestLeaderBoard(req, res) {
 
                 let questData = await prisma.quest.findUnique({
                     where: { questId },
-                    // select: {
-                    //     userQuests: true,
-                    // },
                     include: {
                         userQuests: {
                             include: {
@@ -57,8 +54,6 @@ export default async function getQuestLeaderBoard(req, res) {
                                 (m) => m.id == messageId
                             );
 
-                            // console.log(messageIdInChannel);
-                            // console.log(12);
                             if (messageIdInChannel.hasOwnProperty("reactions")) {
                                 messageIdInChannel.reactions.map((r) => {
                                     if (r.emoji.name === "🍓") {

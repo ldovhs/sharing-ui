@@ -11,7 +11,7 @@ export default function Leaderboard({ questData }) {
             setQuestRanking(questsNotRanked);
         }
     }, [questData]);
-
+    console.log(questData);
     const sortOnReactionCountAndCreateDateFirst = (a, b) => {
         if (
             a.extendedUserQuestData.messageReactions.count ===
@@ -68,7 +68,7 @@ export default function Leaderboard({ questData }) {
                                             <div className={s.boardQuest_list_content}>
                                                 <div>
                                                     {index + 1}.{" "}
-                                                    {user.discordUserDiscriminator !== ""
+                                                    {user.discordUserDiscriminator.trim().length > 0
                                                         ? user.discordUserDiscriminator
                                                         : user.wallet}
                                                 </div>

@@ -28,7 +28,6 @@ async function main() {
                 wallet: faker.finance.ethereumAddress(),
                 discordId: faker.internet.userName(),
                 twitter: faker.internet.userName(),
-                numberOfInvites: 0,
                 rewards: {
                     create: [
                         {

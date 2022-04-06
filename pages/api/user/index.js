@@ -59,7 +59,6 @@ export default async function whitelistAPI(req, res) {
                         wallet,
                         discordId: discord,
                         twitter,
-                        numberOfInvites: 0,
                     },
                 });
                 console.log(user);

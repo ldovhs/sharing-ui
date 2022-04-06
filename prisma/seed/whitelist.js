@@ -83,7 +83,6 @@ async function main() {
                 wallet: whitelistAddresses[i].wallet,
                 discordId: whitelistAddresses[i].discordId,
                 twitter: whitelistAddresses[i].twitter,
-                numberOfInvites: 0,
                 discordUserDiscriminator: whitelistAddresses[i].discordUserDiscriminator,
             },
         });

@@ -8,7 +8,6 @@ CREATE TABLE "WhiteList" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "discordUserDiscriminator" TEXT DEFAULT E'',
-    "numberOfInvites" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "WhiteList_pkey" PRIMARY KEY ("id")
 );

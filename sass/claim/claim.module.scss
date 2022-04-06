@@ -508,7 +508,6 @@ $text-font-size-large: 1.5rem;
             @include text();
             text-align: left;
         }
-    
         &_content {
             @include m.flex-master(column, null, null);
             width: 85%;
@@ -521,73 +520,29 @@ $text-font-size-large: 1.5rem;
             @include m.flex-master(null, center, center);
             flex: 10%;
             text-align: right;
-            & > span {
-            
-            }
-            & > button {
-
-            }
 
             @media (max-width: $bp-small-2) {  
                 @include m.flex-master(column, center, center);
                 row-gap: 0.5rem;
             }
         }
+/* same as ranking, except ranking has color style*/
+            &_containerRanking{
+                @include m.flex-master(row, space-between, null);
+                @include text();
+                text-align: left;
+            }
+            &_containerRanking:nth-child(1) {
+                color:#F19A46;
+            }
+            &_containerRanking:nth-child(2) {
+                color:#8ED5FB;
+            }
+            &_containerRanking:nth-child(3){
+                color:#B88AF5;
+            }
     }
 
-
-    // &_rewardContainer{
-    //     display: flex;
-    // }
-    // &_rewardText{
-    //   flex: 2 1 auto;
-    //   margin-left: 5%;
-    // }
-    // &_rewardButtons{
-    //     flex: 1 1 auto;
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: center;
-    //     margin-right: 5%;
-    // }
-    // &_rewardButton {
-    
-    //     margin-right: 5px;
-    //     width: 80px;
-    //     height: 35px;
-    //     position:relative;
-	// 	color: #FFFFFF!important;
-	// 	display:flex;
-	// 	justify-content: center;
-    //     & > img {
-    //         width: min(100%, 200px);
-    //     }
-    //     & > div {
-    //         position:absolute;
-    //         display: flex;
-    //         text-align: center;
-    //         align-items: center;
-    //         height: 80%;
-    //         & > span { 
-    //             font-family: Safety Goggles;
-    //         }
-    //     }
-    // }
-    // &_claimBtn {
-    //     position: absolute;
-    //     bottom: 10%;
-    //     width: clamp(300px, 60%, 80vh);
-    //     background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-    //     font-size: $heading-font-size-small;
-    
-    //     &:hover {
-    //         width: 60%;       
-    //     }
-    //     &:disabled {
-    //         background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
-    //         font-size: $heading-font-size-small -1 ;
-    //     }
-    // }
     z-index:3;
 }
 

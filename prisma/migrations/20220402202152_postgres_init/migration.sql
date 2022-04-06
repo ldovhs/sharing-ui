@@ -6,7 +6,7 @@
 
 */
 -- AlterTable
-ALTER TABLE "Quest" ADD COLUMN IF NOT EXIST "questId" TEXT NOT NULL;
+ALTER TABLE "Quest" ADD COLUMN "questId" TEXT NOT NULL;
 
 -- CreateTable
 CREATE TABLE "UserQuest" (

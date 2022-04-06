@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ErrorMessage, Field, Form, Formik, FieldArray, getIn } from "formik";
 import { object, array, string, number, ref } from "yup";
 import MultiSelect from "@components/admin/elements/MultiSelect";
-import axios from "axios";
 import { withRewardTypeQuery } from "shared/HOC/reward";
 
 const initialValues = {
@@ -186,17 +185,6 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                                         </React.Fragment>
                                                     );
                                                 })}
-                                            <div className="mt-3">
-                                                {/* <button
-                                                    type="button"
-                                                    className="btn btn-primary mr-2"
-                                                    onClick={() =>
-                                                        onAddAdditionalReward(arrayHelpers)
-                                                    }
-                                                >
-                                                    Add Additional Reward
-                                                </button> */}
-                                            </div>
                                         </>
                                     )}
                                 </FieldArray>

@@ -20,6 +20,15 @@ export default async function QuestQuery(req, res) {
                 let { username } = req.query;
 
                 console.log(`** If current session is a valid address in db **`);
+                console.log(`isAddress ${utils.isAddress(username)}`);
+                console.log(
+                    `is same as login session ${
+                        username.toLowerCase() === session.user.address.toLowerCase()
+                    }`
+                );
+
+                console.log(username.toLowerCase());
+                console.log(session.user.address.toLowerCase());
                 if (
                     username.toLowerCase() !== session.user.address.toLowerCase() ||
                     !utils.isAddress(username)

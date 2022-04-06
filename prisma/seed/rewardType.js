@@ -6,7 +6,7 @@ const rewardTypes = [
     { id: 2, reward: "Nude" },
     { id: 3, reward: "Bored Ape" },
     { id: 4, reward: "Mint List" },
-    { id: 9, reward: "Shell" },
+    { id: 9, reward: "$hell" },
 ];
 
 async function main() {
@@ -15,9 +15,9 @@ async function main() {
     for (let i = 0; i < rewardTypes.length; i++) {
         const user = await prisma.rewardType.upsert({
             where: { id: -1 },
-            update: { reward: rewardTypes[i] },
+            update: { reward: rewardTypes[i].reward },
             create: {
-                reward: rewardTypes[i],
+                reward: rewardTypes[i].reward,
             },
         });
 

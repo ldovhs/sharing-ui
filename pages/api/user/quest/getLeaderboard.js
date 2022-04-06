@@ -19,10 +19,14 @@ export default async function getQuestLeaderBoard(req, res) {
                     //     userQuests: true,
                     // },
                     include: {
-                        userQuests: true,
+                        userQuests: {
+                            include: {
+                                user: true,
+                            },
+                        },
                     },
                 });
-
+                console.log(questData);
                 if (!questData) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
@@ -48,9 +52,11 @@ export default async function getQuestLeaderBoard(req, res) {
                     let result = await Promise.all(
                         questData.userQuests.map(async (q) => {
                             let messageId = q.extendedUserQuestData.messageId;
+
                             let messageIdInChannel = channelMessages.data.find(
                                 (m) => m.id == messageId
                             );
+
                             // console.log(messageIdInChannel);
                             // console.log(12);
                             if (messageIdInChannel.hasOwnProperty("reactions")) {
@@ -71,6 +77,8 @@ export default async function getQuestLeaderBoard(req, res) {
                                     count: 0,
                                 };
                             }
+
+                            q.extendedUserQuestData.discordUser = q.user.discordId;
                             return q;
                         })
                     );

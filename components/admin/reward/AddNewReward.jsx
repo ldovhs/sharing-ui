@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
-import axios from "axios";
 import { utils } from "ethers";
-import { withRewardTypeQuery } from "shared/HOC/reward";
+import { withRewardTypeQuery, withPendingRewardSubmit } from "shared/HOC/reward";
 const avatars = [
     "/img/sharing-ui/invite/ava1.png",
     "/img/sharing-ui/invite/ava2.png",
@@ -35,24 +34,20 @@ const RewardSchema = object().shape({
     quantity: number().required().min(1),
 });
 
-const AddNewReward = ({ isFetchingRewardType, rewardTypes }) => {
-    // const [rewardTypes, setRewardTypes] = useState([]);
+const AddNewReward = ({
+    isFetchingRewardType,
+    rewardTypes,
+    isSubmitting,
+    onSubmit,
+    mutationError,
+}) => {
     const [avatar, setAvatar] = useState(null);
     const generatedRef = useRef();
 
     useEffect(async () => {
-        // const res = await axios.get("/api/admin/rewardType");
-        // if (res) {
-        // setRewardTypes(res.data);
         let ava = avatars[Math.floor(Math.random() * avatars.length)];
         setAvatar(ava);
-        // }
     }, []);
-
-    useEffect(() => {
-        // print the ref to the console
-        console.log(generatedRef);
-    });
 
     return (
         <Formik
@@ -61,25 +56,20 @@ const AddNewReward = ({ isFetchingRewardType, rewardTypes }) => {
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={async (fields, { setErrors, resetForm }) => {
-                alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+                // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
 
-                const res = await axios.post("/api/admin/pendingReward", fields);
+                const res = await onSubmit(fields);
                 if (res.data?.isError) {
                     generatedRef.current.value = "";
                     setErrors({
                         username: res.data?.message,
                     });
                 } else {
-                    // console.log(res.data);
                     let user =
                         res.data.user.discordId.trim().length > 0
                             ? res.data.user.discordId
                             : res.data.user.wallet;
-
-                    //let user = res.data.user.wallet;
-
                     resetForm();
-                    console.log(generatedRef);
                     generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${user}?specialcode=${res.data.generatedURL}`;
                 }
             }}
@@ -222,4 +212,6 @@ const AddNewReward = ({ isFetchingRewardType, rewardTypes }) => {
         </Formik>
     );
 };
-export default withRewardTypeQuery(AddNewReward);
+
+const firstHOC = withPendingRewardSubmit(AddNewReward);
+export default withRewardTypeQuery(firstHOC);

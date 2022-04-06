@@ -8,9 +8,8 @@ import { withAdminQuestQuery } from "shared/HOC/quest";
 
 const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
-
     const [isModalOpen, setModalOpen] = useState(false);
-    console.log(quests);
+
     return (
         <>
             <div className="card">
@@ -41,11 +40,10 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                                                 </span>
                                             </div>
                                         </div>
-                                        <button className=" btn btn-outline-primary">
-                                            <Link href={`${router.pathname}/?id=${item.id}`}>
-                                                Manage
-                                            </Link>
-                                        </button>
+
+                                        <Link href={`${router.pathname}/?id=${item.id}`}>
+                                            <button className=" btn btn-dark">Manage </button>
+                                        </Link>
                                     </div>
                                     {/* last row */}
                                     {index + 1 !== row.length && (

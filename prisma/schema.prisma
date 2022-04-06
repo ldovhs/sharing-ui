@@ -9,17 +9,18 @@ datasource db {
 }
 
 model WhiteList {
-  id                  Int                   @id @default(autoincrement())
-  userId              String                @unique @default(uuid())
-  wallet              String                @unique
-  twitter             String?               @default("")
-  discordId           String?               @default("")
-  numberOfInvites     Int                   @default(0)
-  rewards             Reward[]      
-  pendingRewards      PendingReward[]     
-  userQuest           UserQuest[]     
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt @default(now())
+  id                                 Int                   @id @default(autoincrement())
+  userId                             String                @unique @default(uuid())
+  wallet                             String                @unique
+  twitter                            String?               @default("")
+  discordId                          String?               @default("")
+  numberOfInvites                    Int                   @default(0)
+  rewards                            Reward[]      
+  pendingRewards                     PendingReward[]     
+  userQuest                          UserQuest[]     
+  createdAt                          DateTime              @default(now())
+  updatedAt                          DateTime              @updatedAt @default(now())
+  discordUserDiscriminator           String?               @default("")
 }
 
 model PendingReward {

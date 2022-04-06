@@ -207,7 +207,7 @@
   font-family: PFRondaSeven;
 }
 .board_web3:nth-child(1) {
-  border-bottom: 3px solid #1d547a;
+  border-bottom: 3px solid rgb(29, 84, 122);
 }
 
 .boardBig {
@@ -620,6 +620,9 @@
 .boardQuest_scrollableArea::-webkit-scrollbar {
   display: none;
 }
+.boardQuest_list {
+  /* same as ranking, except ranking has color style*/
+}
 .boardQuest_list_container {
   display: flex;
   flex-direction: row;
@@ -678,6 +681,49 @@
     align-items: center;
     row-gap: 0.5rem;
   }
+}
+.boardQuest_list_containerRanking {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: PFRondaSeven;
+  text-align: center;
+  font-size: 0.75rem;
+  text-align: left;
+}
+@media (min-width: 39.8em) {
+  .boardQuest_list_containerRanking {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardQuest_list_containerRanking {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardQuest_list_containerRanking {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardQuest_list_containerRanking {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardQuest_list_containerRanking {
+    font-size: 0.75rem;
+  }
+}
+.boardQuest_list_containerRanking:nth-child(1) {
+  color: #F19A46;
+}
+.boardQuest_list_containerRanking:nth-child(2) {
+  color: #8ED5FB;
+}
+.boardQuest_list_containerRanking:nth-child(3) {
+  color: #B88AF5;
 }
 
 .close {

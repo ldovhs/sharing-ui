@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number, ref } from "yup";
 import { utils } from "ethers";
-// import useAxiosPost from "../../../hooks/useAxiosPost";
 import { withUserUpsert } from "shared/HOC/user";
 
 const avatars = [

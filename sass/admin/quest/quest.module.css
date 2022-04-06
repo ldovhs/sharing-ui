@@ -1,7 +1,7 @@
 .questModal_card {
   position: relative;
   width: 100%;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
   margin: 10px;
   padding: 0px;
@@ -35,7 +35,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
   padding: 24px 16px;
 }
@@ -63,5 +63,5 @@
   width: 100%;
   font-size: 18px;
   margin: 0.333em 0px;
-  color: #a9a9bc;
+  color: rgb(169, 169, 188);
 }/*# sourceMappingURL=quest.module.css.map */

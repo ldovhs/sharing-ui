@@ -49,10 +49,6 @@ const AnomuraSeeFoodQuest = ({
         }
     };
 
-    if (quest) {
-        // console.log(quest);
-    }
-
     return (
         <Formik
             initialValues={initialValues}
@@ -67,7 +63,7 @@ const AnomuraSeeFoodQuest = ({
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
                         <small>Create an app submission</small>
                         <div className="row">
-                            {/* Follow Twitter Account */}
+                            {/* Discord channel for quest */}
                             <div className="col-xxl-12 col-xl-12 col-lg-12">
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                     <label className="form-label">

@@ -12252,7 +12252,7 @@ strong {
   color: rgba(255, 255, 255, 0.85);
 }
 .light .navigation .navbar ul > li > a:hover, .light .navigation .navbar ul > li > a:focus, .light .navigation .navbar ul > li > a.active, .light .navigation .navbar ul > li > a:active {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 .light .signin-btn .btn-primary {
   background: #fff;
@@ -12374,7 +12374,7 @@ strong {
 
 .dark-theme {
   background-color: #1F2D3D;
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme h1,
 .dark-theme .h1,
@@ -12419,22 +12419,22 @@ strong {
   background-color: #253649;
 }
 .dark-theme .dropdown-menu h4, .dark-theme .dropdown-menu .h4 {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .dropdown-menu p {
   color: #fff !important;
 }
 .dark-theme .dropdown-menu a {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .dropdown-menu a span {
-  color: #c0ccda !important;
+  color: rgb(192, 204, 218) !important;
 }
 .dark-theme .dropdown-menu a span i {
   color: #fff;
 }
 .dark-theme .border-top {
-  border-top: 1px solid #2c4056 !important;
+  border-top: 1px solid rgb(44, 64, 86) !important;
 }
 .dark-theme .notification .notify-bell i {
   color: #fff;
@@ -12443,15 +12443,15 @@ strong {
   color: #fff;
 }
 .dark-theme .profile_log .dropdown-menu .dropdown-item {
-  border-top: 1px solid #2c4056;
-  color: #c0ccda;
+  border-top: 1px solid rgb(44, 64, 86);
+  color: rgb(192, 204, 218);
 }
 .dark-theme .user-info span,
 .dark-theme .user-balance span {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .card {
-  border: 1px solid #2c4056 !important;
+  border: 1px solid rgb(44, 64, 86) !important;
   background: #253649;
 }
 .dark-theme .card .card-header .card-title {
@@ -12462,7 +12462,7 @@ strong {
 }
 .dark-theme .stat-widget {
   background: #253649;
-  border: 1px solid #2c4056;
+  border: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .top-creators-content .creator-widget {
   background: #253649;
@@ -12471,7 +12471,7 @@ strong {
   background: #253649;
 }
 .dark-theme .activity-content li {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .sidebar {
   background: #253649;
@@ -12495,7 +12495,7 @@ strong {
 }
 .dark-theme .welcome-profile .card-body ul li {
   padding: 15px 0px;
-  border-bottom: 1px solid #2c4056;
+  border-bottom: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .search {
   background: #253649;
@@ -12504,56 +12504,56 @@ strong {
   background: #253649;
 }
 .dark-theme .filter-nav a {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control,
 .dark-theme .form-select {
   background: #1F2D3D;
-  border-color: #2c4056;
-  color: #c0ccda;
+  border-color: rgb(44, 64, 86);
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control:-ms-input-placeholder,
 .dark-theme .form-select:-ms-input-placeholder {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control::-moz-placeholder, .dark-theme .form-select::-moz-placeholder {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control:-ms-input-placeholder, .dark-theme .form-select:-ms-input-placeholder {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control::placeholder,
 .dark-theme .form-select::placeholder {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-control:hover,
 .dark-theme .form-select:hover {
-  border-color: #2c4056;
-  color: #c0ccda;
+  border-color: rgb(44, 64, 86);
+  color: rgb(192, 204, 218);
   background: #1F2D3D;
 }
 .dark-theme .form-control:focus, .dark-theme .form-control:active, .dark-theme .form-control.active,
 .dark-theme .form-select:focus,
 .dark-theme .form-select:active,
 .dark-theme .form-select.active {
-  border-color: #2c4056;
-  color: #c0ccda;
+  border-color: rgb(44, 64, 86);
+  color: rgb(192, 204, 218);
   background: #1F2D3D;
 }
 .dark-theme .form-file-text {
   background-color: #1F2D3D;
-  border-color: #2c4056;
-  color: #c0ccda;
+  border-color: rgb(44, 64, 86);
+  color: rgb(192, 204, 218);
 }
 .dark-theme .form-file-button {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
   background: #008AFF;
   color: #fff;
 }
 .dark-theme .input-group-text {
   background: #253649;
   color: #fff;
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .btn-outline-primary,
 .dark-theme .btn-outline-secondary,
@@ -12565,25 +12565,25 @@ strong {
   color: #fff;
 }
 .dark-theme .balance-widget li {
-  border-bottom: 1px solid #2c4056;
+  border-bottom: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .table {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .table th {
   color: #fff;
-  border-bottom: 1px solid #2c4056 !important;
+  border-bottom: 1px solid rgb(44, 64, 86) !important;
 }
 .dark-theme .table td {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .table-striped > tbody > tr:nth-of-type(odd) {
   --bs-table-accent-bg: $dbg;
   background-color: #1F2D3D;
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .settings-menu a {
-  color: #c0ccda;
+  color: rgb(192, 204, 218);
 }
 .dark-theme .settings-menu a:hover, .dark-theme .settings-menu a:focus, .dark-theme .settings-menu a:active, .dark-theme .settings-menu a.active {
   color: #fff;
@@ -12592,7 +12592,7 @@ strong {
   background-color: #253649;
 }
 .dark-theme .modal-content .modal-header {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .modal-content .modal-header .btn-close {
   color: #fff;
@@ -12601,25 +12601,25 @@ strong {
   background: #fff;
 }
 .dark-theme .chart-stat {
-  border-color: #2c4056;
+  border-color: rgb(44, 64, 86);
 }
 .dark-theme .top-collection-content {
-  border: 1px solid #2c4056;
+  border: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .front .page-title {
   background: #1C2836;
 }
 .dark-theme .filter-sidebar-content h5, .dark-theme .filter-sidebar-content .h5 {
-  border-bottom: 1px solid #2c4056;
+  border-bottom: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .form-check-input {
   background-color: #253649;
 }
 .dark-theme .profile-page .settings-menu {
-  border-bottom: 1px solid #2c4056;
+  border-bottom: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .all-notification a {
-  border-bottom: 1px solid #2c4056;
+  border-bottom: 1px solid rgb(44, 64, 86);
 }
 .dark-theme .create-sell-content {
   background: #253649;

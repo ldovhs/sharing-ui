@@ -22,7 +22,6 @@ const AdminLogin = ({ closeModal }) => {
             setIsMobile(false);
         }
         const ethereum = window.ethereum;
-        // console.log(ethereum);
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
     }, []);
 

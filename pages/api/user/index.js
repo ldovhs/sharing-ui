@@ -62,7 +62,7 @@ export default async function whitelistAPI(req, res) {
                         numberOfInvites: 0,
                     },
                 });
-
+                console.log(user);
                 return res.status(200).json(user);
             } catch (error) {
                 return res.status(200).json({ isError: true, message: error.message });

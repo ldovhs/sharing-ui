@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import Enums from "enums";
+import { withRewardTypeQuery } from "shared/HOC/reward";
 import {
     DiscordAuthQuest,
     TwitterAuthQuest,
     TwitterFollowQuest,
     AnomuraSeeFoodQuest,
 } from "./index";
-import Enums from "enums";
 
-const EditQuest = ({ quest, closeModal }) => {
-    const [rewardTypes, setRewardTypes] = useState([]);
-    useEffect(async () => {
-        const res = await axios.get("/api/admin/rewardType");
-        if (res) {
-            setRewardTypes(res.data);
-        }
-    }, []);
-
+const EditQuest = ({ quest, closeModal, rewardTypes }) => {
     return (
         <div className="row d-flex ">
             <div className="col-xxl-12">
@@ -60,4 +52,4 @@ const EditQuest = ({ quest, closeModal }) => {
     );
 };
 
-export default EditQuest;
+export default withRewardTypeQuery(EditQuest);

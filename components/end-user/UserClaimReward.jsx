@@ -1,43 +1,38 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useRouter } from "next/router";
+
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import axios from "axios";
 
-export default function UserClaimReward({ session }) {
-    const router = useRouter();
-    const { username, specialcode } = router.query;
-    const [claimableReward, setClaimableReward] = useState();
+import { withPendingRewardQuery } from "shared/HOC/reward";
+
+const UserClaimReward = ({ session, data }) => {
+    // const [claimableReward, setClaimableReward] = useState(data);
     const [error, setError] = useState(null);
     const [showTask, setShowTask] = useState(true);
     const { web3Error, SignOut } = useContext(Web3Context);
-
+    console.log(data);
     useEffect(async () => {
-        if (!router.isReady) return;
-
-        const res = await axios.get("/api/admin/pendingReward", {
-            params: {
-                username,
-                generatedURL: specialcode,
-            },
-        });
-
+        if (data?.isError) {
+            setError(data?.isError);
+        }
         if (
             session &&
-            (res.data.isError ||
-                res.data.pendingReward.wallet.toLowerCase() !==
-                    session?.user?.address?.toLowerCase())
+            !data?.isError &&
+            data?.pendingReward?.wallet &&
+            data?.pendingReward?.wallet.toLowerCase() !== session?.user?.address?.toLowerCase()
         ) {
+            console.log(data?.pendingReward.wallet.toLowerCase());
+            console.log(session?.user?.address?.toLowerCase());
             setError(
                 `Your login account ${session?.user?.address?.toLowerCase()} does not have this reward`
             );
-        } else {
-            setClaimableReward(res.data.pendingReward);
         }
-    }, [router.isReady]);
+    }, []);
 
     const onClaim = async () => {
-        const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } = claimableReward;
+        const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
+            data.pendingReward;
 
         const res = await axios.post("/api/admin/claimReward", {
             generatedURL,
@@ -68,12 +63,12 @@ export default function UserClaimReward({ session }) {
         <div className={s.boardQuest}>
             <div className={s.boardQuest_container}>
                 <div className={s.boardQuest_wrapper}>
-                    {claimableReward && !error && (
+                    {data?.pendingReward && !error && (
                         <>
                             <div className={s.boardQuest_title}>
                                 <div>
-                                    You won {claimableReward.rewardTypeId}{" "}
-                                    {claimableReward.rewardType.reward}
+                                    You won {data?.pendingReward.rewardTypeId}{" "}
+                                    {data?.pendingReward.rewardType.reward}
                                 </div>
                             </div>
 
@@ -123,9 +118,9 @@ export default function UserClaimReward({ session }) {
                                 <button
                                     className={s.boardQuest_orangeBtn}
                                     onClick={onClaim}
-                                    disabled={claimableReward?.isClaimed}
+                                    disabled={data?.pendingReward?.isClaimed}
                                 >
-                                    {!claimableReward?.isClaimed ? "Claim" : "Already Claimed"}
+                                    {!data?.pendingReward?.isClaimed ? "Claim" : "Already Claimed"}
                                 </button>
                             </div>
                         </>
@@ -143,8 +138,8 @@ export default function UserClaimReward({ session }) {
             </div>
         </div>
     );
-}
-
+};
+export default withPendingRewardQuery(UserClaimReward);
 //  return (
 //      <div className={s.boardBig}>
 //          <div className={s.boardBig_contentContainer}>

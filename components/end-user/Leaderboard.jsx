@@ -3,9 +3,32 @@ import Enums from "enums";
 import s from "/sass/claim/claim.module.css";
 
 export default function Leaderboard({ questData }) {
+    const [questsRanking, setQuestRanking] = useState([]);
     useEffect(async () => {
-        console.log(questData);
+        if (questData?.userQuests.length > 0) {
+            let questsNotRanked = [...questData.userQuests];
+            questsNotRanked.sort(sortOnReactionCountAndCreateDateFirst);
+            setQuestRanking(questsNotRanked);
+        }
     }, [questData]);
+
+    const sortOnReactionCountAndCreateDateFirst = (a, b) => {
+        if (
+            a.extendedUserQuestData.messageReactions.count ===
+            b.extendedUserQuestData.messageReactions.count
+        ) {
+            console.log(a.createdAt);
+            console.log(b.createdAt);
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        } else {
+            console.log(a.extendedUserQuestData.messageReactions.count);
+            console.log(b.extendedUserQuestData.messageReactions.count);
+            return (
+                b.extendedUserQuestData.messageReactions.count -
+                a.extendedUserQuestData.messageReactions.count
+            );
+        }
+    };
 
     return (
         <div className={s.boardQuest}>
@@ -30,27 +53,26 @@ export default function Leaderboard({ questData }) {
                                 <div className="text-center">Not a valid quest page.</div>
                             ))}
                         {questData &&
-                            questData?.userQuests?.map((item, index, row) => {
+                            // questData?.userQuests?.map((item, index, row) => {
+                            questsRanking.map((item, index, row) => {
                                 const {
                                     wallet,
                                     questId,
+                                    user,
                                     extendedUserQuestData: { messageReactions },
                                 } = item;
-
+                                console.log(user);
                                 return (
                                     <React.Fragment key={index}>
-                                        <div className={s.boardQuest_list_container}>
+                                        <div className={s.boardQuest_list_containerRanking}>
                                             <div className={s.boardQuest_list_content}>
-                                                <div>{wallet}</div>
+                                                <div>
+                                                    {index + 1}.{" "}
+                                                    {user.discordUserDiscriminator || user.wallet}
+                                                </div>
                                                 {/* <div>place holder</div> */}
                                             </div>
                                             <div className={s.boardQuest_list_result}>
-                                                {/* <button
-                                                    className={s.boardQuest_pinkBtn}
-                                                    onClick={() => DoQuest(item)}
-                                                >
-                                                    Do
-                                                </button> */}
                                                 {messageReactions.count}
                                             </div>
                                         </div>
@@ -58,12 +80,6 @@ export default function Leaderboard({ questData }) {
                                 );
                             })}
                     </div>
-                    {/* <div className={s.boardQuest_footer}>
-                        <span className={s.boardQuest_footer_line} />
-                        <button className={s.boardQuest_yellowText} onClick={() => SignOut()}>
-                            Disconnect
-                        </button>
-                    </div> */}
                 </div>
             </div>
         </div>

@@ -13,7 +13,6 @@ function randomIntFromInterval(min, max) {
 async function main() {
     await prisma.reward.deleteMany();
     await prisma.whiteList.deleteMany();
-    console.log("Seeding prisma db");
 
     for (let i = 1; i <= 100; i++) {
         let rewardIndex = randomIntFromInterval(0, 3);

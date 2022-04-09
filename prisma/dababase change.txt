@@ -31,8 +31,10 @@ dotenv -e .env.development -- node ./prisma/seed/admin.js
 dotenv -e .env.development -- node ./prisma/seed/rewardType.js
 
 ``` baselining existing database
+dotenv -e .env.production -- npx prisma introspect
 dotenv -e .env.development -- npx prisma db pull
 dotenv -e .env.development -- npx prisma migrate dev --name initial-migration --create-only
 dotenv -e .env.development -- npx prisma migrate dev
 
 dotenv -e .env.production -- npx prisma migrate resolve --applied 20220406232532_initial_migration
+dotenv -e .env.production -- npx prisma migrate deploy

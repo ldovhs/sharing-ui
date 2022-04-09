@@ -3,8 +3,7 @@ import { getSession } from "next-auth/react";
 import axios from "axios";
 import Enums from "enums";
 
-const { DISCORD_BOT_ID, DISCORD_BOT_TOKEN, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } =
-    process.env;
+const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } = process.env;
 
 /* api/claimReward */
 export default async function ClaimRewardAPI(req, res) {
@@ -113,51 +112,47 @@ export default async function ClaimRewardAPI(req, res) {
                 });
 
                 if (user && user.discordId.length > 0) {
-                    let claimedRewardUser;
-
                     if (claimedReward.user.discordId.trim().length > 0) {
-                        claimedRewardUser = `<@${claimedReward.user.discordId.trim()}>`;
+                        claimedReward.claimedUser = `<@${claimedReward.user.discordId.trim()}>`;
                     } else {
-                        claimedRewardUser = claimedReward.user.wallet;
+                        claimedReward.claimedUser = claimedReward.user.wallet;
                     }
-                    let imageUrl;
+
                     switch (claimedReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.gif`;
                             break;
                         default:
-                            imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
                             break;
                     }
 
-                    let discordPost = await axios.post(
-                        `https://discord.com/api/channels/${DISCORD_REWARD_CHANNEL}/messages`,
-                        {
-                            content: `** *${claimedRewardUser}* has claimed their free ${claimedReward.rewardType.reward}** `,
-                            embeds: [
-                                {
-                                    image: {
-                                        url: imageUrl,
-                                    },
-                                },
-                            ],
-                        },
-                        {
-                            headers: {
-                                Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
+                    let discordPost = await axios
+                        .post(
+                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/claimedReward`,
+
+                            {
+                                claimedReward,
+                            }
+                            // { authorization
+                            //     headers: {
+                            //         Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                            //         "Content-Type": "application/json",
+                            //     },
+                            // }
+                        )
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 }
 
                 res.status(200).json(pendingReward);

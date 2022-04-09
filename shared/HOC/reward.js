@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 const REWARD_TYPE_QUERY = "/api/admin/rewardType";
 const PENDING_REWARD_SUBMIT = "/api/admin/pendingReward";
 const PENDING_REWARD_QUERY = "/api/admin/pendingReward";
+const CLAIM_REWARD_SUBMIT = "/api/admin/claimReward";
 
 export const withRewardTypeQuery =
     (Component) =>
@@ -46,7 +47,7 @@ export const withPendingRewardSubmit =
         );
     };
 
-export const withPendingRewardQuery =
+export const withClaimableRewardQuery =
     (Component) =>
     ({ ...props }) => {
         const router = useRouter();
@@ -64,8 +65,37 @@ export const withPendingRewardQuery =
             <Component
                 {...props}
                 isFetchingRewardType={isLoading}
-                data={data?.data}
+                reward={data?.data}
                 queryError={error}
+            />
+        );
+    };
+
+export const withClaimRewardSubmit =
+    (Component) =>
+    ({ ...props }) => {
+        const queryClient = useQueryClient();
+        const { data, error, isError, isLoading, isSuccess, mutateAsync } = useMutation(
+            "claimRewardSubmit",
+            (claimableReward) => axios.post(CLAIM_REWARD_SUBMIT, claimableReward),
+            {
+                onSuccess: () => {
+                    queryClient.invalidateQueries("pendingRewardQuery"); // query the old pending, should have pendingReward.isClaimed = true
+                },
+            }
+        );
+
+        const handleOnSubmit = async (claimableReward) => {
+            return await mutateAsync(claimableReward);
+        };
+
+        return (
+            <Component
+                {...props}
+                isSubmitting={isLoading}
+                submittedReward={data?.data}
+                mutationError={error}
+                onSubmitReward={(claimableReward) => handleOnSubmit(claimableReward)}
             />
         );
     };

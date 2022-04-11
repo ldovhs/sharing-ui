@@ -1,0 +1,13 @@
+name: test cron
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: update reactions cron job
+        run: |
+          curl --request -d '{"questId":"a1bde11d-6557-431f-9b16-1e3c4155cbc9"}' -H "Content-Type: application/json" -X POST \
+          --url 'https://aedi-bot.herokuapp.com/api/v1/channels/947009220262363136/updateMessageReactions' \
+          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'

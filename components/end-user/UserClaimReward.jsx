@@ -11,18 +11,8 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
     const { SignOut } = useContext(Web3Context);
 
     useEffect(async () => {
-        if (
-            session &&
-            !reward?.isError &&
-            reward?.pendingReward?.wallet &&
-            reward?.pendingReward?.wallet.toLowerCase() !== session?.user?.address?.toLowerCase()
-        ) {
-            setError(
-                `Your login account ${session?.user?.address?.toLowerCase()} does not own this reward`
-            );
-        }
-        if (reward?.isError) {
-            setError(reward?.isError);
+        if (session && reward?.isError) {
+            setError(reward?.message);
         }
     }, [reward]);
 

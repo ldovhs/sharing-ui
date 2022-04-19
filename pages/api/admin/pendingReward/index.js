@@ -113,27 +113,6 @@ export default async function PendingRewardAPI(req, res) {
                 console.log(`** Pending Reward: Create reward for user wallet: ${wallet} **`);
                 let pendingReward = await createPendingReward(rewardTypeId, quantity, user.wallet);
 
-                // let pendingReward = await prisma.pendingReward.create({
-                //     data: {
-                //         //wallet,
-                //         quantity,
-                //         isClaimed: false,
-                //         rewardType: {
-                //             connect: {
-                //                 id: parseInt(rewardTypeId),
-                //             },
-                //         },
-                //         user: {
-                //             connect: {
-                //                 wallet: user.wallet,
-                //             },
-                //         },
-                //     },
-                //     include: {
-                //         rewardType: true,
-                //         user: true,
-                //     },
-                // });
                 if (!pendingReward) {
                     return res.status(422).json({
                         isError: true,
@@ -160,8 +139,8 @@ export default async function PendingRewardAPI(req, res) {
                             break;
                     }
 
-                    if (pendingReward.user.discordId != null) {
-                        pendingReward.receivingUser = `<@${pendingReward.user.discordId.trim()}>`;
+                    if (user.discordId != null && user.discordId.trim().length > 0) {
+                        pendingReward.receivingUser = `<@${user.discordId.trim()}>`;
                     } else {
                         pendingReward.receivingUser = pendingReward.user.wallet;
                     }

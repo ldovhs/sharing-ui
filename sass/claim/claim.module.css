@@ -575,6 +575,7 @@
   text-align: center;
   font-size: 0.75rem;
   text-align: left;
+  margin-left: 2px;
 }
 @media (min-width: 39.8em) {
   .boardQuest_list_container {

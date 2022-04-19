@@ -439,6 +439,7 @@ $text-font-size-large: 1.5rem;
             @include m.flex-master(row, space-between, null);
             @include text();
             text-align: left;
+            margin-left:2px;
         }
         &_content {
             @include m.flex-master(column, null, null);

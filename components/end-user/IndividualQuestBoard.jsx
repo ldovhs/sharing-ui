@@ -82,13 +82,12 @@ const IndividualQuestBoard = ({
 
                 <div className={s.boardQuest_wrapper}>
                     <div className={s.boardQuest_title}>
-                        {" "}
-                        {currentQuests !== null &&
+                        {/* {currentQuests !== null &&
                         currentQuests[0].user.discordUserDiscriminator !== null &&
                         currentQuests[0].user.discordUserDiscriminator.length > 0
                             ? currentQuests[0].user.discordUserDiscriminator
-                            : "Individual"}{" "}
-                        Quests
+                            : "Individual"}{" "} */}
+                        Individual Quests
                     </div>
 
                     <div className={s.boardQuest_scrollableArea}>

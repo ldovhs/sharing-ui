@@ -5,7 +5,8 @@ import axios from "axios";
 import { isAdmin } from "repositories/session-auth";
 import { createPendingReward, searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } = process.env;
+const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
+    process.env;
 
 export default async function PendingRewardAPI(req, res) {
     const { method } = req;

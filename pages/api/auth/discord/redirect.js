@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 import { utils } from "ethers";
 import Enums from "enums";
 import { getWhitelistByWallet } from "repositories/whitelist";
+import { isWhitelistUser } from "repositories/session-auth";
 
 const TOKEN_DISCORD_AUTH_URL = "https://discord.com/api/oauth2/token";
 const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
@@ -20,8 +21,9 @@ export default async function discordRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
+                let lookupUser = await isWhitelistUser(session);
 
-                if (!session || !utils.isAddress(session.user.address)) {
+                if (!session || !utils.isAddress(lookupUser.wallet)) {
                     throw new Error("Unauthenticated user");
                 }
 

@@ -21,17 +21,6 @@ export default async function submitIndividualQuest(req, res) {
                 });
             }
 
-            if (
-                !session ||
-                !session.user ||
-                session.user.address.toLowerCase() !== userWallet.toLowerCase()
-            ) {
-                return res.status(400).json({
-                    message: "Not authenticated to submit a quest",
-                    isError: true,
-                });
-            }
-
             try {
                 const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
 

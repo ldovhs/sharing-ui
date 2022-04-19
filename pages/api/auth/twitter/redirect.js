@@ -4,6 +4,7 @@ import url from "url";
 import { getSession } from "next-auth/react";
 import { utils } from "ethers";
 import Enums from "enums";
+import { isWhitelistUser } from "repositories/session-auth";
 
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
@@ -19,8 +20,9 @@ export default async function twitterRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
+                let lookupUser = await isWhitelistUser(session);
 
-                if (!session || !utils.isAddress(session.user.address)) {
+                if (!session || !utils.isAddress(lookupUser.wallet)) {
                     throw new Error("Unauthenticated user");
                 }
 

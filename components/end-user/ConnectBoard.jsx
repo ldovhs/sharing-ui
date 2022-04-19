@@ -143,9 +143,14 @@ export default function ConnectBoard() {
 
                         {currentPrompt === AUTHENTICATING && !web3Error && (
                             <div
-                                className={`${s.open} flex justify-content-center align-items-center h2 text-white`}
+                                className={`${s.open} flex justify-content-center align-items-center h3 text-white relative ml-2`}
                             >
-                                Awaiting signin...
+                                <img
+                                    src="/img/sharing-ui/clamsparkle.gif"
+                                    alt="Authenticating"
+                                    className={s.board_loadingImg}
+                                />
+                                <div className={s.board_loadingText}>Awaiting signin...</div>
                             </div>
                         )}
                     </div>

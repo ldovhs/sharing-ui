@@ -25,3 +25,20 @@ export const withUserUpsert =
             />
         );
     };
+
+export const withCurrentUserQuery =
+    (Component) =>
+    ({ ...props }) => {
+        const { data, status, isLoading, error } = useQuery("currentUser", () =>
+            axios.get("/api/user/current")
+        );
+
+        return (
+            <Component
+                {...props}
+                isFetchingUser={isLoading}
+                currentUser={data?.data}
+                queryError={error}
+            />
+        );
+    };

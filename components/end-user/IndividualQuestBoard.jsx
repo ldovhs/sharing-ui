@@ -4,13 +4,16 @@ import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import { withUserRewardQuery } from "@shared/HOC/reward";
+import { withCurrentUserQuery } from "@shared/HOC/user";
 
 const IndividualQuestBoard = ({
     session,
     isFetchingUserQuests,
     isFetchingUserRewards,
+    isFetchingUser,
     userQuests,
     userRewards,
+    currentUser,
     queryError,
     onSubmit,
     isSubmitting,
@@ -23,7 +26,6 @@ const IndividualQuestBoard = ({
     useEffect(async () => {
         if (userQuests && userRewards) {
             userQuests.sort(isNotDoneFirst);
-            console.log(userQuests);
             let sum = userRewards
                 .map((r) => {
                     if (r.rewardType.reward === "Shell" || r.rewardType.reward === "$hell") {
@@ -33,7 +35,6 @@ const IndividualQuestBoard = ({
                     }
                 })
                 .reduce((prev, curr) => prev + curr, 0);
-
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
         }
@@ -82,24 +83,32 @@ const IndividualQuestBoard = ({
 
                 <div className={s.boardQuest_wrapper}>
                     <div className={s.boardQuest_title}>
-                        {/* {currentQuests !== null &&
-                        currentQuests[0].user.discordUserDiscriminator !== null &&
-                        currentQuests[0].user.discordUserDiscriminator.length > 0
-                            ? currentQuests[0].user.discordUserDiscriminator
-                            : "Individual"}{" "} */}
-                        Individual Quests
+                        {currentUser !== null &&
+                        currentUser?.discordUserDiscriminator !== null &&
+                        currentUser?.discordUserDiscriminator?.length > 0
+                            ? currentUser?.discordUserDiscriminator
+                            : "Individual"}{" "}
+                        Quests
                     </div>
 
                     <div className={s.boardQuest_scrollableArea}>
+                        {/* Is Loading */}
+                        {(isFetchingUserQuests ||
+                            isSubmitting ||
+                            isFetchingUserRewards ||
+                            isFetchingUser) && (
+                            <div className={s.boardQuest_loading}>
+                                <img src="/img/sharing-ui/clamsparkle.gif" alt="Loading data" />
+                                {/* <div>Fetching data...</div> */}
+                            </div>
+                        )}
                         {/*  Render error message */}
                         {currentQuests?.isError && <div>{currentQuests?.message}</div>}
-
-                        {/* Is Loading */}
-                        {(isFetchingUserQuests || isSubmitting) && <div>Doing Octopus work!!!</div>}
 
                         {/*  Render individual quest board */}
                         {!isFetchingUserQuests &&
                             !isSubmitting &&
+                            !isFetchingUserRewards & !isFetchingUser &&
                             !currentQuests?.isError &&
                             currentQuests?.length > 0 &&
                             currentQuests?.map((item, index, row) => {
@@ -133,12 +142,6 @@ const IndividualQuestBoard = ({
                                                     {type.name === Enums.FOLLOW_INSTAGRAM && (
                                                         <span className="text-red-400">
                                                             {` @${extendedQuestData.followAccount}`}{" "}
-                                                        </span>
-                                                    )}
-
-                                                    {type.name === Enums.TWITTER_RETWEET && (
-                                                        <span className="text-teal-400">
-                                                            {` @${extendedQuestData.tweetId}`}{" "}
                                                         </span>
                                                     )}
                                                 </div>
@@ -238,4 +241,5 @@ function isNotDoneFirst(a, b) {
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
 const secondHOC = withUserQuestQuery(firstHOC);
-export default withUserRewardQuery(secondHOC);
+const thirdHOC = withCurrentUserQuery(secondHOC);
+export default withUserRewardQuery(thirdHOC);

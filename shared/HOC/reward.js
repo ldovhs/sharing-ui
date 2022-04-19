@@ -65,7 +65,7 @@ export const withClaimableRewardQuery =
         return (
             <Component
                 {...props}
-                isFetchingRewardType={isLoading}
+                isFetchingReward={isLoading}
                 reward={data?.data}
                 queryError={error}
             />
@@ -93,7 +93,7 @@ export const withClaimRewardSubmit =
         return (
             <Component
                 {...props}
-                isSubmitting={isLoading}
+                isSubmittingReward={isLoading}
                 submittedReward={data?.data}
                 mutationError={error}
                 onSubmitReward={(claimableReward) => handleOnSubmit(claimableReward)}

@@ -45,7 +45,6 @@ export default async function QuestQuery(req, res) {
                         if (relatedQuest) {
                             aq.isDone = true;
                             aq.quantity = relatedQuest.rewardedQty;
-                            aq.user = relatedQuest.user;
                         } else {
                             aq.isDone = false;
                         }

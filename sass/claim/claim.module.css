@@ -74,7 +74,7 @@
   }
 }
 .board_content {
-  margin-top: 32%;
+  margin-top: 31%;
   width: 100%;
   height: 60%;
 }
@@ -85,6 +85,23 @@
   align-items: center;
   width: 100%;
   height: 100%;
+}
+.board_loadingImg {
+  width: 35%;
+}
+@media (min-width: 50em) {
+  .board_loadingImg {
+    width: 25%;
+  }
+}
+.board_loadingText {
+  font-size: 0.75rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 46.8em) {
+  .board_loadingText {
+    font-size: 1.125rem;
+  }
 }
 .board_title {
   width: clamp(100px, 70%, 75vh);
@@ -568,6 +585,25 @@
 }
 .boardQuest_scrollableArea::-webkit-scrollbar {
   display: none;
+}
+.boardQuest_loading {
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.boardQuest_loading > img {
+  display: block;
+  width: 40%;
+  height: auto;
+}
+.boardQuest_loading > div {
+  position: absolute;
+  bottom: 2rem;
 }
 .boardQuest_list {
   /* same as above, except ranking has color style*/

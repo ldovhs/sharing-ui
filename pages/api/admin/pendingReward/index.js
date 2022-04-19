@@ -22,7 +22,7 @@ export default async function PendingRewardAPI(req, res) {
 
                 let walletSession = await isWhitelistUser(session);
 
-                console.log(`***** Finding user wallet for pending reward, username: ${username}`);
+                console.log(`** Finding user wallet for pending reward, username: ${username} **`);
                 let user = await prisma.whiteList.findFirst({
                     where: {
                         OR: [
@@ -38,6 +38,9 @@ export default async function PendingRewardAPI(req, res) {
                             {
                                 discordUserDiscriminator: username,
                             },
+                            {
+                                twitterUserName: username,
+                            },
                         ],
                     },
                 });
@@ -48,7 +51,7 @@ export default async function PendingRewardAPI(req, res) {
                         isError: true,
                     });
                 }
-                // console.log(user);
+
                 /* search for pending reward from the wallet info */
                 let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
                     generatedURL,

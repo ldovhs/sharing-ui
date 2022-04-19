@@ -56,10 +56,8 @@ const AddNewReward = ({
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={async (fields, { setErrors, resetForm }) => {
-                // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
-
                 const res = await onSubmit(fields);
-                console.log(res);
+
                 if (res.data?.isError) {
                     generatedRef.current.value = "";
                     setErrors({

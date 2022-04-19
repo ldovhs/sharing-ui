@@ -134,7 +134,7 @@ $text-font-size-large: 1.5rem;
     }
 
     &_content {
-        margin-top:32%;  
+        margin-top:31%;  
         width: 100%;
         height: 60%;
         
@@ -143,6 +143,21 @@ $text-font-size-large: 1.5rem;
             width: 100%;
             height: 100%;     
         }
+    }
+
+    &_loadingImg {
+        width: 35%;
+        @media (min-width: $bp-med-2) {  
+            width: 25%;
+        }
+    }
+    &_loadingText {
+        font-size: $text-font-size-small;
+        margin-bottom: 2rem;
+        @media (min-width: $bp-med) {  
+            font-size: $text-font-size-small * 1.5;
+        }
+
     }
    
     &_title {     
@@ -438,6 +453,28 @@ $text-font-size-large: 1.5rem;
         gap: 1.375rem;
         &::-webkit-scrollbar {
             display: none;
+        }
+    }
+
+
+    &_loading {
+        margin-bottom: 2rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content:center;
+        align-items:center;
+
+        & > img {
+            display: block;
+            width: 40%;
+            height: auto;
+        }
+        & > div {
+            position:absolute;
+            bottom: 2rem;
         }
     }
 

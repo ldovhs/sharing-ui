@@ -17,9 +17,6 @@ export default function ConnectBoard() {
     const { web3Error, TryConnectAsUser } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
 
-    // const connectOptionsRef = React.createRef();
-    // const authWalletRef = React.createRef();
-
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {

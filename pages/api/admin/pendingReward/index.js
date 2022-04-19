@@ -170,13 +170,13 @@ export default async function PendingRewardAPI(req, res) {
                             `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/pendingReward`,
                             {
                                 pendingReward,
+                            },
+                            {
+                                headers: {
+                                    Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                                    "Content-Type": "application/json",
+                                },
                             }
-                            // { authorization
-                            //     headers: {
-                            //         Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
-                            //         "Content-Type": "application/json",
-                            //     },
-                            // }
                         )
                         .catch((err) => {
                             console.log(err);

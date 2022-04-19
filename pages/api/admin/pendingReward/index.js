@@ -144,7 +144,7 @@ export default async function PendingRewardAPI(req, res) {
                     } else {
                         pendingReward.receivingUser = pendingReward.user.wallet;
                     }
-
+                    console.log("test pending reward on nodejs");
                     await axios
                         .post(
                             `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/pendingReward`,

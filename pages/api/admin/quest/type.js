@@ -1,4 +1,5 @@
-import { getAllRewardTypes } from "repositories/admin";
+import { prisma } from "context/PrismaContext";
+import { getSession } from "next-auth/react";
 
 /* non protected route*/
 export default async function questTypesQuery(req, res) {

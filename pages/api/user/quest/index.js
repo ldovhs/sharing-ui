@@ -22,36 +22,17 @@ export default async function QuestQuery(req, res) {
             }
 
             try {
-                // let { username } = req.query;
-
                 console.log(`** If current session has a valid address in db **`);
-                // console.log(`isAddress ${utils.isAddress(username)}`);
-                // console.log(
-                //     `is same as login session ${
-                //         username.toLowerCase() === userWallet.toLowerCase()
-                //     }`
-                // );
-
-                // if (
-                //     username.toLowerCase() !== userWallet.toLowerCase() ||
-                //     !utils.isAddress(username)
-                // ) {
-                //     return res.status(200).json({
-                //         message: "You are doing someone else'quest, King Octopus will haunt you",
-                //         isError: true,
-                //     });
-                // }
 
                 let wallet = utils.getAddress(userWallet);
                 let findUserBySession = await getWhitelistByWallet(wallet);
-                // let findUserByWallet = await getWhitelistByWallet(username);
 
-                // if (!findUserBySession || !findUserByWallet) {
-                //     return res.status(200).json({
-                //         message: "Not authenticated session or trying to do quest of someone else",
-                //         isError: true,
-                //     });
-                // }
+                if (!findUserBySession) {
+                    return res.status(200).json({
+                        message: "Not authenticated session or trying to do quest of someone else",
+                        isError: true,
+                    });
+                }
                 console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await getAllEnableQuestsForUser();
 
@@ -64,6 +45,7 @@ export default async function QuestQuery(req, res) {
                         if (relatedQuest) {
                             aq.isDone = true;
                             aq.quantity = relatedQuest.rewardedQty;
+                            aq.user = relatedQuest.user;
                         } else {
                             aq.isDone = false;
                         }

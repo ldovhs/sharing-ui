@@ -23,10 +23,10 @@ const IndividualQuestBoard = ({
     useEffect(async () => {
         if (userQuests && userRewards) {
             userQuests.sort(isNotDoneFirst);
-            console.log(userRewards);
+            console.log(userQuests);
             let sum = userRewards
                 .map((r) => {
-                    if (r.rewardType.reward === "Shell") {
+                    if (r.rewardType.reward === "Shell" || r.rewardType.reward === "$hell") {
                         return r.quantity;
                     } else {
                         return 0;
@@ -81,7 +81,15 @@ const IndividualQuestBoard = ({
                 </div>
 
                 <div className={s.boardQuest_wrapper}>
-                    <div className={s.boardQuest_title}>Individual Quests</div>
+                    <div className={s.boardQuest_title}>
+                        {" "}
+                        {currentQuests !== null &&
+                        currentQuests[0].user.discordUserDiscriminator !== null &&
+                        currentQuests[0].user.discordUserDiscriminator.length > 0
+                            ? currentQuests[0].user.discordUserDiscriminator
+                            : "Individual"}{" "}
+                        Quests
+                    </div>
 
                     <div className={s.boardQuest_scrollableArea}>
                         {/*  Render error message */}
@@ -128,6 +136,12 @@ const IndividualQuestBoard = ({
                                                             {` @${extendedQuestData.followAccount}`}{" "}
                                                         </span>
                                                     )}
+
+                                                    {type.name === Enums.TWITTER_RETWEET && (
+                                                        <span className="text-teal-400">
+                                                            {` @${extendedQuestData.tweetId}`}{" "}
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 {isDone && <div>Completed</div>}
                                             </div>
@@ -141,7 +155,7 @@ const IndividualQuestBoard = ({
                                                                 target="_blank"
                                                                 disabled={isDone}
                                                             >
-                                                                Do
+                                                                Auth
                                                             </a>
                                                         )}
                                                         {type.name === Enums.TWITTER_AUTH && (
@@ -212,14 +226,10 @@ const IndividualQuestBoard = ({
 };
 
 const getDiscordAuthLink = () => {
-    // return `https://discord.com/api/oauth2/authorize?client_id=954788577001218159&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email`;
-
     return `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
 };
 
 const getTwitterAuthLink = () => {
-    // return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=WTZyeF8tSTczdm9HaWFkbHF0cTA6MTpjaQ&redirect_uri=http://localhost:3000/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
-
     return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
 };
 

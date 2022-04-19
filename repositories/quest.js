@@ -69,6 +69,9 @@ export const getQuestsDoneByThisUser = async (wallet) => {
         where: {
             wallet,
         },
+        include: {
+            user: true,
+        },
     });
 };
 

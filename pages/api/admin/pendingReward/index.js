@@ -4,6 +4,7 @@ import Enums from "enums";
 import axios from "axios";
 import { isAdmin } from "repositories/session-auth";
 import { createPendingReward, searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
+import { isWhitelistUser } from "repositories/session-auth";
 
 const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
     process.env;
@@ -17,6 +18,9 @@ export default async function PendingRewardAPI(req, res) {
         case "GET":
             try {
                 const { username, generatedURL } = req.query;
+                if (!username) return res.status(200).json({ message: "Await" });
+
+                let walletSession = await isWhitelistUser(session);
 
                 console.log(`***** Finding user wallet for pending reward, username: ${username}`);
                 let user = await prisma.whiteList.findFirst({
@@ -31,11 +35,12 @@ export default async function PendingRewardAPI(req, res) {
                             {
                                 wallet: username,
                             },
+                            {
+                                discordUserDiscriminator: username,
+                            },
                         ],
                     },
                 });
-
-                //console.log(user);
 
                 if (!user) {
                     return res.status(200).json({
@@ -43,16 +48,16 @@ export default async function PendingRewardAPI(req, res) {
                         isError: true,
                     });
                 }
-
+                // console.log(user);
                 /* search for pending reward from the wallet info */
                 let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
                     generatedURL,
                     user.wallet
                 );
 
-                if (!pendingReward) {
+                if (pendingReward.wallet !== walletSession) {
                     return res.status(200).json({
-                        message: `User ${user.wallet} does not own this reward ${generatedURL}`,
+                        message: `User ${walletSession} does not own this reward ${generatedURL}`,
                         isError: true,
                     });
                 }

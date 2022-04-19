@@ -446,8 +446,13 @@
 .boardQuest_pinkBtn:disabled:hover {
   color: #F8D61D;
 }
+.boardQuest_pinkBtn:focus {
+  color: #F8D61D !important;
+  text-decoration: none;
+}
 .boardQuest_pinkBtn:hover {
   color: white !important;
+  text-decoration: none;
 }
 .boardQuest_orangeBtn {
   font-family: PFRondaSeven;

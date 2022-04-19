@@ -20,9 +20,9 @@ export default async function twitterRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
-                let lookupUser = await isWhitelistUser(session);
+                let lookupWallet = await isWhitelistUser(session);
 
-                if (!session || !utils.isAddress(lookupUser.wallet)) {
+                if (!session || !utils.isAddress(lookupWallet)) {
                     throw new Error("Unauthenticated user");
                 }
 
@@ -61,9 +61,8 @@ export default async function twitterRedirect(req, res) {
                 }
 
                 // get current whitelist user
-                let walletAddress = utils.getAddress(session.user.address);
                 const whiteListUser = await prisma.whiteList.findUnique({
-                    where: { wallet: walletAddress },
+                    where: { wallet: lookupWallet },
                 });
 
                 if (
@@ -94,7 +93,7 @@ export default async function twitterRedirect(req, res) {
                 // reward this user
                 let userQuest = await updateUserAndAddRewardTransaction(
                     twitterQuest,
-                    walletAddress,
+                    lookupWallet,
                     userInfo.data.data
                 );
 

@@ -21,9 +21,9 @@ export default async function discordRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
-                let lookupUser = await isWhitelistUser(session);
+                let lookupWallet = await isWhitelistUser(session);
 
-                if (!session || !utils.isAddress(lookupUser.wallet)) {
+                if (!session || !utils.isAddress(lookupWallet)) {
                     throw new Error("Unauthenticated user");
                 }
 
@@ -61,8 +61,8 @@ export default async function discordRedirect(req, res) {
                 }
 
                 // saving discordId, and discord discriminator into whitelist table
-                let walletAddress = utils.getAddress(session.user.address);
-                const whiteListUser = await getWhitelistByWallet(walletAddress);
+
+                const whiteListUser = await getWhitelistByWallet(lookupWallet);
 
                 if (
                     whiteListUser.discordId != null &&
@@ -93,7 +93,7 @@ export default async function discordRedirect(req, res) {
                 // update user info and reward (transaction)
                 let userQuest = await updateUserAndAddRewardTransaction(
                     discordQuest,
-                    walletAddress,
+                    lookupWallet,
                     userInfo.data
                 );
 

@@ -141,7 +141,7 @@ function SignUp() {
                     </div>
                 )}
 
-                {/* <div className={s.foreground}></div> */}
+                <div className={s.foreground}></div>
             </div>
         </>
     );

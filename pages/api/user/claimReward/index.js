@@ -4,7 +4,8 @@ import axios from "axios";
 import Enums from "enums";
 import { isWhitelistUser } from "repositories/session-auth";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } = process.env;
+const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
+    process.env;
 
 /* api/claimReward */
 export default async function ClaimRewardAPI(req, res) {
@@ -118,13 +119,14 @@ export default async function ClaimRewardAPI(req, res) {
                             `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/claimedReward`,
                             {
                                 claimedReward,
+                            },
+                            {
+                                //authorization
+                                headers: {
+                                    Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                                    "Content-Type": "application/json",
+                                },
                             }
-                            // { authorization
-                            //     headers: {
-                            //         Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
-                            //         "Content-Type": "application/json",
-                            //     },
-                            // }
                         )
                         .catch((err) => {
                             console.log(err);

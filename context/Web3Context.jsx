@@ -5,6 +5,7 @@ import { ethers, utils } from "ethers";
 import axios from "axios";
 import Enums from "enums";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { useRouter } from "next/router";
 
 const util = require("util");
 
@@ -12,6 +13,7 @@ export const Web3Context = React.createContext();
 
 export function Web3Provider({ children }) {
     const [web3Error, setWeb3Error] = useState(null);
+    const router = useRouter();
     let signMessageTimeout;
 
     function iOS() {
@@ -49,7 +51,7 @@ export function Web3Provider({ children }) {
         provider.on("end", (e) => console.error("WS End", e));
 
         provider.on("accountsChanged", async (accounts) => {
-            console.log("On account changed, would need to sign out and login again");
+            console.log("On account changed, would need to login again");
 
             SignOut();
         });
@@ -59,9 +61,7 @@ export function Web3Provider({ children }) {
             console.log(chainId);
         });
 
-        provider.on("connect", (info) => {
-            console.log(info);
-        });
+        provider.on("connect", (info) => {});
 
         provider.on("disconnect", async (error) => {
             console.log("disconnect");
@@ -84,7 +84,7 @@ export function Web3Provider({ children }) {
             let provider = new WalletConnectProvider({
                 infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
                 qrcodeModalOptions: {
-                    mobileLinks: [, "metamask", "trust"],
+                    mobileLinks: ["trust"],
                     desktopLinks: ["encrypted ink"],
                 },
             });
@@ -109,6 +109,7 @@ export function Web3Provider({ children }) {
             });
 
             if (!admin.data) {
+                console.log(admin);
                 setWeb3Error("Cannot authenticate as admin with current wallet account");
                 return;
             }
@@ -154,15 +155,12 @@ export function Web3Provider({ children }) {
         if (walletType === Enums.METAMASK) {
             providerInstance = new ethers.providers.Web3Provider(window.ethereum);
             addresses = await providerInstance.send("eth_requestAccounts", []);
-            console.log("Ethers");
-            console.log(addresses[0]);
-            console.log(ethers.utils.getAddress(addresses[0]));
             SubscribeProvider(window.ethereum);
         } else if (walletType === Enums.WALLETCONNECT) {
             let provider = new WalletConnectProvider({
                 infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
                 qrcodeModalOptions: {
-                    mobileLinks: [, "metamask", "trust"],
+                    mobileLinks: ["trust"],
                     desktopLinks: ["encrypted ink"],
                 },
             });
@@ -182,9 +180,10 @@ export function Web3Provider({ children }) {
                     address: addresses[0],
                 },
             });
-
-            if (user.data?.isError === true) {
-                setWeb3Error(user.data?.message);
+            console.log(123);
+            console.log(user);
+            if (user.data.length === 0) {
+                setWeb3Error("Cannot find any user in our db, please sign up");
                 return;
             }
             signMessageTimeout = setTimeout(async () => {
@@ -209,9 +208,91 @@ export function Web3Provider({ children }) {
         }
     };
 
+    const TrySignUpWithWallet = async (walletType) => {
+        if (!walletType) {
+            throw new Error("Missing type of wallet when trying to setup wallet provider");
+        }
+
+        let addresses, providerInstance;
+
+        if (walletType === Enums.METAMASK) {
+            providerInstance = new ethers.providers.Web3Provider(window.ethereum);
+            addresses = await providerInstance.send("eth_requestAccounts", []);
+            SubscribeProvider(window.ethereum);
+        } else if (walletType === Enums.WALLETCONNECT) {
+            let provider = new WalletConnectProvider({
+                infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                qrcodeModalOptions: {
+                    mobileLinks: ["trust"],
+                    desktopLinks: ["encrypted ink"],
+                },
+            });
+            await provider.enable();
+
+            providerInstance = new ethers.providers.Web3Provider(provider);
+            addresses = provider.accounts;
+            SubscribeProvider(provider);
+        }
+        try {
+            if (addresses.length === 0) {
+                setWeb3Error("Account is locked, or is not connected, or is in pending request.");
+                return;
+            }
+
+            // trying to get if sign up request has existing user
+            const user = await axios.get("/api/user", {
+                params: {
+                    address: addresses[0],
+                },
+            });
+
+            if (user.data.length > 0) {
+                return true;
+            }
+
+            let signUpRes = await signUp(providerInstance, addresses[0]);
+            if (signUpRes === "User sign up successful") {
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const SignOut = async () => {
         RemoveLocalStorageWalletConnect();
         signOut();
+    };
+
+    const signUp = (providerInstance, address) => {
+        var promise = new Promise(function (resolve, reject) {
+            setTimeout(async () => {
+                const signer = await providerInstance.getSigner();
+                const signature = await signer.signMessage(`${Enums.USER_SIGN_MSG}`);
+
+                const newUser = await axios.post("/api/user/signup", {
+                    address,
+                    signature,
+                });
+
+                await signIn("non-admin-authenticate", {
+                    redirect: false,
+                    signature,
+                    address,
+                });
+
+                if (newUser?.data?.wallet) {
+                    resolve("User sign up successful");
+                }
+
+                if (newUser?.data?.isError) {
+                    setWeb3Error(newUser?.data?.message);
+                    resolve("error");
+                }
+            }, 1000);
+        });
+        return promise;
     };
 
     return (
@@ -220,6 +301,7 @@ export function Web3Provider({ children }) {
                 TryConnectAsAdmin,
                 TryConnectAsUser,
                 SignOut,
+                TrySignUpWithWallet,
                 web3Error,
             }}
         >

@@ -1,4 +1,5 @@
 import { prisma } from "@context/PrismaContext";
+import { utils } from "ethers";
 
 export default async function adminAPI(req, res) {
     const { method } = req;
@@ -8,9 +9,19 @@ export default async function adminAPI(req, res) {
             try {
                 const { address } = req.query;
 
-                const admin = await prisma.Admin.findFirst({
+                console.log(address);
+                if (!address) {
+                    return res.status(422).json({ isError: true });
+                }
+
+                let wallet = utils.getAddress(address);
+
+                const admin = await prisma.Admin.findUnique({
                     where: {
-                        wallet: { equals: address, mode: "insensitive" },
+                        wallet,
+                    },
+                    select: {
+                        nonce: true,
                     },
                 });
 

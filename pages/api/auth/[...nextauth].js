@@ -5,20 +5,31 @@ import { bufferToHex } from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
 import { ethers, utils } from "ethers";
 import Enums from "enums";
+import DiscordProvider from "next-auth/providers/discord";
+import TwitterProvider from "next-auth/providers/twitter";
+
 const CryptoJS = require("crypto-js");
+
+const {
+    NEXT_PUBLIC_NEXTAUTH_SECRET,
+    NEXT_PUBLIC_DISCORD_CLIENT_ID,
+    DISCORD_CLIENT_SECRET,
+    NEXT_PUBLIC_TWITTER_CLIENT_ID,
+    TWITTER_CLIENT_SECRET,
+} = process.env;
 
 export default NextAuth({
     providers: [
+        /*   
+            Update new nonce for next time authentication
+            Authenticating by rebuilding the owner address from the signature and compare with the submitted address
+        */
         CredentialsProvider({
             id: "admin-authenticate",
             name: "admin-authenticate",
             type: "credentials",
-            /*   
-                Authenticating by rebuilding the owner address from the signature and compare with the submitted address
-                Update new nonce for next time authentication
-            */
+
             authorize: async (credentials, req) => {
-                console.log("Authenticating as admin");
                 const { address, signature } = credentials;
                 if (!address || !signature) throw new Error("Missing address or signature");
 
@@ -69,7 +80,9 @@ export default NextAuth({
             name: "Non-admin authentication",
             type: "credentials",
             authorize: async (credentials, req) => {
+                console.log("Authenticating as user");
                 let { address, signature } = credentials;
+
                 if (!address || !signature) throw new Error("Missing address or signature");
 
                 if (utils.getAddress(address) && !utils.isAddress(address))
@@ -84,6 +97,7 @@ export default NextAuth({
                 if (!user) {
                     throw new Error("This wallet is not in our record.");
                 }
+
                 const msg = `${Enums.USER_SIGN_MSG}`;
 
                 const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
@@ -100,25 +114,74 @@ export default NextAuth({
                 return { address: originalAddress, isAdmin: false };
             },
         }),
+        // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
+        DiscordProvider({
+            clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,
+            clientSecret: DISCORD_CLIENT_SECRET,
+        }),
+        TwitterProvider({
+            clientId: NEXT_PUBLIC_TWITTER_CLIENT_ID,
+            clientSecret: TWITTER_CLIENT_SECRET,
+            version: "2.0",
+        }),
     ],
     session: {
         jwt: true,
         maxAge: 60 * 60 * 24, //  30 * 24 * 60 * 60
     },
     jwt: {
-        signingKey: process.env.NEXTAUTH_SECRET,
+        signingKey: NEXT_PUBLIC_NEXTAUTH_SECRET,
     },
     callbacks: {
+        signIn: async (user, account, profile) => {
+            if (user.account.provider === "discord") {
+                let discordId = user.account.providerAccountId;
+
+                const existingUser = await prisma.whiteList.findFirst({
+                    where: {
+                        discordId,
+                    },
+                });
+
+                if (!existingUser) {
+                    return "/unauthorized";
+                }
+                return true;
+            }
+
+            if (user.account.provider === "twitter") {
+                let twitterId = user.account.providerAccountId;
+
+                const existingUser = await prisma.whiteList.findFirst({
+                    where: {
+                        twitterId,
+                    },
+                });
+
+                if (!existingUser) {
+                    return "/unauthorized";
+                }
+                return true;
+            }
+
+            return true;
+        },
+        async redirect({ url, baseUrl }) {
+            return url;
+        },
+
         async session({ session, token }) {
             session.user = token.user;
+            session.provider = token.provider;
             return session;
         },
-        async jwt({ token, user }) {
+        async jwt({ token, user, account }) {
             if (user) {
                 token.user = user;
+                token.provider = account.provider;
             }
             return token;
         },
     },
-    secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+    secret: NEXT_PUBLIC_NEXTAUTH_SECRET,
 });

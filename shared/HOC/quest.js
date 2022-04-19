@@ -2,6 +2,7 @@ import { useQueryClient, useQuery, useMutation } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+const QUEST_TYPE_QUERY = "/api/admin/quest/type";
 const USER_QUEST_QUERY = "/api/user/quest/";
 const USER_QUEST_SUBMIT = "/api/user/quest/submit";
 
@@ -86,17 +87,31 @@ export const withAdminQuestQuery =
 export const withUserQuestQuery =
     (Component) =>
     ({ ...props }) => {
-        const router = useRouter();
-        const username = typeof router.query?.username === "string" ? router.query.username : "";
-
-        const { data, status, isLoading, error } = useQuery(["userQueryQuest", username], () =>
-            axios.get(USER_QUEST_QUERY, { params: { username } })
+        const { data, status, isLoading, error } = useQuery("userQueryQuest", () =>
+            axios.get(USER_QUEST_QUERY)
         );
         return (
             <Component
                 {...props}
                 isFetchingUserQuests={isLoading}
-                data={data?.data}
+                userQuests={data?.data}
+                queryError={error}
+            />
+        );
+    };
+
+export const withQuestTypeQuery =
+    (Component) =>
+    ({ ...props }) => {
+        const { data, status, isLoading, error } = useQuery("questTypeQuery", () =>
+            axios.get(QUEST_TYPE_QUERY)
+        );
+
+        return (
+            <Component
+                {...props}
+                isFetchingRewardType={isLoading}
+                questTypes={data?.data}
                 queryError={error}
             />
         );

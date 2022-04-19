@@ -33,7 +33,6 @@ const TwitterAuthQuest = ({
     });
 
     const onSubmit = async (fields, { setStatus }) => {
-        // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
         try {
             let res = await onUpsert(fields);
 

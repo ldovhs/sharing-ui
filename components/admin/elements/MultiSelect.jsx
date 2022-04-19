@@ -43,7 +43,7 @@ const MultiselectWrapper = ({ selectedItems, toogleDropdown, removeTag }) => {
         <div className="flex flex-col items-center relative">
             <div className="w-full ">
                 <div
-                    className="my-2 p-1 flex border border-gray-200 bg-white rounded "
+                    className="my-2 p-1 flex border border-gray-300 rounded "
                     onClick={toogleDropdown}
                 >
                     <div className="flex flex-auto flex-wrap">
@@ -51,7 +51,7 @@ const MultiselectWrapper = ({ selectedItems, toogleDropdown, removeTag }) => {
                             return (
                                 <div
                                     key={index}
-                                    className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 "
+                                    className="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-teal-700 bg-teal-100 border border-teal-300 "
                                 >
                                     <div className="text-xs font-normal leading-none max-w-full flex-initial">
                                         {tag}

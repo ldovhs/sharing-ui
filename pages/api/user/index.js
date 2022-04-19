@@ -1,5 +1,6 @@
 import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
+import { utils } from "ethers";
 
 export default async function whitelistAPI(req, res) {
     const { method } = req;
@@ -8,21 +9,12 @@ export default async function whitelistAPI(req, res) {
         case "GET":
             try {
                 const { address } = req.query;
-                console.log(address);
-
-                const user = await prisma.whiteList.findFirst({
+                let wallet = utils.getAddress(address);
+                const user = await prisma.whiteList.findUnique({
                     where: {
-                        wallet: { equals: address, mode: "insensitive" },
+                        wallet,
                     },
                 });
-                console.log(user);
-                if (!user) {
-                    res.status(200).json({
-                        message: `Login user ${address} is not authenticatd to claim this reward`,
-                        isError: true,
-                    });
-                    return;
-                }
 
                 res.status(200).json(user);
             } catch (err) {
@@ -41,15 +33,22 @@ export default async function whitelistAPI(req, res) {
 
             try {
                 console.log(`*****Add New User`);
-                const { discord, wallet, twitter } = req.body;
+                const { discordId, discordUserDiscriminator, wallet, twitterId, twitterUserName } =
+                    req.body;
 
                 let updateCondition = {};
 
-                if (discord.trim().length > 0) {
-                    updateCondition = { ...updateCondition, discordId: discord };
+                if (discordId.trim().length > 0) {
+                    updateCondition = { ...updateCondition, discordId };
                 }
-                if (twitter.trim().length > 0) {
-                    updateCondition = { ...updateCondition, twitter };
+                if (discordUserDiscriminator.trim().length > 0) {
+                    updateCondition = { ...updateCondition, discordUserDiscriminator };
+                }
+                if (twitterId.trim().length > 0) {
+                    updateCondition = { ...updateCondition, twitterId };
+                }
+                if (twitterUserName.trim().length > 0) {
+                    updateCondition = { ...updateCondition, twitterUserName };
                 }
 
                 const user = await prisma.whiteList.upsert({
@@ -57,11 +56,13 @@ export default async function whitelistAPI(req, res) {
                     update: updateCondition,
                     create: {
                         wallet,
-                        discordId: discord,
-                        twitter,
+                        discordId,
+                        discordUserDiscriminator,
+                        twitterId,
+                        twitterUserName,
                     },
                 });
-                console.log(user);
+
                 return res.status(200).json(user);
             } catch (error) {
                 return res.status(200).json({ isError: true, message: error.message });

@@ -20,6 +20,7 @@ export const withUserUpsert =
                 {...props}
                 isLoading={isLoading}
                 mutationError={error}
+                data={data?.data}
                 onUpsert={(user) => handleOnUpsert(user)}
             />
         );

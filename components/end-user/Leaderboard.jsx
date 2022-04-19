@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Enums from "enums";
 import s from "/sass/claim/claim.module.css";
 
@@ -20,7 +20,7 @@ export default function Leaderboard({ questData }) {
                         <div className={s.boardQuest_title}>{questData?.type || "Quest Page"}</div>
                         {questData &&
                             !questData.isError &&
-                            questData?.type === Enums.ANOMURA_SUBMISSION_QUEST && (
+                            questData?.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
                                 <div className="flex justify-content-between">
                                     <div className=" text-yellow-500">User</div>
                                     <div className="  text-green-500">Reactions</div>
@@ -48,7 +48,8 @@ export default function Leaderboard({ questData }) {
                                             <div className={s.boardQuest_list_content}>
                                                 <div>
                                                     {index + 1}.{" "}
-                                                    {user.discordUserDiscriminator.trim().length > 0
+                                                    {user.discordUserDiscriminator != null ||
+                                                    user.discordUserDiscriminator.trim().length > 0
                                                         ? user.discordUserDiscriminator
                                                         : user.wallet}
                                                 </div>

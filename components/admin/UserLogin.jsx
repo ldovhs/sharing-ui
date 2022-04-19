@@ -4,7 +4,7 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/admin/admin.module.css";
 
 const UserLogin = () => {
-    const { TryConnectAsAdmin, TryConnectAsUser, web3Error, SignOut } = useContext(Web3Context);
+    const { TryConnectAsUser, web3Error, SignOut } = useContext(Web3Context);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 

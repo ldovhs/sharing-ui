@@ -6,9 +6,6 @@ const util = require("util");
 export function AdminGuard({ children }) {
     const { data: session, status } = useSession({ required: false });
     const { web3Error } = useContext(Web3Context);
-    // if (session) {
-    //     console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
-    // }
 
     useEffect(async () => {}, [session]);
 
@@ -32,14 +29,6 @@ export function AdminGuard({ children }) {
             {web3Error}
         </div>;
     }
-
-    // if (session) {
-    //     return (
-    //         <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">
-    //             test {session?.user?.address}
-    //         </div>
-    //     );
-    // }
 
     return (
         <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">

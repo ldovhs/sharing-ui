@@ -16,14 +16,18 @@ const avatars = [
 ];
 
 const initialValues = {
-    discord: "",
-    twitter: "",
+    discordId: "",
+    discordUserDiscriminator: "",
+    twitterId: "",
+    twitterUserName: "",
     wallet: "",
 };
 
 const UserSchema = object().shape({
-    discord: string(),
-    twitter: string(),
+    discordId: string(),
+    twitterId: string(),
+    twitterUserName: string(),
+    discordUserDiscriminator: string(),
     wallet: string()
         .required()
         .test("valid address", "Wallet Address is not valid!", function () {
@@ -32,7 +36,7 @@ const UserSchema = object().shape({
         }),
 });
 
-const AddNewUser = ({ isLoading, mutationError, onUpsert }) => {
+const AddNewUser = ({ isLoading, mutationError, onUpsert, data }) => {
     const [avatar, setAvatar] = useState(null);
 
     useEffect(async () => {
@@ -83,19 +87,28 @@ const AddNewUser = ({ isLoading, mutationError, onUpsert }) => {
                         {/* Discord Input  */}
                         <div className="col-12 mb-3">
                             <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Discord</label>
+                                <label className="form-label">Discord Id:</label>
                                 <Field
-                                    name="discord"
+                                    name="discordId"
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.size && touched.size ? " is-invalid" : "")
+                                        (errors.discordId && touched.discordId ? " is-invalid" : "")
                                     }
                                 />
-                                <ErrorMessage
-                                    name="discord"
-                                    component="div"
-                                    className="invalid-feedback"
+                            </div>
+                            <div className="col col-sm-12 col-md-12 col-lg-6">
+                                <label className="form-label">Discord User Discriminator:</label>
+                                <Field
+                                    name="discordUserDiscriminator"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.discordUserDiscriminator &&
+                                        touched.discordUserDiscriminator
+                                            ? " is-invalid"
+                                            : "")
+                                    }
                                 />
                             </div>
                         </div>
@@ -110,25 +123,33 @@ const AddNewUser = ({ isLoading, mutationError, onUpsert }) => {
                         {/* Twitter Input  */}
                         <div className="col-12 mb-3">
                             <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Twitter</label>
+                                <label className="form-label">Twitter Id</label>
                                 <Field
-                                    name="twitter"
+                                    name="twitterId"
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.size && touched.size ? " is-invalid" : "")
+                                        (errors.twitterId && touched.twitterId ? " is-invalid" : "")
                                     }
                                 />
-                                <ErrorMessage
-                                    name="twitter"
-                                    component="div"
-                                    className="invalid-feedback"
+                            </div>
+                            <div className="col col-sm-12 col-md-12 col-lg-6">
+                                <label className="form-label">Twitter Username</label>
+                                <Field
+                                    name="twitterUserName"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.twitterUserName && touched.twitterUserName
+                                            ? " is-invalid"
+                                            : "")
+                                    }
                                 />
                             </div>
                         </div>
                         {/* Wallet */}
                         <div className="col-12 mb-3">
-                            <label className="form-label">Wallet Address</label>
+                            <label className="form-label">Wallet Address*</label>
                             <Field
                                 name="wallet"
                                 type="text"
@@ -141,11 +162,11 @@ const AddNewUser = ({ isLoading, mutationError, onUpsert }) => {
 
                         <div className="text-red-500"> {errors && errors.wallet}</div>
                         <div className="text-red-500"> {status && "API error:" + status}</div>
-                        {/* <div className="text-green-500 h6">
+                        <div className="text-green-500 h6">
                             {data &&
                                 data?.wallet &&
                                 `User with wallet: ${data?.wallet} updated successfully.`}
-                        </div> */}
+                        </div>
                     </div>
 
                     <div className="mt-3">

@@ -19,10 +19,6 @@ function DoQuest() {
 
     useEffect(async () => {}, [session]);
 
-    if (session) {
-        console.log(util.inspect(session, { showHidden: false, depth: null, colors: true }));
-    }
-
     return (
         <>
             <div className={s.app}>

@@ -6,6 +6,8 @@ import {
     TwitterAuthQuest,
     TwitterFollowQuest,
     AnomuraSeeFoodQuest,
+    TwitterRetweetQuest,
+    InstagramFollowQuest,
 } from "./index";
 
 const EditQuest = ({ quest, closeModal, rewardTypes }) => {
@@ -14,7 +16,7 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
             <div className="col-xxl-12">
                 <div className="card">
                     <div className="card-body">
-                        {quest.type === Enums.DISCORD_AUTH && rewardTypes && (
+                        {quest.type.name === Enums.DISCORD_AUTH && rewardTypes && (
                             <DiscordAuthQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
@@ -22,7 +24,7 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {quest.type === Enums.TWITTER_AUTH && rewardTypes && (
+                        {quest.type.name === Enums.TWITTER_AUTH && rewardTypes && (
                             <TwitterAuthQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
@@ -30,7 +32,15 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {quest.type === Enums.FOLLOW_TWITTER && rewardTypes && (
+                        {quest.type.name === Enums.TWITTER_RETWEET && rewardTypes && (
+                            <TwitterRetweetQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.FOLLOW_TWITTER && rewardTypes && (
                             <TwitterFollowQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
@@ -38,7 +48,15 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {quest.type === Enums.ANOMURA_SUBMISSION_QUEST && (
+                        {quest.type.name === Enums.FOLLOW_INSTAGRAM && rewardTypes && (
+                            <InstagramFollowQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
                             <AnomuraSeeFoodQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}

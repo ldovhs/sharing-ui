@@ -13,12 +13,12 @@ function QuestLeaderBoard() {
     useEffect(async () => {
         if (!router.isReady || !questId) return;
 
-        const res = await axios.get("/api/user/quest/getLeaderboard", {
+        const res = await axios.get("/api/user/quest/leaderboard", {
             params: {
                 questId,
             },
         });
-        // console.log(res);
+
         setQuestData(res.data);
     }, [router.isReady]);
     return (

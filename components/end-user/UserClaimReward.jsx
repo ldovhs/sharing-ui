@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
-import axios from "axios";
 
 import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
 
@@ -50,39 +49,7 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                             </div>
 
                             <div className={s.boardQuest_scrollableArea}>
-                                {showTask && (
-                                    <div className={s.boardQuest_list_container}>
-                                        <div className={s.boardQuest_list_content}>
-                                            <div>
-                                                Share your Reward, and get a chance to get more
-                                                rewards.
-                                            </div>
-                                            {/* <div>place holder</div> */}
-                                        </div>
-                                        <div className={s.boardQuest_list_result}>
-                                            <a
-                                                target="_blank"
-                                                href="https://twitter.com/intent/tweet?text=Thank%20you%20Aedi%20for%20the%20Gitfs!%0a%0aJoin us at anomuragame.com/share?code=a1234%0a%0ahttps://twitter.com/AnomuraGame/status/012345678910."
-                                                className={s.boardBig_rewardButton}
-                                            >
-                                                <img src="/img/sharing-ui/invite/button1.png" />
-                                                <div>
-                                                    <span>Tweet</span>
-                                                </div>
-                                            </a>
-                                            <a
-                                                className={s.boardBig_rewardButton}
-                                                href=""
-                                                onClick={(e) => onSkip(e)}
-                                            >
-                                                <img src="/img/sharing-ui/invite/button1.png" />
-                                                <div>
-                                                    <span>Skip</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                )}
+                                {showTask && <div className={s.boardQuest_list_container}></div>}
                                 <button
                                     className={s.boardQuest_yellowText}
                                     onClick={() => SignOut()}

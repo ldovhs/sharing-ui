@@ -1,19 +1,19 @@
 import { prisma } from "@context/PrismaContext";
+import { isAdmin } from "repositories/session-auth";
+import { getSession } from "next-auth/react";
 
 export default async function adminSearch(req, res) {
     const { method } = req;
-
+    const session = await getSession({ req });
     switch (method) {
-        case "GET":
-            try {
-                throw new Error("Not implemented");
-            } catch (err) {
-                console.log(err);
-                res.status(500).json({ err });
-            }
-            break;
         case "POST":
-            console.log(req.body);
+            let adminCheck = await isAdmin(session);
+            if (!adminCheck) {
+                return res.status(422).json({
+                    message: "Not authenticated for admin search",
+                    isError: true,
+                });
+            }
             const { wallet, userId, twitter, discord, rewards } = req.body;
 
             let userCondition = {},
@@ -26,7 +26,7 @@ export default async function adminSearch(req, res) {
                 userCondition.userId = { contains: userId.trim() };
             }
             if (twitter !== "") {
-                userCondition.twitter = { contains: twitter.trim() };
+                userCondition.twitterId = { contains: twitter.trim() };
             }
             if (discord !== "") {
                 userCondition.discordId = { contains: discord.trim() };
@@ -54,8 +54,10 @@ export default async function adminSearch(req, res) {
                         id: true,
                         userId: true,
                         wallet: true,
-                        twitter: true,
+                        twitterId: true,
+                        twitterUserName: true,
                         discordId: true,
+                        discordUserDiscriminator: true,
                         rewards: {
                             where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
                             select: {

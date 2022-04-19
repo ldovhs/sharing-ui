@@ -1,31 +1,23 @@
 import { prisma } from "context/PrismaContext";
 import { getSession } from "next-auth/react";
 import Enums from "enums";
+import { isAdmin } from "repositories/session-auth";
+import { questUpsert } from "repositories/quest";
 
-/* non protected route*/
+/* admin protected route*/
 export default async function QuestUpsert(req, res) {
     const { method } = req;
     const session = await getSession({ req });
 
     switch (method) {
-        case "GET":
-            try {
-                throw new Error("Not implemented");
-                res.status(200).json(types);
-            } catch (err) {
-                console.log(err);
-                res.status(500).json({ err });
-            }
-            break;
-
+        /*  
+            @dev Create a new quest for user
+        */
         case "POST":
-            /*  
-                @dev Create a new quest
-            */
-            //console.log(session);
-            if (!session || !session.user?.isAdmin) {
-                return res.status(400).json({
-                    message: "Not authenticated to upsert quest",
+            let adminCheck = await isAdmin(session);
+            if (!adminCheck) {
+                return res.status(422).json({
+                    message: "Not authenticated for quest api",
                     isError: true,
                 });
             }
@@ -43,31 +35,79 @@ export default async function QuestUpsert(req, res) {
                     isRequired,
                     extendedQuestData,
                 } = req.body;
-                console.log(req.body);
 
-                //TODO add guard for app submission app request
+                // look for quest type id of this type
+                let questType = await prisma.questType.findUnique({
+                    where: {
+                        name: type,
+                    },
+                });
+
+                if (!questType) {
+                    return res
+                        .status(422)
+                        .json({ isError: true, message: `Cannot find quest type ${type}` });
+                }
                 let newExtendedQuestData;
                 if (id === 0) {
-                    //try to look for any existing quest with type == Discord auth or twitter auth before creating a new quest
-                    let existingQuests = await prisma.quest.findMany();
+                    newExtendedQuestData = { ...extendedQuestData };
 
-                    let discordAuthQuest = existingQuests.filter(
-                        (q) => q.type === Enums.DISCORD_AUTH
+                    let existingQuests = await prisma.quest.findMany({
+                        include: {
+                            type: true,
+                        },
+                    });
+                    console.log(questType);
+                    // DISCORD_AUTH TWITTER_AUTH
+                    let existingDiscordTwitterAuth = discordTwitterAuthCheck(
+                        existingQuests,
+                        questType.name
                     );
-
-                    let twitterAuthQuest = existingQuests.filter(
-                        (q) => q.type === Enums.TWITTER_AUTH
-                    );
-
-                    if (
-                        (discordAuthQuest?.length >= 1 && type === Enums.DISCORD_AUTH) ||
-                        (twitterAuthQuest?.length >= 1 && type === Enums.TWITTER_AUTH)
-                    ) {
+                    if (existingDiscordTwitterAuth) {
                         return res.status(200).json({
-                            message: `Cannot add more than one quest of this quest type ${type} `,
+                            message: `Cannot add more than one "${type}" type for same auth `,
                             isError: true,
                         });
                     }
+                    // TWITTER_RETWEET check
+                    let existingTwitterRetweet = retweetCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
+                    if (existingTwitterRetweet) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type for same tweetId "${extendedQuestData.tweetId}"`,
+                            isError: true,
+                        });
+                    }
+
+                    // FOLLOW_TWITTER check
+                    let existingFollowTwitter = followTwitterCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
+                    if (existingFollowTwitter) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type for same twitter "${extendedQuestData.followAccount}".`,
+                            isError: true,
+                        });
+                    }
+
+                    // FOLLOW_INSTAGRAM check
+                    let existingFollowInstagram = followInstagramCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
+                    if (existingFollowInstagram) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type for same instagram "${extendedQuestData.followAccount}".`,
+                            isError: true,
+                        });
+                    }
+                    // TODO: ANOMURA_SUBMISSION_QUEST CHECK  add guard for app submission app request
                 } else {
                     // updating, we need to get original extendedQuestData and create a new object to avoid data loss
                     let originalQuest = await prisma.quest.findUnique({
@@ -75,7 +115,6 @@ export default async function QuestUpsert(req, res) {
                     });
 
                     if (originalQuest) {
-                        console.log(originalQuest.extendedQuestData);
                         newExtendedQuestData = {
                             ...originalQuest.extendedQuestData,
                             ...extendedQuestData,
@@ -83,41 +122,26 @@ export default async function QuestUpsert(req, res) {
                     }
                 }
 
-                console.log(`***** Upsert a quest`);
-                let newQuest = await prisma.quest.upsert({
-                    where: {
-                        id: id || -1,
-                    },
-                    create: {
-                        type,
-                        description,
-                        text,
-                        completedText,
-                        rewardType: {
-                            connect: {
-                                id: parseInt(rewardTypeId),
-                            },
-                        },
-                        quantity,
-                        isEnabled,
-                        isRequired,
-                        extendedQuestData,
-                    },
-                    update: {
-                        description,
-                        text,
-                        completedText,
-                        rewardType: {
-                            connect: {
-                                id: parseInt(rewardTypeId),
-                            },
-                        },
-                        quantity,
-                        isEnabled,
-                        //isRequired,
-                        extendedQuestData: newExtendedQuestData,
-                    },
-                });
+                console.log(`** Upsert a quest **`);
+                let newQuest = await questUpsert(
+                    id,
+                    questType.id,
+                    description,
+                    text,
+                    completedText,
+                    rewardTypeId,
+                    quantity,
+                    isEnabled,
+                    isRequired,
+                    newExtendedQuestData
+                );
+
+                if (!newQuest) {
+                    res.status(200).json({
+                        isError: true,
+                        message: `Cannot upsert quest ${id}, type ${type}`,
+                    });
+                }
 
                 res.status(200).json(newQuest);
             } catch (err) {
@@ -130,3 +154,53 @@ export default async function QuestUpsert(req, res) {
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }
+
+// DISCORD_AUTH: "Discord Authenticate",
+// TWITTER_AUTH: "Twitter Authenticate",
+// TWITTER_RETWEET: "Retweet a Tweet",
+// FOLLOW_TWITTER: "Follow Twitter Account",
+// FOLLOW_INSTAGRAM: "Follow Instagram Account",
+// ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
+
+const discordTwitterAuthCheck = (existingQuests, type) => {
+    if (type != Enums.DISCORD_AUTH && type != Enums.TWITTER_AUTH) return;
+
+    let discordAuthQuest = existingQuests.filter((q) => q.type.name === Enums.DISCORD_AUTH);
+    let twitterAuthQuest = existingQuests.filter((q) => q.type.name === Enums.TWITTER_AUTH);
+
+    if (
+        (discordAuthQuest?.length >= 1 && type === Enums.DISCORD_AUTH) ||
+        (twitterAuthQuest?.length >= 1 && type === Enums.TWITTER_AUTH)
+    ) {
+        return true;
+    }
+    return false;
+};
+
+const followTwitterCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.FOLLOW_TWITTER) return;
+    let followTwitterQuest = existingQuests.filter((q) => q.type.name === Enums.FOLLOW_TWITTER);
+
+    return followTwitterQuest.some(
+        (q) => q.extendedQuestData.followAccount === extendedQuestData.followAccount
+    );
+};
+
+const followInstagramCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.FOLLOW_INSTAGRAM) return;
+
+    let followInstagramQuest = existingQuests.filter((q) => q.type.name === Enums.FOLLOW_INSTAGRAM);
+
+    return followInstagramQuest.some(
+        (q) => q.extendedQuestData.followAccount === extendedQuestData.followAccount
+    );
+};
+
+const retweetCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.TWITTER_RETWEET) return;
+    let twitterRetweetQuest = existingQuests.filter((q) => q.type.name === Enums.TWITTER_RETWEET);
+
+    return twitterRetweetQuest.some(
+        (q) => q.extendedQuestData.tweetId === extendedQuestData.tweetId
+    );
+};

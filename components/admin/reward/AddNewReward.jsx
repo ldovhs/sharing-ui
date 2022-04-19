@@ -59,6 +59,7 @@ const AddNewReward = ({
                 // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
 
                 const res = await onSubmit(fields);
+                console.log(res);
                 if (res.data?.isError) {
                     generatedRef.current.value = "";
                     setErrors({
@@ -66,7 +67,7 @@ const AddNewReward = ({
                     });
                 } else {
                     let user =
-                        res.data.user.discordId.trim().length > 0
+                        res.data.user.discordId != null
                             ? res.data.user.discordId
                             : res.data.user.wallet;
                     resetForm();

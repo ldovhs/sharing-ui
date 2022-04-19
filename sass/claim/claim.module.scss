@@ -1,7 +1,8 @@
 @use "../mixins" as m;
 
 $bp-small: 24em;            // 384
-$bp-small-2: 39.8em;        // 636
+$bp-small-2: 31.25em;       // 500
+$bp-small-3: 39.8em;        // 636
 $bp-med: 46.8em;            // 748
 $bp-med-2: 50em;            // 800
 $bp-large: 54.5em;          // 872
@@ -25,7 +26,7 @@ $text-font-size-large: 1.5rem;
 	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
 	text-align: center;
 
-	@media (min-width: $bp-small-2) {  
+	@media (min-width: $bp-small-3) {  
         font-size: $heading-font-size-small-2;
     }
     @media (min-width: $bp-med-2) {  
@@ -46,7 +47,7 @@ $text-font-size-large: 1.5rem;
     font-family: PFRondaSeven;
 	text-align: center;
 	font-size: $text-font-size-small;
-	@media (min-width: $bp-small-2) {
+	@media (min-width: $bp-small-3) {
 		font-size: $text-font-size-small;
 	} 
     @media (min-width: $bp-med-2) {  
@@ -70,12 +71,6 @@ $text-font-size-large: 1.5rem;
     @include m.flex-master(null, center, center);
 }
 
- // &_congrats { 
-    //     position: absolute;
-    //     color: #fff;
-    //     font-size: 6rem;
-    //     top: -20%;
-    // }
 .board {
     // margin-top:60%;
     // z-index: 3;
@@ -93,6 +88,7 @@ $text-font-size-large: 1.5rem;
     height:100%;
     position: relative;
     color: #fff;  
+    margin-bottom:10rem;
 
     @media (min-width: $bp-large) { width: 45em; }
     // @media (min-width: $bp-xl) { width: 45em; }
@@ -120,7 +116,7 @@ $text-font-size-large: 1.5rem;
         @media (min-width: $bp-small) {  
             padding: 0 3.2rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             padding: 0 4rem;
         }
         @media (min-width: $bp-med-2) {  
@@ -138,7 +134,7 @@ $text-font-size-large: 1.5rem;
     }
 
     &_content {
-        margin-top:30%;  
+        margin-top:32%;  
         width: 100%;
         height: 60%;
         
@@ -151,11 +147,11 @@ $text-font-size-large: 1.5rem;
    
     &_title {     
         width: clamp(100px,70%,75vh);   
-        margin-bottom: 1rem;
+        margin-bottom:  0.8rem;
     }
     &_welcome{
         width: clamp(200px,70%,75vh);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
     }
     // &_button {
     //     width:clamp(350px,70%,95vh);
@@ -174,12 +170,13 @@ $text-font-size-large: 1.5rem;
         
         width: 10.375rem;
         height: 1.9375rem;
+
         @media (min-width: $bp-small) {  
             width: 15.5625rem;
             height: 2.90675rem; 
             font-size: 1rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             width: 20.875rem;
             height: 3.875rem; 
             font-size: 1.375rem;
@@ -198,7 +195,7 @@ $text-font-size-large: 1.5rem;
             height: 2.90675rem; 
             font-size: 1rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             width: 20.875rem;
             height: 3.875rem; 
             font-size: 1.375rem;
@@ -206,122 +203,17 @@ $text-font-size-large: 1.5rem;
     }
 
     &_web3 {
-        height: 50%;
+        flex:1;
+        //height: 50%;
         width:100%;
         @include m.flex-master(column, center, center);
         font-family: PFRondaSeven;
     }
-    &_web3:nth-child(1) {  
-        border-bottom: 3px solid rgb(29,84,122);
+    &_web3:nth-child(2) {  
+        border-top: 3px solid rgb(29,84,122);
     }
 }
-.boardBig {
-    width: clamp(900px, 50vw, 100vh);
-    aspect-ratio: clamp(1,6/5,9/7);
-    background: center/contain no-repeat url("/img/sharing-ui/invite/board_big.png");
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;  
- 
-    &_contentContainer{
-        width: 60%;
-        height: 100%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3vh;
-        padding: 0.5vh;
-    }
-    &_title{
-        margin-top: 35%;
-        font-size: $heading-font-size-small;   
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    &_rewardContainer{
-        // width: clamp(200px,70%,75vh);
-        display: flex;
-        flex-direction: row;
-    }
-    &_rewardText{
-      flex: 2 1 auto;
-      margin-left: 5%;
-    }
-    &_rewardButtons{
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-right: 5%;
-    }
-    &_rewardButton {
-    
-        margin-right: 5px;
-        width: 80px;
-        height: 35px;
-        position:relative;
-		color: #FFFFFF!important;
-		display:flex;
-		justify-content: center;
-        & > img {
-            width: min(100%, 200px);
-        }
-        & > div {
-            position:absolute;
-            display: flex;
-            text-align: center;
-            align-items: center;
-            height: 80%;
-            & > span { 
-                font-family: Safety Goggles;
-            }
-        }
-    }
-    &_claimBtn {
-        position: absolute;
-        bottom: 10%;
-        width: clamp(300px, 60%, 80vh);
-        background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-        font-size: $heading-font-size-small;
-    
-        &:hover {
-            width: 60%;       
-        }
-        &:disabled {
-            background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
-            font-size: $heading-font-size-small -1 ;
-        }
-    }
-    &_disconnectBtn {
-        position: absolute;
-        bottom: 3%;
-        width: 120px;
-        height: 45px;
-      
-		color: #FFFFFF!important;
-		display:flex;
-		justify-content: center;
-        & > img {
-            width: min(100%, 200px);
-        }
-        & > div {
-            position:absolute;
-            display: flex;
-            text-align: center;
-            align-items: center;
-            height: 80%;
-            & > span { 
-                font-family: Safety Goggles;
-            }
-        }
-        &:hover {
-            cursor: pointer;    
-        }
-    }
-    z-index:3;
-}
+
 .foreground{
     position: absolute;
     bottom: 0;
@@ -341,6 +233,7 @@ $text-font-size-large: 1.5rem;
         color: #fff;  
     }
 }
+
 .boardQuest {
     @include m.flex-master(column, center, center);
     width: 85%;
@@ -373,7 +266,7 @@ $text-font-size-large: 1.5rem;
         @media (min-width: $bp-small) {  
             padding: 0 3.2rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             padding: 0 4rem;
         }
         @media (min-width: $bp-med-2) {  
@@ -390,11 +283,47 @@ $text-font-size-large: 1.5rem;
         // }
     }
 
+    &_dollar {
+        position: absolute;
+        width: 100%;
+        top: 4%;
+        display:flex;
+        justify-content: center;
+
+        &_content {
+            margin-left:1.4rem;
+            font-family: PFRondaSeven;
+            color: #F8D61D;
+
+            font-size: $text-font-size-small * 0.85;
+            @media (min-width: $bp-small-2) {
+                font-size: $text-font-size-small * 1 ;
+            } 
+            @media (min-width: $bp-small-3) {
+                font-size: $text-font-size-small * 1.2 ;
+            } 
+            @media (min-width: $bp-med-2) {  
+                font-size: $text-font-size-small* 1.2;
+            }
+            @media (min-width: $bp-large-2) {  
+                font-size: $text-font-size-small* 1.2;
+            }
+            @media (min-width: $bp-xl) {  
+                font-size: $text-font-size-small* 1.2;
+            }
+            @media (min-width: $bp-xl-2) {  
+                font-size: $text-font-size-small;
+            }
+     
+            
+        }
+    }
+
     &_title {
         @include heading();
         overflow-wrap: break-word;
         margin-top: 30%;
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             margin-top: 28%;
         }
         @media (min-width: $bp-med-2) {  
@@ -436,7 +365,7 @@ $text-font-size-large: 1.5rem;
         
         width: 4.6rem;
         height: 2.16rem;
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             width: 94px;
             height: 44px; 
         }
@@ -446,6 +375,9 @@ $text-font-size-large: 1.5rem;
             &:hover {
                 color: #F8D61D;
             }
+        }
+        &:hover {
+            color: white !important;
         }
     }
     &_orangeBtn { 
@@ -461,7 +393,7 @@ $text-font-size-large: 1.5rem;
             height: 2.90675rem; 
             font-size: 1rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             width: 20.875rem;
             height: 3.875rem; 
             font-size: 1.375rem;
@@ -481,7 +413,7 @@ $text-font-size-large: 1.5rem;
         
         width: 4.6rem;
         height: 2.16rem;
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-3) {  
             width: 94px;
             height: 44px; 
         }
@@ -521,26 +453,27 @@ $text-font-size-large: 1.5rem;
             flex: 10%;
             text-align: right;
 
-            @media (max-width: $bp-small-2) {  
+            @media (max-width: $bp-small-3) {  
                 @include m.flex-master(column, center, center);
                 row-gap: 0.5rem;
             }
         }
-/* same as ranking, except ranking has color style*/
-            &_containerRanking{
-                @include m.flex-master(row, space-between, null);
-                @include text();
-                text-align: left;
-            }
-            &_containerRanking:nth-child(1) {
-                color:#F19A46;
-            }
-            &_containerRanking:nth-child(2) {
-                color:#8ED5FB;
-            }
-            &_containerRanking:nth-child(3){
-                color:#B88AF5;
-            }
+
+        /* same as above, except ranking has color style*/
+        &_containerRanking{
+            @include m.flex-master(row, space-between, null);
+            @include text();
+            text-align: left;
+        }
+        &_containerRanking:nth-child(1) {
+            color:#F19A46;
+        }
+        &_containerRanking:nth-child(2) {
+            color:#8ED5FB;
+        }
+        &_containerRanking:nth-child(3){
+            color:#B88AF5;
+        }
     }
 
     z-index:3;

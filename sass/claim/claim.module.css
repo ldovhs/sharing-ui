@@ -16,6 +16,7 @@
   height: 100%;
   position: relative;
   color: #fff;
+  margin-bottom: 10rem;
 }
 @media (min-width: 54.5em) {
   .board {
@@ -73,7 +74,7 @@
   }
 }
 .board_content {
-  margin-top: 30%;
+  margin-top: 32%;
   width: 100%;
   height: 60%;
 }
@@ -87,11 +88,11 @@
 }
 .board_title {
   width: clamp(100px, 70%, 75vh);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 .board_welcome {
   width: clamp(200px, 70%, 75vh);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 .board_orangeBtn {
   font-family: PFRondaSeven;
@@ -198,7 +199,7 @@
   }
 }
 .board_web3 {
-  height: 50%;
+  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -206,111 +207,8 @@
   align-items: center;
   font-family: PFRondaSeven;
 }
-.board_web3:nth-child(1) {
-  border-bottom: 3px solid rgb(29, 84, 122);
-}
-
-.boardBig {
-  width: clamp(900px, 50vw, 100vh);
-  aspect-ratio: 1.2;
-  background: center/contain no-repeat url("/img/sharing-ui/invite/board_big.png");
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #fff;
-  z-index: 3;
-}
-.boardBig_contentContainer {
-  width: 60%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3vh;
-  padding: 0.5vh;
-}
-.boardBig_title {
-  margin-top: 35%;
-  font-size: 1rem;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-.boardBig_rewardContainer {
-  display: flex;
-  flex-direction: row;
-}
-.boardBig_rewardText {
-  flex: 2 1 auto;
-  margin-left: 5%;
-}
-.boardBig_rewardButtons {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-right: 5%;
-}
-.boardBig_rewardButton {
-  margin-right: 5px;
-  width: 80px;
-  height: 35px;
-  position: relative;
-  color: #FFFFFF !important;
-  display: flex;
-  justify-content: center;
-}
-.boardBig_rewardButton > img {
-  width: min(100%, 200px);
-}
-.boardBig_rewardButton > div {
-  position: absolute;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  height: 80%;
-}
-.boardBig_rewardButton > div > span {
-  font-family: Safety Goggles;
-}
-.boardBig_claimBtn {
-  position: absolute;
-  bottom: 10%;
-  width: clamp(300px, 60%, 80vh);
-  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet.png");
-  font-size: 1rem;
-}
-.boardBig_claimBtn:hover {
-  width: 60%;
-}
-.boardBig_claimBtn:disabled {
-  background: center/contain no-repeat url("/img/sharing-ui/invite/button_wallet-disable.png");
-  font-size: 1rem -1;
-}
-.boardBig_disconnectBtn {
-  position: absolute;
-  bottom: 3%;
-  width: 120px;
-  height: 45px;
-  color: #FFFFFF !important;
-  display: flex;
-  justify-content: center;
-}
-.boardBig_disconnectBtn > img {
-  width: min(100%, 200px);
-}
-.boardBig_disconnectBtn > div {
-  position: absolute;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  height: 80%;
-}
-.boardBig_disconnectBtn > div > span {
-  font-family: Safety Goggles;
-}
-.boardBig_disconnectBtn:hover {
-  cursor: pointer;
+.board_web3:nth-child(2) {
+  border-top: 3px solid rgb(29, 84, 122);
 }
 
 .foreground {
@@ -393,6 +291,49 @@
 @media (min-width: 75em) {
   .boardQuest_wrapper {
     padding: 0 4.5rem;
+  }
+}
+.boardQuest_dollar {
+  position: absolute;
+  width: 100%;
+  top: 4%;
+  display: flex;
+  justify-content: center;
+}
+.boardQuest_dollar_content {
+  margin-left: 1.4rem;
+  font-family: PFRondaSeven;
+  color: #F8D61D;
+  font-size: 0.6375rem;
+}
+@media (min-width: 31.25em) {
+  .boardQuest_dollar_content {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .boardQuest_dollar_content {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardQuest_dollar_content {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardQuest_dollar_content {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardQuest_dollar_content {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardQuest_dollar_content {
+    font-size: 0.75rem;
   }
 }
 .boardQuest_title {
@@ -504,6 +445,9 @@
 }
 .boardQuest_pinkBtn:disabled:hover {
   color: #F8D61D;
+}
+.boardQuest_pinkBtn:hover {
+  color: white !important;
 }
 .boardQuest_orangeBtn {
   font-family: PFRondaSeven;
@@ -621,7 +565,7 @@
   display: none;
 }
 .boardQuest_list {
-  /* same as ranking, except ranking has color style*/
+  /* same as above, except ranking has color style*/
 }
 .boardQuest_list_container {
   display: flex;

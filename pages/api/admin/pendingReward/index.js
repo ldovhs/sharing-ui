@@ -2,6 +2,8 @@ import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
 import Enums from "enums";
 import axios from "axios";
+import { isAdmin } from "repositories/session-auth";
+import { createPendingReward, searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
 
 const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } = process.env;
 
@@ -15,10 +17,7 @@ export default async function PendingRewardAPI(req, res) {
             try {
                 const { username, generatedURL } = req.query;
 
-                /* Finding user info from WhiteList based on username*/
-
                 console.log(`***** Finding user wallet for pending reward, username: ${username}`);
-
                 let user = await prisma.whiteList.findFirst({
                     where: {
                         OR: [
@@ -26,7 +25,7 @@ export default async function PendingRewardAPI(req, res) {
                                 discordId: username,
                             },
                             {
-                                twitter: username,
+                                twitterId: username,
                             },
                             {
                                 wallet: username,
@@ -39,29 +38,23 @@ export default async function PendingRewardAPI(req, res) {
 
                 if (!user) {
                     return res.status(200).json({
-                        message: `Cannot find record for user ${username}`,
+                        message: `Cannot find any record for user ${username}`,
                         isError: true,
                     });
                 }
 
                 /* search for pending reward from the wallet info */
-                let pendingReward = await prisma.pendingReward.findFirst({
-                    where: {
-                        generatedURL,
-                        wallet: user.wallet,
-                    },
-                    include: {
-                        rewardType: true,
-                    },
-                });
+                let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
+                    generatedURL,
+                    user.wallet
+                );
+
                 if (!pendingReward) {
                     return res.status(200).json({
-                        message: `Pending reward null, mostly user does not own this reward`,
+                        message: `User ${user.wallet} does not own this reward ${generatedURL}`,
                         isError: true,
                     });
                 }
-
-                console.log(pendingReward);
 
                 res.status(200).json({ pendingReward, isError: false });
             } catch (err) {
@@ -70,19 +63,18 @@ export default async function PendingRewardAPI(req, res) {
             }
             break;
 
+        /*  
+            @dev Create a new pending reward
+            0. Check if req is from an admin
+            1. Look for user in database if exists
+            2. Create a pending reward since we found the user
+            3. Show in discord if ShowInDiscord is true
+        */
         case "POST":
-            /*  
-                @dev Create a new pending reward
-
-                0. Check if req is from an admin
-                1. Look for user in database if exists
-                2. Create a pending reward since we found the user
-                3. Show in discord if ShowInDiscord is true
-            */
-
-            if (!session || !session.user?.isAdmin) {
-                return res.status(400).json({
-                    message: "Not authenticated to send reward",
+            let adminCheck = await isAdmin(session);
+            if (!adminCheck) {
+                return res.status(422).json({
+                    message: "Not authenticated for reward route",
                     isError: true,
                 });
             }
@@ -96,13 +88,13 @@ export default async function PendingRewardAPI(req, res) {
                     userCondition = { ...userCondition, discordId: username };
                 }
                 if (type === Enums.TWITTER && username.trim().length > 0) {
-                    userCondition = { ...userCondition, twitter: username };
+                    userCondition = { ...userCondition, twitterId: username };
                 }
                 if (username.trim().length === 0) {
                     userCondition = { ...userCondition, wallet };
                 }
 
-                console.log(`***** New Pending Reward: Finding user wallet: ${wallet}`);
+                console.log(`** Pending Reward: Finding user wallet: ${wallet} **`);
                 let user = await prisma.whiteList.findFirst({
                     where: userCondition,
                 });
@@ -117,32 +109,38 @@ export default async function PendingRewardAPI(req, res) {
                     return;
                 }
 
-                console.log(
-                    `***** New Pending Reward: Create pending reward for user wallet: ${wallet}`
-                );
-                let pendingReward = await prisma.pendingReward.create({
-                    data: {
-                        //wallet,
-                        quantity,
-                        isClaimed: false,
-                        rewardType: {
-                            connect: {
-                                id: parseInt(rewardTypeId),
-                            },
-                        },
-                        user: {
-                            connect: {
-                                wallet: user.wallet,
-                            },
-                        },
-                    },
-                    include: {
-                        rewardType: true,
-                        user: true,
-                    },
-                });
+                console.log(`** Pending Reward: Create reward for user wallet: ${wallet} **`);
+                let pendingReward = await createPendingReward(rewardTypeId, quantity, user.wallet);
 
-                if (pendingReward && showInDiscord) {
+                // let pendingReward = await prisma.pendingReward.create({
+                //     data: {
+                //         //wallet,
+                //         quantity,
+                //         isClaimed: false,
+                //         rewardType: {
+                //             connect: {
+                //                 id: parseInt(rewardTypeId),
+                //             },
+                //         },
+                //         user: {
+                //             connect: {
+                //                 wallet: user.wallet,
+                //             },
+                //         },
+                //     },
+                //     include: {
+                //         rewardType: true,
+                //         user: true,
+                //     },
+                // });
+                if (!pendingReward) {
+                    return res.status(422).json({
+                        isError: true,
+                        message: `Cannot add pending reward for user ${user.wallet}`,
+                    });
+                }
+
+                if (showInDiscord) {
                     switch (pendingReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
                             pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
@@ -161,16 +159,15 @@ export default async function PendingRewardAPI(req, res) {
                             break;
                     }
 
-                    if (pendingReward.user.discordId.trim().length > 0) {
+                    if (pendingReward.user.discordId != null) {
                         pendingReward.receivingUser = `<@${pendingReward.user.discordId.trim()}>`;
                     } else {
                         pendingReward.receivingUser = pendingReward.user.wallet;
                     }
 
-                    let discordPost = await axios
+                    await axios
                         .post(
                             `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/pendingReward`,
-
                             {
                                 pendingReward,
                             }
@@ -184,8 +181,6 @@ export default async function PendingRewardAPI(req, res) {
                         .catch((err) => {
                             console.log(err);
                         });
-
-                    console.log(discordPost);
                 }
 
                 res.status(200).json(pendingReward);

@@ -1,23 +1,27 @@
 import { prisma } from "context/PrismaContext";
 import { getSession } from "next-auth/react";
-import { utils } from "ethers";
-import Enums from "enums";
+import { isAdmin } from "repositories/session-auth";
 
-/*  protected route*/
+/* admin protected route */
 export default async function QuestQuery(req, res) {
     const { method } = req;
     const session = await getSession({ req });
 
     switch (method) {
         case "GET":
-            if (!session || !session.user.isAdmin) {
-                return res.status(200).json({
-                    message: "Not authenticated to do quests",
+            let adminCheck = await isAdmin(session);
+            if (!adminCheck) {
+                return res.status(422).json({
+                    message: "Not authenticated for quest",
                     isError: true,
                 });
             }
             try {
-                let allQuests = await prisma.quest.findMany();
+                let allQuests = await prisma.quest.findMany({
+                    include: {
+                        type: true,
+                    },
+                });
 
                 return res.status(200).json(allQuests);
             } catch (err) {

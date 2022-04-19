@@ -84,11 +84,11 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                     <Field name="userId" type="text" className={"form-control"} />
                                 </div>
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">Twitter Handle (@username)</label>
+                                    <label className="form-label">Twitter Id</label>
                                     <Field name="twitter" type="text" className={"form-control"} />
                                 </div>
                                 <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">Discord ID (username#123)</label>
+                                    <label className="form-label">Discord Id </label>
                                     <Field name="discord" type="text" className={"form-control"} />
                                 </div>
 

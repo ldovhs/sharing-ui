@@ -11,6 +11,7 @@ export default function SearchResults({ formData }) {
     useEffect(async () => {
         if (data) {
             let csv = await BuildCsv(data);
+
             setCsvData(csv);
         }
     }, [data]);
@@ -67,9 +68,13 @@ export default function SearchResults({ formData }) {
                                                     <tr key={index}>
                                                         <td className="col-2">{el.userId}</td>
                                                         <td className="col-4">{el.wallet}</td>
-                                                        <td className="col-1">{el.twitter}</td>
-                                                        <td className="col-2">{el.discordId}</td>
-                                                        <td className="col-3">
+                                                        <td className="col-2">
+                                                            {el.twitterUserName}
+                                                        </td>
+                                                        <td className="col-2">
+                                                            {el.discordUserDiscriminator}
+                                                        </td>
+                                                        <td className="col-2">
                                                             {el.rewards.map((reward, rIndex) => {
                                                                 return (
                                                                     <span
@@ -104,13 +109,26 @@ export default function SearchResults({ formData }) {
 }
 
 const BuildCsv = async (data) => {
+    console.log(data);
     const csvString = [
-        ["UserID", "Wallet", "Twitter", "Discord", "Rewards"],
+        [
+            "UserID",
+            "Wallet",
+            "Twitter Id",
+            "TwitterUserName",
+            "Discord User Discriminator",
+            "Discord Id",
+
+            "Rewards",
+        ],
         ...data.map((item) => [
             item.userId,
             item.wallet,
-            item.twitter,
+            item.twitterId,
+            item.twitterUserName,
+            getDiscordUserDiscriminator(item.discordUserDiscriminator),
             item.discorId,
+
             flattenRewards(item.rewards),
         ]),
     ]
@@ -126,4 +144,13 @@ const flattenRewards = (rewards) => {
         res = res + ` ${r.rewardType.reward}(${r.quantity}),`;
     });
     return res;
+};
+
+const getDiscordUserDiscriminator = (discordUserDiscriminator) => {
+    if (discordUserDiscriminator === null) {
+        return "";
+    }
+    let str = discordUserDiscriminator.split("#");
+    return str[0] + "&#35;" + str[1];
+    //return str[0] + str[1];
 };

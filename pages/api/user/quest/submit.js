@@ -2,20 +2,29 @@ import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import { utils } from "ethers";
+import { isWhitelistUser } from "repositories/session-auth";
+import Enums from "enums";
 
-const { DISCORD_BOT_ID, DISCORD_BOT_TOKEN, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } =
-    process.env;
+const { DISCORD_BOT_TOKEN, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST } = process.env;
 
 export default async function submitIndividualQuest(req, res) {
     const { method } = req;
-
+    const session = await getSession({ req });
     switch (method) {
+        // TODO: refactor
         case "POST":
-            const session = await getSession({ req });
+            let userWallet = await isWhitelistUser(session);
+            if (!userWallet) {
+                return res.status(422).json({
+                    message: "Non-user authenticated",
+                    isError: true,
+                });
+            }
+
             if (
                 !session ||
                 !session.user ||
-                session.user.address.toLowerCase() !== req.body.wallet.toLowerCase()
+                session.user.address.toLowerCase() !== userWallet.toLowerCase()
             ) {
                 return res.status(400).json({
                     message: "Not authenticated to submit a quest",
@@ -24,10 +33,7 @@ export default async function submitIndividualQuest(req, res) {
             }
 
             try {
-                const { questId, wallet, type, rewardTypeId, quantity, extendedQuestData } =
-                    req.body;
-
-                let userWallet = utils.getAddress(wallet);
+                const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
 
                 console.log(`**Ensure user has not submitted this quest.**`);
                 let entry = await prisma.UserQuest.findUnique({
@@ -41,28 +47,49 @@ export default async function submitIndividualQuest(req, res) {
                         .json({ isError: true, message: "This quest already submitted before!" });
                 }
 
-                let userQuest = await submitNewUserQuest(req.body);
+                let userQuest = await submitNewUserQuest(req.body, userWallet);
 
-                let discordMsg = await discordHelper(userWallet, extendedQuestData);
+                let updateQuest;
 
-                if (!discordMsg) {
-                    console.log(`**something wrong posting discord message**`);
+                if (type === Enums.ANOMURA_SUBMISSION_QUEST) {
+                    let discordMsg = await discordHelper(userWallet, extendedQuestData);
+
+                    if (!discordMsg) {
+                        console.log(`**something wrong posting discord message**`);
+                    }
+
+                    let extendedUserQuestData = {
+                        ...extendedQuestData,
+                        messageId: discordMsg.data.id,
+                    };
+
+                    updateQuest = await prisma.UserQuest.update({
+                        where: {
+                            wallet_questId: { wallet: userWallet, questId },
+                        },
+                        data: {
+                            wallet: userWallet,
+                            questId,
+                            rewardedTypeId: rewardTypeId,
+                            rewardedQty: quantity,
+                            extendedUserQuestData,
+                        },
+                    });
                 }
-
-                let extendedUserQuestData = { ...extendedQuestData, messageId: discordMsg.data.id };
-
-                let updateQuest = await prisma.UserQuest.update({
-                    where: {
-                        wallet_questId: { wallet: userWallet, questId },
-                    },
-                    data: {
-                        wallet: userWallet,
-                        questId,
-                        rewardedTypeId: rewardTypeId,
-                        rewardedQty: quantity,
-                        extendedUserQuestData,
-                    },
-                });
+                // FOR OTHER QUEST TYPES
+                else {
+                    updateQuest = await prisma.UserQuest.update({
+                        where: {
+                            wallet_questId: { wallet: userWallet, questId },
+                        },
+                        data: {
+                            wallet: userWallet,
+                            questId,
+                            rewardedTypeId: rewardTypeId,
+                            rewardedQty: quantity,
+                        },
+                    });
+                }
 
                 return res.status(200).json(updateQuest);
             } catch (error) {
@@ -77,9 +104,8 @@ export default async function submitIndividualQuest(req, res) {
     }
 }
 
-const submitNewUserQuest = async (quest) => {
-    let { questId, wallet, type, rewardTypeId, quantity, extendedQuestData } = quest;
-    wallet = utils.getAddress(wallet);
+const submitNewUserQuest = async (quest, wallet) => {
+    let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
 
     let extendedUserQuestData = { ...extendedQuestData };
     let claimedReward;
@@ -124,10 +150,10 @@ const submitNewUserQuest = async (quest) => {
 
     await prisma.$transaction([claimedReward, userQuest]);
 
-    // console.log(userQuest);
     return userQuest;
 };
 
+// TODO moving to nodejs later
 const discordHelper = async (wallet, extendedQuestData) => {
     let discordChannel = extendedQuestData.discordChannel;
 

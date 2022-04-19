@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import s from "/sass/admin/admin.module.css";
 
 const Modal = ({ isOpen, onClose, render, isConfirm = false }) => {

@@ -5,36 +5,20 @@ import {
     TwitterAuthQuest,
     TwitterFollowQuest,
     AnomuraSeeFoodQuest,
+    InstagramFollowQuest,
+    TwitterRetweetQuest,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
+import { withQuestTypeQuery } from "@shared/HOC/quest";
 
-const AddQuest = ({ closeModal, rewardTypes }) => {
-    const [questTypes, setQuestTypes] = useState([
-        {
-            id: 1,
-            type: Enums.DISCORD_AUTH,
-        },
-        {
-            id: 2,
-            type: Enums.TWITTER_AUTH,
-        },
-        {
-            id: 3,
-            type: Enums.FOLLOW_TWITTER,
-        },
-        {
-            id: 4,
-            type: Enums.ANOMURA_SUBMISSION_QUEST,
-        },
-    ]);
-
-    const [typeOfQuest, setTypeOfQuest] = useState();
+const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
+    const [selectedType, setSelectedType] = useState();
 
     useEffect(async () => {}, []);
 
     const handleOnSelectChange = (e) => {
-        setTypeOfQuest(e.target.value);
+        setSelectedType(e.target.value);
     };
 
     return (
@@ -46,15 +30,16 @@ const AddQuest = ({ closeModal, rewardTypes }) => {
                             <label className="form-label">Quest Type</label>
                             <select onChange={handleOnSelectChange}>
                                 <option value="Select">Select Type Of Quest</option>
-                                {questTypes.map((item) => (
-                                    <option key={item.id} value={item.type}>
-                                        {item.type}
-                                    </option>
-                                ))}
+                                {questTypes &&
+                                    questTypes.map((item) => (
+                                        <option key={item.id} value={item.name}>
+                                            {item.name}
+                                        </option>
+                                    ))}
                             </select>
                         </div>
 
-                        {typeOfQuest === Enums.DISCORD_AUTH && (
+                        {selectedType === Enums.DISCORD_AUTH && (
                             <DiscordAuthQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
@@ -62,15 +47,22 @@ const AddQuest = ({ closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {typeOfQuest === Enums.TWITTER_AUTH && (
+                        {selectedType === Enums.TWITTER_AUTH && (
                             <TwitterAuthQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}
                             />
                         )}
+                        {selectedType === Enums.TWITTER_RETWEET && (
+                            <TwitterRetweetQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
 
-                        {typeOfQuest === Enums.FOLLOW_TWITTER && (
+                        {selectedType === Enums.FOLLOW_TWITTER && (
                             <TwitterFollowQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
@@ -78,7 +70,15 @@ const AddQuest = ({ closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {typeOfQuest === Enums.ANOMURA_SUBMISSION_QUEST && (
+                        {selectedType === Enums.FOLLOW_INSTAGRAM && (
+                            <InstagramFollowQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.ANOMURA_SUBMISSION_QUEST && (
                             <AnomuraSeeFoodQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
@@ -91,5 +91,5 @@ const AddQuest = ({ closeModal, rewardTypes }) => {
         </div>
     );
 };
-
-export default withRewardTypeQuery(AddQuest);
+const firstHOC = withQuestTypeQuery(AddQuest);
+export default withRewardTypeQuery(firstHOC);

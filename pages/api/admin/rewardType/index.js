@@ -1,8 +1,7 @@
 import { getAllRewardTypes } from "repositories/admin";
-import { prisma } from "../../../../context/PrismaContext";
 
 /* non protected route*/
-export default async function adminSearch(req, res) {
+export default async function rewardTypesQuery(req, res) {
     const { method } = req;
 
     switch (method) {

@@ -2,7 +2,6 @@ import React, { StrictMode } from "react";
 import { RecoilRoot } from "recoil";
 import "../styles/globals.css";
 import "../sass/admin/adminBootstrap.css";
-//import { SiteProvider } from "@context/SiteContext";
 import { Web3Provider } from "@context/Web3Context";
 import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
@@ -12,7 +11,6 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
         <SessionProvider session={session}>
-            {/* <SiteProvider> */}
             <Web3Provider>
                 <QueryClientProvider client={queryClient}>
                     <RecoilRoot>
@@ -30,7 +28,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     </RecoilRoot>
                 </QueryClientProvider>
             </Web3Provider>
-            {/* </SiteProvider> */}
         </SessionProvider>
     );
 }

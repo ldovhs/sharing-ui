@@ -26,7 +26,7 @@ async function main() {
             create: {
                 wallet: faker.finance.ethereumAddress(),
                 discordId: faker.internet.userName(),
-                twitter: faker.internet.userName(),
+                twitterId: faker.internet.userName(),
                 rewards: {
                     create: [
                         {

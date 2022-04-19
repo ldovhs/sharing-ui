@@ -15,7 +15,8 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
             <div className="card">
                 {quests && quests.length > 0 && (
                     <div className="card-body">
-                        {quests.map((item, index, row) => {
+                        {isLoading && <div> Get quests info...</div>}
+                        {quests.map((quest, index, row) => {
                             return (
                                 <React.Fragment key={index}>
                                     <div className="verify-content">
@@ -25,23 +26,35 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                                             </span>
                                             <div className="primary-number">
                                                 <h5 className="mb-0">
-                                                    {item.text}
-                                                    {item.type === Enums.FOLLOW_TWITTER && (
-                                                        <span className="text-yellow-600 ml-1">
-                                                            {item.extendedQuestData.followAccount}
+                                                    {quest.text}
+                                                    {quest.type.name === Enums.FOLLOW_TWITTER && (
+                                                        <span className="text-teal-500 ml-1">
+                                                            {quest.extendedQuestData.followAccount}
+                                                        </span>
+                                                    )}
+
+                                                    {quest.type.name === Enums.FOLLOW_INSTAGRAM && (
+                                                        <span className="text-red-500 ml-1">
+                                                            {quest.extendedQuestData.followAccount}
+                                                        </span>
+                                                    )}
+
+                                                    {quest.type.name === Enums.TWITTER_RETWEET && (
+                                                        <span className="text-teal-500 ml-1">
+                                                            {quest.extendedQuestData.tweetId}
                                                         </span>
                                                     )}
                                                 </h5>
 
-                                                <small>{item.description}</small>
+                                                <small>{quest.description}</small>
                                                 <br />
                                                 <span className="text-success">
-                                                    {item.isRequired ? "Required" : "Optional"}
+                                                    {quest.isRequired ? "Required" : "Optional"}
                                                 </span>
                                             </div>
                                         </div>
 
-                                        <Link href={`${router.pathname}/?id=${item.id}`}>
+                                        <Link href={`${router.pathname}/?id=${quest.id}`}>
                                             <button className=" btn btn-dark">Manage </button>
                                         </Link>
                                     </div>

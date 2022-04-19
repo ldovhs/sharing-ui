@@ -3,46 +3,83 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
+import { withUserRewardQuery } from "@shared/HOC/reward";
 
 const IndividualQuestBoard = ({
     session,
     isFetchingUserQuests,
-    data,
+    isFetchingUserRewards,
+    userQuests,
+    userRewards,
     queryError,
     onSubmit,
     isSubmitting,
     submittedQuest,
 }) => {
-    const [currentQuests, setCurrentQuests] = useState(data);
+    const [currentQuests, setCurrentQuests] = useState(userQuests);
+    const [rewardAmount, setRewardAmount] = useState(null);
     const { web3Error, SignOut } = useContext(Web3Context);
 
     useEffect(async () => {
-        setCurrentQuests(data);
-    }, [data]);
+        if (userQuests && userRewards) {
+            userQuests.sort(isNotDoneFirst);
+            console.log(userRewards);
+            let sum = userRewards
+                .map((r) => {
+                    if (r.rewardType.reward === "Shell") {
+                        return r.quantity;
+                    } else {
+                        return 0;
+                    }
+                })
+                .reduce((prev, curr) => prev + curr, 0);
+
+            setRewardAmount(sum);
+            setCurrentQuests(userQuests);
+        }
+    }, [userQuests]);
 
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
 
-        if (type === Enums.ANOMURA_SUBMISSION_QUEST) {
-            let submission = {
-                questId,
-                wallet: session.user.address,
-                type,
-                rewardTypeId,
-                quantity,
-                extendedQuestData,
-            };
-            let updatedQuestArr = await onSubmit(submission, currentQuests);
-            console.log(updatedQuestArr);
-            setCurrentQuests(updatedQuestArr);
-        } else {
-            alert("Sorry I dont have it yet :)");
+        if (type.name === Enums.TWITTER_RETWEET) {
+            window.open(
+                `https://twitter.com/intent/retweet?tweet_id=${extendedQuestData.tweetId}`,
+                "_blank"
+            );
         }
+
+        if (type.name === Enums.FOLLOW_TWITTER) {
+            window.open(
+                `https://twitter.com/intent/follow?screen_name=${extendedQuestData.followAccount}`,
+                "_blank"
+            );
+        }
+        if (type.name === Enums.FOLLOW_INSTAGRAM) {
+            window.open(`https://www.instagram.com/${extendedQuestData.followAccount}`, "_blank");
+        }
+
+        let submission = {
+            questId,
+            type,
+            rewardTypeId,
+            quantity,
+            extendedQuestData,
+        };
+        let updatedQuestArr = await onSubmit(submission, currentQuests);
+
+        setCurrentQuests(updatedQuestArr);
     };
 
     return (
         <div className={s.boardQuest}>
             <div className={s.boardQuest_container}>
+                <div className={s.boardQuest_dollar}>
+                    <div className={s.boardQuest_dollar_content}>
+                        {rewardAmount !== null && rewardAmount !== 0 ? `$${rewardAmount}` : "$$$"}
+                    </div>
+                </div>
+
                 <div className={s.boardQuest_wrapper}>
                     <div className={s.boardQuest_title}>Individual Quests</div>
 
@@ -81,8 +118,13 @@ const IndividualQuestBoard = ({
                                                 <div>
                                                     {text}
 
-                                                    {type === Enums.FOLLOW_TWITTER && (
-                                                        <span className="text-green-500">
+                                                    {type.name === Enums.FOLLOW_TWITTER && (
+                                                        <span className="text-teal-500">
+                                                            {` @${extendedQuestData.followAccount}`}{" "}
+                                                        </span>
+                                                    )}
+                                                    {type.name === Enums.FOLLOW_INSTAGRAM && (
+                                                        <span className="text-red-400">
                                                             {` @${extendedQuestData.followAccount}`}{" "}
                                                         </span>
                                                     )}
@@ -91,13 +133,58 @@ const IndividualQuestBoard = ({
                                             </div>
                                             <div className={s.boardQuest_list_result}>
                                                 {!isDone && (
-                                                    <button
-                                                        className={s.boardQuest_pinkBtn}
-                                                        onClick={() => DoQuest(item)}
-                                                        disabled={isDone}
-                                                    >
-                                                        Do
-                                                    </button>
+                                                    <>
+                                                        {type.name === Enums.DISCORD_AUTH && (
+                                                            <a
+                                                                className={s.boardQuest_pinkBtn}
+                                                                href={getDiscordAuthLink()}
+                                                                target="_blank"
+                                                                disabled={isDone}
+                                                            >
+                                                                Do
+                                                            </a>
+                                                        )}
+                                                        {type.name === Enums.TWITTER_AUTH && (
+                                                            <a
+                                                                className={s.boardQuest_pinkBtn}
+                                                                href={getTwitterAuthLink()}
+                                                                target="_blank"
+                                                                disabled={isDone}
+                                                            >
+                                                                Auth
+                                                            </a>
+                                                        )}
+                                                        {(type.name === Enums.FOLLOW_TWITTER ||
+                                                            type.name ===
+                                                                Enums.FOLLOW_INSTAGRAM) && (
+                                                            <button
+                                                                className={s.boardQuest_pinkBtn}
+                                                                onClick={() => DoQuest(item)}
+                                                                disabled={isDone}
+                                                            >
+                                                                Follow
+                                                            </button>
+                                                        )}
+                                                        {type.name === Enums.TWITTER_RETWEET && (
+                                                            <button
+                                                                className={s.boardQuest_pinkBtn}
+                                                                onClick={() => DoQuest(item)}
+                                                                disabled={isDone}
+                                                            >
+                                                                Retweet
+                                                            </button>
+                                                        )}
+                                                        {type.name ===
+                                                            Enums.ANOMURA_SUBMISSION_QUEST && (
+                                                            <button
+                                                                className={s.boardQuest_pinkBtn}
+                                                                onClick={() => DoQuest(item)}
+                                                                disabled={isDone}
+                                                            >
+                                                                Do
+                                                            </button>
+                                                        )}
+                                                    </>
                                                 )}
                                                 {isDone && (
                                                     <span className={s.boardQuest_yellowText}>
@@ -124,5 +211,22 @@ const IndividualQuestBoard = ({
     );
 };
 
+const getDiscordAuthLink = () => {
+    // return `https://discord.com/api/oauth2/authorize?client_id=954788577001218159&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email`;
+
+    return `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
+};
+
+const getTwitterAuthLink = () => {
+    // return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=WTZyeF8tSTczdm9HaWFkbHF0cTA6MTpjaQ&redirect_uri=http://localhost:3000/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
+
+    return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
+};
+
+function isNotDoneFirst(a, b) {
+    return Number(a.isDone) - Number(b.isDone);
+}
+
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
-export default withUserQuestQuery(firstHOC);
+const secondHOC = withUserQuestQuery(firstHOC);
+export default withUserRewardQuery(secondHOC);

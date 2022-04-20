@@ -18,6 +18,14 @@ export default async function whitelistSignUp(req, res) {
 
                 let wallet = utils.getAddress(address);
 
+                const existingUser = await prisma.whiteList.findUnique({
+                    where: { wallet },
+                });
+
+                if (existingUser) {
+                    return res.status(200).json({ existingUser });
+                }
+
                 const newUser = await prisma.whiteList.create({
                     data: {
                         wallet,

@@ -239,17 +239,6 @@ export function Web3Provider({ children }) {
                 return;
             }
 
-            // trying to get if sign up request has existing user
-            const user = await axios.get("/api/user", {
-                params: {
-                    address: addresses[0],
-                },
-            });
-
-            if (user.data.length > 0) {
-                return true;
-            }
-
             let signUpRes = await signUp(providerInstance, addresses[0]);
             if (signUpRes === "User sign up successful") {
                 return true;

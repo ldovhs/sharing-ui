@@ -53,10 +53,10 @@ export default async function submitIndividualQuest(req, res) {
 
                     updateQuest = await prisma.UserQuest.update({
                         where: {
-                            wallet_questId: { wallet: whiteListUser, questId },
+                            wallet_questId: { wallet: whiteListUser.wallet, questId },
                         },
                         data: {
-                            wallet: whiteListUser,
+                            wallet: whiteListUser.wallet,
                             questId,
                             rewardedTypeId: rewardTypeId,
                             rewardedQty: quantity,
@@ -68,10 +68,10 @@ export default async function submitIndividualQuest(req, res) {
                 else {
                     updateQuest = await prisma.UserQuest.update({
                         where: {
-                            wallet_questId: { wallet: whiteListUser, questId },
+                            wallet_questId: { wallet: whiteListUser.wallet, questId },
                         },
                         data: {
-                            wallet: whiteListUser,
+                            wallet: whiteListUser.wallet,
                             questId,
                             rewardedTypeId: rewardTypeId,
                             rewardedQty: quantity,
@@ -98,7 +98,7 @@ const submitNewUserQuest = async (quest, wallet) => {
     let claimedReward;
     if (quantity >= 0) {
     }
-
+    console.log(wallet);
     console.log(`**Create / Update reward for user**`);
     claimedReward = prisma.reward.upsert({
         where: {

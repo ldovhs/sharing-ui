@@ -9,14 +9,21 @@ import { withAdminQuestQuery } from "shared/HOC/quest";
 const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
     const [isModalOpen, setModalOpen] = useState(false);
+    const [currentQuests, setCurrentQuests] = useState(null);
+
+    useEffect(() => {
+        if (quests) {
+            setCurrentQuests(quests.sort(shortByText));
+        }
+    }, [quests]);
 
     return (
         <>
             <div className="card">
-                {quests && quests.length > 0 && (
+                {currentQuests && currentQuests.length > 0 && (
                     <div className="card-body">
                         {isLoading && <div> Get quests info...</div>}
-                        {quests.map((quest, index, row) => {
+                        {currentQuests.map((quest, index, row) => {
                             return (
                                 <React.Fragment key={index}>
                                     <div className="verify-content">
@@ -113,5 +120,15 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
         </>
     );
 };
+
+function shortByText(a, b) {
+    if (a.text?.toLowerCase() < b.text?.toLowerCase()) {
+        return -1;
+    }
+    if (a.text?.toLowerCase() > b.text?.toLowerCase()) {
+        return 1;
+    }
+    return 0;
+}
 
 export default withAdminQuestQuery(CurrentQuests);

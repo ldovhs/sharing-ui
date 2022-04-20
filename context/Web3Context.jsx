@@ -109,7 +109,6 @@ export function Web3Provider({ children }) {
             });
 
             if (!admin.data) {
-                console.log(admin);
                 setWeb3Error("Cannot authenticate as admin with current wallet account");
                 return;
             }
@@ -118,8 +117,6 @@ export function Web3Provider({ children }) {
 
             signMessageTimeout = setTimeout(async () => {
                 const signer = await providerInstance.getSigner();
-                console.log(signer);
-
                 const signature = await signer.signMessage(`${Enums.ADMIN_SIGN_MSG}: ${nonce}`);
                 const address = await signer.getAddress();
 
@@ -180,8 +177,7 @@ export function Web3Provider({ children }) {
                     address: addresses[0],
                 },
             });
-            console.log(123);
-            console.log(user);
+
             if (user.data.length === 0) {
                 setWeb3Error("Cannot find any user in our db, please sign up");
                 return;
@@ -243,6 +239,7 @@ export function Web3Provider({ children }) {
             if (signUpRes === "User sign up successful") {
                 return true;
             }
+            setWeb3Error("Cannot sign up user, please contact administrator!");
             return false;
         } catch (error) {
             console.log(error);

@@ -12,7 +12,7 @@ export const SIGNUP_OPTIONS = 1;
 export const SIGNUP_SUCCEED = 2;
 export const SIGNUP_AWAIT = 3;
 export const SIGNUP_ERROR = 4;
-export const SIGNUP_SUCCESS = 4;
+export const SIGNUP_SUCCESS = 5;
 function SignUp() {
     const [currentPrompt, setPrompt] = useState(SIGNUP);
     const { data: session, status } = useSession({ required: false });
@@ -63,6 +63,8 @@ function SignUp() {
             redirectTimeout = setTimeout(() => {
                 router.push("/user/quest");
             }, 2500);
+        } else {
+            changeView(SIGNUP_ERROR);
         }
     };
 

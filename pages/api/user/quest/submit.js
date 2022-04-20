@@ -13,7 +13,7 @@ export default async function submitIndividualQuest(req, res) {
         case "POST":
             let whiteListUser = await isWhiteListUser(session);
             if (!whiteListUser) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Non-user authenticated",
                     isError: true,
                 });
@@ -30,7 +30,7 @@ export default async function submitIndividualQuest(req, res) {
                 });
                 if (entry) {
                     return res
-                        .status(422)
+                        .status(200)
                         .json({ isError: true, message: "This quest already submitted before!" });
                 }
 

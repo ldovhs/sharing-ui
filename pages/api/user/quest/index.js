@@ -12,7 +12,7 @@ export default async function QuestQuery(req, res) {
         case "GET":
             let whiteListUser = await isWhiteListUser(session);
             if (!whiteListUser) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Non-user authenticated",
                     isError: true,
                 });

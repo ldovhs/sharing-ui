@@ -11,7 +11,7 @@ export default async function QuestQuery(req, res) {
         case "GET":
             let adminCheck = await isAdmin(session);
             if (!adminCheck) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Not authenticated for quest",
                     isError: true,
                 });

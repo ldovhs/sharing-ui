@@ -16,7 +16,7 @@ export default async function getQuestLeaderBoard(req, res) {
                 }
 
                 if (questData.type !== Enums.ANOMURA_SUBMISSION_QUEST) {
-                    return res.status(422).json({
+                    return res.status(200).json({
                         isError: true,
                         message: `No data for this type of quest ${questData.type}`,
                     });

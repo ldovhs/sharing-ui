@@ -18,7 +18,7 @@ export default async function whitelistSignUp(req, res) {
 
                 if (!user) {
                     return res
-                        .status(422)
+                        .status(200)
                         .json({ isError: true, message: "Cannot find this user in our record" });
                 }
 

@@ -13,7 +13,7 @@ export default async function ClaimReward(req, res) {
     const session = await getSession({ req });
     let whiteListUser = await isWhiteListUser(session);
     if (!whiteListUser) {
-        return res.status(422).json({
+        return res.status(200).json({
             message: "Not authenticated for reward route",
             isError: true,
         });
@@ -45,7 +45,7 @@ export default async function ClaimReward(req, res) {
 
                 console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);
                 if (whiteListUser.wallet !== wallet) {
-                    return res.status(422).json({
+                    return res.status(200).json({
                         message: "Not authenticated to claim this reward.",
                         isError: true,
                     });

@@ -16,7 +16,7 @@ export default async function QuestUpsert(req, res) {
         case "POST":
             let adminCheck = await isAdmin(session);
             if (!adminCheck) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Not authenticated for quest api",
                     isError: true,
                 });
@@ -45,7 +45,7 @@ export default async function QuestUpsert(req, res) {
 
                 if (!questType) {
                     return res
-                        .status(422)
+                        .status(200)
                         .json({ isError: true, message: `Cannot find quest type ${type}` });
                 }
                 let newExtendedQuestData;

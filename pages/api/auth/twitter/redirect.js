@@ -28,7 +28,7 @@ export default async function twitterRedirect(req, res) {
 
                 const { code } = req.query;
                 if (!code) {
-                    res.status(422).json({ message: "Missing auth code for oath2" });
+                    res.status(200).json({ message: "Missing auth code." });
                 }
 
                 const formData = new url.URLSearchParams({
@@ -102,7 +102,7 @@ export default async function twitterRedirect(req, res) {
                 res.status(200).json({ message: "Quest completed, please close this page!" });
             } catch (err) {
                 console.log(err);
-                res.status(422).json({ error: err.message });
+                res.status(200).json({ error: err.message });
             }
             break;
         default:

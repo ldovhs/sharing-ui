@@ -11,7 +11,7 @@ export default async function whitelistUser(req, res) {
             try {
                 let whiteListUser = await isWhiteListUser(session);
                 if (!whiteListUser) {
-                    return res.status(422).json({
+                    return res.status(200).json({
                         message: "Non-user authenticated",
                         isError: true,
                     });
@@ -24,7 +24,7 @@ export default async function whitelistUser(req, res) {
             break;
         case "POST":
             if (!session || !session.user?.isAdmin) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Non-admin authenticated to add new user",
                     isError: true,
                 });

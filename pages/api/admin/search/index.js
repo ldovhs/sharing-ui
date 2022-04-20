@@ -9,7 +9,7 @@ export default async function adminSearch(req, res) {
         case "POST":
             let adminCheck = await isAdmin(session);
             if (!adminCheck) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Not authenticated for admin search",
                     isError: true,
                 });

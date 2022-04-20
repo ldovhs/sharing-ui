@@ -82,7 +82,7 @@ export default async function PendingRewardAPI(req, res) {
         case "POST":
             let adminCheck = await isAdmin(session);
             if (!adminCheck) {
-                return res.status(422).json({
+                return res.status(200).json({
                     message: "Not authenticated for reward route",
                     isError: true,
                 });
@@ -122,7 +122,7 @@ export default async function PendingRewardAPI(req, res) {
                 let pendingReward = await createPendingReward(rewardTypeId, quantity, user.wallet);
 
                 if (!pendingReward) {
-                    return res.status(422).json({
+                    return res.status(200).json({
                         isError: true,
                         message: `Cannot add pending reward for user ${user.wallet}`,
                     });

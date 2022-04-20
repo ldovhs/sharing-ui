@@ -9,9 +9,8 @@ export default async function adminAPI(req, res) {
             try {
                 const { address } = req.query;
 
-                console.log(address);
                 if (!address) {
-                    return res.status(422).json({ isError: true });
+                    return res.status(200).json({ isError: true });
                 }
 
                 let wallet = utils.getAddress(address);

@@ -178,7 +178,9 @@ export function Web3Provider({ children }) {
                 },
             });
 
-            if (user.data.length === 0) {
+            console.log(user);
+
+            if (user.data.isError) {
                 setWeb3Error("Cannot find any user in our db, please sign up");
                 return;
             }

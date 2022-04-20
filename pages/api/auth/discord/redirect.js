@@ -29,7 +29,7 @@ export default async function discordRedirect(req, res) {
 
                 const { code } = req.query;
                 if (!code) {
-                    res.status(422).json({ message: "Missing auth code for oath2" });
+                    res.status(200).json({ message: "Missing auth code for oath2" });
                 }
 
                 const formData = new url.URLSearchParams({
@@ -99,7 +99,7 @@ export default async function discordRedirect(req, res) {
 
                 res.status(200).json({ message: "Discord authenticattion quest completed!" });
             } catch (err) {
-                res.status(422).json({ error: err.message });
+                res.status(200).json({ error: err.message });
             }
             break;
         default:

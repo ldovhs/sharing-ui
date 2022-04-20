@@ -98,8 +98,15 @@ const IndividualQuestBoard = ({
                             isFetchingUserRewards ||
                             isFetchingUser) && (
                             <div className={s.boardQuest_loading}>
-                                <img src="/img/sharing-ui/clamsparkle.gif" alt="Loading data" />
-                                {/* <div>Fetching data...</div> */}
+                                <div className={s.boardQuest_loading_wrapper}>
+                                    <img src="/img/sharing-ui/clamsparkle.gif" alt="Loading data" />
+                                    <div className={s.boardQuest_loading_wrapper_text}>
+                                        Fetching data{" "}
+                                        <span
+                                            className={s.boardQuest_loading_wrapper_text_ellipsis}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         )}
                         {/*  Render error message */}

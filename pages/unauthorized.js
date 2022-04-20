@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import s from "/sass/claim/claim.module.css";
-import { useRouter } from "next/router";
-import { Leaderboard } from "@components/end-user/ComponentIndex";
-import axios from "axios";
-
-const util = require("util");
 
 function Unauthorized() {
-    useEffect(async () => {}, []);
     return (
         <>
             <div className={s.app}>

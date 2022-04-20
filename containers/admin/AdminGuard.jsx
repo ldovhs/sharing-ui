@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
-const util = require("util");
 
 export function AdminGuard({ children }) {
     const { data: session, status } = useSession({ required: false });
@@ -29,7 +28,6 @@ export function AdminGuard({ children }) {
             {web3Error}
         </div>;
     }
-
     return (
         <div className="d-flex justify-content-center align-items-center fs-1 text-blue-500">
             PLEASE LOGIN {web3Error} {session}

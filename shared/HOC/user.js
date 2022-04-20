@@ -1,13 +1,14 @@
-import { useQueryClient, useQuery, useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios from "axios";
+
+const USER_API = "/api/user";
 
 export const withUserUpsert =
     (Component) =>
     ({ ...props }) => {
-        const queryClient = useQueryClient();
-        const { data, error, isError, isLoading, isSuccess, mutate, mutateAsync } = useMutation(
+        const { data, error, isError, isLoading, mutateAsync } = useMutation(
             "mutateUser",
-            (quest) => axios.post("/api/user", quest),
+            (user) => axios.post(USER_API, user),
             {
                 onSuccess: () => {},
             }
@@ -30,7 +31,7 @@ export const withCurrentUserQuery =
     (Component) =>
     ({ ...props }) => {
         const { data, status, isLoading, error } = useQuery("currentUser", () =>
-            axios.get("/api/user/current")
+            axios.get(USER_API)
         );
 
         return (

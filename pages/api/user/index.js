@@ -1,38 +1,37 @@
 import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
-import { utils } from "ethers";
+import { isWhiteListUser } from "repositories/session-auth";
 
-export default async function whitelistAPI(req, res) {
+export default async function whitelistUser(req, res) {
     const { method } = req;
+    const session = await getSession({ req });
 
     switch (method) {
         case "GET":
             try {
-                const { address } = req.query;
-                let wallet = utils.getAddress(address);
-                const user = await prisma.whiteList.findUnique({
-                    where: {
-                        wallet,
-                    },
-                });
-
-                res.status(200).json(user);
+                let whiteListUser = await isWhiteListUser(session);
+                if (!whiteListUser) {
+                    return res.status(422).json({
+                        message: "Non-user authenticated",
+                        isError: true,
+                    });
+                }
+                res.status(200).json(whiteListUser);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });
             }
             break;
         case "POST":
-            const session = await getSession({ req });
             if (!session || !session.user?.isAdmin) {
-                return res.status(400).json({
-                    message: "Not authenticated to add new user",
+                return res.status(422).json({
+                    message: "Non-admin authenticated to add new user",
                     isError: true,
                 });
             }
 
             try {
-                console.log(`*****Add New User`);
+                console.log(`**Add New User**`);
                 const { discordId, discordUserDiscriminator, wallet, twitterId, twitterUserName } =
                     req.body;
 

@@ -1,7 +1,7 @@
 import { prisma } from "../context/PrismaContext";
 import { utils } from "ethers";
 
-export const isWhitelistUser = async (session) => {
+export const isWhiteListUser = async (session) => {
     // session login through discord
     let user;
     if (session.provider === "discord") {
@@ -32,7 +32,7 @@ export const isWhitelistUser = async (session) => {
     if (!user) {
         return null;
     }
-    return user.wallet;
+    return user;
 };
 
 export const isAdmin = async (session) => {

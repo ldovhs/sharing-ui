@@ -15,9 +15,6 @@ export default async function getQuestLeaderBoard(req, res) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
 
-                if (questData.userQuests.length == 0) {
-                    return res.status(200).json(questData);
-                }
                 if (questData.type !== Enums.ANOMURA_SUBMISSION_QUEST) {
                     return res.status(422).json({
                         isError: true,

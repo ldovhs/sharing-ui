@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 import { utils } from "ethers";
 import Enums from "enums";
 import { getWhitelistByWallet } from "repositories/whitelist";
-import { isWhitelistUser } from "repositories/session-auth";
+import { isWhiteListUser } from "repositories/session-auth";
 
 const TOKEN_DISCORD_AUTH_URL = "https://discord.com/api/oauth2/token";
 const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
@@ -21,9 +21,9 @@ export default async function discordRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
-                let lookupWallet = await isWhitelistUser(session);
+                let whiteListUser = await isWhiteListUser(session);
 
-                if (!session || !utils.isAddress(lookupWallet)) {
+                if (!session || !whiteListUser || !utils.isAddress(whiteListUser.wallet)) {
                     throw new Error("Unauthenticated user");
                 }
 
@@ -60,10 +60,6 @@ export default async function discordRedirect(req, res) {
                     throw new Error("Couldn't retrieve user info from auth");
                 }
 
-                // saving discordId, and discord discriminator into whitelist table
-
-                const whiteListUser = await getWhitelistByWallet(lookupWallet);
-
                 if (
                     whiteListUser.discordId != null &&
                     (whiteListUser.discordId.length > 0 ||
@@ -72,7 +68,6 @@ export default async function discordRedirect(req, res) {
                     return res.status(200).json({ message: "Already authenticated before" });
                 }
 
-                // get quest type of Enums.DISCORD_AUTH
                 let questType = await prisma.questType.findUnique({
                     where: { name: Enums.DISCORD_AUTH },
                 });
@@ -90,10 +85,9 @@ export default async function discordRedirect(req, res) {
                     },
                 });
 
-                // update user info and reward (transaction)
                 let userQuest = await updateUserAndAddRewardTransaction(
                     discordQuest,
-                    lookupWallet,
+                    whiteListUser.wallet,
                     userInfo.data
                 );
 

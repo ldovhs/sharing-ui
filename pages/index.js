@@ -1,7 +1,7 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { AdminLayout } from "/components/admin/ComponentIndex";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function Admin() {
     return (
@@ -18,7 +18,7 @@ function Admin() {
                   color: black;
                   line-height: 1.5;
                 }
-      `}</style> */}
+            `}</style> */}
         </>
     );
 }

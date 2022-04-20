@@ -102,7 +102,7 @@ export function Web3Provider({ children }) {
                 return;
             }
 
-            const admin = await axios.get("/api/admin/admin", {
+            const admin = await axios.get("/api/admin", {
                 params: {
                     address: addresses[0],
                 },
@@ -175,7 +175,7 @@ export function Web3Provider({ children }) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
             }
-            const user = await axios.get("/api/user", {
+            const user = await axios.get("/api/user/signin", {
                 params: {
                     address: addresses[0],
                 },

@@ -4,9 +4,9 @@ import Enums from "enums";
 import axios from "axios";
 import { isAdmin } from "repositories/session-auth";
 import { createPendingReward, searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
-import { isWhitelistUser } from "repositories/session-auth";
+import { isWhiteListUser } from "repositories/session-auth";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
+const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } =
     process.env;
 
 export default async function PendingRewardAPI(req, res) {
@@ -20,7 +20,7 @@ export default async function PendingRewardAPI(req, res) {
                 const { username, generatedURL } = req.query;
                 if (!username) return res.status(200).json({ message: "Await" });
 
-                let walletSession = await isWhitelistUser(session);
+                let whiteListUser = await isWhiteListUser(session);
 
                 console.log(`** Finding user wallet for pending reward, username: ${username} **`);
                 let user = await prisma.whiteList.findFirst({
@@ -58,9 +58,9 @@ export default async function PendingRewardAPI(req, res) {
                     user.wallet
                 );
 
-                if (pendingReward.wallet !== walletSession) {
+                if (pendingReward.wallet !== whiteListUser.wallet) {
                     return res.status(200).json({
-                        message: `User ${walletSession} does not own this reward ${generatedURL}`,
+                        message: `User ${whiteListUser.wallet} does not own this reward ${generatedURL}`,
                         isError: true,
                     });
                 }
@@ -161,7 +161,7 @@ export default async function PendingRewardAPI(req, res) {
                             },
                             {
                                 headers: {
-                                    Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                                    Authorization: `Bot ${DISCORD_SECRET}`,
                                     "Content-Type": "application/json",
                                 },
                             }

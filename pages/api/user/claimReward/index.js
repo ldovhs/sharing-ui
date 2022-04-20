@@ -2,17 +2,17 @@ import { prisma } from "@context/PrismaContext";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import Enums from "enums";
-import { isWhitelistUser } from "repositories/session-auth";
+import { isWhiteListUser } from "repositories/session-auth";
 
 const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
     process.env;
 
 /* api/claimReward */
-export default async function ClaimRewardAPI(req, res) {
+export default async function ClaimReward(req, res) {
     const { method } = req;
     const session = await getSession({ req });
-    let userWallet = await isWhitelistUser(session);
-    if (!userWallet) {
+    let whiteListUser = await isWhiteListUser(session);
+    if (!whiteListUser) {
         return res.status(422).json({
             message: "Not authenticated for reward route",
             isError: true,
@@ -23,7 +23,7 @@ export default async function ClaimRewardAPI(req, res) {
         case "GET":
             try {
                 const rewarded = await prisma.reward.findMany({
-                    where: { wallet: userWallet },
+                    where: { wallet: whiteListUser.wallet },
                     include: { rewardType: true },
                 });
 
@@ -42,10 +42,10 @@ export default async function ClaimRewardAPI(req, res) {
             try {
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
-                console.log(111);
+
                 console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);
-                if (userWallet !== wallet) {
-                    return res.status(400).json({
+                if (whiteListUser.wallet !== wallet) {
+                    return res.status(422).json({
                         message: "Not authenticated to claim this reward.",
                         isError: true,
                     });
@@ -55,7 +55,7 @@ export default async function ClaimRewardAPI(req, res) {
                 const pendingReward = await prisma.pendingReward.findUnique({
                     where: {
                         wallet_rewardTypeId_generatedURL: {
-                            wallet: userWallet,
+                            wallet: whiteListUser.wallet,
                             rewardTypeId,
                             generatedURL,
                         },
@@ -72,7 +72,7 @@ export default async function ClaimRewardAPI(req, res) {
                 let claimedReward;
                 if (!pendingReward.isClaimed) {
                     claimedReward = await UpdateClaimAndPendingRewardTransaction(
-                        userWallet,
+                        whiteListUser.wallet,
                         rewardTypeId,
                         quantity,
                         generatedURL
@@ -89,7 +89,7 @@ export default async function ClaimRewardAPI(req, res) {
                 console.log("** Find user **");
                 let user = await prisma.whiteList.findUnique({
                     where: {
-                        wallet: userWallet,
+                        wallet: whiteListUser.wallet,
                     },
                 });
 
@@ -146,7 +146,7 @@ export default async function ClaimRewardAPI(req, res) {
 }
 
 const UpdateClaimAndPendingRewardTransaction = async (
-    userWallet,
+    wallet,
     rewardTypeId,
     quantity,
     generatedURL
@@ -154,10 +154,10 @@ const UpdateClaimAndPendingRewardTransaction = async (
     console.log(`** Claiming Reward ${generatedURL} **`);
     let claimedReward = prisma.reward.upsert({
         where: {
-            wallet_rewardTypeId: { wallet: userWallet, rewardTypeId },
+            wallet_rewardTypeId: { wallet, rewardTypeId },
         },
         create: {
-            wallet: userWallet,
+            wallet,
             quantity,
             rewardTypeId,
         },
@@ -179,7 +179,7 @@ const UpdateClaimAndPendingRewardTransaction = async (
     let updatePendingReward = prisma.pendingReward.update({
         where: {
             wallet_rewardTypeId_generatedURL: {
-                wallet: userWallet,
+                wallet,
                 rewardTypeId,
                 generatedURL,
             },

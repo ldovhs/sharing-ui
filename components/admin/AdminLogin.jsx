@@ -73,7 +73,7 @@ const AdminLogin = ({ closeModal }) => {
                     className={s.nonPixelModal_container}
                     onClick={async () => {
                         let res = await TryConnectAsAdmin(Enums.WALLETCONNECT);
-                        console.log(1);
+
                         closeModal();
                     }}
                 >

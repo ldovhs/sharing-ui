@@ -1,77 +1,18 @@
 import { prisma } from "@context/PrismaContext";
-import { getSession } from "next-auth/react";
 import Enums from "enums";
 import axios from "axios";
-import { isAdmin } from "repositories/session-auth";
-import { createPendingReward, searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
-import { isWhiteListUser } from "repositories/session-auth";
+import { createPendingReward } from "repositories/reward";
+import adminMiddleware from "middlewares/adminMiddleware";
 
 const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } =
     process.env;
 
-export default async function PendingRewardAPI(req, res) {
+const ROUTE = "/api/admin/reward/addPending";
+
+const AddPendingRewardAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
 
     switch (method) {
-        /* Get pending reward from db*/
-        case "GET":
-            try {
-                const { username, generatedURL } = req.query;
-                if (!username) return res.status(200).json({ message: "Await" });
-
-                let whiteListUser = await isWhiteListUser(session);
-
-                console.log(`** Finding user wallet for pending reward, username: ${username} **`);
-                let user = await prisma.whiteList.findFirst({
-                    where: {
-                        OR: [
-                            {
-                                discordId: username,
-                            },
-                            {
-                                twitterId: username,
-                            },
-                            {
-                                wallet: username,
-                            },
-                            {
-                                discordUserDiscriminator: username,
-                            },
-                            {
-                                twitterUserName: username,
-                            },
-                        ],
-                    },
-                });
-
-                if (!user) {
-                    return res.status(200).json({
-                        message: `Cannot find any record for user ${username}`,
-                        isError: true,
-                    });
-                }
-
-                /* search for pending reward from the wallet info */
-                let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
-                    generatedURL,
-                    user.wallet
-                );
-
-                if (pendingReward.wallet !== whiteListUser.wallet) {
-                    return res.status(200).json({
-                        message: `User ${whiteListUser.wallet} does not own this reward ${generatedURL}`,
-                        isError: true,
-                    });
-                }
-
-                res.status(200).json({ pendingReward, isError: false });
-            } catch (err) {
-                console.log(err);
-                res.status(500).json({ err });
-            }
-            break;
-
         /*  
             @dev Create a new pending reward
             0. Check if req is from an admin
@@ -80,14 +21,6 @@ export default async function PendingRewardAPI(req, res) {
             3. Show in discord if ShowInDiscord is true
         */
         case "POST":
-            let adminCheck = await isAdmin(session);
-            if (!adminCheck) {
-                return res.status(200).json({
-                    message: "Not authenticated for reward route",
-                    isError: true,
-                });
-            }
-
             try {
                 const { username, type, wallet, rewardTypeId, quantity, showInDiscord } = req.body;
 
@@ -181,4 +114,6 @@ export default async function PendingRewardAPI(req, res) {
             res.setHeader("Allow", ["GET", "PUT"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
+
+export default adminMiddleware(AddPendingRewardAPI);

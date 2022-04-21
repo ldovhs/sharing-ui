@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { AdminLayout } from "/components/admin/ComponentIndex";
-import { CurrentQuests } from "@components/admin/ComponentIndex";
+import { AdminLayout } from "/components/admin";
+import { CurrentQuests } from "@components/admin";
 
 const AdminQuest = () => {
     useEffect(async () => {}, []);

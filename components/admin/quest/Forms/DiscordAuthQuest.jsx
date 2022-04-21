@@ -1,10 +1,11 @@
 import Enums from "enums";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
+import QuestFormTemplate from "./QuestFormTemplate";
 
-const TwitterRetweetQuest = ({
+const DiscordAuthQuest = ({
     quest = null,
     rewardTypes,
     closeModal,
@@ -14,27 +15,25 @@ const TwitterRetweetQuest = ({
     onUpsert,
 }) => {
     const initialValues = {
-        type: Enums.TWITTER_RETWEET,
-        extendedQuestData: quest?.extendedQuestData ?? { tweetId: "" },
-        text: quest?.text || "Retweet a Tweet",
-        description: quest?.description ?? "Require the user to retweet a Tweet",
+        type: Enums.DISCORD_AUTH,
+        text: quest?.text || "Authenticate your Discord",
+        description: quest?.description ?? "Require the user to authenticate their Discord Id",
         completedText: quest?.completedText || "Completed",
         rewardTypeId: quest?.rewardTypeId || 1,
         quantity: quest?.quantity || 0,
         isEnabled: quest?.isEnabled ?? true,
-        isRequired: quest?.isRequired ?? false,
+        isRequired: quest?.isRequired ?? true,
         id: quest?.id || 0,
     };
-    const TwitterRetweetQuestSchema = object().shape({
-        extendedQuestData: object().shape({
-            tweetId: string().required("An id of the tweet is required!"),
-        }),
+
+    const DiscordQuestSchema = object().shape({
         text: string().required("Quest text is required"),
-        completedText: string().required("Complete Text is required"),
-        quantity: number().required().min(0), //optional
+        completedText: string().required("Completed Text is required"),
+        quantity: number().required().min(0), // optional
     });
 
     const onSubmit = async (fields, { setStatus }) => {
+        // alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
         try {
             let res = await onUpsert(fields);
 
@@ -51,44 +50,30 @@ const TwitterRetweetQuest = ({
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={TwitterRetweetQuestSchema}
+            validationSchema={DiscordQuestSchema}
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={onSubmit}
         >
-            {({ values, errors, status, touched, handleChange }) => {
+            {({ values, errors, status, touched, handleChange, setFieldValue }) => {
                 return (
                     <Form>
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
-                        <small>Create a Twitter Retweet Requirement</small>
+                        <small>Create a Discord Authentication Requirement</small>
                         <div className="row">
-                            {/* Retweet a Tweet */}
-                            <div className="col-xxl-12 col-xl-12 col-lg-12">
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">
-                                        Retweet a tweet (Enter id of the original tweet)
-                                    </label>
-                                    <Field
-                                        name="extendedQuestData.tweetId"
-                                        type="text"
-                                        className={
-                                            "form-control" +
-                                            (errors.extendedQuestData &&
-                                            errors.extendedQuestData.tweetId &&
-                                            touched.extendedQuestData.tweetId
-                                                ? " is-invalid"
-                                                : "")
-                                        }
-                                    />
-                                    <ErrorMessage
-                                        name="extendedQuestData.tweetId"
-                                        component="div"
-                                        className="invalid-feedback"
-                                    />
-                                </div>
-                            </div>
-                            {/* Quest Text */}
-                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                            <QuestFormTemplate
+                                values={values}
+                                errors={errors}
+                                touched={touched}
+                                onTextChange={(t) => setFieldValue("text", t)}
+                                onCompletedTextChange={(c) => setFieldValue("completedText", c)}
+                                onDescriptionChange={(d) => setFieldValue("description", d)}
+                                onRewardTypeChange={(rt) => setFieldValue("rewardTypeId", rt)}
+                                onRewardQuantityChange={(rq) => setFieldValue("quantity", rq)}
+                                onIsEnabledChange={handleChange}
+                                rewardTypes={rewardTypes}
+                            />
+                            {/* <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">Quest Text</label>
                                 <Field
                                     name="text"
@@ -104,6 +89,7 @@ const TwitterRetweetQuest = ({
                                     className="invalid-feedback"
                                 />
                             </div>
+
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">Completed</label>
                                 <Field
@@ -123,7 +109,7 @@ const TwitterRetweetQuest = ({
                                 />
                             </div>
 
-                            {/* Description */}
+                            
                             <div className="col-xxl-12 col-xl-12 col-lg-12 mb-3">
                                 <label className="form-label">Description</label>
                                 <Field
@@ -143,7 +129,7 @@ const TwitterRetweetQuest = ({
                                 />
                             </div>
 
-                            {/* Type of Reward */}
+                     
                             <div className="col-6 mb-3">
                                 <label className="form-label">Reward Type</label>
                                 <Field
@@ -159,7 +145,7 @@ const TwitterRetweetQuest = ({
                                     {rewardTypes &&
                                         rewardTypes.map((type, index) => {
                                             return (
-                                                <option key={index} value={type.id}>
+                                                <option key={index} value={parseInt(type.id)}>
                                                     {type.reward}
                                                 </option>
                                             );
@@ -167,7 +153,7 @@ const TwitterRetweetQuest = ({
                                 </Field>
                             </div>
 
-                            {/* Reward quantity  */}
+                    
                             <div className="col-6 mb-3">
                                 <label className="form-label">Quantity</label>
                                 <Field
@@ -184,7 +170,7 @@ const TwitterRetweetQuest = ({
                                     className="invalid-feedback"
                                 />
                             </div>
-                            {/* Enabled  */}
+                       
                             <div className="col-6 mb-3">
                                 <div className="form-check form-switch">
                                     <input
@@ -196,7 +182,8 @@ const TwitterRetweetQuest = ({
                                     />
                                     Enabled
                                 </div>
-                            </div>
+                            </div> */}
+
                             <div
                                 className={`col-12 mb-3 text-red-500 ${
                                     status ? "d-block" : "d-none"
@@ -211,14 +198,13 @@ const TwitterRetweetQuest = ({
                                     className="btn btn-success mr-2"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? "Saving..." : "Save"}
+                                    {isLoading ? "Saving" : "Save"}
                                 </button>
 
                                 <button
                                     type="button"
                                     className="btn btn-primary"
                                     onClick={closeModal}
-                                    disabled={isLoading}
                                 >
                                     Close
                                 </button>
@@ -231,4 +217,4 @@ const TwitterRetweetQuest = ({
     );
 };
 
-export default withQuestUpsert(TwitterRetweetQuest);
+export default withQuestUpsert(DiscordAuthQuest);

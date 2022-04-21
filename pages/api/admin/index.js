@@ -1,6 +1,8 @@
 import { prisma } from "@context/PrismaContext";
 import { utils } from "ethers";
 
+const ROUTE = "/api/admin";
+
 export default async function adminAPI(req, res) {
     const { method } = req;
 
@@ -31,7 +33,7 @@ export default async function adminAPI(req, res) {
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }

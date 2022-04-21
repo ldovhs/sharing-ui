@@ -1,21 +1,12 @@
 import { prisma } from "context/PrismaContext";
-import { getSession } from "next-auth/react";
-import { isAdmin } from "repositories/session-auth";
+import adminMiddleware from "middlewares/adminMiddleware";
+const ROUTE = "/api/admin/quest/";
 
-/* admin protected route */
-export default async function QuestQuery(req, res) {
+const AdminQuestQueryAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
 
     switch (method) {
         case "GET":
-            let adminCheck = await isAdmin(session);
-            if (!adminCheck) {
-                return res.status(200).json({
-                    message: "Not authenticated for quest",
-                    isError: true,
-                });
-            }
             try {
                 let allQuests = await prisma.quest.findMany({
                     include: {
@@ -31,7 +22,8 @@ export default async function QuestQuery(req, res) {
             break;
 
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
+export default adminMiddleware(AdminQuestQueryAPI);

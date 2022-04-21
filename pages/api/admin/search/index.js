@@ -1,19 +1,12 @@
 import { prisma } from "@context/PrismaContext";
-import { isAdmin } from "repositories/session-auth";
-import { getSession } from "next-auth/react";
+import adminMiddleware from "middlewares/adminMiddleware";
+const ROUTE = "/api/admin/search";
 
-export default async function adminSearch(req, res) {
+const adminSearchAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
+
     switch (method) {
         case "POST":
-            let adminCheck = await isAdmin(session);
-            if (!adminCheck) {
-                return res.status(200).json({
-                    message: "Not authenticated for admin search",
-                    isError: true,
-                });
-            }
             const { wallet, userId, twitter, discord, rewards } = req.body;
 
             let userCondition = {},
@@ -80,7 +73,9 @@ export default async function adminSearch(req, res) {
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["POST"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
+
+export default adminMiddleware(adminSearchAPI);

@@ -34,3 +34,10 @@ export const searchPendingRewardBasedOnGeneratedURL = async (generatedURL, walle
         },
     });
 };
+
+export const getClaimedRewardsOfUser = async (wallet) => {
+    return await prisma.reward.findMany({
+        where: { wallet },
+        include: { rewardType: true },
+    });
+};

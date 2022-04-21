@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
 import Enums from "enums";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const util = require("util");
 
@@ -13,7 +13,7 @@ export const SOCIAL_AUTH = 3;
 export const AUTHENTICATING = 4;
 
 export default function ConnectBoard() {
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const { web3Error, TryConnectAsUser } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
 
@@ -52,7 +52,6 @@ export default function ConnectBoard() {
                     <div className={s.board_content}>
                         {web3Error && <>{web3Error}</>}
                         {currentPrompt === WELCOME && !web3Error && (
-                            // <div ref={connectOptionsRef}>
                             <div>
                                 <img
                                     className={s.board_title}
@@ -74,7 +73,6 @@ export default function ConnectBoard() {
                         )}
 
                         {currentPrompt === CONNECT_OPTIONS && !web3Error && (
-                            // <div className={`${s.open}`} ref={authWalletRef}>
                             <div className={`${s.open}`}>
                                 <div
                                     className={s.board_web3}
@@ -94,7 +92,6 @@ export default function ConnectBoard() {
                         )}
 
                         {currentPrompt === SOCIAL_AUTH && !web3Error && (
-                            // <div className={`${s.open}`} ref={authWalletRef}>
                             <div className={`${s.open}`}>
                                 <div
                                     className={s.board_web3}
@@ -120,7 +117,6 @@ export default function ConnectBoard() {
                         )}
 
                         {currentPrompt === WALLET_AUTH && !web3Error && (
-                            //<div className={`${s.open}`} ref={authWalletRef}>
                             <div className={`${s.open}`}>
                                 {!isMetamaskDisabled && !isMobile && (
                                     <div

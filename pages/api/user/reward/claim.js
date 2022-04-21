@@ -1,45 +1,21 @@
 import { prisma } from "@context/PrismaContext";
-import { getSession } from "next-auth/react";
+import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import axios from "axios";
 import Enums from "enums";
-import { isWhiteListUser } from "repositories/session-auth";
+import { UpdateClaimAndPendingRewardTransaction } from "repositories/transactions";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_BOT_TOKEN } =
+const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } =
     process.env;
 
-/* api/claimReward */
-export default async function ClaimReward(req, res) {
+const ROUTE = "/api/user/reward/claim";
+
+const userClaimRewardAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
-    let whiteListUser = await isWhiteListUser(session);
-    if (!whiteListUser) {
-        return res.status(200).json({
-            message: "Not authenticated for reward route",
-            isError: true,
-        });
-    }
 
     switch (method) {
-        case "GET":
-            try {
-                const rewarded = await prisma.reward.findMany({
-                    where: { wallet: whiteListUser.wallet },
-                    include: { rewardType: true },
-                });
-
-                res.status(200).json(rewarded);
-            } catch (error) {
-                console.log(err);
-                res.status(500).json({ err });
-            }
-            break;
-        /* 
-            1. Insert a record into Reward table
-            2. Mark the record as claimed in Pending Reward table
-            3. Post in discord that the reward has been claimed
-        */
         case "POST":
             try {
+                const whiteListUser = req.whiteListUser;
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
 
@@ -69,15 +45,19 @@ export default async function ClaimReward(req, res) {
                     });
                 }
 
-                let claimedReward;
-                if (!pendingReward.isClaimed) {
-                    claimedReward = await UpdateClaimAndPendingRewardTransaction(
-                        whiteListUser.wallet,
-                        rewardTypeId,
-                        quantity,
-                        generatedURL
-                    );
+                if (pendingReward.isClaimed) {
+                    return res.status(200).json({
+                        isError: true,
+                        message: `Reward is claimed previously!`,
+                    });
                 }
+
+                let claimedReward = await UpdateClaimAndPendingRewardTransaction(
+                    whiteListUser.wallet,
+                    rewardTypeId,
+                    quantity,
+                    generatedURL
+                );
 
                 if (!claimedReward) {
                     return res.status(200).json({
@@ -86,15 +66,13 @@ export default async function ClaimReward(req, res) {
                     });
                 }
 
-                console.log("** Find user **");
-                let user = await prisma.whiteList.findUnique({
-                    where: {
-                        wallet: whiteListUser.wallet,
-                    },
-                });
-
-                if (user && user.discordId !== null) {
-                    claimedReward.claimedUser = `<@${user.discordId.trim()}>`;
+                // post to discord if discordId exists
+                if (
+                    whiteListUser &&
+                    whiteListUser.discordId !== null &&
+                    whiteListUser.discordId.length > 0
+                ) {
+                    claimedReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
 
                     switch (claimedReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
@@ -123,7 +101,7 @@ export default async function ClaimReward(req, res) {
                             {
                                 //authorization
                                 headers: {
-                                    Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
+                                    Authorization: `Bot ${DISCORD_SECRET}`,
                                     "Content-Type": "application/json",
                                 },
                             }
@@ -140,55 +118,9 @@ export default async function ClaimReward(req, res) {
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["POST"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
-
-const UpdateClaimAndPendingRewardTransaction = async (
-    wallet,
-    rewardTypeId,
-    quantity,
-    generatedURL
-) => {
-    console.log(`** Claiming Reward ${generatedURL} **`);
-    let claimedReward = prisma.reward.upsert({
-        where: {
-            wallet_rewardTypeId: { wallet, rewardTypeId },
-        },
-        create: {
-            wallet,
-            quantity,
-            rewardTypeId,
-        },
-        update: {
-            quantity: {
-                increment: quantity,
-            },
-        },
-        select: {
-            wallet: true,
-            quantity: true,
-            user: true,
-            rewardTypeId: true,
-            rewardType: true,
-        },
-    });
-
-    console.log(`** Updating reward ${generatedURL} to claimed **`);
-    let updatePendingReward = prisma.pendingReward.update({
-        where: {
-            wallet_rewardTypeId_generatedURL: {
-                wallet,
-                rewardTypeId,
-                generatedURL,
-            },
-        },
-        data: {
-            isClaimed: true,
-        },
-    });
-
-    await prisma.$transaction([claimedReward, updatePendingReward]);
-    return claimedReward;
 };
+
+export default whitelistUserMiddleware(userClaimRewardAPI);

@@ -3,9 +3,10 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 const REWARD_TYPE_QUERY = "/api/admin/rewardType";
-const PENDING_REWARD_SUBMIT = "/api/admin/pendingReward";
-const PENDING_REWARD_QUERY = "/api/admin/pendingReward";
-const CLAIM_REWARD = "/api/user/claimReward";
+const PENDING_REWARD_SUBMIT = "/api/admin/reward/addPending";
+const PENDING_REWARD_QUERY = "/api/user/reward/getPending";
+const USER_GET_CLAIMED_REWARD = "/api/user/reward/getClaimed";
+const USER_CLAIMED_REWARD = "/api/user/reward/claim";
 
 export const withRewardTypeQuery =
     (Component) =>
@@ -78,7 +79,7 @@ export const withClaimRewardSubmit =
         const queryClient = useQueryClient();
         const { data, error, isError, isLoading, isSuccess, mutateAsync } = useMutation(
             "claimRewardSubmit",
-            (claimableReward) => axios.post(CLAIM_REWARD, claimableReward),
+            (claimableReward) => axios.post(USER_CLAIMED_REWARD, claimableReward),
             {
                 onSuccess: () => {
                     queryClient.invalidateQueries("pendingRewardQuery"); // query the old pending, should have pendingReward.isClaimed = true
@@ -106,7 +107,7 @@ export const withUserRewardQuery =
     (Component) =>
     ({ ...props }) => {
         const { data, status, isLoading, error } = useQuery("userRewardQuery", () =>
-            axios.get(CLAIM_REWARD)
+            axios.get(USER_GET_CLAIMED_REWARD)
         );
         return (
             <Component

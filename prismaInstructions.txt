@@ -3,3 +3,6 @@ https://www.prisma.io/docs/guides/general-guides/database-workflows/unique-const
 
 TRUNCATE ONLY .....
 RESTART IDENTITY;
+
+
+TRUNCATE <table_name> RESTART IDENTITY CASCADE;

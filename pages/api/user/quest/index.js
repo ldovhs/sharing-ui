@@ -1,31 +1,21 @@
-import { getSession } from "next-auth/react";
-import { utils } from "ethers";
-import { isWhiteListUser } from "repositories/session-auth";
 import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories/quest";
+import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 
-/* user protected route*/
-export default async function QuestQuery(req, res) {
+const ROUTE = "/api/user/quest";
+
+const questQueryAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
 
     switch (method) {
         case "GET":
-            let whiteListUser = await isWhiteListUser(session);
-            if (!whiteListUser) {
-                return res.status(200).json({
-                    message: "Non-user authenticated",
-                    isError: true,
-                });
-            }
-
             try {
-                let wallet = utils.getAddress(whiteListUser.wallet);
-
+                // let wallet = utils.getAddress(whiteListUser.wallet);
+                const whiteListUser = req.whiteListUser;
                 console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await getAllEnableQuestsForUser();
 
                 console.log(`** Get quests done by this user **`);
-                let finishedQuest = await getQuestsDoneByThisUser(wallet);
+                let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.wallet);
 
                 await Promise.all(
                     availableQuests.map((aq) => {
@@ -47,7 +37,8 @@ export default async function QuestQuery(req, res) {
             break;
 
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
+export default whitelistUserMiddleware(questQueryAPI);

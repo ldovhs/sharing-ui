@@ -126,14 +126,11 @@ export function Web3Provider({ children }) {
                     address,
                 }).then(({ ok, error }) => {
                     if (ok) {
-                        console.log(ok);
                         return true;
                     } else {
                         console.log(error);
                         setWeb3Error("Authentication failed");
                         return false;
-                        //router.push("/admin");
-                        //return error;
                     }
                 });
             }, 1000);
@@ -172,15 +169,12 @@ export function Web3Provider({ children }) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
             }
-            const user = await axios.get("/api/user/signin", {
+            const user = await axios.get("/api/user", {
                 params: {
                     address: addresses[0],
                 },
             });
-
-            console.log(user);
-
-            if (user.data.isError) {
+            if (!user || !user.data || user.data.isError) {
                 setWeb3Error("Cannot find any user in our db, please sign up");
                 return;
             }

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { AdminLayout } from "/components/admin/ComponentIndex";
+import { AdminLayout } from "/components/admin";
 import React from "react";
 
 function Admin() {

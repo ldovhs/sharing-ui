@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AdminLayout } from "/components/admin/ComponentIndex";
+import React, { useEffect } from "react";
+import { AdminLayout } from "/components/admin";
 
 import AddNewReward from "@components/admin/reward/AddNewReward";
 

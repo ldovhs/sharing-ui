@@ -1,25 +1,22 @@
 import { prisma } from "@context/PrismaContext";
-import { getSession } from "next-auth/react";
+import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import axios from "axios";
-import { isWhiteListUser } from "repositories/session-auth";
+
 import Enums from "enums";
+import { submitNewUserQuestTransaction } from "repositories/transactions";
+import { updateUserQuest } from "repositories/userQuest";
 
 const { NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } = process.env;
 
-export default async function submitIndividualQuest(req, res) {
+const ROUTE = "/api/user/submit";
+
+const submitIndividualQuestAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
+
     switch (method) {
         case "POST":
-            let whiteListUser = await isWhiteListUser(session);
-            if (!whiteListUser) {
-                return res.status(200).json({
-                    message: "Non-user authenticated",
-                    isError: true,
-                });
-            }
-
             try {
+                const whiteListUser = req.whiteListUser;
                 const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
 
                 console.log(`**Ensure user has not submitted this quest.**`);
@@ -34,11 +31,17 @@ export default async function submitIndividualQuest(req, res) {
                         .json({ isError: true, message: "This quest already submitted before!" });
                 }
 
-                let userQuest = await submitNewUserQuest(req.body, whiteListUser.wallet);
+                let userQuest = await submitNewUserQuestTransaction(req.body, whiteListUser.wallet);
+                if (!userQuest) {
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "User Quest cannot be submitted!" });
+                }
 
                 let updateQuest;
 
                 if (type === Enums.ANOMURA_SUBMISSION_QUEST) {
+                    // TODO
                     let discordMsg = await discordHelper(whiteListUser, extendedQuestData);
 
                     // need a better handling
@@ -51,32 +54,22 @@ export default async function submitIndividualQuest(req, res) {
                         messageId: discordMsg.data.id,
                     };
 
-                    updateQuest = await prisma.UserQuest.update({
-                        where: {
-                            wallet_questId: { wallet: whiteListUser.wallet, questId },
-                        },
-                        data: {
-                            wallet: whiteListUser.wallet,
-                            questId,
-                            rewardedTypeId: rewardTypeId,
-                            rewardedQty: quantity,
-                            extendedUserQuestData,
-                        },
-                    });
+                    updateQuest = await updateUserQuest(
+                        whiteListUser.wallet,
+                        questId,
+                        rewardTypeId,
+                        quantity,
+                        extendedUserQuestData
+                    );
                 }
                 // FOR OTHER QUEST TYPES
                 else {
-                    updateQuest = await prisma.UserQuest.update({
-                        where: {
-                            wallet_questId: { wallet: whiteListUser.wallet, questId },
-                        },
-                        data: {
-                            wallet: whiteListUser.wallet,
-                            questId,
-                            rewardedTypeId: rewardTypeId,
-                            rewardedQty: quantity,
-                        },
-                    });
+                    updateQuest = await updateUserQuest(
+                        whiteListUser.wallet,
+                        questId,
+                        rewardTypeId,
+                        quantity
+                    );
                 }
 
                 res.status(200).json(updateQuest);
@@ -89,55 +82,6 @@ export default async function submitIndividualQuest(req, res) {
             res.setHeader("Allow", ["GET", "PUT"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
-
-const submitNewUserQuest = async (quest, wallet) => {
-    let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
-
-    let extendedUserQuestData = { ...extendedQuestData };
-    let claimedReward;
-    if (quantity >= 0) {
-    }
-    console.log(wallet);
-    console.log(`**Create / Update reward for user**`);
-    claimedReward = prisma.reward.upsert({
-        where: {
-            wallet_rewardTypeId: { wallet, rewardTypeId },
-        },
-        update: {
-            quantity: {
-                increment: quantity,
-            },
-        },
-        create: {
-            wallet,
-            quantity,
-            rewardTypeId,
-        },
-
-        select: {
-            wallet: true,
-            quantity: true,
-            user: true,
-            rewardTypeId: true,
-            rewardType: true,
-        },
-    });
-
-    console.log(`**Save to UserQuest, to keep track that its done**`);
-    let userQuest = prisma.userQuest.create({
-        data: {
-            wallet,
-            questId,
-            rewardedTypeId: rewardTypeId,
-            rewardedQty: quantity,
-            // extendedUserQuestData
-        },
-    });
-
-    await prisma.$transaction([claimedReward, userQuest]);
-
-    return userQuest;
 };
 
 const discordHelper = async (user, extendedQuestData) => {
@@ -162,26 +106,6 @@ const discordHelper = async (user, extendedQuestData) => {
     ];
     let imageUrl = url[Math.floor(Math.random() * url.length)];
 
-    // let discordPost = await axios.post(
-    //     `https://discord.com/api/channels/${discordChannel}/messages`,
-    //     {
-    //         content: `** ${wallet} has submit their submission.** `,
-    //         embeds: [
-    //             {
-    //                 image: {
-    //                     url: imageUrl,
-    //                 },
-    //             },
-    //         ],
-    //     },
-    //     {
-    //         headers: {
-    //             Authorization: `Bot ${DISCORD_SECRET}`,
-    //             "Content-Type": "application/json",
-    //         },
-    //     }
-    // );
-
     let discordPost = await axios.post(
         `${DISCORD_NODEJS}/api/v1/channels/${discordChannel}/questSubmission`,
         {
@@ -198,3 +122,5 @@ const discordHelper = async (user, extendedQuestData) => {
 
     return discordPost;
 };
+
+export default whitelistUserMiddleware(submitIndividualQuestAPI);

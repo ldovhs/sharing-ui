@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from "/sass/claim/claim.module.css";
 import { useRouter } from "next/router";
-import { Leaderboard } from "@components/end-user/ComponentIndex";
+import { Leaderboard } from "@components/end-user";
 import axios from "axios";
 
 const util = require("util");

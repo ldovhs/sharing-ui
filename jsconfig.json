@@ -11,7 +11,8 @@
             "@utils/*": ["utils/*"],
             "@repository/*": ["repository/*"],
             "@context/*": ["context/*"],
-            "@shared/*": ["shared/*"]
+            "@shared/*": ["shared/*"],
+            "@middlewares/*": ["middlewares/*"]
           }
     },
      "include": [

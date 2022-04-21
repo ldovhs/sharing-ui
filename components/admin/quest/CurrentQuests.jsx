@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Enums from "enums";
-import { Modal } from "/components/admin/ComponentIndex";
+import { Modal } from "/components/admin";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { EditQuest, AddQuest } from "../ComponentIndex";
+import { EditQuest, AddQuest } from "..";
 import { withAdminQuestQuery } from "shared/HOC/quest";
 
 const CurrentQuests = ({ quests, isLoading, error }) => {

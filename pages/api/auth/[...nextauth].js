@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { recoverPersonalSignature } from "eth-sig-util";
 import { bufferToHex } from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
-import { ethers, utils } from "ethers";
+import { utils } from "ethers";
 import Enums from "enums";
 import DiscordProvider from "next-auth/providers/discord";
 import TwitterProvider from "next-auth/providers/twitter";
@@ -33,14 +33,15 @@ export default NextAuth({
                 const { address, signature } = credentials;
                 if (!address || !signature) throw new Error("Missing address or signature");
 
-                if (utils.getAddress(address) && !utils.isAddress(address))
-                    throw new Error("Invalid wallet address");
+                let wallet = utils.getAddress(address);
+                if (!wallet && !utils.isAddress(address)) throw new Error("Invalid wallet address");
 
-                const admin = await prisma.Admin.findFirst({
+                const admin = await prisma.admin.findUnique({
                     where: {
-                        wallet: { equals: address, mode: "insensitive" },
+                        wallet,
                     },
                 });
+
                 if (!admin) throw new Error("Wallet address not belong to any admin!");
 
                 const nonce = admin.nonce.trim();
@@ -95,7 +96,7 @@ export default NextAuth({
                 });
 
                 if (!user) {
-                    throw new Error("This wallet is not in our record.");
+                    throw new Error("This wallet account is not in our record.");
                 }
 
                 const msg = `${Enums.USER_SIGN_MSG}`;
@@ -127,7 +128,7 @@ export default NextAuth({
     ],
     session: {
         jwt: true,
-        maxAge: 60 * 60 * 24, //  30 * 24 * 60 * 60
+        maxAge: 60 * 60, //  30 * 24 * 60 * 60
     },
     jwt: {
         signingKey: NEXT_PUBLIC_NEXTAUTH_SECRET,

@@ -1,10 +1,11 @@
-import { prisma } from "@context/PrismaContext";
 import axios from "axios";
 import url from "url";
 import { getSession } from "next-auth/react";
 import { utils } from "ethers";
 import Enums from "enums";
 import { isWhiteListUser } from "repositories/session-auth";
+import { getQuestType, getQuestByTypeId } from "repositories/quest";
+import { updateTwitterUserAndAddRewardTransaction } from "repositories/transactions";
 
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
@@ -12,6 +13,7 @@ const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
 const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET } =
     process.env;
 
+const ROUTE = "/api/auth/twitter/redirect";
 // @dev this is used for twitter auth quest only
 export default async function twitterRedirect(req, res) {
     const { method } = req;
@@ -69,25 +71,24 @@ export default async function twitterRedirect(req, res) {
                         .json({ message: "This twitter account is already authenticated before." });
                 }
 
-                let twitterAuthQuestType = await prisma.questType.findUnique({
-                    where: { name: Enums.TWITTER_AUTH },
-                });
-
+                let twitterAuthQuestType = await getQuestType(Enums.TWITTER_AUTH);
                 if (!twitterAuthQuestType) {
                     return res
                         .status(200)
                         .json({ isError: true, message: "Cannot find quest type twitter auth" });
                 }
 
-                // get quest of this type based on id
-                let twitterQuest = await prisma.quest.findFirst({
-                    where: {
-                        questTypeId: twitterAuthQuestType.id,
-                    },
-                });
+                let twitterQuest = await getQuestByTypeId(twitterAuthQuestType.id);
+                if (!twitterQuest) {
+                    return res
+                        .status(200)
+                        .json({
+                            isError: true,
+                            message: "Cannot find quest associated with twitter auth",
+                        });
+                }
 
-                // reward this user
-                let userQuest = await updateUserAndAddRewardTransaction(
+                let userQuest = await updateTwitterUserAndAddRewardTransaction(
                     twitterQuest,
                     whiteListUser.wallet,
                     userInfo.data.data
@@ -99,74 +100,16 @@ export default async function twitterRedirect(req, res) {
                         .json({ message: "Cannot finish this quest, pls contact administrator!" });
                 }
 
-                res.status(200).json({ message: "Quest completed, please close this page!" });
+                res.status(200).json({
+                    message: "Twitter Auth Quest completed, please close this page!",
+                });
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }
-
-const updateUserAndAddRewardTransaction = async (quest, wallet, userInfo) => {
-    let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
-    wallet = utils.getAddress(wallet);
-
-    let claimedReward;
-
-    console.log(`**Update user**`);
-    const { id, username } = userInfo;
-
-    if (!id || !username) {
-        throw new Error("Cannot get twitter id or twitter username from auth");
-    }
-
-    const updatedUser = prisma.whiteList.update({
-        where: { wallet },
-        data: {
-            twitterId: id,
-            twitterUserName: username,
-        },
-    });
-
-    console.log(`**Create / Update reward for user**`);
-    claimedReward = prisma.reward.upsert({
-        where: {
-            wallet_rewardTypeId: { wallet, rewardTypeId },
-        },
-        update: {
-            quantity: {
-                increment: quantity,
-            },
-        },
-        create: {
-            wallet,
-            quantity,
-            rewardTypeId,
-        },
-
-        select: {
-            wallet: true,
-            quantity: true,
-            user: true,
-            rewardTypeId: true,
-            rewardType: true,
-        },
-    });
-
-    console.log(`**Save to UserQuest, to keep track that its done**`);
-    let userQuest = prisma.userQuest.create({
-        data: {
-            wallet,
-            questId,
-            rewardedTypeId: rewardTypeId,
-            rewardedQty: quantity,
-        },
-    });
-
-    await prisma.$transaction([updatedUser, claimedReward, userQuest]);
-    return userQuest;
-};

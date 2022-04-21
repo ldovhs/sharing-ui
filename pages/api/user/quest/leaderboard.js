@@ -1,16 +1,22 @@
 import Enums from "enums";
 import { getQuestById } from "repositories/quest";
 
-export default async function getQuestLeaderBoard(req, res) {
+const ROUTE = "/api/user/quest/leaderboard";
+
+export default async function getQuestLeaderBoardAPI(req, res) {
     const { method } = req;
 
     switch (method) {
         case "GET":
             try {
                 const { questId } = req.query;
+                if (!questId) {
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "Missing questId query." });
+                }
 
                 let questData = await getQuestById(questId);
-
                 if (!questData) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
@@ -29,7 +35,7 @@ export default async function getQuestLeaderBoard(req, res) {
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }

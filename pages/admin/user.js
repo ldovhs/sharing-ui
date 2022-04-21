@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AdminLayout, AddNewUser } from "/components/admin/ComponentIndex";
+import { AdminLayout, AddNewUser } from "/components/admin";
 
 const AdminUsers = () => {
     useEffect(async () => {}, []);

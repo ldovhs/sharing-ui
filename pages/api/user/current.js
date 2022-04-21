@@ -1,22 +1,25 @@
-import { prisma } from "context/PrismaContext";
+import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 
-const ROUTE = "/api/admin/quest/type";
+const ROUTE = "/api/user/current";
 
-export default async function questTypesQuery(req, res) {
+// get current user from session
+const handler = async (req, res) => {
     const { method } = req;
 
     switch (method) {
         case "GET":
             try {
-                let types = await prisma.questType.findMany();
-                res.status(200).json(types);
+                res.status(200).json(req.whiteListUser);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });
             }
             break;
+
         default:
             res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
+
+export default whitelistUserMiddleware(handler);

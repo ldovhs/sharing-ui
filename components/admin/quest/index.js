@@ -1,6 +1,6 @@
-export { default as DiscordAuthQuest } from "./DiscordAuthQuest";
-export { default as TwitterAuthQuest } from "./TwitterAuthQuest";
-export { default as TwitterFollowQuest } from "./TwitterFollowQuest";
-export { default as AnomuraSeeFoodQuest } from "./AnomuraSeeFoodQuest";
-export { default as InstagramFollowQuest } from "./InstagramFollowQuest";
-export { default as TwitterRetweetQuest } from "./TwitterRetweetQuest";
+export { default as DiscordAuthQuest } from "./Forms/DiscordAuthQuest";
+export { default as TwitterAuthQuest } from "./Forms/TwitterAuthQuest";
+export { default as TwitterFollowQuest } from "./Forms/TwitterFollowQuest";
+export { default as AnomuraSeeFoodQuest } from "./Forms/AnomuraSeeFoodQuest";
+export { default as InstagramFollowQuest } from "./Forms/InstagramFollowQuest";
+export { default as TwitterRetweetQuest } from "./Forms/TwitterRetweetQuest";

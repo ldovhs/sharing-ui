@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AdminLayout, SearchForm, SearchResult } from "/components/admin/ComponentIndex";
+import { AdminLayout, SearchForm, SearchResult } from "/components/admin";
 
 const AdminSearch = () => {
     const [formData, setFormData] = useState({});

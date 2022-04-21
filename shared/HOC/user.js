@@ -1,14 +1,15 @@
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 
-const USER_API = "/api/user";
+const USER_API = "/api/user/current";
+const ADD_USER_API = "/api/admin/user/add";
 
 export const withUserUpsert =
     (Component) =>
     ({ ...props }) => {
         const { data, error, isError, isLoading, mutateAsync } = useMutation(
             "mutateUser",
-            (user) => axios.post(USER_API, user),
+            (user) => axios.post(ADD_USER_API, user),
             {
                 onSuccess: () => {},
             }

@@ -24,7 +24,7 @@ const IndividualQuestBoard = ({
     const { web3Error, SignOut } = useContext(Web3Context);
 
     useEffect(async () => {
-        if (userQuests && userRewards) {
+        if (userQuests && userQuests.length > 0 && userRewards) {
             userQuests.sort(isNotDoneFirst);
             let sum = userRewards
                 .map((r) => {
@@ -35,11 +35,12 @@ const IndividualQuestBoard = ({
                     }
                 })
                 .reduce((prev, curr) => prev + curr, 0);
+
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
         }
     }, [userQuests]);
-
+    console.log(userQuests);
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
 

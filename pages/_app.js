@@ -1,5 +1,4 @@
 import React, { StrictMode } from "react";
-import { RecoilRoot } from "recoil";
 import "../styles/globals.css";
 import "../sass/admin/adminBootstrap.css";
 import { Web3Provider } from "@context/Web3Context";
@@ -13,19 +12,17 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <SessionProvider session={session}>
             <Web3Provider>
                 <QueryClientProvider client={queryClient}>
-                    <RecoilRoot>
-                        <StrictMode>
-                            {Component.requireAdmin ? (
-                                <Component.Layout>
-                                    <AdminGuard>
-                                        <Component {...pageProps} />
-                                    </AdminGuard>
-                                </Component.Layout>
-                            ) : (
-                                <Component {...pageProps} />
-                            )}
-                        </StrictMode>
-                    </RecoilRoot>
+                    <StrictMode>
+                        {Component.requireAdmin ? (
+                            <Component.Layout>
+                                <AdminGuard>
+                                    <Component {...pageProps} />
+                                </AdminGuard>
+                            </Component.Layout>
+                        ) : (
+                            <Component {...pageProps} />
+                        )}
+                    </StrictMode>
                 </QueryClientProvider>
             </Web3Provider>
         </SessionProvider>

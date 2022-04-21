@@ -1,6 +1,7 @@
 import { getAllRewardTypes } from "repositories/admin";
 
-/* non protected route*/
+const ROUTE = "/api/admin/rewardType";
+
 export default async function rewardTypesQuery(req, res) {
     const { method } = req;
 

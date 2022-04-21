@@ -87,3 +87,17 @@ export const getQuestById = async (questId) => {
         },
     });
 };
+
+export const getQuestType = async (type) => {
+    return await prisma.questType.findUnique({
+        where: { name: type },
+    });
+};
+
+export const getQuestByTypeId = async (questTypeId) => {
+    return await prisma.quest.findFirst({
+        where: {
+            questTypeId,
+        },
+    });
+};

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
-import { ConnectBoard, UserClaimReward } from "@components/end-user/ComponentIndex";
+import { ConnectBoard, UserClaimReward } from "@components/end-user";
 
 const util = require("util");
 

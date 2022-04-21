@@ -1,27 +1,17 @@
 import { prisma } from "context/PrismaContext";
-import { getSession } from "next-auth/react";
 import Enums from "enums";
-import { isAdmin } from "repositories/session-auth";
 import { questUpsert } from "repositories/quest";
+import adminMiddleware from "middlewares/adminMiddleware";
 
-/* admin protected route*/
-export default async function QuestUpsert(req, res) {
+const ROUTE = "/api/admin/quest/upsert";
+const AdminQuestUpsertAPI = async (req, res) => {
     const { method } = req;
-    const session = await getSession({ req });
 
     switch (method) {
         /*  
             @dev Create a new quest for user
         */
         case "POST":
-            let adminCheck = await isAdmin(session);
-            if (!adminCheck) {
-                return res.status(200).json({
-                    message: "Not authenticated for quest api",
-                    isError: true,
-                });
-            }
-
             try {
                 const {
                     id,
@@ -150,10 +140,10 @@ export default async function QuestUpsert(req, res) {
             }
             break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["POST"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-}
+};
 
 // DISCORD_AUTH: "Discord Authenticate",
 // TWITTER_AUTH: "Twitter Authenticate",
@@ -204,3 +194,5 @@ const retweetCheck = (existingQuests, extendedQuestData, type) => {
         (q) => q.extendedQuestData.tweetId === extendedQuestData.tweetId
     );
 };
+
+export default adminMiddleware(AdminQuestUpsertAPI);

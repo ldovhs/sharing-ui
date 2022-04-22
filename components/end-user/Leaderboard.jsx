@@ -13,11 +13,11 @@ export default function Leaderboard({ questData }) {
     }, [questData]);
 
     return (
-        <div className={s.boardQuest}>
-            <div className={s.boardQuest_container}>
-                <div className={s.boardQuest_wrapper}>
+        <div className={s.boardLarge}>
+            <div className={s.boardLarge_container}>
+                <div className={s.boardLarge_wrapper}>
                     <>
-                        <div className={s.boardQuest_title}>{questData?.type || "Quest Page"}</div>
+                        <div className={s.boardLarge_title}>{questData?.type || "Quest Page"}</div>
                         {questData &&
                             !questData.isError &&
                             questData?.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
@@ -28,7 +28,7 @@ export default function Leaderboard({ questData }) {
                             )}
                     </>
 
-                    <div className={s.boardQuest_scrollableArea}>
+                    <div className={s.boardLarge_scrollableArea}>
                         {!questData ||
                             (!questData?.userQuests && (
                                 <div className="text-center">Not a valid quest page.</div>
@@ -44,8 +44,8 @@ export default function Leaderboard({ questData }) {
                                 console.log(user);
                                 return (
                                     <React.Fragment key={index}>
-                                        <div className={s.boardQuest_list_containerRanking}>
-                                            <div className={s.boardQuest_list_content}>
+                                        <div className={s.boardLarge_list_containerRanking}>
+                                            <div className={s.boardLarge_list_content}>
                                                 <div>
                                                     {index + 1}.{" "}
                                                     {user.discordUserDiscriminator != null ||
@@ -54,7 +54,7 @@ export default function Leaderboard({ questData }) {
                                                         : user.wallet}
                                                 </div>
                                             </div>
-                                            <div className={s.boardQuest_list_result}>
+                                            <div className={s.boardLarge_list_result}>
                                                 {reaction}
                                             </div>
                                         </div>

@@ -24,25 +24,97 @@
     width: 45em;
   }
 }
+@media (min-width: 90em) {
+  .board {
+    width: 50em;
+  }
+}
+@media (min-width: 160em) {
+  .board {
+    width: 85em;
+  }
+}
 .board_container {
   position: relative;
   width: 100%;
   height: 0;
-  padding-top: 71.13%;
-  background: url("/img/sharing-ui/invite/board_small.png") no-repeat;
+  padding-top: 85.53%;
+  background: url("/img/sharing-ui/invite/board_sm.png") no-repeat;
   background-size: contain;
+}
+.board_disconnect {
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+}
+.board_disconnect > button {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 90%;
+  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 1.25rem 1rem 1.5rem 1rem;
+  color: #A2B7B6;
+}
+@media (min-width: 39.8em) {
+  .board_disconnect > button {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_disconnect > button {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_disconnect > button {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 24em) {
+  .board_disconnect > button {
+    padding: 1.8rem 1.5rem 2rem 1.5rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_disconnect > button {
+    padding: 2.4rem 2rem 2.8rem 2rem;
+  }
+}
+.board_disconnect > button:hover {
+  color: #394B54;
 }
 .board_wrapper {
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
+  height: 58%;
+  top: 27%;
   left: 0;
-  padding: 0 2.4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  padding: 0 2.4rem;
 }
 @media (min-width: 24em) {
   .board_wrapper {
@@ -75,17 +147,13 @@
   }
 }
 .board_content {
-  margin-top: 31%;
-  width: 100%;
-  height: 60%;
-}
-.board_content > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 .board_loadingImg {
   width: 35%;
@@ -105,12 +173,186 @@
   }
 }
 .board_title {
-  width: clamp(100px, 70%, 75vh);
-  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+}
+@media (min-width: 39.8em) {
+  .board_title {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_title {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_title {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_title {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_title {
+    font-size: 2.5rem;
+  }
+}
+.board_text {
+  font-size: 0.75rem;
+  font-family: PFRondaSeven;
+  font-weight: 400;
+  text-align: center;
+  color: #35464F;
+  width: 85%;
+  overflow-wrap: break-word;
+}
+@media (min-width: 39.8em) {
+  .board_text {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_text {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_text {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_text {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_text {
+    font-size: 1.5rem;
+  }
 }
 .board_welcome {
   width: clamp(200px, 70%, 75vh);
   margin-bottom: 0.8rem;
+}
+.board_pinkBtn {
+  position: relative;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.board_pinkBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_pinkBtn > div > span {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+  color: #FFFFFF;
+}
+@media (min-width: 39.8em) {
+  .board_pinkBtn > div > span {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_pinkBtn > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_pinkBtn > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_pinkBtn > div > span {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_pinkBtn > div > span {
+    font-size: 2.5rem;
+  }
+}
+.board_pinkBtn:hover {
+  color: #CE3C85 !important;
+}
+.board_pinkBtn:disabled {
+  cursor: not-allowed !important;
+  color: #394B54;
+}
+.board_claimBtn {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 90%;
+  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 1.25rem 1rem 1.5rem 1rem;
+  color: #A2B7B6;
+}
+@media (min-width: 39.8em) {
+  .board_claimBtn {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_claimBtn {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_claimBtn {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_claimBtn {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_claimBtn {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 24em) {
+  .board_claimBtn {
+    padding: 1.8rem 1.5rem 2rem 1.5rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_claimBtn {
+    padding: 2.4rem 2rem 2.8rem 2rem;
+  }
+}
+.board_claimBtn:hover {
+  color: #394B54;
 }
 .board_orangeBtn {
   font-family: PFRondaSeven;
@@ -216,17 +458,16 @@
     font-size: 1.375rem;
   }
 }
-.board_web3 {
-  flex: 1;
-  width: 100%;
+.board_signin_wrapper {
+  height: 100%;
+}
+.board_signin_content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  font-family: PFRondaSeven;
-}
-.board_web3:nth-child(2) {
-  border-top: 3px solid rgb(29, 84, 122);
+  height: 100%;
+  width: 100%;
 }
 
 .foreground {
@@ -243,11 +484,11 @@
 }
 .foreground > div {
   margin-top: 12%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #fff;
 }
 
-.boardQuest {
+.boardLarge {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -259,159 +500,193 @@
   z-index: 3;
 }
 @media (min-width: 54.5em) {
-  .boardQuest {
-    width: 35em;
+  .boardLarge {
+    width: 50em;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest {
-    width: 38em;
+  .boardLarge {
+    width: 50em;
   }
 }
-@media (min-width: 160em) {
-  .boardQuest {
-    width: 45em;
-  }
-}
-.boardQuest_container {
+.boardLarge_container {
   position: relative;
   width: 100%;
   height: 0;
-  padding-top: 125%;
-  background: url("/img/sharing-ui/invite/board_big.png") no-repeat;
+  padding-top: 108.58%;
+  background: url("/img/sharing-ui/invite/board_large.png") no-repeat;
   background-size: contain;
 }
-.boardQuest_wrapper {
+.boardLarge_disconnect {
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 0 2.4rem;
-}
-@media (min-width: 24em) {
-  .boardQuest_wrapper {
-    padding: 0 3.2rem;
-  }
-}
-@media (min-width: 39.8em) {
-  .boardQuest_wrapper {
-    padding: 0 4rem;
-  }
-}
-@media (min-width: 50em) {
-  .boardQuest_wrapper {
-    padding: 0 4.5rem;
-  }
-}
-@media (min-width: 75em) {
-  .boardQuest_wrapper {
-    padding: 0 4.5rem;
-  }
-}
-.boardQuest_dollar {
-  position: absolute;
-  width: 100%;
-  top: 4%;
+  height: 10%;
+  bottom: -7%;
   display: flex;
   justify-content: center;
 }
-.boardQuest_dollar_content {
-  margin-left: 1.4rem;
+.boardLarge_disconnect > button {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 90%;
+  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 1.25rem 1rem 1.5rem 1rem;
+  color: #A2B7B6;
+}
+@media (min-width: 39.8em) {
+  .boardLarge_disconnect > button {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardLarge_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardLarge_disconnect > button {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_disconnect > button {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 24em) {
+  .boardLarge_disconnect > button {
+    padding: 1.8rem 1.5rem 2rem 1.5rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardLarge_disconnect > button {
+    padding: 2.4rem 2rem 2.8rem 2rem;
+  }
+}
+.boardLarge_disconnect > button:hover {
+  color: #394B54;
+}
+.boardLarge_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 68%;
+  top: 21%;
+  left: 0;
+  padding: 0 17%;
+}
+.boardLarge_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  gap: 1rem;
+}
+.boardLarge_dollar {
+  position: absolute;
+  width: 100%;
+  top: 9%;
+  display: flex;
+  justify-content: center;
+}
+.boardLarge_dollar_content {
   font-family: PFRondaSeven;
   color: #F8D61D;
   font-size: 0.6375rem;
 }
 @media (min-width: 31.25em) {
-  .boardQuest_dollar_content {
+  .boardLarge_dollar_content {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 39.8em) {
-  .boardQuest_dollar_content {
+  .boardLarge_dollar_content {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_dollar_content {
+  .boardLarge_dollar_content {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_dollar_content {
+  .boardLarge_dollar_content {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_dollar_content {
-    font-size: 0.9rem;
+  .boardLarge_dollar_content {
+    font-size: 1.05rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_dollar_content {
+  .boardLarge_dollar_content {
     font-size: 0.75rem;
   }
 }
-.boardQuest_title {
-  font-size: 1rem;
-  font-family: PFRondaSeven;
+.boardLarge_title {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
   text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
   overflow-wrap: break-word;
-  margin-top: 30%;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_title {
-    font-size: 1.25rem;
+  .boardLarge_title {
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_title {
-    font-size: 1.5rem;
+  .boardLarge_title {
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_title {
-    font-size: 1.5rem;
+  .boardLarge_title {
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_title {
-    font-size: 1.75rem;
+  .boardLarge_title {
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_title {
-    font-size: 1.75rem;
+  .boardLarge_title {
+    font-size: 2.5rem;
   }
 }
-@media (min-width: 39.8em) {
-  .boardQuest_title {
-    margin-top: 28%;
-  }
-}
-@media (min-width: 50em) {
-  .boardQuest_title {
-    margin-top: 30%;
-  }
-}
-.boardQuest_footer {
+.boardLarge_footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex: 12%;
+  flex: 5%;
   width: 100%;
-  height: auto;
-  padding-bottom: 1.5rem;
   z-index: 10;
 }
-.boardQuest_footer_line {
-  width: 80%;
-  border-bottom: 1px solid #F55690;
-  position: absolute;
-}
-.boardQuest_pinkBtn {
+.boardLarge_pinkBtn {
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.75rem;
@@ -427,52 +702,52 @@
   height: 2.16rem;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 39.8em) {
-  .boardQuest_pinkBtn {
+  .boardLarge_pinkBtn {
     width: 94px;
     height: 44px;
   }
 }
-.boardQuest_pinkBtn:disabled {
+.boardLarge_pinkBtn:disabled {
   background-image: url("/img/sharing-ui/invite/pink_button_disabled.png");
   background-size: cover;
 }
-.boardQuest_pinkBtn:disabled:hover {
+.boardLarge_pinkBtn:disabled:hover {
   color: #F8D61D;
 }
-.boardQuest_pinkBtn:focus {
+.boardLarge_pinkBtn:focus {
   color: #F8D61D !important;
   text-decoration: none;
 }
-.boardQuest_pinkBtn:hover {
+.boardLarge_pinkBtn:hover {
   color: white !important;
   text-decoration: none;
 }
-.boardQuest_orangeBtn {
+.boardLarge_orangeBtn {
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.75rem;
@@ -487,49 +762,49 @@
   height: 1.9375rem;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 24em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     width: 15.5625rem;
     height: 2.90675rem;
     font-size: 1rem;
   }
 }
 @media (min-width: 39.8em) {
-  .boardQuest_orangeBtn {
+  .boardLarge_orangeBtn {
     width: 20.875rem;
     height: 3.875rem;
     font-size: 1.375rem;
   }
 }
-.boardQuest_orangeBtn:disabled {
+.boardLarge_orangeBtn:disabled {
   background-image: url("/img/sharing-ui/invite/button_wallet-disable.png");
   background-size: cover;
 }
-.boardQuest_yellowText {
+.boardLarge_yellowText {
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.75rem;
@@ -543,52 +818,52 @@
   height: 2.16rem;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 39.8em) {
-  .boardQuest_yellowText {
+  .boardLarge_yellowText {
     width: 94px;
     height: 44px;
   }
 }
-.boardQuest_scrollableArea {
+.boardLarge_scrollableArea {
   width: 100%;
   flex: 75%;
-  margin-top: 1.25rem;
   overflow-x: hidden;
   overflow-y: scroll;
   padding-bottom: 1rem;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 1.375rem;
 }
-.boardQuest_scrollableArea::-webkit-scrollbar {
+.boardLarge_scrollableArea::-webkit-scrollbar {
   display: none;
 }
-.boardQuest_loading {
+.boardLarge_loading {
   margin-bottom: 4.5rem;
   width: 100%;
   height: 100%;
@@ -598,7 +873,7 @@
   justify-content: center;
   align-items: center;
 }
-.boardQuest_loading_wrapper {
+.boardLarge_loading_wrapper {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -606,27 +881,27 @@
   align-items: center;
   height: 100%;
 }
-.boardQuest_loading_wrapper > img {
+.boardLarge_loading_wrapper > img {
   display: block;
   width: 30%;
   height: auto;
 }
 @media (min-width: 24em) {
-  .boardQuest_loading_wrapper > img {
+  .boardLarge_loading_wrapper > img {
     width: 40%;
   }
 }
 @media (min-width: 31.25em) {
-  .boardQuest_loading_wrapper > img {
+  .boardLarge_loading_wrapper > img {
     width: 60%;
   }
 }
 @media (min-width: 46.8em) {
-  .boardQuest_loading_wrapper > img {
+  .boardLarge_loading_wrapper > img {
     width: 80%;
   }
 }
-.boardQuest_loading_wrapper_text {
+.boardLarge_loading_wrapper_text {
   position: absolute;
   width: 100%;
   bottom: 10%;
@@ -637,33 +912,33 @@
   justify-content: center;
 }
 @media (min-width: 24em) {
-  .boardQuest_loading_wrapper_text {
+  .boardLarge_loading_wrapper_text {
     font-size: 0.75rem;
     bottom: 20%;
   }
 }
 @media (min-width: 31.25em) {
-  .boardQuest_loading_wrapper_text {
+  .boardLarge_loading_wrapper_text {
     font-size: 1.125rem;
     bottom: 24%;
   }
 }
 @media (min-width: 39.8em) {
-  .boardQuest_loading_wrapper_text {
+  .boardLarge_loading_wrapper_text {
     font-size: 1.125rem;
     bottom: 28%;
   }
 }
 @media (min-width: 46.8em) {
-  .boardQuest_loading_wrapper_text {
+  .boardLarge_loading_wrapper_text {
     font-size: 1.375rem;
     bottom: 26%;
   }
 }
-.boardQuest_loading_wrapper_text_ellipsis {
+.boardLarge_loading_wrapper_text_ellipsis {
   width: 5px;
 }
-.boardQuest_loading_wrapper_text_ellipsis:after {
+.boardLarge_loading_wrapper_text_ellipsis:after {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
@@ -673,70 +948,177 @@
   /* ascii code for the ellipsis character */
   width: 0px;
 }
-.boardQuest_list {
+.boardLarge_list {
   /* same as above, except ranking has color style*/
 }
-.boardQuest_list_container {
+.boardLarge_list_container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.75rem;
+  background: url("/img/sharing-ui/invite/quest list_bg.png") no-repeat;
+  background-size: 100% 100%;
   text-align: left;
-  margin-left: 2px;
+  padding: 1rem 2rem;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_list_container {
+  .boardLarge_list_container {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_list_container {
+  .boardLarge_list_container {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_list_container {
+  .boardLarge_list_container {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_list_container {
+  .boardLarge_list_container {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_list_container {
+  .boardLarge_list_container {
     font-size: 0.75rem;
   }
 }
-.boardQuest_list_content {
+.boardLarge_list_text {
+  font-size: 0.75rem;
+  font-family: PFRondaSeven;
+  font-weight: 400;
+  text-align: center;
+  color: #35464F;
+  text-align: left;
+  color: #A3EAE5;
+  flex: 50%;
+}
+@media (min-width: 39.8em) {
+  .boardLarge_list_text {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardLarge_list_text {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_list_text {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardLarge_list_text {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_list_text {
+    font-size: 1.5rem;
+  }
+}
+.boardLarge_list_reward {
+  font-size: 0.75rem;
+  font-family: PFRondaSeven;
+  font-weight: 400;
+  text-align: center;
+  color: #35464F;
+  flex: 25%;
+  color: #A3EAE5;
+}
+@media (min-width: 39.8em) {
+  .boardLarge_list_reward {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 50em) {
+  .boardLarge_list_reward {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_list_reward {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardLarge_list_reward {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_list_reward {
+    font-size: 1.5rem;
+  }
+}
+.boardLarge_list_action {
+  flex: 25%;
   display: flex;
-  flex-direction: column;
-  width: 85%;
-  overflow-wrap: break-word;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
 }
-.boardQuest_list_content > div:nth-child(2) {
-  color: #00FFFF;
-}
-.boardQuest_list_result {
+.boardLarge_list_button {
+  position: relative;
+  width: 90%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex: 10%;
-  text-align: right;
+  padding: 0;
 }
-@media (max-width: 39.8em) {
-  .boardQuest_list_result {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 0.5rem;
+.boardLarge_list_button > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+}
+.boardLarge_list_button > div > span {
+  font-size: 1.2rem;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 2.25rem;
+  color: #FFFFFF;
+}
+@media (min-width: 39.8em) {
+  .boardLarge_list_button > div > span {
+    font-size: 1.5rem;
   }
 }
-.boardQuest_list_containerRanking {
+@media (min-width: 50em) {
+  .boardLarge_list_button > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_list_button > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 90em) {
+  .boardLarge_list_button > div > span {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_list_button > div > span {
+    font-size: 2.5rem;
+  }
+}
+.boardLarge_list_button:hover {
+  color: #CE3C85 !important;
+}
+.boardLarge_list_button:disabled {
+  cursor: not-allowed !important;
+  color: #394B54;
+}
+.boardLarge_list_containerRanking {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -746,37 +1128,37 @@
   text-align: left;
 }
 @media (min-width: 39.8em) {
-  .boardQuest_list_containerRanking {
+  .boardLarge_list_containerRanking {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 50em) {
-  .boardQuest_list_containerRanking {
+  .boardLarge_list_containerRanking {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 75em) {
-  .boardQuest_list_containerRanking {
+  .boardLarge_list_containerRanking {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 90em) {
-  .boardQuest_list_containerRanking {
+  .boardLarge_list_containerRanking {
     font-size: 0.75rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardQuest_list_containerRanking {
+  .boardLarge_list_containerRanking {
     font-size: 0.75rem;
   }
 }
-.boardQuest_list_containerRanking:nth-child(1) {
+.boardLarge_list_containerRanking:nth-child(1) {
   color: #F19A46;
 }
-.boardQuest_list_containerRanking:nth-child(2) {
+.boardLarge_list_containerRanking:nth-child(2) {
   color: #8ED5FB;
 }
-.boardQuest_list_containerRanking:nth-child(3) {
+.boardLarge_list_containerRanking:nth-child(3) {
   color: #B88AF5;
 }
 

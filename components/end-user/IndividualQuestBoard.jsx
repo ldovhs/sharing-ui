@@ -40,7 +40,7 @@ const IndividualQuestBoard = ({
             setCurrentQuests(userQuests);
         }
     }, [userQuests]);
-    console.log(userQuests);
+
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
 
@@ -74,72 +74,78 @@ const IndividualQuestBoard = ({
     };
 
     return (
-        <div className={s.boardQuest}>
-            <div className={s.boardQuest_container}>
-                <div className={s.boardQuest_dollar}>
-                    <div className={s.boardQuest_dollar_content}>
+        <div className={s.boardLarge}>
+            <div className={s.boardLarge_container}>
+                <div className={s.boardLarge_dollar}>
+                    <div className={s.boardLarge_dollar_content}>
                         {rewardAmount !== null && rewardAmount !== 0 ? `$${rewardAmount}` : "$$$"}
                     </div>
                 </div>
 
-                <div className={s.boardQuest_wrapper}>
-                    <div className={s.boardQuest_title}>
-                        {currentUser !== null &&
-                        currentUser?.discordUserDiscriminator !== null &&
-                        currentUser?.discordUserDiscriminator?.length > 0
-                            ? currentUser?.discordUserDiscriminator
-                            : "Individual"}{" "}
-                        Quests
-                    </div>
+                <div className={s.boardLarge_wrapper}>
+                    <div className={s.boardLarge_content}>
+                        <div className={s.boardLarge_title}>
+                            {currentUser !== null &&
+                            currentUser?.discordUserDiscriminator !== null &&
+                            currentUser?.discordUserDiscriminator?.length > 0
+                                ? currentUser?.discordUserDiscriminator
+                                : "Individual"}{" "}
+                            Quests
+                        </div>
 
-                    <div className={s.boardQuest_scrollableArea}>
-                        {/* Is Loading */}
-                        {(isFetchingUserQuests ||
-                            isSubmitting ||
-                            isFetchingUserRewards ||
-                            isFetchingUser) && (
-                            <div className={s.boardQuest_loading}>
-                                <div className={s.boardQuest_loading_wrapper}>
-                                    <img src="/img/sharing-ui/clamsparkle.gif" alt="Loading data" />
-                                    <div className={s.boardQuest_loading_wrapper_text}>
-                                        Fetching data{" "}
-                                        <span
-                                            className={s.boardQuest_loading_wrapper_text_ellipsis}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
                         {/*  Render error message */}
                         {currentQuests?.isError && <div>{currentQuests?.message}</div>}
 
-                        {/*  Render individual quest board */}
-                        {!isFetchingUserQuests &&
-                            !isSubmitting &&
-                            !isFetchingUserRewards & !isFetchingUser &&
-                            !currentQuests?.isError &&
-                            currentQuests?.length > 0 &&
-                            currentQuests?.map((item, index, row) => {
-                                const {
-                                    questId,
-                                    type,
-                                    description,
-                                    text,
-                                    completedText,
-                                    isEnabled,
-                                    isRequired,
-                                    quantity,
-                                    rewardTypeId,
-                                    extendedQuestData,
-                                    isDone,
-                                    rewardType,
-                                } = item;
+                        <div className={s.boardLarge_scrollableArea}>
+                            {/* Is Loading */}
+                            {(isFetchingUserQuests ||
+                                isSubmitting ||
+                                isFetchingUserRewards ||
+                                isFetchingUser) && (
+                                <div className={s.boardLarge_loading}>
+                                    <div className={s.boardLarge_loading_wrapper}>
+                                        <img
+                                            src="/img/sharing-ui/clamsparkle.gif"
+                                            alt="Loading data"
+                                        />
+                                        <div className={s.boardLarge_loading_wrapper_text}>
+                                            Fetching data{" "}
+                                            <span
+                                                className={
+                                                    s.boardLarge_loading_wrapper_text_ellipsis
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
-                                return (
-                                    <React.Fragment key={index}>
-                                        <div className={s.boardQuest_list_container}>
-                                            <div className={s.boardQuest_list_content}>
-                                                <div>
+                            {/*  Render individual quest board */}
+                            {!isFetchingUserQuests &&
+                                !isSubmitting &&
+                                !isFetchingUserRewards & !isFetchingUser &&
+                                !currentQuests?.isError &&
+                                currentQuests?.length > 0 &&
+                                currentQuests?.map((item, index, row) => {
+                                    const {
+                                        questId,
+                                        type,
+                                        description,
+                                        text,
+                                        completedText,
+                                        isEnabled,
+                                        isRequired,
+                                        quantity,
+                                        rewardTypeId,
+                                        extendedQuestData,
+                                        isDone,
+                                        rewardType,
+                                    } = item;
+
+                                    return (
+                                        <React.Fragment key={index}>
+                                            <div className={s.boardLarge_list_container}>
+                                                <div className={s.boardLarge_list_text}>
                                                     {text}
 
                                                     {type.name === Enums.FOLLOW_TWITTER && (
@@ -153,82 +159,104 @@ const IndividualQuestBoard = ({
                                                         </span>
                                                     )}
                                                 </div>
-                                                {isDone && <div>Completed</div>}
+                                                <div className={s.boardLarge_list_reward}>
+                                                    <div>{quantity} </div>
+                                                    <div>{rewardType.reward}</div>
+                                                </div>
+                                                <div className={s.boardLarge_list_action}>
+                                                    <button className={s.boardLarge_list_button}>
+                                                        <img
+                                                            src={
+                                                                "/img/sharing-ui/invite/quest button_bg.png"
+                                                            }
+                                                            alt="connectToContinue"
+                                                        />
+                                                        <div>
+                                                            <span>{isDone ? "DONE" : "GO"}</span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                {/* {isDone && <div>Completed</div>} */}
+                                                {/* <div className={s.boardLarge_list_result}>
+                                                    {!isDone && (
+                                                        <>
+                                                            {type.name === Enums.DISCORD_AUTH && (
+                                                                <a
+                                                                    className={s.boardLarge_pinkBtn}
+                                                                    href={getDiscordAuthLink()}
+                                                                    target="_blank"
+                                                                    disabled={isDone}
+                                                                >
+                                                                    Auth
+                                                                </a>
+                                                            )}
+                                                            {type.name === Enums.TWITTER_AUTH && (
+                                                                <a
+                                                                    className={s.boardLarge_pinkBtn}
+                                                                    href={getTwitterAuthLink()}
+                                                                    target="_blank"
+                                                                    disabled={isDone}
+                                                                >
+                                                                    Auth
+                                                                </a>
+                                                            )}
+                                                            {(type.name === Enums.FOLLOW_TWITTER ||
+                                                                type.name ===
+                                                                    Enums.FOLLOW_INSTAGRAM) && (
+                                                                <button
+                                                                    className={s.boardLarge_pinkBtn}
+                                                                    onClick={() => DoQuest(item)}
+                                                                    disabled={isDone}
+                                                                >
+                                                                    Follow
+                                                                </button>
+                                                            )}
+                                                            {type.name ===
+                                                                Enums.TWITTER_RETWEET && (
+                                                                <button
+                                                                    className={s.boardLarge_pinkBtn}
+                                                                    onClick={() => DoQuest(item)}
+                                                                    disabled={isDone}
+                                                                >
+                                                                    Retweet
+                                                                </button>
+                                                            )}
+                                                            {type.name ===
+                                                                Enums.ANOMURA_SUBMISSION_QUEST && (
+                                                                <button
+                                                                    className={s.boardLarge_pinkBtn}
+                                                                    onClick={() => DoQuest(item)}
+                                                                    disabled={isDone}
+                                                                >
+                                                                    Do
+                                                                </button>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                    {isDone && (
+                                                        <span className={s.boardLarge_yellowText}>
+                                                            +{quantity} {rewardType.reward}
+                                                        </span>
+                                                    )}
+                                                </div> */}
                                             </div>
-                                            <div className={s.boardQuest_list_result}>
-                                                {!isDone && (
-                                                    <>
-                                                        {type.name === Enums.DISCORD_AUTH && (
-                                                            <a
-                                                                className={s.boardQuest_pinkBtn}
-                                                                href={getDiscordAuthLink()}
-                                                                target="_blank"
-                                                                disabled={isDone}
-                                                            >
-                                                                Auth
-                                                            </a>
-                                                        )}
-                                                        {type.name === Enums.TWITTER_AUTH && (
-                                                            <a
-                                                                className={s.boardQuest_pinkBtn}
-                                                                href={getTwitterAuthLink()}
-                                                                target="_blank"
-                                                                disabled={isDone}
-                                                            >
-                                                                Auth
-                                                            </a>
-                                                        )}
-                                                        {(type.name === Enums.FOLLOW_TWITTER ||
-                                                            type.name ===
-                                                                Enums.FOLLOW_INSTAGRAM) && (
-                                                            <button
-                                                                className={s.boardQuest_pinkBtn}
-                                                                onClick={() => DoQuest(item)}
-                                                                disabled={isDone}
-                                                            >
-                                                                Follow
-                                                            </button>
-                                                        )}
-                                                        {type.name === Enums.TWITTER_RETWEET && (
-                                                            <button
-                                                                className={s.boardQuest_pinkBtn}
-                                                                onClick={() => DoQuest(item)}
-                                                                disabled={isDone}
-                                                            >
-                                                                Retweet
-                                                            </button>
-                                                        )}
-                                                        {type.name ===
-                                                            Enums.ANOMURA_SUBMISSION_QUEST && (
-                                                            <button
-                                                                className={s.boardQuest_pinkBtn}
-                                                                onClick={() => DoQuest(item)}
-                                                                disabled={isDone}
-                                                            >
-                                                                Do
-                                                            </button>
-                                                        )}
-                                                    </>
-                                                )}
-                                                {isDone && (
-                                                    <span className={s.boardQuest_yellowText}>
-                                                        +{quantity} {rewardType.reward}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                );
-                            })}
-                    </div>
+                                        </React.Fragment>
+                                    );
+                                })}
+                        </div>
 
-                    {/*  Render board footer */}
-                    <div className={s.boardQuest_footer}>
-                        <span className={s.boardQuest_footer_line} />
-                        <button className={s.boardQuest_yellowText} onClick={() => SignOut()}>
-                            Disconnect
-                        </button>
+                        {/*  Render board footer */}
+                        <div className={s.boardLarge_footer}>
+                            <span className={s.boardLarge_footer_line} />
+                            <button className={s.boardLarge_yellowText}></button>
+                        </div>
                     </div>
+                </div>
+
+                <div className={s.boardLarge_disconnect}>
+                    {!isFetchingUserQuests && !isFetchingUser && (
+                        <button onClick={() => SignOut()}>Disconnect</button>
+                    )}
                 </div>
             </div>
         </div>

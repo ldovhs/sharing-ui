@@ -25,7 +25,7 @@ function claimReward() {
         <>
             <div className={s.app}>
                 {!session ? <ConnectBoard /> : <UserClaimReward session={session} />}
-                <div className={s.foreground} />
+                {/* <div className={s.foreground} /> */}
             </div>
         </>
     );

@@ -31,25 +31,20 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
         setShowTask(false);
     };
     return (
-        <div className={s.boardQuest}>
-            <div className={s.boardQuest_container}>
-                <div className={s.boardQuest_wrapper}>
-                    {reward?.pendingReward && !error && (
-                        <>
-                            <div className={s.boardQuest_title}>
-                                <div>
-                                    You won {reward?.pendingReward.rewardTypeId}{" "}
-                                    {reward?.pendingReward.rewardType.reward}
-                                </div>
-                            </div>
-
-                            {/* {isSubmittingReward || (isFetchingReward && <></>)} */}
-
-                            <div className={s.boardQuest_scrollableArea}>
-                                {/* {showTask && <div className={s.boardQuest_list_container}></div>} */}
-                                {/* Is Loading */}
+        <div className={s.board}>
+            <div className={s.board_container}>
+                <div className={s.board_wrapper}>
+                    <div className={s.board_content}>
+                        {error && (
+                            <>
+                                <div className={`${s.board_title} `}>Something is not right...</div>
+                                <div className={`${s.board_text} `}>{error}</div>
+                            </>
+                        )}
+                        {reward?.pendingReward && !error && (
+                            <>
                                 {(isSubmittingReward || isFetchingReward) && (
-                                    <div className={s.boardQuest_loading}>
+                                    <div className={s.board_loading}>
                                         <img
                                             src="/img/sharing-ui/clamsparkle.gif"
                                             alt="Loading data"
@@ -57,20 +52,13 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                                         {/* <div>Fetching data...</div> */}
                                     </div>
                                 )}
+                                <div className={s.board_title}>
+                                    You won {reward?.pendingReward.rewardTypeId}{" "}
+                                    {reward?.pendingReward.rewardType.reward}
+                                </div>
 
-                                {!isSubmittingReward && !isFetchingReward && (
-                                    <button
-                                        className={s.boardQuest_yellowText}
-                                        onClick={() => SignOut()}
-                                    >
-                                        Disconnect
-                                    </button>
-                                )}
-                            </div>
-                            <div className={s.boardQuest_footer}>
-                                <span className={s.boardQuest_footer_line} />
                                 <button
-                                    className={s.boardQuest_orangeBtn}
+                                    className={s.board_pinkBtn}
                                     onClick={onClaim}
                                     disabled={
                                         reward?.pendingReward?.isClaimed ||
@@ -78,21 +66,30 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                                         isFetchingReward
                                     }
                                 >
-                                    {!reward?.pendingReward?.isClaimed
-                                        ? "Claim"
-                                        : "Already Claimed"}
+                                    <img
+                                        src={
+                                            !reward?.pendingReward?.isClaimed
+                                                ? "/img/sharing-ui/invite/pink_button.png"
+                                                : "/img/sharing-ui/invite/disconnect.png"
+                                        }
+                                        alt="connectToContinue"
+                                    />
+                                    <div>
+                                        <span>
+                                            {!reward?.pendingReward?.isClaimed
+                                                ? "Claim"
+                                                : "Already Claimed"}
+                                        </span>
+                                    </div>
                                 </button>
-                            </div>
-                        </>
-                    )}
+                            </>
+                        )}
+                    </div>
+                </div>
 
-                    {error && (
-                        <>
-                            <div className={`${s.boardQuest_title} mt-40`}>{error}</div>
-                            <button className={s.boardQuest_yellowText} onClick={() => SignOut()}>
-                                Disconnect
-                            </button>
-                        </>
+                <div className={s.board_disconnect}>
+                    {!isSubmittingReward && !isFetchingReward && (
+                        <button onClick={() => SignOut()}>Disconnect</button>
                     )}
                 </div>
             </div>

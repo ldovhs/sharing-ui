@@ -50,105 +50,150 @@ export default function ConnectBoard() {
             <div className={s.board_container}>
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
-                        {web3Error && <>{web3Error}</>}
-                        {currentPrompt === WELCOME && !web3Error && (
-                            <div>
-                                <img
-                                    className={s.board_title}
-                                    src="/img/sharing-ui/invite/anomura_big.png"
-                                    alt="sign"
-                                />
-                                <img
-                                    className={s.board_welcome}
-                                    src="/img/sharing-ui/invite/welcome.png"
-                                    alt="welcome"
-                                />
-                                <button
-                                    className={s.board_orangeBtn}
-                                    onClick={() => changeView(CONNECT_OPTIONS)}
-                                >
-                                    Connect To Continue
-                                </button>
-                            </div>
-                        )}
+                        <>
+                            {web3Error && <div className={s.board_text}>{web3Error}</div>}
 
-                        {currentPrompt === CONNECT_OPTIONS && !web3Error && (
-                            <div className={`${s.open}`}>
-                                <div
-                                    className={s.board_web3}
-                                    onClick={() => changeView(WALLET_AUTH)}
-                                >
-                                    <button className={s.board_orangeBtn}>Connect Wallet</button>
-                                </div>
-                                <div
-                                    className={s.board_web3}
-                                    onClick={() => changeView(SOCIAL_AUTH)}
-                                >
-                                    <button className={s.board_tealBtn}>
-                                        Connect Social Media
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {currentPrompt === SOCIAL_AUTH && !web3Error && (
-                            <div className={`${s.open}`}>
-                                <div
-                                    className={s.board_web3}
-                                    onClick={() => {
-                                        signIn("discord");
-                                    }}
-                                >
-                                    <button className={s.board_orangeBtn}>
-                                        Connect with Discord
-                                    </button>
-                                </div>
-                                <div
-                                    className={s.board_web3}
-                                    onClick={() => {
-                                        signIn("twitter");
-                                    }}
-                                >
-                                    <button className={s.board_tealBtn}>
-                                        Connect with Twitter
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {currentPrompt === WALLET_AUTH && !web3Error && (
-                            <div className={`${s.open}`}>
-                                {!isMetamaskDisabled && !isMobile && (
-                                    <div
-                                        className={s.board_web3}
-                                        onClick={() => authenticateUsingWallet(Enums.METAMASK)}
+                            {currentPrompt === WELCOME && !web3Error && (
+                                <>
+                                    <img
+                                        className={s.board_headingIcon}
+                                        src="/img/sharing-ui/invite/starfish.gif"
+                                    />
+                                    <div className={s.board_title}>Welcome to the Cove!</div>
+                                    <div className={s.board_text}>
+                                        Connect your wallet to continue.
+                                    </div>
+                                    <button
+                                        className={s.board_pinkBtn}
+                                        onClick={() => changeView(CONNECT_OPTIONS)}
                                     >
-                                        <button className={s.board_orangeBtn}>
-                                            Connect Metamask
+                                        <img
+                                            src="/img/sharing-ui/invite/pink_button.png"
+                                            alt="connectToContinue"
+                                        />
+                                        <div>
+                                            <span>Connect Wallet</span>
+                                        </div>
+                                    </button>
+                                </>
+                            )}
+
+                            {currentPrompt === CONNECT_OPTIONS && !web3Error && (
+                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                    <div className={s.board_signin_content}>
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => changeView(WALLET_AUTH)}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Wallet</span>
+                                            </div>
+                                        </button>
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => changeView(SOCIAL_AUTH)}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Social Media</span>
+                                            </div>
                                         </button>
                                     </div>
-                                )}
-                                <div
-                                    className={s.board_web3}
-                                    onClick={() => authenticateUsingWallet(Enums.WALLETCONNECT)}
-                                >
-                                    <button className={s.board_tealBtn}>Scan Wallet Connect</button>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {currentPrompt === AUTHENTICATING && !web3Error && (
-                            <div
-                                className={`${s.open} flex justify-content-center align-items-center h3 text-white relative ml-2`}
-                            >
-                                <img
-                                    src="/img/sharing-ui/clamsparkle.gif"
-                                    alt="Authenticating"
-                                    className={s.board_loadingImg}
-                                />
-                                <div className={s.board_loadingText}>Awaiting signin...</div>
-                            </div>
-                        )}
+                            {currentPrompt === SOCIAL_AUTH && !web3Error && (
+                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                    <div className={s.board_signin_content}>
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => {
+                                                signIn("discord");
+                                            }}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span> Discord</span>
+                                            </div>
+                                        </button>
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => {
+                                                signIn("twitter");
+                                            }}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span> Twitter</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {currentPrompt === WALLET_AUTH && !web3Error && (
+                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                    <div className={s.board_signin_content}>
+                                        {!isMetamaskDisabled && !isMobile && (
+                                            <button
+                                                className={s.board_pinkBtn}
+                                                onClick={() =>
+                                                    authenticateUsingWallet(Enums.METAMASK)
+                                                }
+                                            >
+                                                <img
+                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span> Metamask</span>
+                                                </div>
+                                            </button>
+                                        )}
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() =>
+                                                authenticateUsingWallet(Enums.WALLETCONNECT)
+                                            }
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span> Wallet Connect</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {currentPrompt === AUTHENTICATING && !web3Error && (
+                                <div
+                                    className={`${s.open} flex justify-content-center align-items-center h3 text-white relative ml-2`}
+                                >
+                                    <img
+                                        src="/img/sharing-ui/clamsparkle.gif"
+                                        alt="Authenticating"
+                                        className={s.board_loadingImg}
+                                    />
+                                    <div className={s.board_loadingText}>Awaiting signin...</div>
+                                </div>
+                            )}
+                        </>
                     </div>
                 </div>
             </div>

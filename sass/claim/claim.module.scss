@@ -776,7 +776,7 @@ $list-text-font-size-large: 1.375rem;
         }
         &_text { 
             @include listText();
-            @include m.flex-master(column, center, start);
+            @include m.flex-master(column, center, flex-start);
             text-align: left;
             color: #A3EAE5;
             flex: 70%;

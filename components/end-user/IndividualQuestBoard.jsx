@@ -9,10 +9,8 @@ import { withCurrentUserQuery } from "@shared/HOC/user";
 const IndividualQuestBoard = ({
     session,
     isFetchingUserQuests,
-    isFetchingUserRewards,
     isFetchingUser,
     userQuests,
-    userRewards,
     currentUser,
     queryError,
     onSubmit,
@@ -25,9 +23,9 @@ const IndividualQuestBoard = ({
     const scrollRef = useRef();
 
     useEffect(async () => {
-        if (userQuests && userQuests.length > 0 && userRewards) {
+        if (userQuests && userQuests.length > 0) {
             userQuests.sort(isNotDoneFirst);
-            let sum = userRewards
+            let sum = userQuests
                 .map((r) => {
                     if (r.rewardType.reward === "Shell" || r.rewardType.reward === "$hell") {
                         return r.quantity;
@@ -36,8 +34,10 @@ const IndividualQuestBoard = ({
                     }
                 })
                 .reduce((prev, curr) => prev + curr, 0);
+
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
+            console.log(userQuests);
         }
     }, [userQuests]);
 
@@ -119,10 +119,7 @@ const IndividualQuestBoard = ({
 
                         <div className={s.boardLarge_scrollableArea} ref={scrollRef}>
                             {/* Is Loading */}
-                            {(isFetchingUserQuests ||
-                                isSubmitting ||
-                                isFetchingUserRewards ||
-                                isFetchingUser) && (
+                            {(isFetchingUserQuests || isSubmitting || isFetchingUser) && (
                                 <div className={s.boardLarge_loading}>
                                     <div className={s.boardLarge_loading_wrapper}>
                                         <img
@@ -144,7 +141,7 @@ const IndividualQuestBoard = ({
                             {/*  Render individual quest board */}
                             {!isFetchingUserQuests &&
                                 !isSubmitting &&
-                                !isFetchingUserRewards & !isFetchingUser &&
+                                !isFetchingUser &&
                                 !currentQuests?.isError &&
                                 currentQuests?.length > 0 &&
                                 currentQuests?.map((item, index, row) => {
@@ -314,5 +311,4 @@ function isNotDoneFirst(a, b) {
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
 const secondHOC = withUserQuestQuery(firstHOC);
-const thirdHOC = withCurrentUserQuery(secondHOC);
-export default withUserRewardQuery(thirdHOC);
+export default withCurrentUserQuery(secondHOC);

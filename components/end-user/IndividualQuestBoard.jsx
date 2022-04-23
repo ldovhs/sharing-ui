@@ -37,22 +37,20 @@ const IndividualQuestBoard = ({
 
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
-            console.log(userQuests);
         }
     }, [userQuests]);
 
     const onScrollDown = () => {
-        const offsetBottom = scrollRef.current.offsetTop + scrollRef.current.offsetHeight;
-        scrollRef.current.scrollTo({ top: offsetBottom, behavior: "smooth" });
+        scrollRef.current.scrollTo({
+            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 16,
+            behavior: "smooth",
+        });
     };
     const onScrollUp = () => {
-        const offsetBottom = scrollRef.current.offsetTop - scrollRef.current.offsetHeight;
-
-        // console.log(scrollRef.current.offsetTop);
-        // console.log(scrollRef.current.offsetHeight);
-        // console.log(offsetBottom);
-
-        scrollRef.current.scrollTo({ top: offsetBottom, behavior: "smooth" });
+        scrollRef.current.scrollTo({
+            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16,
+            behavior: "smooth",
+        });
     };
 
     const DoQuest = async (quest) => {

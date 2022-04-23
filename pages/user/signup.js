@@ -9,10 +9,10 @@ const util = require("util");
 
 export const SIGNUP = 0;
 export const SIGNUP_OPTIONS = 1;
-export const SIGNUP_SUCCEED = 2;
-export const SIGNUP_AWAIT = 3;
-export const SIGNUP_ERROR = 4;
-export const SIGNUP_SUCCESS = 5;
+export const SIGNUP_AWAIT = 2;
+export const SIGNUP_ERROR = 3;
+export const SIGNUP_SUCCESS = 4;
+
 function SignUp() {
     const [currentPrompt, setPrompt] = useState(SIGNUP);
     const { data: session, status } = useSession({ required: false });
@@ -71,79 +71,100 @@ function SignUp() {
     return (
         <>
             <div className={s.app}>
-                {!session && (
-                    <div className={s.board}>
-                        <div className={s.board_container}>
-                            <div className={s.board_wrapper}>
-                                <div className={s.board_content}>
-                                    {currentPrompt === SIGNUP && !web3Error && (
-                                        <div>
-                                            <img
-                                                className={s.board_title}
-                                                src="/img/sharing-ui/invite/anomura_big.png"
-                                                alt="sign"
-                                            />
-                                            <img
-                                                className={s.board_welcome}
-                                                src="/img/sharing-ui/invite/welcome.png"
-                                                alt="welcome"
-                                            />
-                                            <button
-                                                className={s.board_orangeBtn}
-                                                onClick={() => changeView(SIGNUP_OPTIONS)}
-                                            >
-                                                Signup with wallet
-                                            </button>
-                                        </div>
-                                    )}
+                <div className={s.board}>
+                    <div className={s.board_container}>
+                        <div className={s.board_wrapper}>
+                            <div className={s.board_content}>
+                                {(currentPrompt === SIGNUP_ERROR || web3Error) && (
+                                    <div className={`${s.board_text}`}>{web3Error}</div>
+                                )}
 
-                                    {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
-                                        <div className={`${s.open}`}>
-                                            {!isMetamaskDisabled && !isMobile && (
-                                                <div
-                                                    className={s.board_web3}
-                                                    onClick={() => handleSignUp(Enums.METAMASK)}
-                                                >
-                                                    <button className={s.board_orangeBtn}>
-                                                        Signup with Metamask
-                                                    </button>
+                                {currentPrompt === SIGNUP && !web3Error && (
+                                    <>
+                                        <img
+                                            className={s.board_headingIcon}
+                                            src="/img/sharing-ui/invite/starfish.gif"
+                                        />
+                                        <div className={s.board_title}>Welcome to the Cove!</div>
+                                        <div className={s.board_text}>Sign up new account</div>
+
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => changeView(SIGNUP_OPTIONS)}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span> Sign Up</span>
+                                            </div>
+                                        </button>
+                                    </>
+                                )}
+
+                                {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
+                                    <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                        <div className={s.board_signin_content}>
+                                            <button
+                                                className={s.board_pinkBtn}
+                                                onClick={() => handleSignUp(Enums.METAMASK)}
+                                            >
+                                                <img
+                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span>Metamask</span>
                                                 </div>
-                                            )}
-                                            <div
-                                                className={s.board_web3}
+                                            </button>
+                                            <button
+                                                className={s.board_pinkBtn}
                                                 onClick={() => handleSignUp(Enums.WALLETCONNECT)}
                                             >
-                                                <button className={s.board_tealBtn}>
-                                                    Signup WalletConnect
-                                                </button>
+                                                <img
+                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span>WalletConnect</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                                {currentPrompt === SIGNUP_AWAIT && !web3Error && (
+                                    <div className={s.board_loading}>
+                                        <div className={s.board_loading_wrapper}>
+                                            <img
+                                                src="/img/sharing-ui/clamsparkle.gif"
+                                                alt="Loading data"
+                                            />
+                                            <div className={s.board_loading_wrapper_text}>
+                                                Awaiting Sign Up
+                                                <span
+                                                    className={
+                                                        s.board_loading_wrapper_text_ellipsis
+                                                    }
+                                                />
                                             </div>
                                         </div>
-                                    )}
-                                    {currentPrompt === SIGNUP_AWAIT && !web3Error && (
-                                        <div
-                                            className={`${s.open} flex justify-content-center align-items-center h2 text-white`}
-                                        >
-                                            Awaiting sign up result...
-                                        </div>
-                                    )}
+                                    </div>
+                                )}
 
-                                    {currentPrompt === SIGNUP_ERROR && (
-                                        <div className={`${s.open}`}>{web3Error}</div>
-                                    )}
-                                    {currentPrompt === SIGNUP_SUCCESS && (
-                                        <div
-                                            className={`${s.open} flex justify-content-center align-items-center h2 text-white`}
-                                        >
-                                            Sign up successfully. Redirecting to user page...
-                                        </div>
-                                    )}
-                                </div>
+                                {currentPrompt === SIGNUP_SUCCESS && (
+                                    <div
+                                        className={`${s.open} flex justify-content-center align-items-center h2 text-white`}
+                                    >
+                                        Sign up successfully. Redirecting to user page...
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
 
-                <div className={s.foreground}></div>
+                {/* <div className={s.foreground}></div> */}
             </div>
         </>
     );

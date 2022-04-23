@@ -21,10 +21,10 @@ $text-font-size-small-2: 1.125rem;
 $text-font-size-med: 1.375rem;
 $text-font-size-large: 1.5rem;
 
-$list-text-font-size-small: 0.75rem;
-$list-text-font-size-small-2: 1.125rem;
-$list-text-font-size-med: 1.375rem;
-$list-text-font-size-large: 1.5rem;
+$list-text-font-size-small: 0.675rem;
+$list-text-font-size-small-2: 0.875rem;
+$list-text-font-size-med: 1.175rem;
+$list-text-font-size-large: 1.375rem;
 
 @mixin heading(){
 	font-size: $heading-font-size-small;
@@ -54,21 +54,16 @@ $list-text-font-size-large: 1.5rem;
     font-weight: 500;
 	text-align: center;
     color:#35464F;
-    line-height: 2.25rem;
+    line-height: 1.25rem;
 
 	@media (min-width: $bp-small-3) {  
         font-size: $heading-font-size-small-2;
+        line-height: 2.25rem;
     }
     @media (min-width: $bp-med-2) {  
         font-size: $heading-font-size-med;
     }
-    @media (min-width: $bp-large-2) {  
-        font-size: $heading-font-size-med;
-    }
     @media (min-width: $bp-xl) {  
-        font-size: $heading-font-size-large;
-    }
-    @media (min-width: $bp-xl-2) {  
         font-size: $heading-font-size-large;
     }
 }
@@ -86,14 +81,27 @@ $list-text-font-size-large: 1.5rem;
     @media (min-width: $bp-med-2) {  
         font-size: $text-font-size-med;
     }
-    @media (min-width: $bp-large-2) {  
-        font-size: $text-font-size-med;
-    }
     @media (min-width: $bp-xl) {  
         font-size: $text-font-size-large;
     }
+}
+ 
+@mixin listText(){
+	font-size: $list-text-font-size-small;
+	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
+    font-weight: 400;
+	text-align: center;
+    color:#35464F;
+
+	@media (min-width: $bp-small-3) {  
+        font-size: $list-text-font-size-small-2;
+    }
+    @media (min-width: $bp-med-2) {  
+        font-size: $list-text-font-size-med;
+    }
+
     @media (min-width: $bp-xl-2) {  
-        font-size: $text-font-size-large;
+        font-size: $list-text-font-size-large;
     }
 }
 
@@ -221,7 +229,14 @@ $list-text-font-size-large: 1.5rem;
         width: 100%;
         height: 100%;
         @include m.flex-master(column, center, center);
-        gap: 2rem;
+        gap: 0.5rem;
+
+        @media (min-width: $bp-small-2) {  
+            gap: 1rem;
+        }
+        @media (min-width: $bp-med-2) {  
+            gap: 2rem;
+        }
     }
 
     &_loadingImg {
@@ -236,7 +251,77 @@ $list-text-font-size-large: 1.5rem;
         @media (min-width: $bp-med) {  
             font-size: $text-font-size-small * 1.5;
         }
+    }
 
+    &_loading {
+        margin-bottom: 2.5rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content:center;
+        align-items:center;
+
+        &_wrapper {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            justify-content:center;
+            align-items:center;
+            height: 100%;
+
+            & > img {
+                display: block;
+                width: 40%;
+                height: auto;
+
+                @media (min-width: $bp-small) {
+                    width: 40%;
+                } 
+                @media (min-width: $bp-small-2) {
+                    width: 50%;
+                } 
+                @media (min-width: $bp-med) {
+                    width: 80%;
+                } 
+            }
+            &_text {
+                position:absolute;
+                width:100%;
+                bottom: 10%;
+                text-align: center;
+                font-size: $text-font-size-small * 0.75;
+                display:flex;
+                flex-direction: row;
+                justify-content: center;
+
+                @media (min-width: $bp-small) {
+                    font-size: $text-font-size-small;
+                    bottom: 18%;
+                } 
+                @media (min-width: $bp-small-2) {
+                    font-size: $text-font-size-small-2;
+                    bottom: 19%;
+                } 
+                @media (min-width: $bp-med) {  
+                    font-size: $text-font-size-med;
+                    bottom: 19%;
+                }
+                &_ellipsis {
+                    width:5px;
+                    &:after {
+                        overflow: hidden;
+                        display: inline-block;
+                        vertical-align: bottom;
+                        -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+                        animation: ellipsis steps(4,end) 900ms infinite;
+                        content: "\2026"; /* ascii code for the ellipsis character */
+                        width: 0px;
+                    }
+                }
+            }
+        }
     }
 
     &_headingIcon {
@@ -245,18 +330,15 @@ $list-text-font-size-large: 1.5rem;
    
     &_title { 
         @include boardHeading();
-        // margin-bottom: 0.8rem;
     }
     &_text { 
         @include boardText();
-        // margin-bottom: 1.75rem;
         width: 85%;
         overflow-wrap: break-word;
     }
 
     &_welcome{
         width: clamp(200px,70%,75vh);
-        margin-bottom: 0.8rem;
     }
 
     &_pinkBtn { // 526 x 129
@@ -403,9 +485,17 @@ $list-text-font-size-large: 1.5rem;
         position: relative;
         width: 100%;
         height:0;
-        padding-top: 108.58%;
-        background: url("/img/sharing-ui/invite/board_large.png") no-repeat;
+        padding-top: 140.66%;
+        background: url("/img/sharing-ui/invite/board_large_mobile.png") no-repeat;
         background-size: contain;
+
+        @media (min-width: $bp-med) {
+            width: 100%;
+            height:0;
+            padding-top: 108.58%;
+            background: url("/img/sharing-ui/invite/board_large.png") no-repeat;
+            background-size: contain;
+        }
     }
 
     &_disconnect {
@@ -428,10 +518,10 @@ $list-text-font-size-large: 1.5rem;
             color: #A2B7B6;
             
             @media (min-width: $bp-small) {  
-                padding: 1.8rem 1.5rem 2rem 1.5rem;
+                // padding: 1.8rem 1.5rem 2rem 1.5rem;
             }
             @media (min-width: $bp-xl) {  
-                padding: 2.4rem 2rem 2.8rem 2rem;
+                // padding: 2.4rem 2rem 2.8rem 2rem;
             }
             &:hover {
                 color: #394B54;
@@ -444,7 +534,7 @@ $list-text-font-size-large: 1.5rem;
         position: absolute;
         width: 100%;
         height: 68%;
-        top:21%;
+        top: 24%;
         left:0;
         padding: 0 17%; 
     }
@@ -452,7 +542,10 @@ $list-text-font-size-large: 1.5rem;
         @include m.flex-master(column, center, center);
         width: 100%;
         height: 90%;
-        gap: 1rem;
+        gap: 0.75rem;
+        @media (min-width: $bp-med) {
+            gap: 1rem;
+        }
     }
 
     &_dollar {
@@ -463,31 +556,21 @@ $list-text-font-size-large: 1.5rem;
         justify-content: center;
 
         &_content {
-        
+            margin-left: -5px;
             font-family: PFRondaSeven;
             color: #F8D61D;
 
-            font-size: $text-font-size-small * 0.85;
+            font-size: $text-font-size-small * 0.75;
             @media (min-width: $bp-small-2) {
+                margin-left: -15px;
                 font-size: $text-font-size-small * 1 ;
             } 
             @media (min-width: $bp-small-3) {
                 font-size: $text-font-size-small * 1.2 ;
             } 
-            @media (min-width: $bp-med-2) {  
-                font-size: $text-font-size-small* 1.2;
-            }
-            @media (min-width: $bp-large-2) {  
-                font-size: $text-font-size-small* 1.2;
-            }
             @media (min-width: $bp-xl) {  
                 font-size: $text-font-size-small* 1.4;
             }
-            @media (min-width: $bp-xl-2) {  
-                font-size: $text-font-size-small;
-            }
-     
-            
         }
     }
 
@@ -498,10 +581,23 @@ $list-text-font-size-large: 1.5rem;
 
     &_footer {
         @include m.flex-master(row, center, null);
-        flex: 5%;
+        flex: 15%;
         width: 100%;
- 
-        z-index: 10;
+
+        & > button {
+            width: 13%;
+            height: auto;
+            margin-bottom: 0.5rem;
+            margin-left:1rem;
+        }
+        & > button:nth-child(1) {
+            background: url('/img/sharing-ui/invite/arrow_down.png') no-repeat;
+            background-size: contain;
+        }
+        & > button:nth-child(2) {
+            background: url('/img/sharing-ui/invite/arrow_up.png') no-repeat;
+            background-size: contain;
+        }
     }
 
     &_pinkBtn { 
@@ -574,15 +670,18 @@ $list-text-font-size-large: 1.5rem;
     }
 
     &_scrollableArea {
+        @include m.flex-master(column, space-between, null);
         width:100%;
         flex: 75%;
         overflow-x: hidden;
         overflow-y: scroll;
         padding-bottom: 1rem;
         position: relative;
-
-        @include m.flex-master(column, space-between, null);
-        gap: 1.375rem;
+        gap: 0.875rem;
+        
+        @media (min-width: $bp-med) {
+            gap: 1.375rem;
+        }
         &::-webkit-scrollbar {
             display: none;
         }
@@ -608,16 +707,15 @@ $list-text-font-size-large: 1.5rem;
 
             & > img {
                 display: block;
-                width: 30%;
+                width: 50%;
                 height: auto;
 
                 @media (min-width: $bp-small) {
-                    width: 40%;
+                    width: 50%;
                 } 
                 @media (min-width: $bp-small-2) {
-                    width: 60%;
+                    width: 80%;
                 } 
-
                 @media (min-width: $bp-med) {
                     width: 80%;
                 } 
@@ -634,24 +732,16 @@ $list-text-font-size-large: 1.5rem;
 
                 @media (min-width: $bp-small) {
                     font-size: $text-font-size-small;
-                    bottom: 20%;
+                    bottom: 16%;
                 } 
                 @media (min-width: $bp-small-2) {
                     font-size: $text-font-size-small-2;
-                    bottom: 24%;
-                } 
-                @media (min-width: $bp-small-3) {
-                    font-size: $text-font-size-small-2;
-                    bottom: 28%;
+                    bottom: 17%;
                 } 
                 @media (min-width: $bp-med) {  
                     font-size: $text-font-size-med;
-                    bottom: 26%;
+                    bottom: 17%;
                 }
-                // @media (min-width: $bp-med-2) {  
-                   
-                // }
-            
                 &_ellipsis {
                     width:5px;
                     &:after {
@@ -675,36 +765,47 @@ $list-text-font-size-large: 1.5rem;
             background: url('/img/sharing-ui/invite/quest list_bg.png') no-repeat; // 166 x 31
             background-size: 100% 100%;
             text-align: left;
-            // margin-left:2px;
-            padding: 1rem 2rem;
+
+            padding: 0.5rem 2rem;
+            max-height: 30%;
+            min-height: 30%;
+
+            @media (min-width: $bp-small-2) {  
+                //padding: 1rem 2rem;
+            }
         }
         &_text { 
-            @include boardText();
+            @include listText();
+            @include m.flex-master(column, center, start);
             text-align: left;
             color: #A3EAE5;
-            flex: 50%;
+            flex: 70%;
         }
         &_reward { 
-            @include boardText();
+            @include listText();
+            @include m.flex-master(column, center, center);
             flex: 25%;
             color: #A3EAE5;
             &_value {}
             &_type{}
         }
         &_action {
+            @include m.flex-master(row, flex-end, center);
+            height: 100%;
             flex: 25%;
-   
-            @include m.flex-master(row, end, center);
-     
         }
         &_button { 
-           
             position:relative;
-            width: 90%; //10.375rem;
-            
+            height: 100%;
             display:flex;
             justify-content: center;
+            align-items: center;
             padding: 0;
+
+            & > img {
+                max-height: 90%;
+                max-width: auto!important;
+            }
     
             & > div {
                 position:absolute;
@@ -713,8 +814,14 @@ $list-text-font-size-large: 1.5rem;
                 align-items: center;
                 height: 100%;
                 & > span { 
-                    @include boardHeading();
+                    @include listText();
                     color: #FFFFFF;
+                    margin-right: 0.5rem;
+
+                    @media (min-width: $bp-small-2) {  
+                        @include boardHeading();
+                        color: #FFFFFF;
+                    }
                 }
             }
         

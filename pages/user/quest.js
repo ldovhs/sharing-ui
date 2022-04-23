@@ -24,7 +24,7 @@ function DoQuest() {
             <div className={s.app}>
                 {!session ? <ConnectBoard /> : <IndividualQuestBoard session={session} />}
 
-                <div className={s.foreground}></div>
+                {/* <div className={s.foreground}></div> */}
             </div>
         </>
     );

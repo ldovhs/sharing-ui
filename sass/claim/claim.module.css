@@ -987,7 +987,7 @@
   background: url("/img/sharing-ui/invite/quest list_bg.png") no-repeat;
   background-size: 100% 100%;
   text-align: left;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
   max-height: 30%;
   min-height: 30%;
 }
@@ -1016,8 +1016,13 @@
     font-size: 0.75rem;
   }
 }
+@media (min-width: 39.8em) {
+  .boardLarge_list_container {
+    padding: 0.5rem 2rem;
+  }
+}
 .boardLarge_list_text {
-  font-size: 0.675rem;
+  font-size: 0.5rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
@@ -1046,7 +1051,7 @@
   }
 }
 .boardLarge_list_reward {
-  font-size: 0.675rem;
+  font-size: 0.5rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
@@ -1088,10 +1093,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-}
-.boardLarge_list_button > img {
-  max-height: 90%;
-  max-width: auto !important;
+  min-width: 58.5px;
 }
 .boardLarge_list_button > div {
   position: absolute;
@@ -1101,7 +1103,7 @@
   height: 100%;
 }
 .boardLarge_list_button > div > span {
-  font-size: 0.675rem;
+  font-size: 0.5rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
@@ -1149,6 +1151,15 @@
 @media (min-width: 31.25em) and (min-width: 90em) {
   .boardLarge_list_button > div > span {
     font-size: 2.5rem;
+  }
+}
+.boardLarge_list_button > div > img {
+  max-height: 60%;
+  width: auto !important;
+}
+@media (min-width: 39.8em) {
+  .boardLarge_list_button > div > img {
+    max-height: 85%;
   }
 }
 .boardLarge_list_button:hover {

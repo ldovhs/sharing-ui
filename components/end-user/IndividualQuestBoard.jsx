@@ -201,7 +201,7 @@ const IndividualQuestBoard = ({
 
                                                             <img
                                                                 src={
-                                                                    "/img/sharing-ui/invite/shellicon.png"
+                                                                    "/img/sharing-ui/invite/shell.png"
                                                                 }
                                                                 alt="reward icon"
                                                             />

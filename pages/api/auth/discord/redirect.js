@@ -80,12 +80,10 @@ export default async function discordRedirect(req, res) {
 
                 let discordQuest = await getQuestByTypeId(discordAuthQuestType.id);
                 if (!discordQuest) {
-                    return res
-                        .status(200)
-                        .json({
-                            isError: true,
-                            message: "Cannot find quest associated with discord auth",
-                        });
+                    return res.status(200).json({
+                        isError: true,
+                        message: "Cannot find quest associated with discord auth",
+                    });
                 }
 
                 let userQuest = await updateDiscordUserAndAddRewardTransaction(
@@ -104,6 +102,7 @@ export default async function discordRedirect(req, res) {
                     message: "Discord authenticattion quest completed! Please close this page.",
                 });
             } catch (err) {
+                console.log(err);
                 res.status(200).json({ error: err.message });
             }
             break;

@@ -21,6 +21,7 @@ node_modules
 *.pem
 .env.development
 .env.production
+.env.staging
 
 # debug
 npm-debug.log*

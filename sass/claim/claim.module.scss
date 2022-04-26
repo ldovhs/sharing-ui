@@ -11,18 +11,18 @@ $bp-xl: 90em;               // 1440
 $bp-xl-2: 123.75em;         // 1980
 $bp-xl-3: 160em;            // 2560
 
-$heading-font-size-small: 1.2rem;
-$heading-font-size-small-2: 1.5rem;
-$heading-font-size-med: 1.75rem;
+$heading-font-size-small: 2vh;
+$heading-font-size-small-2: 1.75rem;
+$heading-font-size-med: 2rem;
 $heading-font-size-large: 2.5rem;
 
-$text-font-size-small: 0.75rem;
+$text-font-size-small: 0.65rem;
 $text-font-size-small-2: 1.125rem;
-$text-font-size-med: 1.375rem;
+$text-font-size-med: 1.35rem;
 $text-font-size-large: 1.5rem;
 
 $list-text-font-size-small: 0.5rem;
-$list-text-font-size-small-2: 0.875rem;
+$list-text-font-size-small-2: 0.675rem;
 $list-text-font-size-med: 1.175rem;
 $list-text-font-size-large: 1.375rem;
 
@@ -56,6 +56,10 @@ $list-text-font-size-large: 1.375rem;
     color:#35464F;
     line-height: 1.25rem;
 
+    @media (min-width: $bp-small-2) {  
+        font-size: $heading-font-size-small-2;
+
+    }
 	@media (min-width: $bp-small-3) {  
         font-size: $heading-font-size-small-2;
         line-height: 2.25rem;
@@ -92,6 +96,10 @@ $list-text-font-size-large: 1.375rem;
     font-weight: 400;
 	text-align: center;
     color:#35464F;
+
+    @media (min-width: $bp-small-2) {  
+        font-size: $list-text-font-size-small-2;
+    }
 
 	@media (min-width: $bp-small-3) {  
         font-size: $list-text-font-size-small-2;
@@ -149,12 +157,39 @@ $list-text-font-size-large: 1.375rem;
     width: 85%;
     height:100%;
     position: relative;
-    color: #fff;  
-    margin-bottom:10rem;
+    color: #fff;
 
     @media (min-width: $bp-large) { width: 45em; }
-    @media (min-width: $bp-xl) { width: 50em; }
-    @media (min-width: $bp-xl-3) { width: 85em; }
+    @media (min-width: $bp-xl) { width: 45em; }
+    @media (min-width: $bp-xl-3) { width: 65em; }
+
+    &_dollar {
+        position: absolute;
+        width: 100%;
+        top: 10%;
+        display:flex;
+        justify-content: center;
+
+        &_content {
+            margin-left: -5px;
+            margin-top: 3px;
+            font-family: PFRondaSeven;
+            color: #F8D61D;
+
+            font-size: 2vw;
+            @media (min-width: $bp-small-2) {
+                margin-left: -12px;
+                margin-top: 0px;
+                font-size: 2.5vw;
+            } 
+            @media (min-width: $bp-small-3) {
+                font-size: $text-font-size-small-2 ;
+            } 
+            @media (min-width: $bp-med-2) {  
+                font-size: $text-font-size-large;
+            }
+        }
+    }
 
     &_container {
         position: relative;
@@ -229,7 +264,7 @@ $list-text-font-size-large: 1.375rem;
         width: 100%;
         height: 100%;
         @include m.flex-master(column, center, center);
-        gap: 0.5rem;
+        gap: 0.4rem;
 
         @media (min-width: $bp-small-2) {  
             gap: 1rem;
@@ -325,7 +360,10 @@ $list-text-font-size-large: 1.375rem;
     }
 
     &_headingIcon {
-        // margin-bottom: 1rem;
+        height: 10%;
+        @media (min-width: $bp-med) {  
+            
+        }
     }
    
     &_title { 
@@ -472,24 +510,29 @@ $list-text-font-size-large: 1.375rem;
 
 .boardLarge {
     @include m.flex-master(column, center, center);
-    width: 85%;
-    height:100%;
+    width: 80%;
+    //height:100%;
+    height: 60vh;
     position: relative;
     color: #fff;  
 
-    @media (min-width: $bp-large) { width: 50em; }
-    @media (min-width: $bp-xl) { width: 50em; }
-    // @media (min-width: $bp-xl-3) { width: 45em; }
+    @media (min-width: $bp-small-3) {
+      
+    }
+
+    @media (min-width: $bp-large) {
+        width: 45em; 
+    }
 
     &_container {
         position: relative;
         width: 100%;
         height:0;
         padding-top: 140.66%;
-        background: url("/img/sharing-ui/invite/board_large_mobile.png") no-repeat;
+        background: url("/img/sharing-ui/invite/board_mobile.png") no-repeat;
         background-size: contain;
 
-        @media (min-width: $bp-med) {
+        @media (min-width: $bp-small-2) {
             width: 100%;
             height:0;
             padding-top: 108.58%;
@@ -499,7 +542,7 @@ $list-text-font-size-large: 1.375rem;
     }
 
     &_disconnect {
-        position: absolute;
+        // position: absolute;
         width: 100%;
         height: 10%;
         bottom: -7%;
@@ -534,43 +577,63 @@ $list-text-font-size-large: 1.375rem;
         position: absolute;
         width: 100%;
         height: 68%;
-        top: 24%;
+        top: 21%;
         left:0;
         padding: 0 17%; 
+
+        @media (min-width: $bp-small-2) {
+            height: 68%;
+            top: 24%;
+            left:0;
+            padding: 0 17%; 
+        }
     }
     &_content {
         @include m.flex-master(column, center, center);
         width: 100%;
-        height: 90%;
-        gap: 0.75rem;
-        @media (min-width: $bp-med) {
+        height: 95%;
+        gap: 0.55rem;
+        @media (min-width: $bp-small-2) {
             gap: 1rem;
+            height: 90%;
         }
     }
 
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 9%;
+        top: 6.75%;
         display:flex;
         justify-content: center;
+
+        @media (min-width: $bp-small) {
+            top: 6.5%;
+        } 
+        @media (min-width: $bp-small-2) {
+            top: 8%;
+        } 
+        @media (min-width: $bp-med) {
+            top: 8.75%;
+        } 
+       
 
         &_content {
             margin-left: -5px;
             font-family: PFRondaSeven;
             color: #F8D61D;
 
-            font-size: $text-font-size-small * 0.75;
+            font-size: 0.75vh;
+            @media (min-width: $bp-small) {
+                font-size: 1vh;
+                margin-left: -10px;
+            } 
             @media (min-width: $bp-small-2) {
-                margin-left: -15px;
-                font-size: $text-font-size-small * 1 ;
+                font-size: 1.3vh;
+                margin-left: -12px;
             } 
             @media (min-width: $bp-small-3) {
-                font-size: $text-font-size-small * 1.2 ;
+                font-size: 1.6vh;
             } 
-            @media (min-width: $bp-xl) {  
-                font-size: $text-font-size-small* 1.4;
-            }
         }
     }
 
@@ -581,8 +644,12 @@ $list-text-font-size-large: 1.375rem;
 
     &_footer {
         @include m.flex-master(row, center, null);
-        flex: 15%;
+        flex: 12%;
         width: 100%;
+
+        @media (min-width: $bp-small-2) {
+            flex: 18%;
+        }
 
         & > button {
             width: 13%;
@@ -610,7 +677,7 @@ $list-text-font-size-large: 1.375rem;
        
         width: 4.6rem;
         height: 2.16rem;
-        @media (min-width: $bp-small-3) {  
+        @media (min-width: $bp-small-2) {  
             width: 94px;
             height: 44px; 
         }
@@ -644,7 +711,7 @@ $list-text-font-size-large: 1.375rem;
             height: 2.90675rem; 
             font-size: 1rem;
         }
-        @media (min-width: $bp-small-3) {  
+        @media (min-width: $bp-small-2) {  
             width: 20.875rem;
             height: 3.875rem; 
             font-size: 1.375rem;
@@ -656,14 +723,14 @@ $list-text-font-size-large: 1.375rem;
     }
     &_yellowText { 
         @include text();
+        @include m.flex-master(row, center, null);
         margin-top: 2%;
         color: #F8D61D;
         align-self: center;
-        @include m.flex-master(row, center, null);
-        
         width: 4.6rem;
         height: 2.16rem;
-        @media (min-width: $bp-small-3) {  
+
+        @media (min-width: $bp-small-2) {  
             width: 94px;
             height: 44px; 
         }
@@ -672,15 +739,16 @@ $list-text-font-size-large: 1.375rem;
     &_scrollableArea {
         @include m.flex-master(column, space-between, null);
         width:100%;
-        flex: 75%;
+        flex: 85%;
         overflow-x: hidden;
         overflow-y: scroll;
-        padding-bottom: 1rem;
         position: relative;
-        gap: 0.875rem;
+        gap: 0.6rem;
         
-        @media (min-width: $bp-med) {
-            gap: 1.375rem;
+        @media (min-width: $bp-small-3) {
+            gap: 1rem;
+            flex: 85%;
+            padding-bottom: 1rem;
         }
         &::-webkit-scrollbar {
             display: none;
@@ -762,13 +830,17 @@ $list-text-font-size-large: 1.375rem;
         &_container {
             @include m.flex-master(row, null, null);
             @include text();
-            background: url('/img/sharing-ui/invite/quest list_bg.png') no-repeat; // 166 x 31
+            background: url('/img/sharing-ui/invite/quest list_bg.png') no-repeat;
             background-size: 100% 100%;
             text-align: left;
 
-            padding: 0.5rem 1rem;
+            padding: 0.5rem;
             max-height: 30%;
             min-height: 30%;
+
+            @media (min-width: $bp-small-2) {  
+                padding: 0.5rem 1rem;
+            }
 
             @media (min-width: $bp-small-3) {  
                 padding: 0.5rem 2rem;
@@ -786,26 +858,30 @@ $list-text-font-size-large: 1.375rem;
             @include m.flex-master(row, center, center);
             flex: 25%;
             color: #A3EAE5;
+            font-weight: bold;
+     
             & > img { margin-left: 0.2rem}
-            &_type{}
+        
         }
         &_action {
             @include m.flex-master(row, flex-end, center);
-     
             height: 100%;
             flex: 25%;
         }
         &_button { 
             position:relative;
-            height: 100%;
             display:flex;
             justify-content: center;
             align-items: center;
+            height: 100%;
             padding: 0;
             min-width: 3rem;
             & > img {
     
-                //height: 90%;
+                max-height: 100%;
+                @media (min-width: $bp-small-2) {  
+                    max-height: 96%;
+                }
             }
     
             & > div {
@@ -827,7 +903,7 @@ $list-text-font-size-large: 1.375rem;
     
                     max-height: 55%;
                     width: auto!important;
-                    @media (min-width: $bp-small-3) {  
+                    @media (min-width: $bp-small-2) {  
                         max-height: 85%;
                     }
                 }
@@ -842,24 +918,6 @@ $list-text-font-size-large: 1.375rem;
                 color: #394B54;
             }
         }
-        // &_content {
-        //     @include m.flex-master(column, null, null);
-        //     width: 85%;
-        //     & > div:nth-child(2) {
-        //         color:#00FFFF;
-        //     }
-        //     overflow-wrap: break-word;
-        // }
-        // &_result {
-        //     @include m.flex-master(null, center, center);
-        //     flex: 10%;
-        //     text-align: right;
-
-        //     @media (max-width: $bp-small-3) {  
-        //         @include m.flex-master(column, center, center);
-        //         row-gap: 0.5rem;
-        //     }
-        // }
 
         /* same as above, except ranking has color style*/
         &_containerRanking{

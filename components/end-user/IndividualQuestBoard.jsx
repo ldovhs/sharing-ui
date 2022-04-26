@@ -42,13 +42,13 @@ const IndividualQuestBoard = ({
 
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 16,
+            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight, // + 16,
             behavior: "smooth",
         });
     };
     const onScrollUp = () => {
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16,
+            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight, // - 16,
             behavior: "smooth",
         });
     };
@@ -288,17 +288,17 @@ const IndividualQuestBoard = ({
                     </div>
                 </div>
 
-                <div className={s.boardLarge_disconnect}>
+                {/* <div className={s.boardLarge_disconnect}>
                     {!isFetchingUserQuests && !isFetchingUser && (
                         <button onClick={() => SignOut()}>Disconnect</button>
                     )}
-                </div>
+                </div> */}
             </div>
-            {/* <div className={s.boardLarge_disconnect}>
+            <div className={s.boardLarge_disconnect}>
                 {!isFetchingUserQuests && !isFetchingUser && (
                     <button onClick={() => SignOut()}>Disconnect</button>
                 )}
-            </div> */}
+            </div>
         </div>
     );
 };

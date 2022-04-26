@@ -48,6 +48,9 @@ export default function ConnectBoard() {
     return (
         <div className={s.board}>
             <div className={s.board_container}>
+                <div className={s.board_dollar}>
+                    <div className={s.board_dollar_content}>$$$</div>
+                </div>
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         <>

@@ -17,7 +17,6 @@
   height: 100%;
   position: relative;
   color: #fff;
-  margin-bottom: 10rem;
 }
 @media (min-width: 54.5em) {
   .board {
@@ -26,12 +25,43 @@
 }
 @media (min-width: 90em) {
   .board {
-    width: 50em;
+    width: 45em;
   }
 }
 @media (min-width: 160em) {
   .board {
-    width: 85em;
+    width: 65em;
+  }
+}
+.board_dollar {
+  position: absolute;
+  width: 100%;
+  top: 10%;
+  display: flex;
+  justify-content: center;
+}
+.board_dollar_content {
+  margin-left: -5px;
+  margin-top: 3px;
+  font-family: PFRondaSeven;
+  color: #F8D61D;
+  font-size: 2vw;
+}
+@media (min-width: 31.25em) {
+  .board_dollar_content {
+    margin-left: -12px;
+    margin-top: 0px;
+    font-size: 2.5vw;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_dollar_content {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_dollar_content {
+    font-size: 1.5rem;
   }
 }
 .board_container {
@@ -50,7 +80,7 @@
   justify-content: center;
 }
 .board_disconnect > button {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -67,15 +97,20 @@
   padding: 1.25rem 1rem 1.5rem 1rem;
   color: #A2B7B6;
 }
+@media (min-width: 31.25em) {
+  .board_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .board_disconnect > button {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .board_disconnect > button {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -144,7 +179,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 @media (min-width: 31.25em) {
   .board_content {
@@ -165,12 +200,12 @@
   }
 }
 .board_loadingText {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   margin-bottom: 2rem;
 }
 @media (min-width: 46.8em) {
   .board_loadingText {
-    font-size: 1.125rem;
+    font-size: 0.975rem;
   }
 }
 .board_loading {
@@ -216,14 +251,14 @@
   width: 100%;
   bottom: 10%;
   text-align: center;
-  font-size: 0.5625rem;
+  font-size: 0.4875rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .board_loading_wrapper_text {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     bottom: 18%;
   }
 }
@@ -235,7 +270,7 @@
 }
 @media (min-width: 46.8em) {
   .board_loading_wrapper_text {
-    font-size: 1.375rem;
+    font-size: 1.35rem;
     bottom: 19%;
   }
 }
@@ -252,23 +287,31 @@
   /* ascii code for the ellipsis character */
   width: 0px;
 }
+.board_headingIcon {
+  height: 10%;
+}
 .board_title {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
   color: #35464F;
   line-height: 1.25rem;
 }
+@media (min-width: 31.25em) {
+  .board_title {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .board_title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .board_title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -277,7 +320,7 @@
   }
 }
 .board_text {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
@@ -292,7 +335,7 @@
 }
 @media (min-width: 50em) {
   .board_text {
-    font-size: 1.375rem;
+    font-size: 1.35rem;
   }
 }
 @media (min-width: 90em) {
@@ -318,7 +361,7 @@
   height: 90%;
 }
 .board_pinkBtn > div > span {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -326,15 +369,20 @@
   line-height: 1.25rem;
   color: #FFFFFF;
 }
+@media (min-width: 31.25em) {
+  .board_pinkBtn > div > span {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .board_pinkBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .board_pinkBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -350,7 +398,7 @@
   color: #394B54;
 }
 .board_claimBtn {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -367,15 +415,20 @@
   padding: 1.25rem 1rem 1.5rem 1rem;
   color: #A2B7B6;
 }
+@media (min-width: 31.25em) {
+  .board_claimBtn {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .board_claimBtn {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .board_claimBtn {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -399,7 +452,7 @@
 .board_orangeBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -411,27 +464,27 @@
 }
 @media (min-width: 39.8em) {
   .board_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .board_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .board_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .board_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 24em) {
@@ -451,7 +504,7 @@
 .board_tealBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -463,27 +516,27 @@
 }
 @media (min-width: 39.8em) {
   .board_tealBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .board_tealBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .board_tealBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .board_tealBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_tealBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 24em) {
@@ -526,7 +579,7 @@
 }
 .foreground > div {
   margin-top: 12%;
-  font-size: 1.2rem;
+  font-size: 2vh;
   color: #fff;
 }
 
@@ -535,20 +588,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 85%;
-  height: 100%;
+  width: 80%;
+  height: 60vh;
   position: relative;
   color: #fff;
   z-index: 3;
 }
 @media (min-width: 54.5em) {
   .boardLarge {
-    width: 50em;
-  }
-}
-@media (min-width: 90em) {
-  .boardLarge {
-    width: 50em;
+    width: 45em;
   }
 }
 .boardLarge_container {
@@ -556,10 +604,10 @@
   width: 100%;
   height: 0;
   padding-top: 140.66%;
-  background: url("/img/sharing-ui/invite/board_large_mobile.png") no-repeat;
+  background: url("/img/sharing-ui/invite/board_mobile.png") no-repeat;
   background-size: contain;
 }
-@media (min-width: 46.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_container {
     width: 100%;
     height: 0;
@@ -569,7 +617,6 @@
   }
 }
 .boardLarge_disconnect {
-  position: absolute;
   width: 100%;
   height: 10%;
   bottom: -7%;
@@ -577,7 +624,7 @@
   justify-content: center;
 }
 .boardLarge_disconnect > button {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -594,15 +641,20 @@
   padding: 1.25rem 1rem 1.5rem 1rem;
   color: #A2B7B6;
 }
+@media (min-width: 31.25em) {
+  .boardLarge_disconnect > button {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .boardLarge_disconnect > button {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_disconnect > button {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -621,9 +673,17 @@
   position: absolute;
   width: 100%;
   height: 68%;
-  top: 24%;
+  top: 21%;
   left: 0;
   padding: 0 17%;
+}
+@media (min-width: 31.25em) {
+  .boardLarge_wrapper {
+    height: 68%;
+    top: 24%;
+    left: 0;
+    padding: 0 17%;
+  }
 }
 .boardLarge_content {
   display: flex;
@@ -631,45 +691,62 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 90%;
-  gap: 0.75rem;
+  height: 95%;
+  gap: 0.55rem;
 }
-@media (min-width: 46.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_content {
     gap: 1rem;
+    height: 90%;
   }
 }
 .boardLarge_dollar {
   position: absolute;
   width: 100%;
-  top: 9%;
+  top: 6.75%;
   display: flex;
   justify-content: center;
+}
+@media (min-width: 24em) {
+  .boardLarge_dollar {
+    top: 6.5%;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_dollar {
+    top: 8%;
+  }
+}
+@media (min-width: 46.8em) {
+  .boardLarge_dollar {
+    top: 8.75%;
+  }
 }
 .boardLarge_dollar_content {
   margin-left: -5px;
   font-family: PFRondaSeven;
   color: #F8D61D;
-  font-size: 0.5625rem;
+  font-size: 0.75vh;
+}
+@media (min-width: 24em) {
+  .boardLarge_dollar_content {
+    font-size: 1vh;
+    margin-left: -10px;
+  }
 }
 @media (min-width: 31.25em) {
   .boardLarge_dollar_content {
-    margin-left: -15px;
-    font-size: 0.75rem;
+    font-size: 1.3vh;
+    margin-left: -12px;
   }
 }
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 90em) {
-  .boardLarge_dollar_content {
-    font-size: 1.05rem;
+    font-size: 1.6vh;
   }
 }
 .boardLarge_title {
-  font-size: 1.2rem;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -677,15 +754,20 @@
   line-height: 1.25rem;
   overflow-wrap: break-word;
 }
+@media (min-width: 31.25em) {
+  .boardLarge_title {
+    font-size: 1.75rem;
+  }
+}
 @media (min-width: 39.8em) {
   .boardLarge_title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2.25rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -697,8 +779,13 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex: 15%;
+  flex: 12%;
   width: 100%;
+}
+@media (min-width: 31.25em) {
+  .boardLarge_footer {
+    flex: 18%;
+  }
 }
 .boardLarge_footer > button {
   width: 13%;
@@ -717,7 +804,7 @@
 .boardLarge_pinkBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -731,30 +818,30 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_pinkBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_pinkBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_pinkBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_pinkBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_pinkBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
-@media (min-width: 39.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_pinkBtn {
     width: 94px;
     height: 44px;
@@ -778,7 +865,7 @@
 .boardLarge_orangeBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -791,27 +878,27 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_orangeBtn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 24em) {
@@ -821,7 +908,7 @@
     font-size: 1rem;
   }
 }
-@media (min-width: 39.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_orangeBtn {
     width: 20.875rem;
     height: 3.875rem;
@@ -835,42 +922,42 @@
 .boardLarge_yellowText {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
-  margin-top: 2%;
-  color: #F8D61D;
-  align-self: center;
+  font-size: 0.65rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 2%;
+  color: #F8D61D;
+  align-self: center;
   width: 4.6rem;
   height: 2.16rem;
 }
 @media (min-width: 39.8em) {
   .boardLarge_yellowText {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_yellowText {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_yellowText {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_yellowText {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_yellowText {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
-@media (min-width: 39.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_yellowText {
     width: 94px;
     height: 44px;
@@ -881,16 +968,17 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  flex: 75%;
+  flex: 85%;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-bottom: 1rem;
   position: relative;
-  gap: 0.875rem;
+  gap: 0.6rem;
 }
-@media (min-width: 46.8em) {
+@media (min-width: 39.8em) {
   .boardLarge_scrollableArea {
-    gap: 1.375rem;
+    gap: 1rem;
+    flex: 85%;
+    padding-bottom: 1rem;
   }
 }
 .boardLarge_scrollableArea::-webkit-scrollbar {
@@ -939,14 +1027,14 @@
   width: 100%;
   bottom: 10%;
   text-align: center;
-  font-size: 0.5625rem;
+  font-size: 0.4875rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .boardLarge_loading_wrapper_text {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     bottom: 16%;
   }
 }
@@ -958,7 +1046,7 @@
 }
 @media (min-width: 46.8em) {
   .boardLarge_loading_wrapper_text {
-    font-size: 1.375rem;
+    font-size: 1.35rem;
     bottom: 17%;
   }
 }
@@ -983,37 +1071,42 @@
   flex-direction: row;
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   background: url("/img/sharing-ui/invite/quest list_bg.png") no-repeat;
   background-size: 100% 100%;
   text-align: left;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   max-height: 30%;
   min-height: 30%;
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_container {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_list_container {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_list_container {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_list_container {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_container {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_list_container {
+    padding: 0.5rem 1rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -1035,9 +1128,14 @@
   color: #A3EAE5;
   flex: 70%;
 }
+@media (min-width: 31.25em) {
+  .boardLarge_list_text {
+    font-size: 0.675rem;
+  }
+}
 @media (min-width: 39.8em) {
   .boardLarge_list_text {
-    font-size: 0.875rem;
+    font-size: 0.675rem;
   }
 }
 @media (min-width: 50em) {
@@ -1062,10 +1160,16 @@
   align-items: center;
   flex: 25%;
   color: #A3EAE5;
+  font-weight: bold;
+}
+@media (min-width: 31.25em) {
+  .boardLarge_list_reward {
+    font-size: 0.675rem;
+  }
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_reward {
-    font-size: 0.875rem;
+    font-size: 0.675rem;
   }
 }
 @media (min-width: 50em) {
@@ -1091,12 +1195,20 @@
 }
 .boardLarge_list_button {
   position: relative;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
   padding: 0;
   min-width: 3rem;
+}
+.boardLarge_list_button > img {
+  max-height: 100%;
+}
+@media (min-width: 31.25em) {
+  .boardLarge_list_button > img {
+    max-height: 96%;
+  }
 }
 .boardLarge_list_button > div {
   position: absolute;
@@ -1115,9 +1227,14 @@
   margin-right: 0.2rem;
   font-weight: 600;
 }
+@media (min-width: 31.25em) {
+  .boardLarge_list_button > div > span {
+    font-size: 0.675rem;
+  }
+}
 @media (min-width: 39.8em) {
   .boardLarge_list_button > div > span {
-    font-size: 0.875rem;
+    font-size: 0.675rem;
   }
 }
 @media (min-width: 50em) {
@@ -1134,7 +1251,7 @@
   max-height: 55%;
   width: auto !important;
 }
-@media (min-width: 39.8em) {
+@media (min-width: 31.25em) {
   .boardLarge_list_button > div > img {
     max-height: 85%;
   }
@@ -1152,32 +1269,32 @@
   justify-content: space-between;
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   text-align: left;
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 }
 .boardLarge_list_containerRanking:nth-child(1) {

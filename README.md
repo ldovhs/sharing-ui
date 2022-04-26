@@ -25,7 +25,7 @@ yarn run dev
 DATABASE_URL=postgres://username:password@localhost:5432/databasename
 NEXT_PUBLIC_WEBSITE_HOST = "http://localhost:3000"
 NEXT_PUBLIC_NEXTAUTH_SECRET=  "the secret to be used for NextAuth"
-NEXT_PUBLIC_INFURA_ID = 8422374653a5417ca923479ca904ed65
+NEXT_PUBLIC_INFURA_ID = the infura id instance, need this for wallet connect authentication
 NEXTAUTH_URL= "http://localhost:3000/api/auth"
 
 DISCORD_NODEJS=http://localhost:3005

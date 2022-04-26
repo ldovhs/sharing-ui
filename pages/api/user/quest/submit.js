@@ -6,7 +6,7 @@ import Enums from "enums";
 import { submitNewUserQuestTransaction } from "repositories/transactions";
 import { updateUserQuest } from "repositories/userQuest";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } = process.env;
+const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
 
 const ROUTE = "/api/user/submit";
 
@@ -114,7 +114,7 @@ const discordHelper = async (user, extendedQuestData) => {
         },
         {
             headers: {
-                Authorization: `Bot ${DISCORD_SECRET}`,
+                Authorization: `Bot ${NODEJS_SECRET}`,
                 "Content-Type": "application/json",
             },
         }

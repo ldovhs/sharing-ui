@@ -4,7 +4,7 @@ import axios from "axios";
 import { createPendingReward } from "repositories/reward";
 import adminMiddleware from "middlewares/adminMiddleware";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } =
+const { DISCORD_NODEJS, DISCORD_BOT_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } =
     process.env;
 
 const ROUTE = "/api/admin/reward/addPending";
@@ -88,13 +88,13 @@ const AddPendingRewardAPI = async (req, res) => {
                     console.log("test pending reward on nodejs");
                     await axios
                         .post(
-                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/pendingReward`,
+                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_BOT_CHANNEL}/pendingReward`,
                             {
                                 pendingReward,
                             },
                             {
                                 headers: {
-                                    Authorization: `Bot ${DISCORD_SECRET}`,
+                                    Authorization: `Bot ${NODEJS_SECRET}`,
                                     "Content-Type": "application/json",
                                 },
                             }

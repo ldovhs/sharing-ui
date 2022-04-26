@@ -2,12 +2,14 @@
 CREATE TABLE "WhiteList" (
     "id" SERIAL NOT NULL,
     "wallet" TEXT NOT NULL,
-    "twitter" TEXT DEFAULT E'',
+    "twitterId" TEXT DEFAULT E'',
+    "twitterUserName" TEXT DEFAULT E'',
     "userId" TEXT NOT NULL,
     "discordId" TEXT DEFAULT E'',
+    "discordUserDiscriminator" TEXT DEFAULT E'',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "discordUserDiscriminator" TEXT DEFAULT E'',
+    "nonce" TEXT,
 
     CONSTRAINT "WhiteList_pkey" PRIMARY KEY ("id")
 );
@@ -46,6 +48,15 @@ CREATE TABLE "RewardType" (
 );
 
 -- CreateTable
+CREATE TABLE "QuestType" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+
+    CONSTRAINT "QuestType_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "UserQuest" (
     "id" SERIAL NOT NULL,
     "wallet" TEXT NOT NULL,
@@ -61,7 +72,6 @@ CREATE TABLE "UserQuest" (
 -- CreateTable
 CREATE TABLE "Quest" (
     "id" SERIAL NOT NULL,
-    "type" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "completedText" TEXT NOT NULL,
     "rewardTypeId" INTEGER NOT NULL,
@@ -73,6 +83,7 @@ CREATE TABLE "Quest" (
     "questId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "questTypeId" INTEGER NOT NULL,
 
     CONSTRAINT "Quest_pkey" PRIMARY KEY ("id")
 );
@@ -124,6 +135,9 @@ CREATE UNIQUE INDEX "PendingReward_wallet_rewardTypeId_generatedURL_key" ON "Pen
 CREATE UNIQUE INDEX "Reward_wallet_rewardTypeId_key" ON "Reward"("wallet", "rewardTypeId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "QuestType_name_key" ON "QuestType"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "UserQuest_wallet_questId_key" ON "UserQuest"("wallet", "questId");
 
 -- CreateIndex
@@ -161,6 +175,9 @@ ALTER TABLE "UserQuest" ADD CONSTRAINT "UserQuest_questId_fkey" FOREIGN KEY ("qu
 
 -- AddForeignKey
 ALTER TABLE "Quest" ADD CONSTRAINT "Quest_rewardTypeId_fkey" FOREIGN KEY ("rewardTypeId") REFERENCES "RewardType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Quest" ADD CONSTRAINT "Quest_questTypeId_fkey" FOREIGN KEY ("questTypeId") REFERENCES "QuestType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Anomuras" ADD CONSTRAINT "Anomuras_playersWallet_fkey" FOREIGN KEY ("playersWallet") REFERENCES "Players"("wallet") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -1057,7 +1057,7 @@
   text-align: center;
   color: #35464F;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   flex: 25%;
@@ -1077,6 +1077,9 @@
   .boardLarge_list_reward {
     font-size: 1.375rem;
   }
+}
+.boardLarge_list_reward > img {
+  margin-left: 0.2rem;
 }
 .boardLarge_list_action {
   display: flex;

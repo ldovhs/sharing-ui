@@ -39,3 +39,13 @@ dotenv -e .env.development -- npx prisma migrate dev
 
 dotenv -e .env.production -- npx prisma migrate resolve --applied 20220406232532_initial_migration
 dotenv -e .env.production -- npx prisma migrate deploy
+
+// to reinitialize the migration file
+on dev
++ dotenv -e .env.development -- npx prisma migrate reset
++ dotenv -e .env.development -- npx prisma migrate dev
+
++ dotenv -e .env.development -- npx prisma migrate resolve --applied "20220426034248_new_migration_history"
++ dotenv -e .env.staging -- npx prisma migrate resolve --applied "20220426034248_new_migration_history"
++ dotenv -e .env.production -- npx prisma migrate deploy
+

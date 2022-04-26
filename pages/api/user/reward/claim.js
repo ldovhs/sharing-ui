@@ -4,7 +4,7 @@ import axios from "axios";
 import Enums from "enums";
 import { UpdateClaimAndPendingRewardTransaction } from "repositories/transactions";
 
-const { DISCORD_NODEJS, DISCORD_REWARD_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, DISCORD_SECRET } =
+const { DISCORD_NODEJS, DISCORD_BOT_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } =
     process.env;
 
 const ROUTE = "/api/user/reward/claim";
@@ -94,14 +94,14 @@ const userClaimRewardAPI = async (req, res) => {
 
                     let discordPost = await axios
                         .post(
-                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_REWARD_CHANNEL}/claimedReward`,
+                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_BOT_CHANNEL}/claimedReward`,
                             {
                                 claimedReward,
                             },
                             {
                                 //authorization
                                 headers: {
-                                    Authorization: `Bot ${DISCORD_SECRET}`,
+                                    Authorization: `Bot ${NODEJS_SECRET}`,
                                     "Content-Type": "application/json",
                                 },
                             }

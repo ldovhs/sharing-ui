@@ -783,10 +783,10 @@ $list-text-font-size-large: 1.375rem;
         }
         &_reward { 
             @include listText();
-            @include m.flex-master(column, center, center);
+            @include m.flex-master(row, center, center);
             flex: 25%;
             color: #A3EAE5;
-            &_value {}
+            & > img { margin-left: 0.2rem}
             &_type{}
         }
         &_action {

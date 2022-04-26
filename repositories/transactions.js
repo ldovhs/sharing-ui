@@ -65,10 +65,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
     let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
     wallet = utils.getAddress(wallet);
 
-    let extendedUserQuestData = { ...extendedQuestData };
     let claimedReward;
-    if (quantity >= 0) {
-    }
 
     console.log(`**Update user**`);
     const { id, username, discriminator } = userInfo;

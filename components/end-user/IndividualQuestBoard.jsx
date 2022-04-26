@@ -175,34 +175,42 @@ const IndividualQuestBoard = ({
                                                         </span>
                                                     )}
                                                 </div>
-                                                {/* <div className={s.boardLarge_list_reward}>
-                                                    <div>+{quantity} </div>
-                                                    <div>{rewardType.reward}</div>
-                                                </div> */}
-                                                <div className={s.boardLarge_list_action}>
-                                                    <button
-                                                        className={s.boardLarge_list_button}
-                                                        onClick={() => DoQuest(item)}
-                                                    >
+                                                {isDone && (
+                                                    <div className={s.boardLarge_list_reward}>
+                                                        <span>+{quantity}</span>
                                                         <img
-                                                            src={
-                                                                "/img/sharing-ui/invite/quest button_bg.png"
-                                                            }
-                                                            alt="connectToContinue"
+                                                            src={"/img/sharing-ui/invite/shell.png"}
+                                                            alt="reward icon"
                                                         />
-                                                        <div>
-                                                            {/* <span>{isDone ? "DONE" : "GO"}</span> */}
-                                                            <span>{quantity}</span>
+                                                    </div>
+                                                )}
 
+                                                {!isDone && (
+                                                    <div className={s.boardLarge_list_action}>
+                                                        <button
+                                                            className={s.boardLarge_list_button}
+                                                            onClick={() => DoQuest(item)}
+                                                        >
                                                             <img
                                                                 src={
-                                                                    "/img/sharing-ui/invite/shell.png"
+                                                                    "/img/sharing-ui/invite/quest button_bg.png"
                                                                 }
-                                                                alt="reward icon"
+                                                                alt="connectToContinue"
                                                             />
-                                                        </div>
-                                                    </button>
-                                                </div>
+                                                            <div>
+                                                                {/* <span>{isDone ? "DONE" : "GO"}</span> */}
+                                                                <span>{quantity}</span>
+
+                                                                <img
+                                                                    src={
+                                                                        "/img/sharing-ui/invite/shell.png"
+                                                                    }
+                                                                    alt="reward icon"
+                                                                />
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                )}
                                                 {/* {isDone && <div>Completed</div>} */}
                                                 {/* <div className={s.boardLarge_list_result}>
                                                     {!isDone && (

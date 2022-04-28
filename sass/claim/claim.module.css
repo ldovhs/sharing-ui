@@ -73,63 +73,41 @@
   background-size: contain;
 }
 .board_disconnect {
-  position: absolute;
-  width: 100%;
-  height: 10%;
+  position: relative;
+  width: 40%;
   display: flex;
   justify-content: center;
+  padding: 0;
+  color: #A4B7B6;
 }
-.board_disconnect > button {
-  font-size: 2vh;
+.board_disconnect > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_disconnect > div > span {
+  font-size: 5vw;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
-  color: #35464F;
   line-height: 1.15rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  height: 90%;
-  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
-  background-size: 100% 100%;
-  padding: 1.25rem 1rem 1.5rem 1rem;
-  color: #A2B7B6;
 }
 @media (min-width: 31.25em) {
-  .board_disconnect > button {
+  .board_disconnect > div > span {
     font-size: 1.75rem;
   }
 }
-@media (min-width: 39.8em) {
-  .board_disconnect > button {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
-  }
+.board_disconnect:hover {
+  color: #35454F;
 }
-@media (min-width: 50em) {
-  .board_disconnect > button {
-    font-size: 2.5rem;
-  }
+.board_disconnect:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
 }
-@media (min-width: 90em) {
-  .board_disconnect > button {
-    font-size: 2.5rem;
-  }
-}
-@media (min-width: 24em) {
-  .board_disconnect > button {
-    padding: 1.8rem 1.5rem 2rem 1.5rem;
-  }
-}
-@media (min-width: 90em) {
-  .board_disconnect > button {
-    padding: 2.4rem 2rem 2.8rem 2rem;
-  }
-}
-.board_disconnect > button:hover {
-  color: #394B54;
+.board_disconnect:disabled:hover {
+  color: #A2B7B6;
 }
 .board_wrapper {
   position: absolute;
@@ -173,12 +151,12 @@
   }
 }
 .board_content {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
   gap: 0.4rem;
 }
 @media (min-width: 31.25em) {
@@ -189,23 +167,6 @@
 @media (min-width: 50em) {
   .board_content {
     gap: 1.75rem;
-  }
-}
-.board_loadingImg {
-  width: 35%;
-}
-@media (min-width: 50em) {
-  .board_loadingImg {
-    width: 25%;
-  }
-}
-.board_loadingText {
-  font-size: 0.6rem;
-  margin-bottom: 2rem;
-}
-@media (min-width: 46.8em) {
-  .board_loadingText {
-    font-size: 0.9rem;
   }
 }
 .board_loading {
@@ -344,15 +305,13 @@
     font-size: 1.5rem;
   }
 }
-.board_welcome {
-  width: clamp(200px, 70%, 75vh);
-}
 .board_pinkBtn {
   position: relative;
   width: 60%;
   display: flex;
   justify-content: center;
   padding: 0;
+  color: #FFFFFF;
 }
 .board_pinkBtn > div {
   position: absolute;
@@ -362,7 +321,6 @@
   height: 90%;
 }
 .board_pinkBtn > div > span {
-  color: #FFFFFF;
   font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
@@ -389,171 +347,178 @@
   .board_pinkBtn > div > span {
     font-size: 2.5rem;
   }
-}
-.board_pinkBtn:hover {
-  color: #CE3C85 !important;
 }
 .board_pinkBtn:disabled {
   cursor: not-allowed !important;
-  color: #394B54;
+  color: #A2B7B6;
 }
-.board_claimBtn {
+.board_pinkBtn:disabled:hover {
+  color: #A2B7B6;
+}
+.board_pinkBtn:hover {
+  color: #CE3C85;
+}
+.board_orangeBtn {
+  position: relative;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+.board_orangeBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_orangeBtn > div > span {
   font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
-  color: #35464F;
   line-height: 1.15rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  height: 90%;
-  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
-  background-size: 100% 100%;
-  padding: 1.25rem 1rem 1.5rem 1rem;
-  color: #A2B7B6;
 }
 @media (min-width: 31.25em) {
-  .board_claimBtn {
+  .board_orangeBtn > div > span {
     font-size: 1.75rem;
   }
 }
 @media (min-width: 39.8em) {
-  .board_claimBtn {
+  .board_orangeBtn > div > span {
     font-size: 1.75rem;
     line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
-  .board_claimBtn {
+  .board_orangeBtn > div > span {
     font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
-  .board_claimBtn {
+  .board_orangeBtn > div > span {
     font-size: 2.5rem;
   }
 }
-@media (min-width: 24em) {
-  .board_claimBtn {
-    padding: 1.8rem 1.5rem 2rem 1.5rem;
-  }
+.board_orangeBtn:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
 }
-@media (min-width: 90em) {
-  .board_claimBtn {
-    padding: 2.4rem 2rem 2.8rem 2rem;
-  }
+.board_orangeBtn:disabled:hover {
+  color: #A2B7B6;
 }
-.board_claimBtn:hover {
-  color: #394B54;
-}
-.board_orangeBtn {
-  font-family: PFRondaSeven;
-  text-align: center;
-  font-size: 0.6rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-image: url("/img/sharing-ui/invite/button_wallet.png");
-  background-size: cover;
-  width: 10.375rem;
-  height: 1.9375rem;
-}
-@media (min-width: 39.8em) {
-  .board_orangeBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 50em) {
-  .board_orangeBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 75em) {
-  .board_orangeBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 90em) {
-  .board_orangeBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 123.75em) {
-  .board_orangeBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 24em) {
-  .board_orangeBtn {
-    width: 15.5625rem;
-    height: 2.90675rem;
-    font-size: 1rem;
-  }
-}
-@media (min-width: 39.8em) {
-  .board_orangeBtn {
-    width: 20.875rem;
-    height: 3.875rem;
-    font-size: 1.375rem;
-  }
+.board_orangeBtn:hover {
+  color: #E06655;
 }
 .board_tealBtn {
-  font-family: PFRondaSeven;
-  text-align: center;
-  font-size: 0.6rem;
+  position: relative;
+  width: 60%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+.board_tealBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
   align-items: center;
-  background-image: url("/img/sharing-ui/invite/button_scanwallet.png");
-  background-size: cover;
-  width: 10.375rem;
-  height: 1.9375rem;
+  height: 90%;
+}
+.board_tealBtn > div > span {
+  font-size: 2vh;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15rem;
+}
+@media (min-width: 31.25em) {
+  .board_tealBtn > div > span {
+    font-size: 1.75rem;
+  }
 }
 @media (min-width: 39.8em) {
-  .board_tealBtn {
-    font-size: 0.6rem;
+  .board_tealBtn > div > span {
+    font-size: 1.75rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
-  .board_tealBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 75em) {
-  .board_tealBtn {
-    font-size: 0.6rem;
+  .board_tealBtn > div > span {
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
-  .board_tealBtn {
-    font-size: 0.6rem;
+  .board_tealBtn > div > span {
+    font-size: 2.5rem;
   }
 }
-@media (min-width: 123.75em) {
-  .board_tealBtn {
-    font-size: 0.6rem;
-  }
+.board_tealBtn:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
 }
-@media (min-width: 24em) {
-  .board_tealBtn {
-    width: 15.5625rem;
-    height: 2.90675rem;
-    font-size: 1rem;
+.board_tealBtn:disabled:hover {
+  color: #A2B7B6;
+}
+.board_tealBtn:hover {
+  color: #559BCE !important;
+}
+.board_purpleBtn {
+  position: relative;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+.board_purpleBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_purpleBtn > div > span {
+  font-size: 2vh;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15rem;
+}
+@media (min-width: 31.25em) {
+  .board_purpleBtn > div > span {
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 39.8em) {
-  .board_tealBtn {
-    width: 20.875rem;
-    height: 3.875rem;
-    font-size: 1.375rem;
+  .board_purpleBtn > div > span {
+    font-size: 1.75rem;
+    line-height: 1.5rem;
   }
 }
+@media (min-width: 50em) {
+  .board_purpleBtn > div > span {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_purpleBtn > div > span {
+    font-size: 2.5rem;
+  }
+}
+.board_purpleBtn:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
+}
+.board_purpleBtn:disabled:hover {
+  color: #A2B7B6;
+}
+.board_purpleBtn:hover {
+  color: #7967DE !important;
+}
 .board_signin_wrapper {
+  width: 100%;
   height: 100%;
 }
 .board_signin_content {
@@ -617,53 +582,41 @@
   }
 }
 .boardLarge_disconnect {
-  width: 100%;
-  height: 10%;
-  bottom: -7%;
+  position: relative;
+  width: 40%;
   display: flex;
   justify-content: center;
+  padding: 0;
+  color: #A4B7B6;
 }
-.boardLarge_disconnect > button {
-  font-size: 2vh;
+.boardLarge_disconnect > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.boardLarge_disconnect > div > span {
+  font-size: 5vw;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
-  color: #35464F;
   line-height: 1.15rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  height: 90%;
-  background: url("/img/sharing-ui/invite/disconnect.png") no-repeat;
-  background-size: 100% 100%;
-  padding: 1.25rem 1rem 1.5rem 1rem;
-  color: #A2B7B6;
 }
 @media (min-width: 31.25em) {
-  .boardLarge_disconnect > button {
+  .boardLarge_disconnect > div > span {
     font-size: 1.75rem;
   }
 }
-@media (min-width: 39.8em) {
-  .boardLarge_disconnect > button {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
-  }
+.boardLarge_disconnect:hover {
+  color: #35454F;
 }
-@media (min-width: 50em) {
-  .boardLarge_disconnect > button {
-    font-size: 2.5rem;
-  }
+.boardLarge_disconnect:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
 }
-@media (min-width: 90em) {
-  .boardLarge_disconnect > button {
-    font-size: 2.5rem;
-  }
-}
-.boardLarge_disconnect > button:hover {
-  color: #394B54;
+.boardLarge_disconnect:disabled:hover {
+  color: #A2B7B6;
 }
 .boardLarge_wrapper {
   display: flex;
@@ -675,7 +628,7 @@
   height: 68%;
   top: 21%;
   left: 0;
-  padding: 0 17%;
+  padding: 0 16.5%;
 }
 @media (min-width: 31.25em) {
   .boardLarge_wrapper {
@@ -703,13 +656,13 @@
 .boardLarge_dollar {
   position: absolute;
   width: 100%;
-  top: 6.75%;
+  top: 6.15%;
   display: flex;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar {
-    top: 6.5%;
+    top: 6.25%;
   }
 }
 @media (min-width: 31.25em) {
@@ -719,30 +672,30 @@
 }
 @media (min-width: 46.8em) {
   .boardLarge_dollar {
-    top: 8.75%;
+    top: 8.25%;
   }
 }
 .boardLarge_dollar_content {
   margin-left: -5px;
   font-family: PFRondaSeven;
   color: #F8D61D;
-  font-size: 0.75vh;
+  font-size: 0.7vh;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar_content {
-    font-size: 1vh;
+    font-size: 0.9vh;
     margin-left: -10px;
   }
 }
 @media (min-width: 31.25em) {
   .boardLarge_dollar_content {
-    font-size: 1.3vh;
+    font-size: 1.2vh;
     margin-left: -12px;
   }
 }
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content {
-    font-size: 1.6vh;
+    font-size: 1.45vh;
   }
 }
 .boardLarge_title {
@@ -805,67 +758,6 @@
 .boardLarge_footer > button:nth-child(2) {
   background: url("/img/sharing-ui/invite/arrow_up.png") no-repeat;
   background-size: contain;
-}
-.boardLarge_pinkBtn {
-  font-family: PFRondaSeven;
-  text-align: center;
-  font-size: 0.6rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-image: url("/img/sharing-ui/invite/button1.png");
-  background-size: cover;
-  margin-top: 2%;
-  color: #F8D61D;
-  width: 4.6rem;
-  height: 2.16rem;
-}
-@media (min-width: 39.8em) {
-  .boardLarge_pinkBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 50em) {
-  .boardLarge_pinkBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 75em) {
-  .boardLarge_pinkBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 90em) {
-  .boardLarge_pinkBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 123.75em) {
-  .boardLarge_pinkBtn {
-    font-size: 0.6rem;
-  }
-}
-@media (min-width: 31.25em) {
-  .boardLarge_pinkBtn {
-    width: 94px;
-    height: 44px;
-  }
-}
-.boardLarge_pinkBtn:disabled {
-  background-image: url("/img/sharing-ui/invite/pink_button_disabled.png");
-  background-size: cover;
-}
-.boardLarge_pinkBtn:disabled:hover {
-  color: #F8D61D;
-}
-.boardLarge_pinkBtn:focus {
-  color: #F8D61D !important;
-  text-decoration: none;
-}
-.boardLarge_pinkBtn:hover {
-  color: white !important;
-  text-decoration: none;
 }
 .boardLarge_orangeBtn {
   font-family: PFRondaSeven;
@@ -1077,7 +969,7 @@
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.6rem;
-  background: url("/img/sharing-ui/invite/quest list_bg.png") no-repeat;
+  background: url("/img/sharing-ui/invite/Quest_List bg.png") no-repeat;
   background-size: 100% 100%;
   text-align: left;
   padding: 0.5rem;
@@ -1124,7 +1016,6 @@
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
-  color: #35464F;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1145,12 +1036,12 @@
 }
 @media (min-width: 50em) {
   .boardLarge_list_text {
-    font-size: 1.175rem;
+    font-size: 1.125rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_text {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 }
 .boardLarge_list_reward {
@@ -1158,7 +1049,6 @@
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
-  color: #35464F;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1179,12 +1069,12 @@
 }
 @media (min-width: 50em) {
   .boardLarge_list_reward {
-    font-size: 1.175rem;
+    font-size: 1.125rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_reward {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 }
 .boardLarge_list_reward > img {
@@ -1206,6 +1096,8 @@
   height: 100%;
   padding: 0;
   min-width: 3rem;
+  color: #FFFFFF;
+  color: #FFFFFF;
 }
 .boardLarge_list_button > img {
   max-height: 100%;
@@ -1227,8 +1119,6 @@
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
-  color: #35464F;
-  color: #FFFFFF;
   margin-right: 0.2rem;
   font-weight: 600;
 }
@@ -1244,12 +1134,12 @@
 }
 @media (min-width: 50em) {
   .boardLarge_list_button > div > span {
-    font-size: 1.175rem;
+    font-size: 1.125rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_button > div > span {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 }
 .boardLarge_list_button > div > img {
@@ -1262,7 +1152,7 @@
   }
 }
 .boardLarge_list_button:hover {
-  color: #CE3C85 !important;
+  color: #CE3C85;
 }
 .boardLarge_list_button:disabled {
   cursor: not-allowed !important;

@@ -23,8 +23,8 @@ $text-font-size-large: 1.5rem;
 
 $list-text-font-size-small: 0.5rem;
 $list-text-font-size-small-2: 0.675rem;
-$list-text-font-size-med: 1.175rem;
-$list-text-font-size-large: 1.375rem;
+$list-text-font-size-med: 1.125rem;
+$list-text-font-size-large: 1.25rem;
 
 @mixin heading(){
 	font-size: $heading-font-size-small;
@@ -94,7 +94,6 @@ $list-text-font-size-large: 1.375rem;
 	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 400;
 	text-align: center;
-    color:#35464F;
 
     @media (min-width: $bp-small-2) {  
         font-size: $list-text-font-size-small-2;
@@ -111,7 +110,6 @@ $list-text-font-size-large: 1.375rem;
         font-size: $list-text-font-size-large;
     }
 }
-
 
 @mixin text() {
     font-family: PFRondaSeven;
@@ -133,6 +131,89 @@ $list-text-font-size-large: 1.375rem;
         font-size: $text-font-size-small;
     }
 }	
+
+@mixin large_button() {
+    position:relative;
+	width: 60%; //10.375rem;
+	display:flex;
+	justify-content: center;
+    padding: 0;
+    color: #FFFFFF;
+
+	& > div {
+		position:absolute;
+		display: flex;
+		text-align: center;
+		align-items: center;
+		height: 90%;
+		& > span { 
+            font-size: $heading-font-size-small;
+	        font-family: Safety Goggles;
+            font-weight: 500;
+	        text-align: center;
+
+            line-height: 1.15rem;
+            @media (min-width: $bp-small-2) {  
+                font-size: $heading-font-size-small-2;
+            }
+	        @media (min-width: $bp-small-3) {  
+                font-size: $heading-font-size-small-2;
+                line-height: 1.5rem;
+            }
+            @media (min-width: $bp-med-2) {  
+                font-size: $heading-font-size-med;
+            }
+            @media (min-width: $bp-xl) {  
+                font-size: $heading-font-size-med;
+            }
+		}
+    }
+    &:disabled {
+        cursor: not-allowed!important;
+        color: #A2B7B6;
+        &:hover {
+            color: #A2B7B6;
+        }
+    }
+}	
+
+@mixin disconnect_button(){
+    position:relative;
+    width: 40%; //10.375rem;
+    display:flex;
+    justify-content: center;
+    padding: 0;
+    color: #A4B7B6;
+
+    & > div {
+        position:absolute;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        height: 90%;
+        & > span { 
+            font-size: 5vw;
+            font-family: Safety Goggles;
+            font-weight: 500;
+            text-align: center;
+
+            line-height: 1.15rem;
+            @media (min-width: $bp-small-2) {  
+                font-size: $heading-font-size-small-2;
+            }  
+        }
+    }
+    &:hover{
+        color:#35454F;
+    }
+    &:disabled {
+        cursor: not-allowed!important;
+        color: #A2B7B6;
+        &:hover {
+            color: #A2B7B6;
+        }
+    }
+}
 
 .app {
     width: 100%;
@@ -200,33 +281,7 @@ $list-text-font-size-large: 1.375rem;
         background-size: contain;
     }
     &_disconnect {
-        position: absolute;
-        width: 100%;
-        height: 10%;
-        display: flex;
-        justify-content: center;
-
-        & > button {
-            @include boardHeading();
-            @include m.flex-master(row, center, center);
-           
-            width: auto;
-            height: 90%;
-            background: url('/img/sharing-ui/invite/disconnect.png') no-repeat; // 166 x 31
-            background-size: 100% 100%;
-            padding: 1.25rem 1rem 1.5rem 1rem;
-            color: #A2B7B6;
-            
-            @media (min-width: $bp-small) {  
-                padding: 1.8rem 1.5rem 2rem 1.5rem;
-            }
-            @media (min-width: $bp-xl) {  
-                padding: 2.4rem 2rem 2.8rem 2rem;
-            }
-            &:hover {
-                color: #394B54;
-            }
-        }
+        @include disconnect_button();
     }
 
     &_wrapper {
@@ -260,10 +315,9 @@ $list-text-font-size-large: 1.375rem;
     }
 
     &_content {
- 
+        @include m.flex-master(column, center, center);
         width: 100%;
         height: 100%;
-        @include m.flex-master(column, center, center);
         gap: 0.4rem;
 
         @media (min-width: $bp-small-2) {  
@@ -271,20 +325,6 @@ $list-text-font-size-large: 1.375rem;
         }
         @media (min-width: $bp-med-2) {  
             gap: 1.75rem;
-        }
-    }
-
-    &_loadingImg {
-        width: 35%;
-        @media (min-width: $bp-med-2) {  
-            width: 25%;
-        }
-    }
-    &_loadingText {
-        font-size: $text-font-size-small;
-        margin-bottom: 2rem;
-        @media (min-width: $bp-med) {  
-            font-size: $text-font-size-small * 1.5;
         }
     }
 
@@ -372,125 +412,39 @@ $list-text-font-size-large: 1.375rem;
         overflow-wrap: break-word;
     }
 
-    &_welcome{
-        width: clamp(200px,70%,75vh);
-    }
-
     &_pinkBtn { // 526 x 129
-        position:relative;
-		width: 60%; //10.375rem;
-		
-		display:flex;
-		justify-content: center;
-        padding: 0;
-
-		& > div {
-			position:absolute;
-			display: flex;
-			text-align: center;
-			align-items: center;
-			height: 90%;
-			& > span { 
-                color: #FFFFFF;
-
-                font-size: $heading-font-size-small;
-	            font-family: Safety Goggles;
-                font-weight: 500;
-	            text-align: center;
-  
-                line-height: 1.15rem;
-
-                @media (min-width: $bp-small-2) {  
-                    font-size: $heading-font-size-small-2;
-                }
-	            @media (min-width: $bp-small-3) {  
-                    font-size: $heading-font-size-small-2;
-                    line-height: 1.5rem;
-                }
-                @media (min-width: $bp-med-2) {  
-                    font-size: $heading-font-size-med;
-                }
-                @media (min-width: $bp-xl) {  
-                    font-size: $heading-font-size-med;
-                }
-			}
-		}
-	
+        @include large_button();
         &:hover {
-            color: #CE3C85!important;
+            color: #CE3C85;
 		}
-
-        &:disabled {
-            cursor: not-allowed!important;
-            color: #394B54;
-        }
-    }
-
-    &_claimBtn {  //272 x 129
-        @include boardHeading();
-        @include m.flex-master(row, center, center);
-        
-        width: auto;
-        height: 90%;
-        background: url('/img/sharing-ui/invite/disconnect.png') no-repeat; // 166 x 31
-        background-size: 100% 100%;
-        padding: 1.25rem 1rem 1.5rem 1rem;
-        color: #A2B7B6;
-        
-        @media (min-width: $bp-small) {  
-            padding: 1.8rem 1.5rem 2rem 1.5rem;
-        }
-        @media (min-width: $bp-xl) {  
-            padding: 2.4rem 2rem 2.8rem 2rem;
-        }
-        &:hover {
-            color: #394B54;
-        }
     }
     
     &_orangeBtn { 
-        @include text();
-        @include m.flex-master(row, center, center);
-        background-image: url('/img/sharing-ui/invite/button_wallet.png'); // 166 x 31
-        background-size: cover;
-        
-        width: 10.375rem;
-        height: 1.9375rem;
+        @include large_button();
+        &:hover {
+            color: #E06655;
+		}
 
-        @media (min-width: $bp-small) {  
-            width: 15.5625rem;
-            height: 2.90675rem; 
-            font-size: 1rem;
-        }
-        @media (min-width: $bp-small-3) {  
-            width: 20.875rem;
-            height: 3.875rem; 
-            font-size: 1.375rem;
-        }
+     
     }
     &_tealBtn { 
-        @include text();
-        @include m.flex-master(row, center, center);
-        background-image: url('/img/sharing-ui/invite/button_scanwallet.png'); // 166 x 31
-        background-size: cover;
-        
-        width: 10.375rem;
-        height: 1.9375rem;
-        @media (min-width: $bp-small) {  
-            width: 15.5625rem;
-            height: 2.90675rem; 
-            font-size: 1rem;
-        }
-        @media (min-width: $bp-small-3) {  
-            width: 20.875rem;
-            height: 3.875rem; 
-            font-size: 1.375rem;
-        }
+        @include large_button();
+        &:hover {
+            color: #559BCE!important;
+		}
     }
+    &_purpleBtn { 
+        @include large_button();
+        &:hover {
+            color: #7967DE!important;
+		}
+    }
+
+    
 
     &_signin {
         &_wrapper {
-            // @include m.flex-master(column, space-between, center);
+            width:100%;
             height:100%;
         }
         &_content {
@@ -499,10 +453,6 @@ $list-text-font-size-large: 1.375rem;
             width:100%;
         }
     }
-    
-    // &_web3:nth-child(2) {  
-    //     border-top: 3px solid rgb(29,84,122);
-    // }
 }
 
 .foreground{
@@ -558,34 +508,7 @@ $list-text-font-size-large: 1.375rem;
     }
 
     &_disconnect {
-        // position: absolute;
-        width: 100%;
-        height: 10%;
-        bottom: -7%;
-        display: flex;
-        justify-content: center;
-
-        & > button {
-            @include boardHeading();
-            @include m.flex-master(row, center, center);
-           
-            width: auto;
-            height: 90%;
-            background: url('/img/sharing-ui/invite/disconnect.png') no-repeat; // 166 x 31
-            background-size: 100% 100%;
-            padding: 1.25rem 1rem 1.5rem 1rem;
-            color: #A2B7B6;
-            
-            @media (min-width: $bp-small) {  
-                // padding: 1.8rem 1.5rem 2rem 1.5rem;
-            }
-            @media (min-width: $bp-xl) {  
-                // padding: 2.4rem 2rem 2.8rem 2rem;
-            }
-            &:hover {
-                color: #394B54;
-            }
-        }
+        @include disconnect_button();
     }
 
     &_wrapper {
@@ -595,7 +518,7 @@ $list-text-font-size-large: 1.375rem;
         height: 68%;
         top: 21%;
         left:0;
-        padding: 0 17%; 
+        padding: 0 16.5%; 
 
         @media (min-width: $bp-small-2) {
             height: 68%;
@@ -618,37 +541,36 @@ $list-text-font-size-large: 1.375rem;
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 6.75%;
+        top: 6.15%;
         display:flex;
         justify-content: center;
 
         @media (min-width: $bp-small) {
-            top: 6.5%;
+            top: 6.25%;
         } 
         @media (min-width: $bp-small-2) {
             top: 8%;
         } 
         @media (min-width: $bp-med) {
-            top: 8.75%;
+            top: 8.25%;
         } 
-       
-
+    
         &_content {
             margin-left: -5px;
             font-family: PFRondaSeven;
             color: #F8D61D;
 
-            font-size: 0.75vh;
+            font-size: 0.7vh;
             @media (min-width: $bp-small) {
-                font-size: 1vh;
+                font-size: 0.9vh;
                 margin-left: -10px;
             } 
             @media (min-width: $bp-small-2) {
-                font-size: 1.3vh;
+                font-size: 1.2vh;
                 margin-left: -12px;
             } 
             @media (min-width: $bp-small-3) {
-                font-size: 1.6vh;
+                font-size: 1.45vh;
             } 
         }
     }
@@ -685,38 +607,6 @@ $list-text-font-size-large: 1.375rem;
             background: url('/img/sharing-ui/invite/arrow_up.png') no-repeat;
             background-size: contain;
         }
-    }
-
-    &_pinkBtn { 
-        @include text();
-        @include m.flex-master(row, center, center);
-        background-image: url('/img/sharing-ui/invite/button1.png'); // 47 x 22
-        background-size: cover;
-        margin-top: 2%;
-        color: #F8D61D;
-       
-        width: 4.6rem;
-        height: 2.16rem;
-        @media (min-width: $bp-small-2) {  
-            width: 94px;
-            height: 44px; 
-        }
-        &:disabled{
-            background-image: url('/img/sharing-ui/invite/pink_button_disabled.png'); // 47 x 22
-            background-size: cover;
-            &:hover {
-                color: #F8D61D;
-            }
-        }
-        &:focus  {
-            color: #F8D61D !important;
-            text-decoration: none
-        }
-        &:hover  {
-            color: white !important;
-            text-decoration: none
-        }
-      
     }
     &_orangeBtn { 
         @include text();
@@ -850,7 +740,7 @@ $list-text-font-size-large: 1.375rem;
         &_container {
             @include m.flex-master(row, null, null);
             @include text();
-            background: url('/img/sharing-ui/invite/quest list_bg.png') no-repeat;
+            background: url('/img/sharing-ui/invite/Quest_List bg.png') no-repeat;
             background-size: 100% 100%;
             text-align: left;
 
@@ -896,14 +786,15 @@ $list-text-font-size-large: 1.375rem;
             height: 100%;
             padding: 0;
             min-width: 3rem;
+            color: #FFFFFF;
+            color: #FFFFFF;
+
             & > img {
-    
                 max-height: 100%;
                 @media (min-width: $bp-small-2) {  
                     max-height: 96%;
                 }
             }
-    
             & > div {
                 position:absolute;
                 display: flex;
@@ -913,14 +804,12 @@ $list-text-font-size-large: 1.375rem;
                 height: 100%;
                 & > span { 
                     @include listText();
-                    color: #FFFFFF;
                     margin-right: 0.2rem;
                     font-weight: 600;
-                    
+              
                 }
 
                 & > img {
-    
                     max-height: 55%;
                     width: auto!important;
                     @media (min-width: $bp-small-2) {  
@@ -930,7 +819,7 @@ $list-text-font-size-large: 1.375rem;
             }
         
             &:hover {
-                color: #CE3C85!important;
+                color: #CE3C85;
             }
     
             &:disabled {

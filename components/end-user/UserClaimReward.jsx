@@ -33,6 +33,9 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
     return (
         <div className={s.board}>
             <div className={s.board_container}>
+                <div className={s.board_dollar}>
+                    <div className={s.board_dollar_content}>$$$</div>
+                </div>
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         {error && (
@@ -69,8 +72,8 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                                     <img
                                         src={
                                             !reward?.pendingReward?.isClaimed
-                                                ? "/img/sharing-ui/invite/pink_button.png"
-                                                : "/img/sharing-ui/invite/disconnect.png"
+                                                ? "/img/sharing-ui/invite/Button_Small.png"
+                                                : "/img/sharing-ui/invite/Button_Small 2.png"
                                         }
                                         alt="connectToContinue"
                                     />
@@ -78,7 +81,7 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                                         <span>
                                             {!reward?.pendingReward?.isClaimed
                                                 ? "Claim"
-                                                : "Already Claimed"}
+                                                : "Claimed"}
                                         </span>
                                     </div>
                                 </button>
@@ -87,11 +90,18 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                     </div>
                 </div>
 
-                <div className={s.board_disconnect}>
-                    {!isSubmittingReward && !isFetchingReward && (
-                        <button onClick={() => SignOut()}>Disconnect</button>
-                    )}
-                </div>
+                {/*  Disconnect */}
+                {!isSubmittingReward && !isFetchingReward && (
+                    <button className={s.board_disconnect} onClick={() => SignOut()}>
+                        <img
+                            src="/img/sharing-ui/invite/Button_Disconnect.png"
+                            alt="connectToContinue"
+                        />
+                        <div>
+                            <span>Disconnect</span>
+                        </div>
+                    </button>
+                )}
             </div>
         </div>
     );

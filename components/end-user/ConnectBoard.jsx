@@ -63,19 +63,17 @@ export default function ConnectBoard() {
                                         src="/img/sharing-ui/invite/starfish.gif"
                                     />
                                     <div className={s.board_title}>Welcome to the Cove!</div>
-                                    <div className={s.board_text}>
-                                        Connect your wallet to continue.
-                                    </div>
+                                    <div className={s.board_text}>Connect to continue.</div>
                                     <button
                                         className={s.board_pinkBtn}
                                         onClick={() => changeView(CONNECT_OPTIONS)}
                                     >
                                         <img
-                                            src="/img/sharing-ui/invite/pink_button.png"
+                                            src="/img/sharing-ui/invite/Button_Large.png"
                                             alt="connectToContinue"
                                         />
                                         <div>
-                                            <span>Connect Wallet</span>
+                                            <span>Connect</span>
                                         </div>
                                     </button>
                                 </>
@@ -85,11 +83,11 @@ export default function ConnectBoard() {
                                 <div className={`${s.open} ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_orangeBtn}
                                             onClick={() => changeView(WALLET_AUTH)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large 2.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -97,11 +95,11 @@ export default function ConnectBoard() {
                                             </div>
                                         </button>
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_tealBtn}
                                             onClick={() => changeView(SOCIAL_AUTH)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large 3.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -116,13 +114,13 @@ export default function ConnectBoard() {
                                 <div className={`${s.open} ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_purpleBtn}
                                             onClick={() => {
                                                 signIn("discord");
                                             }}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large 4.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -130,13 +128,13 @@ export default function ConnectBoard() {
                                             </div>
                                         </button>
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_tealBtn}
                                             onClick={() => {
                                                 signIn("twitter");
                                             }}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large 3.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -152,13 +150,13 @@ export default function ConnectBoard() {
                                     <div className={s.board_signin_content}>
                                         {!isMetamaskDisabled && !isMobile && (
                                             <button
-                                                className={s.board_pinkBtn}
+                                                className={s.board_orangeBtn}
                                                 onClick={() =>
                                                     authenticateUsingWallet(Enums.METAMASK)
                                                 }
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    src="/img/sharing-ui/invite/Button_Large 2.png"
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
@@ -167,13 +165,13 @@ export default function ConnectBoard() {
                                             </button>
                                         )}
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_tealBtn}
                                             onClick={() =>
                                                 authenticateUsingWallet(Enums.WALLETCONNECT)
                                             }
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large 3.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>

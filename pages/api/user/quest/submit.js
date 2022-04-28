@@ -107,7 +107,7 @@ const discordHelper = async (user, extendedQuestData) => {
     let imageUrl = url[Math.floor(Math.random() * url.length)];
 
     let discordPost = await axios.post(
-        `${DISCORD_NODEJS}/api/v1/channels/${discordChannel}/questSubmission`,
+        `${DISCORD_NODEJS}/api/v1/channels/questSubmission`,
         {
             user,
             imageUrl,

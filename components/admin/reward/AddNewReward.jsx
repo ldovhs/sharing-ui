@@ -20,7 +20,8 @@ const initialValues = {
     wallet: "",
     rewardTypeId: 1,
     quantity: 1,
-    showInDiscord: false,
+    postInBotChannel: false,
+    postInGeneralChannel: false,
     generatedURL: "",
 };
 
@@ -56,6 +57,7 @@ const AddNewReward = ({
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={async (fields, { setErrors, resetForm }) => {
+                //alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
                 const res = await onSubmit(fields);
 
                 if (res.data?.isError) {
@@ -186,15 +188,23 @@ const AddNewReward = ({
                         </div>
 
                         {/* Post on discord server */}
-                        <div className="col-6 mb-3">
+                        <div className="col-12">
                             <label className="form-label">Show in Discord</label>
-
-                            <Field name="showInDiscord" as="select" className={"form-control"}>
-                                <option value="false">No</option>
-                                <option value="true">Yes</option>
-                            </Field>
                         </div>
-
+                        <div className="col-12">
+                            <label className="form-label mr-2">
+                                <Field name="postInBotChannel" type="checkbox" className="mr-2" />
+                                Bot channel
+                            </label>
+                            <label className="form-label">
+                                <Field
+                                    name="postInGeneralChannel"
+                                    type="checkbox"
+                                    className="mr-2"
+                                />
+                                General channel
+                            </label>
+                        </div>
                         {errors && <div className="text-red-500"> {errors.username}</div>}
                     </div>
 

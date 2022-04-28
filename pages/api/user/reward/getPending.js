@@ -23,6 +23,7 @@ const getPendingRewardApi = async (req, res) => {
                     });
                 }
 
+                console.log(`** Finding pending reward **`);
                 let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
                     generatedURL,
                     user.wallet

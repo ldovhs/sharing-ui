@@ -22,7 +22,15 @@ const AddPendingRewardAPI = async (req, res) => {
         */
         case "POST":
             try {
-                const { username, type, wallet, rewardTypeId, quantity, showInDiscord } = req.body;
+                const {
+                    username,
+                    type,
+                    wallet,
+                    rewardTypeId,
+                    quantity,
+                    postInBotChannel,
+                    postInGeneralChannel,
+                } = req.body;
 
                 let userCondition = { wallet };
 
@@ -61,7 +69,7 @@ const AddPendingRewardAPI = async (req, res) => {
                     });
                 }
 
-                if (showInDiscord) {
+                if (postInBotChannel || postInGeneralChannel) {
                     switch (pendingReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
                             pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
@@ -85,12 +93,13 @@ const AddPendingRewardAPI = async (req, res) => {
                     } else {
                         pendingReward.receivingUser = pendingReward.user.wallet;
                     }
-                    console.log("test pending reward on nodejs");
+
                     await axios
                         .post(
-                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_BOT_CHANNEL}/pendingReward`,
+                            `${DISCORD_NODEJS}/api/v1/channels/pendingReward`,
                             {
                                 pendingReward,
+                                postInDiscord: { postInBotChannel, postInGeneralChannel },
                             },
                             {
                                 headers: {

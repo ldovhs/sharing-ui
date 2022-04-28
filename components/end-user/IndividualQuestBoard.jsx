@@ -40,8 +40,6 @@ const IndividualQuestBoard = ({
         }
     }, [userQuests]);
 
-    console.log(userQuests);
-
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
             top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight, // + 16,
@@ -202,7 +200,7 @@ const IndividualQuestBoard = ({
                                                         >
                                                             <img
                                                                 src={
-                                                                    "/img/sharing-ui/invite/quest button_bg.png"
+                                                                    "/img/sharing-ui/invite/Quest_Reward Button.png"
                                                                 }
                                                                 alt="connectToContinue"
                                                             />
@@ -218,69 +216,6 @@ const IndividualQuestBoard = ({
                                                         </button>
                                                     </div>
                                                 )}
-                                                {/* {isDone && <div>Completed</div>} */}
-                                                {/* <div className={s.boardLarge_list_result}>
-                                                    {!isDone && (
-                                                        <>
-                                                            {type.name === Enums.DISCORD_AUTH && (
-                                                                <a
-                                                                    className={s.boardLarge_pinkBtn}
-                                                                    href={getDiscordAuthLink()}
-                                                                    target="_blank"
-                                                                    disabled={isDone}
-                                                                >
-                                                                    Auth
-                                                                </a>
-                                                            )}
-                                                            {type.name === Enums.TWITTER_AUTH && (
-                                                                <a
-                                                                    className={s.boardLarge_pinkBtn}
-                                                                    href={getTwitterAuthLink()}
-                                                                    target="_blank"
-                                                                    disabled={isDone}
-                                                                >
-                                                                    Auth
-                                                                </a>
-                                                            )}
-                                                            {(type.name === Enums.FOLLOW_TWITTER ||
-                                                                type.name ===
-                                                                    Enums.FOLLOW_INSTAGRAM) && (
-                                                                <button
-                                                                    className={s.boardLarge_pinkBtn}
-                                                                    onClick={() => DoQuest(item)}
-                                                                    disabled={isDone}
-                                                                >
-                                                                    Follow
-                                                                </button>
-                                                            )}
-                                                            {type.name ===
-                                                                Enums.TWITTER_RETWEET && (
-                                                                <button
-                                                                    className={s.boardLarge_pinkBtn}
-                                                                    onClick={() => DoQuest(item)}
-                                                                    disabled={isDone}
-                                                                >
-                                                                    Retweet
-                                                                </button>
-                                                            )}
-                                                            {type.name ===
-                                                                Enums.ANOMURA_SUBMISSION_QUEST && (
-                                                                <button
-                                                                    className={s.boardLarge_pinkBtn}
-                                                                    onClick={() => DoQuest(item)}
-                                                                    disabled={isDone}
-                                                                >
-                                                                    Do
-                                                                </button>
-                                                            )}
-                                                        </>
-                                                    )}
-                                                    {isDone && (
-                                                        <span className={s.boardLarge_yellowText}>
-                                                            +{quantity} {rewardType.reward}
-                                                        </span>
-                                                    )}
-                                                </div> */}
                                             </div>
                                         </React.Fragment>
                                     );
@@ -294,18 +229,19 @@ const IndividualQuestBoard = ({
                         </div>
                     </div>
                 </div>
-
-                {/* <div className={s.boardLarge_disconnect}>
-                    {!isFetchingUserQuests && !isFetchingUser && (
-                        <button onClick={() => SignOut()}>Disconnect</button>
-                    )}
-                </div> */}
             </div>
-            <div className={s.boardLarge_disconnect}>
-                {!isFetchingUserQuests && !isFetchingUser && (
-                    <button onClick={() => SignOut()}>Disconnect</button>
-                )}
-            </div>
+            {/*  Disconnect */}
+            {!isFetchingUserQuests && !isFetchingUser && (
+                <button className={s.boardLarge_disconnect} onClick={() => SignOut()}>
+                    <img
+                        src="/img/sharing-ui/invite/Button_Disconnect.png"
+                        alt="connectToContinue"
+                    />
+                    <div>
+                        <span>Disconnect</span>
+                    </div>
+                </button>
+            )}
         </div>
     );
 };

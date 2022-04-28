@@ -73,6 +73,9 @@ function SignUp() {
             <div className={s.app}>
                 <div className={s.board}>
                     <div className={s.board_container}>
+                        <div className={s.board_dollar}>
+                            <div className={s.board_dollar_content}>$$$</div>
+                        </div>
                         <div className={s.board_wrapper}>
                             <div className={s.board_content}>
                                 {(currentPrompt === SIGNUP_ERROR || web3Error) && (
@@ -93,7 +96,7 @@ function SignUp() {
                                             onClick={() => changeView(SIGNUP_OPTIONS)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/pink_button.png"
+                                                src="/img/sharing-ui/invite/Button_Large.png"
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -107,11 +110,11 @@ function SignUp() {
                                     <div className={`${s.open} ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
                                             <button
-                                                className={s.board_pinkBtn}
+                                                className={s.board_orangeBtn}
                                                 onClick={() => handleSignUp(Enums.METAMASK)}
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    src="/img/sharing-ui/invite/Button_Large 2.png"
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
@@ -119,15 +122,15 @@ function SignUp() {
                                                 </div>
                                             </button>
                                             <button
-                                                className={s.board_pinkBtn}
+                                                className={s.board_tealBtn}
                                                 onClick={() => handleSignUp(Enums.WALLETCONNECT)}
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/pink_button.png"
+                                                    src="/img/sharing-ui/invite/Button_Large 3.png"
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
-                                                    <span>WalletConnect</span>
+                                                    <span>Wallet Connect</span>
                                                 </div>
                                             </button>
                                         </div>
@@ -141,7 +144,7 @@ function SignUp() {
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>
-                                                Awaiting Sign Up
+                                                Awaiting Signing Up
                                                 <span
                                                     className={
                                                         s.board_loading_wrapper_text_ellipsis

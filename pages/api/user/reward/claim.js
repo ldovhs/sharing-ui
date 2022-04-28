@@ -94,7 +94,7 @@ const userClaimRewardAPI = async (req, res) => {
 
                     let discordPost = await axios
                         .post(
-                            `${DISCORD_NODEJS}/api/v1/channels/${DISCORD_BOT_CHANNEL}/claimedReward`,
+                            `${DISCORD_NODEJS}/api/v1/channels/claimedReward`,
                             {
                                 claimedReward,
                             },

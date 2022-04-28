@@ -201,31 +201,33 @@ export function Web3Provider({ children }) {
     };
 
     const TrySignUpWithWallet = async (walletType) => {
-        if (!walletType) {
-            throw new Error("Missing type of wallet when trying to setup wallet provider");
-        }
-
-        let addresses, providerInstance;
-
-        if (walletType === Enums.METAMASK) {
-            providerInstance = new ethers.providers.Web3Provider(window.ethereum);
-            addresses = await providerInstance.send("eth_requestAccounts", []);
-            SubscribeProvider(window.ethereum);
-        } else if (walletType === Enums.WALLETCONNECT) {
-            let provider = new WalletConnectProvider({
-                infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-                qrcodeModalOptions: {
-                    mobileLinks: ["trust"],
-                    desktopLinks: ["encrypted ink"],
-                },
-            });
-            await provider.enable();
-
-            providerInstance = new ethers.providers.Web3Provider(provider);
-            addresses = provider.accounts;
-            SubscribeProvider(provider);
-        }
         try {
+            if (!walletType) {
+                throw new Error("Missing type of wallet when trying to setup wallet provider");
+            }
+
+            let addresses, providerInstance;
+
+            if (walletType === Enums.METAMASK) {
+                providerInstance = new ethers.providers.Web3Provider(window.ethereum);
+                addresses = await providerInstance.send("eth_requestAccounts", []);
+                SubscribeProvider(window.ethereum);
+            } else if (walletType === Enums.WALLETCONNECT) {
+                console.log(1);
+                let provider = new WalletConnectProvider({
+                    infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                    qrcodeModalOptions: {
+                        mobileLinks: ["trust"],
+                        desktopLinks: ["encrypted ink"],
+                    },
+                });
+                await provider.enable();
+
+                providerInstance = new ethers.providers.Web3Provider(provider);
+                addresses = provider.accounts;
+                SubscribeProvider(provider);
+            }
+
             if (addresses.length === 0) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
@@ -238,6 +240,7 @@ export function Web3Provider({ children }) {
             setWeb3Error("Cannot sign up user, please contact administrator!");
             return false;
         } catch (error) {
+            setWeb3Error(error.message);
             console.log(error);
         }
     };

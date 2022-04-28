@@ -18,6 +18,12 @@ export default async function whitelistSignUp(req, res) {
                 }
 
                 let wallet = utils.getAddress(address);
+                let isValid = utils.isAddress(address);
+                if (!wallet || !isValid) {
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "The wallet address is not valid" });
+                }
 
                 const existingUser = await getWhiteListUserByWallet(wallet);
                 if (existingUser) {

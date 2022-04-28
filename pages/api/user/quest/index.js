@@ -22,9 +22,10 @@ const questQueryAPI = async (req, res) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
                             aq.isDone = true;
-                            aq.quantity = relatedQuest.rewardedQty;
+                            aq.rewardedQty = relatedQuest.rewardedQty;
                         } else {
                             aq.isDone = false;
+                            aq.rewardedQty = 0;
                         }
                     })
                 );

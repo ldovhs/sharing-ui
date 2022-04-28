@@ -85,7 +85,7 @@
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.25rem;
+  line-height: 1.15rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -105,12 +105,12 @@
 @media (min-width: 39.8em) {
   .board_disconnect > button {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .board_disconnect > button {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -188,7 +188,7 @@
 }
 @media (min-width: 50em) {
   .board_content {
-    gap: 2rem;
+    gap: 1.75rem;
   }
 }
 .board_loadingImg {
@@ -200,12 +200,12 @@
   }
 }
 .board_loadingText {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   margin-bottom: 2rem;
 }
 @media (min-width: 46.8em) {
   .board_loadingText {
-    font-size: 0.975rem;
+    font-size: 0.9rem;
   }
 }
 .board_loading {
@@ -251,14 +251,14 @@
   width: 100%;
   bottom: 10%;
   text-align: center;
-  font-size: 0.4875rem;
+  font-size: 0.45rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .board_loading_wrapper_text {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     bottom: 18%;
   }
 }
@@ -296,7 +296,7 @@
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.25rem;
+  line-height: 1.15rem;
 }
 @media (min-width: 31.25em) {
   .board_title {
@@ -306,12 +306,12 @@
 @media (min-width: 39.8em) {
   .board_title {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .board_title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -320,11 +320,12 @@
   }
 }
 .board_text {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
   color: #35464F;
+  line-height: 1.55rem;
   width: 85%;
   overflow-wrap: break-word;
 }
@@ -361,13 +362,12 @@
   height: 90%;
 }
 .board_pinkBtn > div > span {
+  color: #FFFFFF;
   font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
-  color: #35464F;
-  line-height: 1.25rem;
-  color: #FFFFFF;
+  line-height: 1.15rem;
 }
 @media (min-width: 31.25em) {
   .board_pinkBtn > div > span {
@@ -377,12 +377,12 @@
 @media (min-width: 39.8em) {
   .board_pinkBtn > div > span {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .board_pinkBtn > div > span {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -403,7 +403,7 @@
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.25rem;
+  line-height: 1.15rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -423,12 +423,12 @@
 @media (min-width: 39.8em) {
   .board_claimBtn {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .board_claimBtn {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -452,7 +452,7 @@
 .board_orangeBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -464,27 +464,27 @@
 }
 @media (min-width: 39.8em) {
   .board_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .board_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .board_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .board_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 24em) {
@@ -504,7 +504,7 @@
 .board_tealBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -516,27 +516,27 @@
 }
 @media (min-width: 39.8em) {
   .board_tealBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .board_tealBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .board_tealBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .board_tealBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_tealBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 24em) {
@@ -629,7 +629,7 @@
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.25rem;
+  line-height: 1.15rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -649,12 +649,12 @@
 @media (min-width: 39.8em) {
   .boardLarge_disconnect > button {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_disconnect > button {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -751,7 +751,7 @@
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.25rem;
+  line-height: 1.15rem;
   overflow-wrap: break-word;
 }
 @media (min-width: 31.25em) {
@@ -762,12 +762,12 @@
 @media (min-width: 39.8em) {
   .boardLarge_title {
     font-size: 1.75rem;
-    line-height: 2.25rem;
+    line-height: 1.5rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 90em) {
@@ -787,6 +787,11 @@
     flex: 18%;
   }
 }
+@media (min-width: 75em) {
+  .boardLarge_footer {
+    flex: 21%;
+  }
+}
 .boardLarge_footer > button {
   width: 13%;
   height: auto;
@@ -804,7 +809,7 @@
 .boardLarge_pinkBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -818,27 +823,27 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_pinkBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_pinkBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_pinkBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_pinkBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_pinkBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -865,7 +870,7 @@
 .boardLarge_orangeBtn {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -878,27 +883,27 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_orangeBtn {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 24em) {
@@ -922,7 +927,7 @@
 .boardLarge_yellowText {
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -934,27 +939,27 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_yellowText {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_yellowText {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_yellowText {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_yellowText {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_yellowText {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -1027,14 +1032,14 @@
   width: 100%;
   bottom: 10%;
   text-align: center;
-  font-size: 0.4875rem;
+  font-size: 0.45rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .boardLarge_loading_wrapper_text {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     bottom: 16%;
   }
 }
@@ -1071,7 +1076,7 @@
   flex-direction: row;
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   background: url("/img/sharing-ui/invite/quest list_bg.png") no-repeat;
   background-size: 100% 100%;
   text-align: left;
@@ -1081,27 +1086,27 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_container {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_list_container {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_list_container {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_list_container {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_container {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -1269,32 +1274,32 @@
   justify-content: space-between;
   font-family: PFRondaSeven;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   text-align: left;
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_list_containerRanking {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 .boardLarge_list_containerRanking:nth-child(1) {

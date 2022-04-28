@@ -119,11 +119,8 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
 export const submitNewUserQuestTransaction = async (quest, wallet) => {
     let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
 
-    let extendedUserQuestData = { ...extendedQuestData };
     let claimedReward;
-    if (quantity >= 0) {
-    }
-    console.log(wallet);
+
     console.log(`**Create / Update reward for user**`);
     claimedReward = prisma.reward.upsert({
         where: {
@@ -156,7 +153,6 @@ export const submitNewUserQuestTransaction = async (quest, wallet) => {
             questId,
             rewardedTypeId: rewardTypeId,
             rewardedQty: quantity,
-            // extendedUserQuestData
         },
     });
 

@@ -28,7 +28,7 @@ const IndividualQuestBoard = ({
             let sum = userQuests
                 .map((r) => {
                     if (r.rewardType.reward === "Shell" || r.rewardType.reward === "$hell") {
-                        return r.quantity;
+                        return r.rewardedQty;
                     } else {
                         return 0;
                     }
@@ -39,6 +39,8 @@ const IndividualQuestBoard = ({
             setCurrentQuests(userQuests);
         }
     }, [userQuests]);
+
+    console.log(userQuests);
 
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
@@ -53,14 +55,21 @@ const IndividualQuestBoard = ({
         });
     };
 
+    /*
+     * @dev
+     * if DISCORD_AUTH || TWITTER_AUTH, we do separated quest through redirect links
+     * else submit a quest through api
+     */
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
         if (type.name === Enums.DISCORD_AUTH) {
             window.open(getDiscordAuthLink(), "_blank");
+            return;
         }
 
         if (type.name === Enums.TWITTER_AUTH) {
             window.open(getTwitterAuthLink(), "_blank");
+            return;
         }
 
         if (type.name === Enums.TWITTER_RETWEET) {
@@ -198,9 +207,7 @@ const IndividualQuestBoard = ({
                                                                 alt="connectToContinue"
                                                             />
                                                             <div>
-                                                                {/* <span>{isDone ? "DONE" : "GO"}</span> */}
                                                                 <span>{quantity}</span>
-
                                                                 <img
                                                                     src={
                                                                         "/img/sharing-ui/invite/shell.png"

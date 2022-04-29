@@ -89,20 +89,19 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                         )}
                     </div>
                 </div>
-
-                {/*  Disconnect */}
-                {!isSubmittingReward && !isFetchingReward && (
-                    <button className={s.board_disconnect} onClick={() => SignOut()}>
-                        <img
-                            src="/img/sharing-ui/invite/Button_Disconnect.png"
-                            alt="connectToContinue"
-                        />
-                        <div>
-                            <span>Disconnect</span>
-                        </div>
-                    </button>
-                )}
             </div>
+            {/*  Disconnect */}
+            {!isSubmittingReward && !isFetchingReward && (
+                <button className={s.board_disconnect} onClick={() => SignOut()}>
+                    <img
+                        src="/img/sharing-ui/invite/Button_Disconnect.png"
+                        alt="connectToContinue"
+                    />
+                    <div>
+                        <span>Disconnect</span>
+                    </div>
+                </button>
+            )}
         </div>
     );
 };

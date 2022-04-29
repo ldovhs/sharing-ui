@@ -4,8 +4,7 @@ import axios from "axios";
 import { createPendingReward } from "repositories/reward";
 import adminMiddleware from "middlewares/adminMiddleware";
 
-const { DISCORD_NODEJS, DISCORD_BOT_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } =
-    process.env;
+const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
 
 const ROUTE = "/api/admin/reward/addPending";
 

@@ -164,7 +164,7 @@ const IndividualQuestBoard = ({
                                         isDone,
                                         rewardType,
                                     } = item;
-
+                                    console.log(rewardType);
                                     return (
                                         <React.Fragment key={index}>
                                             <div className={s.boardLarge_list_container}>
@@ -182,40 +182,56 @@ const IndividualQuestBoard = ({
                                                         </span>
                                                     )}
                                                 </div>
-                                                {isDone && (
-                                                    <div className={s.boardLarge_list_reward}>
-                                                        <span>+{quantity}</span>
-                                                        <img
-                                                            src={"/img/sharing-ui/invite/shell.png"}
-                                                            alt="reward icon"
-                                                        />
-                                                    </div>
-                                                )}
-
-                                                {!isDone && (
-                                                    <div className={s.boardLarge_list_action}>
+                                                <div className={s.boardLarge_list_action}>
+                                                    {isDone && (
                                                         <button
-                                                            className={s.boardLarge_list_button}
-                                                            onClick={() => DoQuest(item)}
+                                                            className={s.boardLarge_list_doneBtn}
                                                         >
                                                             <img
-                                                                src={
-                                                                    "/img/sharing-ui/invite/Quest_Reward Button.png"
-                                                                }
+                                                                src="/img/sharing-ui/invite/Quest_Done Button.png"
                                                                 alt="connectToContinue"
                                                             />
                                                             <div>
-                                                                <span>{quantity}</span>
-                                                                <img
-                                                                    src={
-                                                                        "/img/sharing-ui/invite/shell.png"
-                                                                    }
-                                                                    alt="reward icon"
-                                                                />
+                                                                <span>Done</span>
                                                             </div>
                                                         </button>
-                                                    </div>
-                                                )}
+                                                    )}
+                                                    {!isDone && (
+                                                        <button
+                                                            className={s.boardLarge_list_questBtn}
+                                                            onClick={() => DoQuest(item)}
+                                                        >
+                                                            <img
+                                                                src="/img/sharing-ui/invite/Quest_Reward Button.png"
+                                                                alt="reward button"
+                                                            />
+                                                            <div>
+                                                                <span>{quantity}</span>
+                                                                {rewardType.reward.match(
+                                                                    "hell"
+                                                                ) && (
+                                                                    <img
+                                                                        src={
+                                                                            "/img/sharing-ui/invite/baseshell_1.png"
+                                                                        }
+                                                                        alt="reward icon"
+                                                                    />
+                                                                )}
+
+                                                                {rewardType.reward.match(
+                                                                    /bowl|Bowl/
+                                                                ) && (
+                                                                    <img
+                                                                        src={
+                                                                            "/img/sharing-ui/invite/bowl10frames.gif"
+                                                                        }
+                                                                        alt="reward icon"
+                                                                    />
+                                                                )}
+                                                            </div>
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </React.Fragment>
                                     );

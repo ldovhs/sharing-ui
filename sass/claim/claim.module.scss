@@ -13,8 +13,8 @@ $bp-xl-3: 160em;            // 2560
 
 $heading-font-size-small: 2vh;
 $heading-font-size-small-2: 1.75rem;
-$heading-font-size-med: 2.5rem;
-$heading-font-size-large: 3rem;
+$heading-font-size-med: 2.25rem;
+$heading-font-size-large: 2.75rem;
 
 $text-font-size-small: 0.6rem;
 $text-font-size-small-2: 1.125rem;
@@ -23,7 +23,7 @@ $text-font-size-large: 1.5rem;
 
 $list-text-font-size-small: 0.5rem;
 $list-text-font-size-small-2: 0.675rem;
-$list-text-font-size-med: 1.125rem;
+$list-text-font-size-med: 1rem;
 $list-text-font-size-large: 1.25rem;
 
 @mixin heading(){
@@ -478,15 +478,15 @@ $list-text-font-size-large: 1.25rem;
 .boardLarge {
     @include m.flex-master(column, center, center);
     width: 80%;
-    height: 60vh;
+    height: 70vh;
     position: relative;
     color: #fff;  
 
     @media (min-width: $bp-small-3) {
-      
+        width: 38em; 
     }
 
-    @media (min-width: $bp-large) {
+    @media (min-width: $bp-xl-2) {
         width: 45em; 
     }
 
@@ -502,8 +502,9 @@ $list-text-font-size-large: 1.25rem;
             width: 100%;
             height:0;
             padding-top: 108.58%;
+
             background: url("/img/sharing-ui/invite/board_large.png") no-repeat;
-            background-size: contain;
+            background-size: cover;
         }
     }
 
@@ -554,6 +555,9 @@ $list-text-font-size-large: 1.25rem;
         @media (min-width: $bp-med) {
             top: 8.25%;
         } 
+        @media (min-width: $bp-xl) {
+            top: 8.25%;
+        } 
     
         &_content {
             margin-left: -5px;
@@ -571,6 +575,9 @@ $list-text-font-size-large: 1.25rem;
             } 
             @media (min-width: $bp-small-3) {
                 font-size: 1.45vh;
+            } 
+            @media (min-width: $bp-med) {
+                font-size: 1.6vh;
             } 
         }
     }
@@ -778,6 +785,44 @@ $list-text-font-size-large: 1.25rem;
             height: 100%;
             flex: 25%;
         }
+        &_doneBtn {
+            position:relative;
+            width: auto;
+            display:flex;
+            justify-content: center;
+            padding: 0;
+            color: #A4B7B6;
+
+            & > div {
+                position:absolute;
+                display: flex;
+                text-align: center;
+                align-items: center;
+                height: 87%;
+                & > span { 
+                    font-size: 5vw;
+                    font-family: Safety Goggles;
+                    font-weight: 500;
+                    text-align: center;
+
+                    line-height: 1.15rem;
+                    @media (min-width: $bp-small-2) {  
+                        font-size: $heading-font-size-small-2;
+                    }  
+                }
+            }
+            &:hover{
+                color: #A4B7B6;
+                cursor: default;
+            }
+            &:disabled {
+                cursor: not-allowed!important;
+                color: #A2B7B6;
+                &:hover {
+                    color: #A2B7B6;
+                }
+            }
+        }
         &_button { 
             position:relative;
             display:flex;
@@ -806,7 +851,6 @@ $list-text-font-size-large: 1.25rem;
                     @include listText();
                     margin-right: 0.2rem;
                     font-weight: 600;
-              
                 }
 
                 & > img {
@@ -825,6 +869,49 @@ $list-text-font-size-large: 1.25rem;
             &:disabled {
                 cursor: not-allowed!important;
                 color: #394B54;
+            }
+        }
+        
+        &_questBtn { 
+            position:relative;
+            width: auto;
+            display:flex;
+            justify-content: center;
+            padding: 0;
+            color: #ffffff;
+
+            & > div {
+                position:absolute;
+                display: flex;
+                text-align: center;
+                align-items: center;
+                height: 87%;
+                gap:0.25rem;
+                & > span { 
+                    font-size: 4vw;
+                    font-family: Safety Goggles;
+                    font-weight: 500;
+                    text-align: center;
+
+                    line-height: 1.15rem;
+                    @media (min-width: $bp-small-2) {  
+                        font-size: 1.25rem;
+                    }  
+                    @media (min-width: $bp-med-2) {  
+                        font-size: 1.75rem;
+                    } 
+                }
+                & > img {
+                    max-height: 55%;
+                    width: auto!important;
+                    @media (min-width: $bp-small-2) {  
+                        max-height: 55%;
+                    }
+                }
+            }
+            &:hover{
+                color: #CE3C85;
+                cursor: pointer;
             }
         }
 

@@ -3,16 +3,16 @@ import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 
-import {
-    withClaimableRewardQuery,
-    withClaimRewardSubmit,
+import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
+
+const UserClaimReward = ({
+    session,
+    reward,
+    onSubmitReward,
     isSubmittingReward,
     isFetchingReward,
-} from "shared/HOC/reward";
-
-const UserClaimReward = ({ session, reward, onSubmitReward }) => {
+}) => {
     const [error, setError] = useState(null);
-    const [showTask, setShowTask] = useState(true);
     const { SignOut } = useContext(Web3Context);
 
     useEffect(async () => {
@@ -25,11 +25,6 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
         await onSubmitReward(reward.pendingReward);
     };
 
-    const onSkip = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        setShowTask(false);
-    };
     return (
         <div className={s.board}>
             <div className={s.board_container}>
@@ -50,9 +45,8 @@ const UserClaimReward = ({ session, reward, onSubmitReward }) => {
                                     <div className={s.board_loading}>
                                         <img
                                             src="/img/sharing-ui/clamsparkle.gif"
-                                            alt="Loading data"
+                                            alt="Fetching data"
                                         />
-                                        {/* <div>Fetching data...</div> */}
                                     </div>
                                 )}
                                 <div className={s.board_title}>

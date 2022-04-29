@@ -49,36 +49,41 @@ const UserClaimReward = ({
                                         />
                                     </div>
                                 )}
-                                <div className={s.board_title}>
-                                    You won {reward?.pendingReward.rewardTypeId}{" "}
-                                    {reward?.pendingReward.rewardType.reward}
-                                </div>
 
-                                <button
-                                    className={s.board_pinkBtn}
-                                    onClick={onClaim}
-                                    disabled={
-                                        reward?.pendingReward?.isClaimed ||
-                                        isSubmittingReward ||
-                                        isFetchingReward
-                                    }
-                                >
-                                    <img
-                                        src={
-                                            !reward?.pendingReward?.isClaimed
-                                                ? "/img/sharing-ui/invite/Button_Small.png"
-                                                : "/img/sharing-ui/invite/Button_Small 2.png"
-                                        }
-                                        alt="connectToContinue"
-                                    />
-                                    <div>
-                                        <span>
-                                            {!reward?.pendingReward?.isClaimed
-                                                ? "Claim"
-                                                : "Claimed"}
-                                        </span>
-                                    </div>
-                                </button>
+                                {!isSubmittingReward && !isFetchingReward && (
+                                    <>
+                                        <div className={s.board_title}>
+                                            You won {reward?.pendingReward.rewardTypeId}{" "}
+                                            {reward?.pendingReward.rewardType.reward}
+                                        </div>
+
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={onClaim}
+                                            disabled={
+                                                reward?.pendingReward?.isClaimed ||
+                                                isSubmittingReward ||
+                                                isFetchingReward
+                                            }
+                                        >
+                                            <img
+                                                src={
+                                                    !reward?.pendingReward?.isClaimed
+                                                        ? "/img/sharing-ui/invite/Button_Small.png"
+                                                        : "/img/sharing-ui/invite/Button_Small 2.png"
+                                                }
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>
+                                                    {!reward?.pendingReward?.isClaimed
+                                                        ? "Claim"
+                                                        : "Claimed"}
+                                                </span>
+                                            </div>
+                                        </button>
+                                    </>
+                                )}
                             </>
                         )}
                     </div>

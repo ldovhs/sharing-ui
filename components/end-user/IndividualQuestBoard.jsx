@@ -24,6 +24,7 @@ const IndividualQuestBoard = ({
 
     useEffect(async () => {
         if (userQuests && userQuests.length > 0) {
+            userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
             let sum = userQuests
                 .map((r) => {
@@ -164,7 +165,7 @@ const IndividualQuestBoard = ({
                                         isDone,
                                         rewardType,
                                     } = item;
-                                    console.log(rewardType);
+
                                     return (
                                         <React.Fragment key={index}>
                                             <div className={s.boardLarge_list_container}>
@@ -272,6 +273,9 @@ const getTwitterAuthLink = () => {
 
 function isNotDoneFirst(a, b) {
     return Number(a.isDone) - Number(b.isDone);
+}
+function isAlphabeticallly(a, b) {
+    return a.text.localeCompare(b.text);
 }
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);

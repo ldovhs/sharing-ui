@@ -791,7 +791,7 @@ $list-text-font-size-large: 1.25rem;
             display:flex;
             justify-content: center;
             padding: 0;
-            color: #A4B7B6;
+            color: #5EC1D3;
 
             & > div {
                 position:absolute;
@@ -812,14 +812,14 @@ $list-text-font-size-large: 1.25rem;
                 }
             }
             &:hover{
-                color: #A4B7B6;
+                color: #5EC1D3;
                 cursor: default;
             }
             &:disabled {
                 cursor: not-allowed!important;
-                color: #A2B7B6;
+                color: #5EC1D3;
                 &:hover {
-                    color: #A2B7B6;
+                    color: #5EC1D3;
                 }
             }
         }

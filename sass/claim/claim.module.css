@@ -1109,7 +1109,7 @@
   display: flex;
   justify-content: center;
   padding: 0;
-  color: #A4B7B6;
+  color: #5EC1D3;
 }
 .boardLarge_list_doneBtn > div {
   position: absolute;
@@ -1131,15 +1131,15 @@
   }
 }
 .boardLarge_list_doneBtn:hover {
-  color: #A4B7B6;
+  color: #5EC1D3;
   cursor: default;
 }
 .boardLarge_list_doneBtn:disabled {
   cursor: not-allowed !important;
-  color: #A2B7B6;
+  color: #5EC1D3;
 }
 .boardLarge_list_doneBtn:disabled:hover {
-  color: #A2B7B6;
+  color: #5EC1D3;
 }
 .boardLarge_list_button {
   position: relative;

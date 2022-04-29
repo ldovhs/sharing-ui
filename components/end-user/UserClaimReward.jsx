@@ -43,10 +43,20 @@ const UserClaimReward = ({
                             <>
                                 {(isSubmittingReward || isFetchingReward) && (
                                     <div className={s.board_loading}>
-                                        <img
-                                            src="/img/sharing-ui/clamsparkle.gif"
-                                            alt="Fetching data"
-                                        />
+                                        <div className={s.board_loading_wrapper}>
+                                            <img
+                                                src="/img/sharing-ui/clamsparkle.gif"
+                                                alt="Loading data"
+                                            />
+                                            <div className={s.board_loading_wrapper_text}>
+                                                Loading
+                                                <span
+                                                    className={
+                                                        s.board_loading_wrapper_text_ellipsis
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
 

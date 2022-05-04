@@ -43,13 +43,13 @@ const IndividualQuestBoard = ({
 
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight, // + 16,
+            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 16,
             behavior: "smooth",
         });
     };
     const onScrollUp = () => {
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight, // - 16,
+            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16,
             behavior: "smooth",
         });
     };
@@ -112,12 +112,14 @@ const IndividualQuestBoard = ({
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
                         <div className={s.boardLarge_title}>
-                            {currentUser !== null &&
-                            currentUser?.discordUserDiscriminator !== null &&
-                            currentUser?.discordUserDiscriminator?.length > 0
-                                ? currentUser?.discordUserDiscriminator
-                                : "Individual"}{" "}
-                            Quests
+                            <div>
+                                {currentUser !== null &&
+                                currentUser?.discordUserDiscriminator !== null &&
+                                currentUser?.discordUserDiscriminator?.length > 0
+                                    ? currentUser?.discordUserDiscriminator
+                                    : "Individual"}{" "}
+                            </div>
+                            <div>Quests</div>
                         </div>
 
                         {/*  Render error message */}

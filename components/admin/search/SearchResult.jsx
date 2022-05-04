@@ -11,7 +11,6 @@ export default function SearchResults({ formData }) {
     useEffect(async () => {
         if (data) {
             let csv = await BuildCsv(data);
-
             setCsvData(csv);
         }
     }, [data]);
@@ -29,7 +28,7 @@ export default function SearchResults({ formData }) {
                 <div className="d-flex ">
                     {csvData && (
                         <a
-                            href={`data:text/csv;charset=utf-8,${csvData}`}
+                            href={`data:text/csv;charset=utf-8,${encodeURIComponent(csvData)}`}
                             download={`Search - ${new Date().toISOString()}.csv`}
                             className="mr-2"
                         >
@@ -37,7 +36,9 @@ export default function SearchResults({ formData }) {
                         </a>
                     )}
                     <a
-                        href={`data:text/plain;charset=utf-8,${JSON.stringify(data)}`}
+                        href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+                            JSON.stringify(data)
+                        )}`}
                         download={`Search - ${new Date().toISOString()}.json`}
                         className="mr-2"
                     >
@@ -109,7 +110,7 @@ export default function SearchResults({ formData }) {
 }
 
 const BuildCsv = async (data) => {
-    console.log(data);
+    //console.log(data);
     const csvString = [
         [
             "UserID",
@@ -151,6 +152,6 @@ const getDiscordUserDiscriminator = (discordUserDiscriminator) => {
         return "";
     }
     let str = discordUserDiscriminator.split("#");
-    return str[0] + "&#35;" + str[1];
+    return str[0] + "#" + str[1];
     //return str[0] + str[1];
 };

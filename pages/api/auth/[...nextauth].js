@@ -172,12 +172,14 @@ export default NextAuth({
         },
 
         async session({ session, token }) {
+            session.profile = token.profile;
             session.user = token.user;
             session.provider = token.provider;
             return session;
         },
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, profile }) {
             if (user) {
+                token.profile = profile;
                 token.user = user;
                 token.provider = account.provider;
             }

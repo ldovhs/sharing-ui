@@ -3,8 +3,6 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
-import { withUserRewardQuery } from "@shared/HOC/reward";
-import { withCurrentUserQuery } from "@shared/HOC/user";
 
 const IndividualQuestBoard = ({
     session,
@@ -35,7 +33,6 @@ const IndividualQuestBoard = ({
                     }
                 })
                 .reduce((prev, curr) => prev + curr, 0);
-
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
         }
@@ -43,7 +40,7 @@ const IndividualQuestBoard = ({
 
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 16,
+            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12,
             behavior: "smooth",
         });
     };
@@ -112,14 +109,18 @@ const IndividualQuestBoard = ({
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
                         <div className={s.boardLarge_title}>
-                            <div>
-                                {currentUser !== null &&
-                                currentUser?.discordUserDiscriminator !== null &&
-                                currentUser?.discordUserDiscriminator?.length > 0
-                                    ? currentUser?.discordUserDiscriminator
-                                    : "Individual"}{" "}
-                            </div>
                             <div>Quests</div>
+
+                            {session !== null && session?.provider === "discord" && (
+                                <div>
+                                    {session?.profile?.username +
+                                        "#" +
+                                        session?.profile?.discriminator}
+                                </div>
+                            )}
+                            {session !== null && session?.provider === "twitter" && (
+                                <div>{session?.profile?.data?.username}</div>
+                            )}
                         </div>
 
                         {/*  Render error message */}
@@ -281,5 +282,4 @@ function isAlphabeticallly(a, b) {
 }
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
-const secondHOC = withUserQuestQuery(firstHOC);
-export default withCurrentUserQuery(secondHOC);
+export default withUserQuestQuery(firstHOC);

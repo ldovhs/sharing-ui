@@ -3,12 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "prisma:generate": "prisma generate",
-    "migrate:postgres": "dotenv -e .env.development -- npx prisma migrate dev --name postgres-init"
+    "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^3.9.1",
     "@qhuynhvhslab/anomura-prisma-package": "^1.0.13",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
@@ -35,7 +32,6 @@
     "@faker-js/faker": "^6.0.0-alpha.7",
     "autoprefixer": "^10.4.1",
     "postcss": "^8.4.5",
-    "prisma": "^3.9.1",
     "swr": "^1.2.1",
     "tailwindcss": "^3.0.10"
   }

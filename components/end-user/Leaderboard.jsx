@@ -41,7 +41,7 @@ export default function Leaderboard({ questData }) {
                                     user,
                                     extendedUserQuestData: { reaction },
                                 } = item;
-                                console.log(user);
+
                                 return (
                                     <React.Fragment key={index}>
                                         <div className={s.boardLarge_list_containerRanking}>

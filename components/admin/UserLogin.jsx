@@ -25,7 +25,6 @@ const UserLogin = () => {
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
     }, []);
 
-    // console.log(isMetamaskDisabled);
     return (
         <div className={s.nonPixelModal_card}>
             {/*METAMASK */}

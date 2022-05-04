@@ -16,8 +16,7 @@ export default function SearchResults({ formData }) {
     }, [data]);
 
     if (error) {
-        console.log(error);
-        return <div>failed to load</div>;
+        return <div>{error}</div>;
     }
     if (!data) return <div>loading...</div>;
 

@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model WhiteList {
+  id                            Int             @id @default(autoincrement())
+  wallet                        String          @unique
+  twitterId                     String?         @default("")
+  twitterUserName               String?         @default("")
+  userId                        String          @unique @default(uuid())
+  discordId                     String?         @default("")
+  discordUserDiscriminator      String?         @default("")
+  createdAt                     DateTime        @default(now())
+  updatedAt                     DateTime        @default(now()) @updatedAt
+  pendingRewards                PendingReward[]
+  rewards                       Reward[]
+  userQuest                     UserQuest[]
+  nonce                         String?
+}
+
+model PendingReward {
+  id           Int        @id @default(autoincrement())
+  wallet       String
+  generatedURL String     @default(uuid())
+  isClaimed    Boolean    @default(false)
+  rewardTypeId Int
+  quantity     Int        @default(0)
+  createdAt    DateTime   @default(now())
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  user         WhiteList  @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
+
+  @@unique([wallet, rewardTypeId, generatedURL])
+}
+
+model Reward {
+  id           Int        @id @default(autoincrement())
+  rewardTypeId Int
+  wallet       String
+  quantity     Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+  rewardType   RewardType @relation(fields: [rewardTypeId], references: [id])
+  user         WhiteList  @relation(fields: [wallet], references: [wallet], onDelete: Cascade)
+
+  @@unique([wallet, rewardTypeId])
+}
+
+model RewardType {
+  id             Int             @id @default(autoincrement())
+  reward         String
+  pendingRewards PendingReward[]
+  quests         Quest[]
+  rewards        Reward[]
+  userQuests     UserQuest[]
+}
+
+model QuestType {
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  description    String?
+  quests         Quest[]
+}
+
+model UserQuest {
+  id                        Int         @id @default(autoincrement())
+  wallet                    String
+  questId                   String      @default(uuid())
+  extendedUserQuestData     Json?
+  createdAt                 DateTime    @default(now())
+  rewardedQty               Int?
+  rewardedTypeId            Int?
+  quest                     Quest       @relation(fields: [questId], references: [questId])
+  rewardType                RewardType? @relation(fields: [rewardedTypeId], references: [id])
+  user                      WhiteList   @relation(fields: [wallet], references: [wallet])
+
+  @@unique([wallet, questId])
+}
+
+model Quest {
+  id                    Int             @id @default(autoincrement())
+  type                  QuestType       @relation(fields: [questTypeId], references: [id])
+  text                  String    
+  completedText         String    
+  rewardTypeId          Int   
+  quantity              Int             @default(0)
+  isEnabled             Boolean         @default(true)
+  isRequired            Boolean         @default(false)
+  description           String?         @default("")
+  extendedQuestData     Json?   
+  questId               String          @unique @default(uuid())
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @default(now()) @updatedAt
+  rewardType            RewardType      @relation(fields: [rewardTypeId], references: [id])
+  userQuests            UserQuest[]
+  questTypeId           Int
+}
+
+model Admin {
+  id     Int     @id @default(autoincrement())
+  wallet String  @unique
+  nonce  String?
+}
+
+model Anomuras {
+  id            Int      @id @default(autoincrement())
+  owner         String
+  crabId        Int      @unique
+  background    String
+  legs          String
+  shell         String
+  claws         String
+  body          String
+  image         String   @default("")
+  playersWallet String?
+  headpieces    String?  @default("")
+  Players       Players? @relation(fields: [playersWallet], references: [wallet])
+}
+
+model Players {
+  wallet        String     @unique
+  id            Int        @id @default(autoincrement())
+  ownedAnomuras Anomuras[]
+}

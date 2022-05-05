@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prisma:generate": "prisma generate",
+    "migrate:postgres": "dotenv -e .env.development -- npx prisma migrate dev --name postgres-init"
   },
   "dependencies": {
     "@prisma/client": "^3.13.0",

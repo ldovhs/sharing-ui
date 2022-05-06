@@ -209,8 +209,12 @@ const AddNewReward = ({
                     </div>
 
                     <div className="mt-3">
-                        <button type="submit" className="btn btn-primary mr-2 w-100">
-                            Submit
+                        <button
+                            type="submit"
+                            className="btn btn-primary mr-2 w-100"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Submitting..." : "Submit"}
                         </button>
                     </div>
                 </Form>

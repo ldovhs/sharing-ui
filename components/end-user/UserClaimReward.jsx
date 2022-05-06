@@ -24,7 +24,7 @@ const UserClaimReward = ({
     const onClaim = async () => {
         await onSubmitReward(reward.pendingReward);
     };
-
+    console.log(reward?.pendingReward);
     return (
         <div className={s.board}>
             <div className={s.board_container}>
@@ -63,7 +63,7 @@ const UserClaimReward = ({
                                 {!isSubmittingReward && !isFetchingReward && (
                                     <>
                                         <div className={s.board_title}>
-                                            You won {reward?.pendingReward.rewardTypeId}{" "}
+                                            You won {reward?.pendingReward.quantity}{" "}
                                             {reward?.pendingReward.rewardType.reward}
                                         </div>
 

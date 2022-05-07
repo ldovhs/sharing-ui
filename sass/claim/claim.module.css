@@ -111,8 +111,8 @@
 .board_wrapper {
   position: absolute;
   width: 100%;
-  height: 58%;
-  top: 27%;
+  height: 54%;
+  top: 32%;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -126,12 +126,12 @@
 }
 @media (min-width: 31.25em) {
   .board_wrapper {
-    padding: 0 5rem;
+    padding: 0 19%;
   }
 }
 @media (min-width: 39.8em) {
   .board_wrapper {
-    padding: 0 5rem;
+    padding: 0 19%;
   }
 }
 @media (min-width: 50em) {
@@ -175,6 +175,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  font-family: PFRondaSeven;
 }
 .board_loading_wrapper > img {
   display: block;
@@ -513,7 +514,7 @@
 }
 .board_signin_wrapper {
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 .board_signin_content {
   display: flex;
@@ -547,7 +548,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 85%;
   height: 70vh;
   position: relative;
   color: #fff;
@@ -695,11 +696,11 @@
   margin-left: 5px;
   font-family: PFRondaSeven;
   color: #F8D61D;
-  font-size: 0.8vh;
+  font-size: 0.9vh;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar_content {
-    font-size: 1vh;
+    font-size: 1.2vh;
   }
 }
 @media (min-width: 31.25em) {
@@ -780,10 +781,26 @@
 .boardLarge_footer > button:nth-child(1) {
   background: url("/img/sharing-ui/invite/arrow_down.png") no-repeat;
   background-size: contain;
+  -webkit-animation-name: move-down;
+          animation-name: move-down;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
 }
 .boardLarge_footer > button:nth-child(2) {
   background: url("/img/sharing-ui/invite/arrow_up.png") no-repeat;
   background-size: contain;
+  -webkit-animation-name: move-up;
+          animation-name: move-up;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
 }
 .boardLarge_orangeBtn {
   font-family: PFRondaSeven;
@@ -954,6 +971,7 @@
   flex-direction: row;
   justify-content: center;
   color: #35464F;
+  font-family: PFRondaSeven;
 }
 @media (min-width: 24em) {
   .boardLarge_loading_wrapper_text {
@@ -1039,9 +1057,9 @@
   font-weight: 400;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   text-align: left;
   color: #A3EAE5;
   flex: 70%;
@@ -1383,5 +1401,37 @@
 @-webkit-keyframes ellipsis {
   to {
     width: 1.25em;
+  }
+}
+@-webkit-keyframes move-down {
+  0% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(-10%);
+  }
+}
+@keyframes move-down {
+  0% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(-10%);
+  }
+}
+@-webkit-keyframes move-up {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(10%);
+  }
+}
+@keyframes move-up {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(10%);
   }
 }/*# sourceMappingURL=claim.module.css.map */

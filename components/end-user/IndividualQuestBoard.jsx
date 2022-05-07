@@ -97,6 +97,47 @@ const IndividualQuestBoard = ({
         setCurrentQuests(updatedQuestArr);
     };
 
+    const GetQuestText = (text, type, extendedQuestData) => {
+        if (type.name === Enums.FOLLOW_INSTAGRAM) {
+            return (
+                <span>
+                    Follow
+                    <span className="text-red-400">{` @${extendedQuestData.followAccount}`} </span>
+                    on Instagram
+                </span>
+            );
+        }
+        if (
+            type.name === Enums.FOLLOW_TWITTER &&
+            !extendedQuestData.followAccount.match(/Whale_Drop/)
+        ) {
+            return (
+                <span>
+                    Follow
+                    <span className="text-teal-500">{` @${extendedQuestData.followAccount}`} </span>
+                    on Twitter
+                </span>
+            );
+        }
+        if (
+            type.name === Enums.FOLLOW_TWITTER &&
+            extendedQuestData.followAccount.match(/Whale_Drop/)
+        ) {
+            return (
+                <span>
+                    Follow our King Crab
+                    <span className="text-teal-500">{` @${extendedQuestData.followAccount}`} </span>
+                </span>
+            );
+        }
+        if (
+            type.name === Enums.DISCORD_AUTH ||
+            type.name === Enums.TWITTER_AUTH ||
+            type.name === Enums.TWITTER_RETWEET
+        ) {
+            return <span>{text}</span>;
+        }
+    };
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
@@ -173,18 +214,20 @@ const IndividualQuestBoard = ({
                                         <React.Fragment key={index}>
                                             <div className={s.boardLarge_list_container}>
                                                 <div className={s.boardLarge_list_text}>
-                                                    {text}
-
+                                                    {GetQuestText(text, type, extendedQuestData)}
+                                                    {/* {text}
                                                     {type.name === Enums.FOLLOW_TWITTER && (
                                                         <span className="text-teal-500">
                                                             {` @${extendedQuestData.followAccount}`}{" "}
                                                         </span>
                                                     )}
                                                     {type.name === Enums.FOLLOW_INSTAGRAM && (
-                                                        <span className="text-red-400">
-                                                            {` @${extendedQuestData.followAccount}`}{" "}
-                                                        </span>
-                                                    )}
+                                                        <>
+                                                            <span className="text-red-400">
+                                                                {` @${extendedQuestData.followAccount}`}{" "}
+                                                            </span>
+                                                        </>
+                                                    )} */}
                                                 </div>
                                                 <div className={s.boardLarge_list_action}>
                                                     {isDone && (
@@ -216,7 +259,7 @@ const IndividualQuestBoard = ({
                                                                 ) && (
                                                                     <img
                                                                         src={
-                                                                            "/img/sharing-ui/invite/baseshell_1.png"
+                                                                            "/img/sharing-ui/invite/Shell.png"
                                                                         }
                                                                         alt="reward icon"
                                                                     />

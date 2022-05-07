@@ -55,9 +55,12 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
 
                                                 <small>{quest.description}</small>
                                                 <br />
-                                                <span className="text-success">
-                                                    {quest.isRequired ? "Required" : "Optional"}
-                                                </span>
+
+                                                {quest.isEnabled ? (
+                                                    <span className="text-success">Enabled</span>
+                                                ) : (
+                                                    <span className="text-danger">Disabled</span>
+                                                )}
                                             </div>
                                         </div>
 

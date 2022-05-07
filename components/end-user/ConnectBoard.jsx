@@ -14,7 +14,7 @@ export const AUTHENTICATING = 4;
 
 export default function ConnectBoard() {
     // const [error, setError] = useState(null);
-    const { web3Error, TryConnectAsUser } = useContext(Web3Context);
+    const { web3Error, TryConnectAsUser, setWeb3Error } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
 
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
@@ -54,7 +54,26 @@ export default function ConnectBoard() {
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         <>
-                            {web3Error && <div className={s.board_text}>{web3Error}</div>}
+                            {web3Error && (
+                                <>
+                                    <div className={s.board_text}>{web3Error}</div>
+                                    <button
+                                        className={s.board_pinkBtn}
+                                        onClick={() => {
+                                            setWeb3Error(null);
+                                            changeView(CONNECT_OPTIONS);
+                                        }}
+                                    >
+                                        <img
+                                            src="/img/sharing-ui/invite/Button_Large.png"
+                                            alt="connectToContinue"
+                                        />
+                                        <div>
+                                            <span>Go Back</span>
+                                        </div>
+                                    </button>
+                                </>
+                            )}
 
                             {currentPrompt === WELCOME && !web3Error && (
                                 <>
@@ -62,8 +81,10 @@ export default function ConnectBoard() {
                                         className={s.board_headingIcon}
                                         src="/img/sharing-ui/invite/starfish.gif"
                                     />
-                                    <div className={s.board_title}>Welcome to the Cove!</div>
-                                    <div className={s.board_text}>Connect to continue.</div>
+                                    <div className={s.board_title}>
+                                        Welcome to the Cove’s DeepSea Challenger!
+                                    </div>
+                                    <div className={s.board_text}>Connect to continue</div>
                                     <button
                                         className={s.board_pinkBtn}
                                         onClick={() => changeView(CONNECT_OPTIONS)}
@@ -80,7 +101,7 @@ export default function ConnectBoard() {
                             )}
 
                             {currentPrompt === CONNECT_OPTIONS && !web3Error && (
-                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         <button
                                             className={s.board_orangeBtn}
@@ -111,7 +132,7 @@ export default function ConnectBoard() {
                             )}
 
                             {currentPrompt === SOCIAL_AUTH && !web3Error && (
-                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         <button
                                             className={s.board_purpleBtn}
@@ -146,7 +167,7 @@ export default function ConnectBoard() {
                             )}
 
                             {currentPrompt === WALLET_AUTH && !web3Error && (
-                                <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         {!isMetamaskDisabled && !isMobile && (
                                             <button

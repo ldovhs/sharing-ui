@@ -16,7 +16,7 @@ export const SIGNUP_SUCCESS = 4;
 function SignUp() {
     const [currentPrompt, setPrompt] = useState(SIGNUP);
     const { data: session, status } = useSession({ required: false });
-    const { web3Error, TrySignUpWithWallet } = useContext(Web3Context);
+    const { web3Error, TrySignUpWithWallet, setWeb3Error } = useContext(Web3Context);
     const router = useRouter();
     let redirectTimeout;
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
@@ -79,7 +79,24 @@ function SignUp() {
                         <div className={s.board_wrapper}>
                             <div className={s.board_content}>
                                 {(currentPrompt === SIGNUP_ERROR || web3Error) && (
-                                    <div className={`${s.board_text}`}>{web3Error}</div>
+                                    <>
+                                        <div className={`${s.board_text}`}>{web3Error}</div>
+                                        <button
+                                            className={s.board_pinkBtn}
+                                            onClick={() => {
+                                                setWeb3Error(null);
+                                                changeView(SIGNUP_OPTIONS);
+                                            }}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/Button_Large.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Go Back</span>
+                                            </div>
+                                        </button>
+                                    </>
                                 )}
 
                                 {currentPrompt === SIGNUP && !web3Error && (
@@ -88,8 +105,12 @@ function SignUp() {
                                             className={s.board_headingIcon}
                                             src="/img/sharing-ui/invite/starfish.gif"
                                         />
-                                        <div className={s.board_title}>Welcome to the Cove!</div>
-                                        <div className={s.board_text}>Sign up new account</div>
+                                        <div className={s.board_title}>
+                                            Welcome to the Cove’s DeepSea Challenger!
+                                        </div>
+                                        <div className={s.board_text}>
+                                            Sign Up with your account
+                                        </div>
 
                                         <button
                                             className={s.board_pinkBtn}
@@ -100,14 +121,14 @@ function SignUp() {
                                                 alt="connectToContinue"
                                             />
                                             <div>
-                                                <span> Sign Up</span>
+                                                <span>Sign Up</span>
                                             </div>
                                         </button>
                                     </>
                                 )}
 
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
-                                    <div className={`${s.open} ${s.board_signin_wrapper}`}>
+                                    <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
                                             <button
                                                 className={s.board_orangeBtn}
@@ -144,7 +165,7 @@ function SignUp() {
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>
-                                                Awaiting Signing Up
+                                                Awaiting sign up
                                                 <span
                                                     className={
                                                         s.board_loading_wrapper_text_ellipsis
@@ -157,7 +178,7 @@ function SignUp() {
 
                                 {currentPrompt === SIGNUP_SUCCESS && (
                                     <div
-                                        className={`${s.open} flex justify-content-center align-items-center h2 text-white`}
+                                        className={` flex justify-content-center align-items-center h2 text-white`}
                                     >
                                         Sign up successfully. Redirecting to user page...
                                     </div>

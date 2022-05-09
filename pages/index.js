@@ -13,7 +13,7 @@ function Admin() {
                 <meta property="og:description" content="Challenger Ahead!" />
                 <meta
                     property="og:image"
-                    content="https://sharing-ui.vercel.app/challenger/DeepSea Challenger Thumbnail_2.jpg"
+                    content="https://sharing-ui.vercel.app/challenger/DeepSeaChallengerThumbnail_2.png"
                 />
                 <meta property="og:site_name" content="Anomura: The Cove Awaits You"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game" />
@@ -21,9 +21,9 @@ function Admin() {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://sharing-ui.vercel.app/challenger/DeepSea Challenger Thumbnail_2.jpg"
+                    content="https://sharing-ui.vercel.app/challenger/DeepSeaChallengerThumbnail_2.png"
                 />
-                <link rel="icon" href="/challenger/img/faviconShell.png" />
+                <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div>home page</div>
             {/* Css modules cant have a none pure style in 

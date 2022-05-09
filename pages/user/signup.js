@@ -25,6 +25,7 @@ function SignUp() {
     useEffect(() => {
         if (session) {
             router.push("/user/quest");
+            router.push("/");
         }
     }, [session]);
 
@@ -61,7 +62,8 @@ function SignUp() {
             changeView(SIGNUP_SUCCESS);
 
             redirectTimeout = setTimeout(() => {
-                router.push("/user/quest");
+                //router.push("/user/quest");
+                router.push("/");
             }, 2500);
         } else {
             changeView(SIGNUP_ERROR);

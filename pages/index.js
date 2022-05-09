@@ -1,9 +1,25 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import { AdminLayout } from "/components/admin";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import s from "/sass/claim/claim.module.css";
+import { Web3Context } from "@context/Web3Context";
+import { useSession } from "next-auth/react";
+import { ConnectBoard, IndividualQuestBoard } from "@components/end-user";
 
-function Admin() {
+const util = require("util");
+
+// Home page for user
+function Home() {
+    const [error, setError] = useState(null);
+    const { data: session, status } = useSession({ required: false });
+    const { web3Error } = useContext(Web3Context);
+
+    useEffect(() => {
+        if (web3Error) {
+            setError(web3Error);
+        }
+    }, [web3Error]);
+
+    useEffect(async () => {}, [session]);
     return (
         <>
             <Head>
@@ -25,22 +41,11 @@ function Admin() {
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
-            <div>home page</div>
-            {/* Css modules cant have a none pure style in 
-             /  it like body so making a JSS style here 
-             /  and applying it globally */}
-            {/* <style>{`
-                body {
-                  overflow-x:hidden;
-                  font-size: clamp(18px,2vw,28px);
-                  font-family: Atlantis;
-                  color: black;
-                  line-height: 1.5;
-                }
-            `}</style> */}
+            <div className={s.app}>
+                {!session ? <ConnectBoard /> : <IndividualQuestBoard session={session} />}
+            </div>
         </>
     );
 }
 
-Admin.Layout = AdminLayout;
-export default Admin;
+export default Home;

@@ -4,8 +4,10 @@ import axios from "axios";
 
 const fetcher = async (url, req) => await axios.post(url, req).then((res) => res.data);
 
+const ADMIN_SEARCH = "/challenger/api/admin/search";
+
 export default function SearchResults({ formData }) {
-    const { data, error } = useSWR(["/api/admin/search", formData], fetcher);
+    const { data, error } = useSWR([ADMIN_SEARCH, formData], fetcher);
     const [csvData, setCsvData] = useState(null);
 
     useEffect(async () => {

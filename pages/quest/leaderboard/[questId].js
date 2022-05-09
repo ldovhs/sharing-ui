@@ -3,6 +3,7 @@ import s from "/sass/claim/claim.module.css";
 import { useRouter } from "next/router";
 import { Leaderboard } from "@components/end-user";
 import axios from "axios";
+import Enums from "enums";
 
 const util = require("util");
 
@@ -13,7 +14,7 @@ function QuestLeaderBoard() {
     useEffect(async () => {
         if (!router.isReady || !questId) return;
 
-        const res = await axios.get("/api/user/quest/leaderboard", {
+        const res = await axios.get(`${Enums.BASEPATH}/api/user/quest/leaderboard`, {
             params: {
                 questId,
             },

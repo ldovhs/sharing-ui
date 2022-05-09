@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AdminLayout } from "/components/admin";
 import AddNewReward from "@components/admin/reward/AddNewReward";
-import Enums from enums
+import Enums from "enums";
 
 const AdminRewards = () => {
     useEffect(async () => {}, []);

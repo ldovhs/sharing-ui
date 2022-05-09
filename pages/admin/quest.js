@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AdminLayout } from "/components/admin";
 import { CurrentQuests } from "@components/admin";
-import Enums from enums;
+import Enums from "enums";
 
 const AdminQuest = () => {
     useEffect(async () => {}, []);

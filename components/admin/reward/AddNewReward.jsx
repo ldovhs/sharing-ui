@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import { utils } from "ethers";
 import { withRewardTypeQuery, withPendingRewardSubmit } from "shared/HOC/reward";
-import Enums from enums
+import Enums from "enums";
 
 const avatars = [
     `${Enums.BASEPATH}/img/sharing-ui/invite/ava1.png`,

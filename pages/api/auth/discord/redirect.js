@@ -99,7 +99,7 @@ export default async function discordRedirect(req, res) {
                 }
 
                 res.status(200).json({
-                    message: "Discord authenticattion quest completed! Please close this page.",
+                    message: "Quest completed!",
                 });
             } catch (err) {
                 console.log(err);

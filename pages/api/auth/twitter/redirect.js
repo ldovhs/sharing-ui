@@ -80,12 +80,10 @@ export default async function twitterRedirect(req, res) {
 
                 let twitterQuest = await getQuestByTypeId(twitterAuthQuestType.id);
                 if (!twitterQuest) {
-                    return res
-                        .status(200)
-                        .json({
-                            isError: true,
-                            message: "Cannot find quest associated with twitter auth",
-                        });
+                    return res.status(200).json({
+                        isError: true,
+                        message: "Cannot find quest associated with twitter auth",
+                    });
                 }
 
                 let userQuest = await updateTwitterUserAndAddRewardTransaction(
@@ -101,7 +99,7 @@ export default async function twitterRedirect(req, res) {
                 }
 
                 res.status(200).json({
-                    message: "Twitter Auth Quest completed, please close this page!",
+                    message: "Quest Completed!",
                 });
             } catch (err) {
                 console.log(err);

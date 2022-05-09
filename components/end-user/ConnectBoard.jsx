@@ -3,17 +3,19 @@ import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
 import Enums from "enums";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const util = require("util");
 
 export const WELCOME = 0;
 export const CONNECT_OPTIONS = 1;
-export const WALLET_AUTH = 2;
-export const SOCIAL_AUTH = 3;
-export const AUTHENTICATING = 4;
+export const SIGNIN_OPTIONS = 2;
+export const WALLET_AUTH = 3;
+export const SOCIAL_AUTH = 4;
+export const AUTHENTICATING = 5;
 
 export default function ConnectBoard() {
-    // const [error, setError] = useState(null);
+    let router = useRouter();
     const { web3Error, TryConnectAsUser, setWeb3Error } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
 
@@ -61,7 +63,7 @@ export default function ConnectBoard() {
                                         className={s.board_pinkBtn}
                                         onClick={() => {
                                             setWeb3Error(null);
-                                            changeView(CONNECT_OPTIONS);
+                                            changeView(SIGNIN_OPTIONS);
                                         }}
                                     >
                                         <img
@@ -101,6 +103,38 @@ export default function ConnectBoard() {
                             )}
 
                             {currentPrompt === CONNECT_OPTIONS && !web3Error && (
+                                <div className={` ${s.board_signin_wrapper}`}>
+                                    <div className={s.board_signin_content}>
+                                        <button
+                                            className={s.board_orangeBtn}
+                                            // onClick={() => changeView(WALLET_AUTH)}
+                                            onClick={() => router.push(`/user/signup`)}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/Button_Large 2.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Sign Up</span>
+                                            </div>
+                                        </button>
+                                        <button
+                                            className={s.board_tealBtn}
+                                            onClick={() => changeView(SIGNIN_OPTIONS)}
+                                        >
+                                            <img
+                                                src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Sign In</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {currentPrompt === SIGNIN_OPTIONS && !web3Error && (
                                 <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
                                         <button

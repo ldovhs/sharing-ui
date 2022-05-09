@@ -14,7 +14,7 @@ export const SIGNUP_ERROR = 3;
 export const SIGNUP_SUCCESS = 4;
 
 function SignUp() {
-    const [currentPrompt, setPrompt] = useState(SIGNUP);
+    const [currentPrompt, setPrompt] = useState(SIGNUP_OPTIONS);
     const { data: session, status } = useSession({ required: false });
     const { web3Error, TrySignUpWithWallet, setWeb3Error } = useContext(Web3Context);
     const router = useRouter();

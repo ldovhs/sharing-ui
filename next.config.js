@@ -1,7 +1,7 @@
 const { NEXT_PUBLIC_WEBSITE_HOST } = process.env;
 const basePath = "/challenger";
 module.exports = {
-    //assetPrefix: basePath,
+    assetPrefix: basePath,
     basePath: basePath,
     images: {
         domains: [NEXT_PUBLIC_WEBSITE_HOST],

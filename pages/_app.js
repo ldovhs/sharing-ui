@@ -10,7 +10,7 @@ import Enums from "enums";
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
-        <SessionProvider session={session} basePath={`${Enums.BASEPATH}/api/auth`}>
+        <SessionProvider session={session} basePath={`/challenger/api/auth`}>
             <Web3Provider>
                 <QueryClientProvider client={queryClient}>
                     <StrictMode>

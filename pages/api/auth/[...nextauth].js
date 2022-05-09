@@ -145,7 +145,7 @@ export default NextAuth({
                 });
 
                 if (!existingUser) {
-                    return "/unauthorized";
+                    return "/challenger/unauthorized";
                 }
                 return true;
             }
@@ -160,7 +160,7 @@ export default NextAuth({
                 });
 
                 if (!existingUser) {
-                    return "/unauthorized";
+                    return "/challenger/unauthorized";
                 }
                 return true;
             }
@@ -168,6 +168,8 @@ export default NextAuth({
             return true;
         },
         async redirect({ url, baseUrl }) {
+            console.log(url);
+            console.log(baseUrl);
             return url;
         },
 

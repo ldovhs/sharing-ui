@@ -63,7 +63,7 @@ export default function ConnectBoard() {
                                         className={s.board_pinkBtn}
                                         onClick={() => {
                                             setWeb3Error(null);
-                                            changeView(SIGNIN_OPTIONS);
+                                            changeView(WELCOME);
                                         }}
                                     >
                                         <img

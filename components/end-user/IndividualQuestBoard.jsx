@@ -37,7 +37,7 @@ const IndividualQuestBoard = ({
             setCurrentQuests(userQuests);
         }
     }, [userQuests]);
-
+    console.log(userQuests);
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
             top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12,
@@ -283,8 +283,8 @@ const IndividualQuestBoard = ({
 
                         {/*  Render board footer arrows */}
                         <div className={s.boardLarge_footer}>
-                            <button className={s.boardLarge_arrow} onClick={onScrollDown} />
                             <button className={s.boardLarge_arrow} onClick={onScrollUp} />
+                            <button className={s.boardLarge_arrow} onClick={onScrollDown} />
                         </div>
                     </div>
                 </div>

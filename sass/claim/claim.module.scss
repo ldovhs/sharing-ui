@@ -632,7 +632,7 @@ $list-text-font-size-large: 1.25rem;
             margin-bottom: 0.5rem;
             margin-left:1rem;
         }
-        & > button:nth-child(1) {
+        & > button:nth-child(2) {
             background: url('/challenger/img/sharing-ui/invite/arrow_down.png') no-repeat;
             background-size: contain;
 
@@ -641,7 +641,7 @@ $list-text-font-size-large: 1.25rem;
             animation-iteration-count: infinite;
             animation-direction: alternate;
         }
-        & > button:nth-child(2) {
+        & > button:nth-child(1) {
             background: url('/challenger/img/sharing-ui/invite/arrow_up.png') no-repeat;
             background-size: contain;
 
@@ -1002,18 +1002,18 @@ $list-text-font-size-large: 1.25rem;
 
 @keyframes move-down {
     0% {
-        transform: translateY(10%);
+        transform: translateY(5%);
     }
     100% {
-        transform: translateY(-10%);
+        transform: translateY(-5%);
     }
 }
 
 @keyframes move-up {
     0% {
-        transform: translateY(-10%);
+        transform: translateY(-5%);
     }
     100% {
-        transform: translateY(10%);
+        transform: translateY(5%);
     }
 }

@@ -778,7 +778,7 @@
   margin-bottom: 0.5rem;
   margin-left: 1rem;
 }
-.boardLarge_footer > button:nth-child(1) {
+.boardLarge_footer > button:nth-child(2) {
   background: url("/challenger/img/sharing-ui/invite/arrow_down.png") no-repeat;
   background-size: contain;
   -webkit-animation-name: move-down;
@@ -790,7 +790,7 @@
   -webkit-animation-direction: alternate;
           animation-direction: alternate;
 }
-.boardLarge_footer > button:nth-child(2) {
+.boardLarge_footer > button:nth-child(1) {
   background: url("/challenger/img/sharing-ui/invite/arrow_up.png") no-repeat;
   background-size: contain;
   -webkit-animation-name: move-up;
@@ -1405,33 +1405,33 @@
 }
 @-webkit-keyframes move-down {
   0% {
-    transform: translateY(10%);
+    transform: translateY(5%);
   }
   100% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
 }
 @keyframes move-down {
   0% {
-    transform: translateY(10%);
+    transform: translateY(5%);
   }
   100% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
 }
 @-webkit-keyframes move-up {
   0% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
   100% {
-    transform: translateY(10%);
+    transform: translateY(5%);
   }
 }
 @keyframes move-up {
   0% {
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
   100% {
-    transform: translateY(10%);
+    transform: translateY(5%);
   }
 }/*# sourceMappingURL=claim.module.css.map */

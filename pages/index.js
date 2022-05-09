@@ -6,6 +6,25 @@ import React from "react";
 function Admin() {
     return (
         <>
+            <Head>
+                <title>Anomura Challenger</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta property="og:title" content="Anomura Challenger" />
+                <meta property="og:description" content="Challenger Ahead!" />
+                <meta
+                    property="og:image"
+                    content="https://sharing-ui.vercel.app/challenger/DeepSea Challenger Thumbnail_2.jpg"
+                />
+                <meta property="og:site_name" content="Anomura: The Cove Awaits You"></meta>
+                <meta property="keywords" content="Anomura, NFT, Game" />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    property="twitter:image"
+                    content="https://sharing-ui.vercel.app/challenger/DeepSea Challenger Thumbnail_2.jpg"
+                />
+                <link rel="icon" href="/challenger/img/faviconShell.png" />
+            </Head>
             <div>home page</div>
             {/* Css modules cant have a none pure style in 
              /  it like body so making a JSS style here 

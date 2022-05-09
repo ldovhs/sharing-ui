@@ -10,6 +10,13 @@ const USER_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submit`;
 const ADMIN_QUEST_QUERY = `${Enums.BASEPATH}/api/admin/quest/`;
 const ADMIN_QUEST_UPSERT = `${Enums.BASEPATH}/api/admin/quest/upsert`;
 
+// const QUEST_TYPE_QUERY = `/api/admin/quest/type`;
+// const USER_QUEST_QUERY = `/api/user/quest/`;
+// const USER_QUEST_SUBMIT = `/api/user/quest/submit`;
+
+// const ADMIN_QUEST_QUERY = `/api/admin/quest/`;
+// const ADMIN_QUEST_UPSERT = `/api/admin/quest/upsert`;
+
 export const withQuestUpsert =
     (Component) =>
     ({ ...props }) => {

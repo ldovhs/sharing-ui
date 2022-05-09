@@ -6,11 +6,11 @@ import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import Enums from "enums";
-
+// basePath={`/challenger/api/auth`}
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
-        <SessionProvider session={session} basePath={`/challenger/api/auth`}>
+        <SessionProvider session={session} basePath="/challenger/api/auth">
             <Web3Provider>
                 <QueryClientProvider client={queryClient}>
                     <StrictMode>

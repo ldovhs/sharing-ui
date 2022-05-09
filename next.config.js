@@ -16,8 +16,17 @@ module.exports = {
         return config;
     },
     swcMinify: true,
-    // serverRuntimeConfig: {
-    //     PROJECT_ROOT: __dirname,
+    serverRuntimeConfig: {
+        PROJECT_ROOT: __dirname,
+    },
+    // async redirects() {
+    //     return [
+    //         {
+    //             source: "/api/auth/:path*",
+    //             destination: "/api/auth/:path*",
+    //             permanent: false,
+    //         },
+    //     ];
     // },
     // async headers() {
     //     return [

@@ -8,9 +8,9 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useRouter } from "next/router";
 
 const util = require("util");
-const API_ADMIN = `${Enums.BASEPATH}/api/admin`;
-const API_USER = `${Enums.BASEPATH}/api/user`;
-const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`;
+const API_ADMIN = `${Enums.BASEPATH}/api/admin`; //  `${Enums.BASEPATH}/api/admin`   --  `/api/admin`
+const API_USER = `${Enums.BASEPATH}/api/user`; // `${Enums.BASEPATH}/api/user`  --- `/api/user`
+const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`; // `${Enums.BASEPATH}/api/user/signup` -- `$/api/user/signup`
 
 export const Web3Context = React.createContext();
 

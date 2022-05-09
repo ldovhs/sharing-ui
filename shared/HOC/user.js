@@ -4,6 +4,8 @@ import Enums from "enums";
 
 const USER_API = `${Enums.BASEPATH}/api/user/current`;
 const ADD_USER_API = `${Enums.BASEPATH}/api/admin/user/add`;
+//const USER_API = `/api/user/current`;
+//const ADD_USER_API = `/api/admin/user/add`;
 
 export const withUserUpsert =
     (Component) =>

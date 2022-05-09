@@ -258,7 +258,7 @@ const IndividualQuestBoard = ({
                                                                     "hell"
                                                                 ) && (
                                                                     <img
-                                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Shell.png`}
+                                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
                                                                         alt="reward icon"
                                                                     />
                                                                 )}

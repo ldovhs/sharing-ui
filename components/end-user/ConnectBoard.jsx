@@ -67,7 +67,7 @@ export default function ConnectBoard() {
                                         }}
                                     >
                                         <img
-                                            src={`${basePath}/img/sharing-ui/invite/Button_Large.png`}
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
                                             alt="connectToContinue"
                                         />
                                         <div>

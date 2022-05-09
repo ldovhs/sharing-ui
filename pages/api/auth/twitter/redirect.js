@@ -38,7 +38,7 @@ export default async function twitterRedirect(req, res) {
                     client_secret: TWITTER_CLIENT_SECRET,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/api/auth/twitter/redirect`,
+                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect`,
                     code_verifier: "challenge",
                 });
 

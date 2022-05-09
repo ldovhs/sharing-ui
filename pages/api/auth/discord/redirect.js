@@ -40,7 +40,7 @@ export default async function discordRedirect(req, res) {
                     client_secret: DISCORD_CLIENT_SECRET,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/api/auth/discord/redirect`,
+                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/discord/redirect`,
                 });
 
                 const response = await axios.post(TOKEN_DISCORD_AUTH_URL, formData.toString(), {

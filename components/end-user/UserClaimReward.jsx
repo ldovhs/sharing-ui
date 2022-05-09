@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
-
 import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
+import Enums from "enums";
 
 const UserClaimReward = ({
     session,
@@ -45,7 +44,7 @@ const UserClaimReward = ({
                                     <div className={s.board_loading}>
                                         <div className={s.board_loading_wrapper}>
                                             <img
-                                                src="/img/sharing-ui/clamsparkle.gif"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>
@@ -79,8 +78,8 @@ const UserClaimReward = ({
                                             <img
                                                 src={
                                                     !reward?.pendingReward?.isClaimed
-                                                        ? "/img/sharing-ui/invite/Button_Small.png"
-                                                        : "/img/sharing-ui/invite/Button_Small 2.png"
+                                                        ? `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small.png`
+                                                        : `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`
                                                 }
                                                 alt="connectToContinue"
                                             />
@@ -103,7 +102,7 @@ const UserClaimReward = ({
             {!isSubmittingReward && !isFetchingReward && (
                 <button className={s.board_disconnect} onClick={() => SignOut()}>
                     <img
-                        src="/img/sharing-ui/invite/Button_Disconnect.png"
+                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
                         alt="connectToContinue"
                     />
                     <div>

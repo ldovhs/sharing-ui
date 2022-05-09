@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AdminLayout } from "/components/admin";
-
 import AddNewReward from "@components/admin/reward/AddNewReward";
+import Enums from enums
 
 const AdminRewards = () => {
     useEffect(async () => {}, []);
@@ -23,7 +23,7 @@ const AdminRewards = () => {
                         <div className="card-body">
                             <img
                                 className=""
-                                src="/img/sharing-ui/invite/preview.png"
+                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/preview.png`}
                                 alt="reward-preview"
                             />
                         </div>

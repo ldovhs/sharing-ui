@@ -1,4 +1,5 @@
 const Enums = {
+    BASEPATH: "/challenger",
     DISCORD: "Discord",
     TWITTER: "Twitter",
     METAMASK: "METAMASK",

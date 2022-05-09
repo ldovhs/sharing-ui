@@ -89,7 +89,7 @@ function SignUp() {
                                             }}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -103,7 +103,7 @@ function SignUp() {
                                     <>
                                         <img
                                             className={s.board_headingIcon}
-                                            src="/img/sharing-ui/invite/starfish.gif"
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/starfish.gif`}
                                         />
                                         <div className={s.board_title}>
                                             Welcome to the Cove’s DeepSea Challenger!
@@ -117,7 +117,7 @@ function SignUp() {
                                             onClick={() => changeView(SIGNUP_OPTIONS)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large.png"
+                                                src={`${Enums.BASEPATH}/sharing-ui/invite/Button_Large.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -135,7 +135,7 @@ function SignUp() {
                                                 onClick={() => handleSignUp(Enums.METAMASK)}
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/Button_Large 2.png"
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
@@ -147,7 +147,7 @@ function SignUp() {
                                                 onClick={() => handleSignUp(Enums.WALLETCONNECT)}
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
@@ -161,7 +161,7 @@ function SignUp() {
                                     <div className={s.board_loading}>
                                         <div className={s.board_loading_wrapper}>
                                             <img
-                                                src="/img/sharing-ui/clamsparkle.gif"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>

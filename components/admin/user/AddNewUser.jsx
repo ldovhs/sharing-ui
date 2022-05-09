@@ -3,16 +3,17 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number, ref } from "yup";
 import { utils } from "ethers";
 import { withUserUpsert } from "shared/HOC/user";
+import Enums from enums
 
 const avatars = [
-    "/img/sharing-ui/invite/ava1.png",
-    "/img/sharing-ui/invite/ava2.png",
-    "/img/sharing-ui/invite/ava3.png",
-    "/img/sharing-ui/invite/ava4.png",
-    "/img/sharing-ui/invite/ava5.png",
-    "/img/sharing-ui/invite/ava6.png",
-    "/img/sharing-ui/invite/ava7.png",
-    "/img/sharing-ui/invite/ava8.png",
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava1.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava2.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava3.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava4.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava5.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava6.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava7.png`,
+    `${Enums.BASEPATH}/img/sharing-ui/invite/ava8.png`,
 ];
 
 const initialValues = {

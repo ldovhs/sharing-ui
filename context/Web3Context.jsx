@@ -8,6 +8,9 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useRouter } from "next/router";
 
 const util = require("util");
+const API_ADMIN = `${Enums.BASEPATH}/api/admin`;
+const API_USER = `${Enums.BASEPATH}/api/user`;
+const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`;
 
 export const Web3Context = React.createContext();
 
@@ -102,7 +105,7 @@ export function Web3Provider({ children }) {
                 return;
             }
 
-            const admin = await axios.get("/api/admin", {
+            const admin = await axios.get(API_ADMIN, {
                 params: {
                     address: addresses[0],
                 },
@@ -169,13 +172,13 @@ export function Web3Provider({ children }) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;
             }
-            const user = await axios.get("/api/user", {
+            const user = await axios.get(API_USER, {
                 params: {
                     address: addresses[0],
                 },
             });
             if (!user || !user.data || user.data.isError) {
-                setWeb3Error("Cannot find any user in our db, please sign up");
+                setWeb3Error("User not found, please sign up");
                 return;
             }
 
@@ -273,7 +276,7 @@ export function Web3Provider({ children }) {
                         reject(err.message);
                     });
 
-                const newUser = await axios.post("/api/user/signup", {
+                const newUser = await axios.post(API_SIGNUP, {
                     address,
                     signature,
                 });

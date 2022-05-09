@@ -173,7 +173,7 @@ const IndividualQuestBoard = ({
                                 <div className={s.boardLarge_loading}>
                                     <div className={s.boardLarge_loading_wrapper}>
                                         <img
-                                            src="/img/sharing-ui/clamsparkle.gif"
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
                                             alt="Loading data"
                                         />
                                         <div className={s.boardLarge_loading_wrapper_text}>
@@ -235,7 +235,7 @@ const IndividualQuestBoard = ({
                                                             className={s.boardLarge_list_doneBtn}
                                                         >
                                                             <img
-                                                                src="/img/sharing-ui/invite/Quest_Done Button.png"
+                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Quest_Done Button.png`}
                                                                 alt="connectToContinue"
                                                             />
                                                             <div>
@@ -249,7 +249,7 @@ const IndividualQuestBoard = ({
                                                             onClick={() => DoQuest(item)}
                                                         >
                                                             <img
-                                                                src="/img/sharing-ui/invite/Quest_Reward Button.png"
+                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Quest_Reward Button.png`}
                                                                 alt="reward button"
                                                             />
                                                             <div>
@@ -258,9 +258,7 @@ const IndividualQuestBoard = ({
                                                                     "hell"
                                                                 ) && (
                                                                     <img
-                                                                        src={
-                                                                            "/img/sharing-ui/invite/Shell.png"
-                                                                        }
+                                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Shell.png`}
                                                                         alt="reward icon"
                                                                     />
                                                                 )}
@@ -269,9 +267,7 @@ const IndividualQuestBoard = ({
                                                                     /bowl|Bowl/
                                                                 ) && (
                                                                     <img
-                                                                        src={
-                                                                            "/img/sharing-ui/invite/bowl10frames.gif"
-                                                                        }
+                                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/bowl10frames.gif`}
                                                                         alt="reward icon"
                                                                     />
                                                                 )}
@@ -297,7 +293,7 @@ const IndividualQuestBoard = ({
             {!isFetchingUserQuests && !isFetchingUser && (
                 <button className={s.boardLarge_disconnect} onClick={() => SignOut()}>
                     <img
-                        src="/img/sharing-ui/invite/Button_Disconnect.png"
+                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
                         alt="connectToContinue"
                     />
                     <div>

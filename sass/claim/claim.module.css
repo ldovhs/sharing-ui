@@ -2,7 +2,7 @@
 .app {
   width: 100%;
   height: 100vh;
-  background: 50% 30%/cover url("/img/sharing-ui/invite/Background.png");
+  background: 50% 30%/cover url("/challenger/img/sharing-ui/invite/Background.png");
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@
   width: 100%;
   height: 0;
   padding-top: 85.53%;
-  background: url("/img/sharing-ui/invite/board_sm.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/board_sm.png") no-repeat;
   background-size: contain;
 }
 .board_disconnect {
@@ -530,7 +530,7 @@
   bottom: 0;
   top: 48%;
   width: 100%;
-  background: top/cover url("/img/sharing-ui/invite/fg01.png");
+  background: top/cover url("/challenger/img/sharing-ui/invite/fg01.png");
   z-index: 2;
   pointer-events: none;
   display: flex;
@@ -569,7 +569,7 @@
   width: 100%;
   height: 0;
   padding-top: 136.32%;
-  background: url("/img/sharing-ui/invite/Board_large.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/Board_large.png") no-repeat;
   background-size: contain;
 }
 @media (min-width: 31.25em) {
@@ -577,7 +577,7 @@
     width: 100%;
     height: 0;
     padding-top: 104.29%;
-    background: url("/img/sharing-ui/invite/Board_medium.png") no-repeat;
+    background: url("/challenger/img/sharing-ui/invite/Board_medium.png") no-repeat;
     background-size: cover;
   }
 }
@@ -779,7 +779,7 @@
   margin-left: 1rem;
 }
 .boardLarge_footer > button:nth-child(1) {
-  background: url("/img/sharing-ui/invite/arrow_down.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/arrow_down.png") no-repeat;
   background-size: contain;
   -webkit-animation-name: move-down;
           animation-name: move-down;
@@ -791,7 +791,7 @@
           animation-direction: alternate;
 }
 .boardLarge_footer > button:nth-child(2) {
-  background: url("/img/sharing-ui/invite/arrow_up.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/arrow_up.png") no-repeat;
   background-size: contain;
   -webkit-animation-name: move-up;
           animation-name: move-up;
@@ -810,7 +810,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-image: url("/img/sharing-ui/invite/button_wallet.png");
+  background-image: url("/challenger/img/sharing-ui/invite/button_wallet.png");
   background-size: cover;
   margin-top: 0.75rem;
   width: 10.375rem;
@@ -856,7 +856,7 @@
   }
 }
 .boardLarge_orangeBtn:disabled {
-  background-image: url("/img/sharing-ui/invite/button_wallet-disable.png");
+  background-image: url("/challenger/img/sharing-ui/invite/button_wallet-disable.png");
   background-size: cover;
 }
 .boardLarge_yellowText {
@@ -1007,7 +1007,7 @@
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.6rem;
-  background: url("/img/sharing-ui/invite/Quest_List bg_Mobile.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/Quest_List bg_Mobile.png") no-repeat;
   background-size: 100% 100%;
   text-align: left;
   padding: 0.6rem;
@@ -1046,7 +1046,7 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_list_container {
-    background: url("/img/sharing-ui/invite/Quest_List bg.png") no-repeat;
+    background: url("/challenger/img/sharing-ui/invite/Quest_List bg.png") no-repeat;
     background-size: 100% 100%;
     padding: 0.5rem 1.5rem;
   }

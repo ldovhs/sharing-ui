@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AdminLayout } from "/components/admin";
 import { CurrentQuests } from "@components/admin";
+import Enums from enums;
 
 const AdminQuest = () => {
     useEffect(async () => {}, []);
@@ -18,7 +19,7 @@ const AdminQuest = () => {
                         <div className="card-body">
                             <img
                                 className=""
-                                src="/img/sharing-ui/invite/preview.png"
+                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/preview.png`}
                                 alt="reward-preview"
                             />
                         </div>

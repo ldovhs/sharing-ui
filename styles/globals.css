@@ -4,17 +4,17 @@
 
 
 @font-face {
-	src: url("/fonts/AtlantisInternational.ttf") format("TrueType");
+	src: url("/challenger/fonts/AtlantisInternational.ttf") format("TrueType");
 	font-family: "Atlantis";
 	font-display: swap;
 }
 @font-face {
-	src: url("/fonts/ronda_revised.ttf") format("TrueType");
+	src: url("/challenger/fonts/ronda_revised.ttf") format("TrueType");
 	font-family: "PFRondaSeven";
 	font-display: swap;
 }
 @font-face {
-	src: url("/fonts/Safety Goggles.otf");
+	src: url("/challenger/fonts/Safety Goggles.otf");
 	font-family: "Safety Goggles";
 	/* font-display: swap; */
 }

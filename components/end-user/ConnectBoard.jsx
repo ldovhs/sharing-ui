@@ -67,7 +67,7 @@ export default function ConnectBoard() {
                                         }}
                                     >
                                         <img
-                                            src="/img/sharing-ui/invite/Button_Large.png"
+                                            src={`${basePath}/img/sharing-ui/invite/Button_Large.png`}
                                             alt="connectToContinue"
                                         />
                                         <div>
@@ -81,7 +81,7 @@ export default function ConnectBoard() {
                                 <>
                                     <img
                                         className={s.board_headingIcon}
-                                        src="/img/sharing-ui/invite/starfish.gif"
+                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/starfish.gif`}
                                     />
                                     <div className={s.board_title}>
                                         Welcome to the Cove’s DeepSea Challenger!
@@ -92,7 +92,7 @@ export default function ConnectBoard() {
                                         onClick={() => changeView(CONNECT_OPTIONS)}
                                     >
                                         <img
-                                            src="/img/sharing-ui/invite/Button_Large.png"
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
                                             alt="connectToContinue"
                                         />
                                         <div>
@@ -111,7 +111,7 @@ export default function ConnectBoard() {
                                             onClick={() => router.push(`/user/signup`)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 2.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -123,7 +123,7 @@ export default function ConnectBoard() {
                                             onClick={() => changeView(SIGNIN_OPTIONS)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -142,7 +142,7 @@ export default function ConnectBoard() {
                                             onClick={() => changeView(WALLET_AUTH)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 2.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -154,7 +154,7 @@ export default function ConnectBoard() {
                                             onClick={() => changeView(SOCIAL_AUTH)}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -175,7 +175,7 @@ export default function ConnectBoard() {
                                             }}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 4.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 4.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -189,7 +189,7 @@ export default function ConnectBoard() {
                                             }}
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -211,7 +211,7 @@ export default function ConnectBoard() {
                                                 }
                                             >
                                                 <img
-                                                    src="/img/sharing-ui/invite/Button_Large 2.png"
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
                                                     alt="connectToContinue"
                                                 />
                                                 <div>
@@ -226,7 +226,7 @@ export default function ConnectBoard() {
                                             }
                                         >
                                             <img
-                                                src="/img/sharing-ui/invite/Button_Large 3.png"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -241,7 +241,7 @@ export default function ConnectBoard() {
                                 <div className={s.board_loading}>
                                     <div className={s.board_loading_wrapper}>
                                         <img
-                                            src="/img/sharing-ui/clamsparkle.gif"
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
                                             alt="Loading data"
                                         />
                                         <div className={s.board_loading_wrapper_text}>

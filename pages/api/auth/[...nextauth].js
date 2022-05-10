@@ -18,7 +18,7 @@ const {
     TWITTER_CLIENT_SECRET,
 } = process.env;
 
-export default NextAuth({
+const options = {
     providers: [
         /*   
             Update new nonce for next time authentication
@@ -190,4 +190,13 @@ export default NextAuth({
         },
     },
     secret: NEXT_PUBLIC_NEXTAUTH_SECRET,
-});
+};
+
+export default (req, res) => {
+    if (process.env.VERCEL) {
+        // prefer NEXTAUTH_URL, fallback to x-forwarded-host
+        req.headers["x-forwarded-host"] =
+            process.env.NEXTAUTH_URL || req.headers["x-forwarded-host"];
+    }
+    return NextAuth(req, res, options);
+};

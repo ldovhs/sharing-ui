@@ -316,7 +316,7 @@ const IndividualQuestBoard = ({
                                     src={
                                         scroll.canScrollUp
                                             ? `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Up_Blue.png`
-                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Up.png`
+                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/arrow_up.png`
                                     }
                                     alt="scroll up"
                                 />
@@ -326,7 +326,7 @@ const IndividualQuestBoard = ({
                                     src={
                                         scroll.canScrollDown
                                             ? `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Down_Blue.png`
-                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Down.png`
+                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/arrow_down.png`
                                     }
                                     alt="scroll up"
                                 />

@@ -23,16 +23,19 @@ function Home() {
     return (
         <>
             <Head>
-                <title>Anomura Challenger</title>
+                <title>DeepSea Challenger</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Anomura Challenger" />
-                <meta property="og:description" content="Challenger Ahead!" />
+                <meta property="og:title" content="DeepSea Challenger" />
+                <meta
+                    property="og:description"
+                    content="Complete quests, earn $SHELL, unlock prizes"
+                />
                 <meta property="og:image" content="/challenger/DeepSeaChallengerThumbnail_2.png" />
                 <meta
                     property="og:site_name"
-                    content="Anomura Challenger: The Cove Awaits You"
+                    content="Anomura: The Cove's DeepSea Challenger"
                 ></meta>
-                <meta property="keywords" content="Anomura, NFT, Game" />
+                <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta

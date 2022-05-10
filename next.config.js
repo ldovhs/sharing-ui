@@ -1,10 +1,11 @@
 const basePath = "/challenger";
 module.exports = {
-    // assetPrefix: basePath,
+    basePath: "/challenger",
+    assetPrefix: "/challenger/",
     env: {
-        // NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     },
-    basePath: basePath,
+
     images: {
         domains: [process.env.NEXT_PUBLIC_WEBSITE_HOST],
         path: `${basePath}/_next/image`,

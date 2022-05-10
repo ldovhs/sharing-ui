@@ -37,7 +37,7 @@ const IndividualQuestBoard = ({
             setCurrentQuests(userQuests);
         }
     }, [userQuests]);
-
+    console.log(userQuests);
     const onScrollDown = () => {
         scrollRef.current.scrollTo({
             top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12,

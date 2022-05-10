@@ -127,6 +127,7 @@ const options = {
         }),
     ],
     // site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+    debug: true,
     session: {
         jwt: true,
         maxAge: 60 * 60 * 24 * 5, //  30 * 24 * 60 * 60

@@ -55,6 +55,30 @@ const IndividualQuestBoard = ({
         }
     }, [userQuests]);
 
+    const onScroll = (e) => {
+        if (
+            e.target.scrollTop >=
+            scrollRef.current.scrollHeight - scrollRef.current.offsetHeight - 16
+        ) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
+            return;
+        }
+
+        if (
+            e.target.scrollTop <
+                scrollRef.current.scrollHeight - scrollRef.current.offsetHeight - 16 &&
+            e.target.scrollTop > 0
+        ) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
+            return;
+        }
+
+        if (e.target.scrollTop === 0) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: false }));
+            return;
+        }
+    };
+
     const onScrollDown = () => {
         let scrollValue = scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12;
         scrollRef.current.scrollTo({
@@ -62,16 +86,16 @@ const IndividualQuestBoard = ({
             behavior: "smooth",
         });
 
-        if (
-            scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
-            scrollRef.current.scrollTop + scrollValue > 0
-        ) {
-            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
-        }
+        // if (
+        //     scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
+        //     scrollRef.current.scrollTop + scrollValue > 0
+        // ) {
+        //     setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
+        // }
 
-        if (scrollRef.current.scrollTop + scrollValue >= scrollRef.current.scrollHeight) {
-            setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
-        }
+        // if (scrollRef.current.scrollTop + scrollValue >= scrollRef.current.scrollHeight) {
+        //     setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
+        // }
     };
     const onScrollUp = () => {
         let scrollValue = scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16;
@@ -80,16 +104,17 @@ const IndividualQuestBoard = ({
             behavior: "smooth",
         });
 
-        if (
-            scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
-            scrollRef.current.scrollTop + scrollValue > 0
-        ) {
-            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
-        }
+        // setState based on scroll
+        // if (
+        //     scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
+        //     scrollRef.current.scrollTop + scrollValue > 0
+        // ) {
+        //     setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
+        // }
 
-        if (scrollValue <= 0) {
-            setScroll((prevState) => ({ ...prevState, canScrollUp: false, canScrollDown: true }));
-        }
+        // if (scrollValue <= 0) {
+        //     setScroll((prevState) => ({ ...prevState, canScrollUp: false, canScrollDown: true }));
+        // }
     };
 
     /*
@@ -208,7 +233,11 @@ const IndividualQuestBoard = ({
                         {/*  Render error message */}
                         {currentQuests?.isError && <div>{currentQuests?.message}</div>}
 
-                        <div className={s.boardLarge_scrollableArea} ref={scrollRef}>
+                        <div
+                            className={s.boardLarge_scrollableArea}
+                            ref={scrollRef}
+                            onScroll={onScroll}
+                        >
                             {/* Is Loading */}
                             {(isFetchingUserQuests || isSubmitting || isFetchingUser) && (
                                 <div className={s.boardLarge_loading}>
@@ -328,7 +357,7 @@ const IndividualQuestBoard = ({
                                             ? `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Down_Blue.png`
                                             : `${Enums.BASEPATH}/img/sharing-ui/invite/arrow_down.png`
                                     }
-                                    alt="scroll up"
+                                    alt="scroll down"
                                 />
                             </button>
                         </div>

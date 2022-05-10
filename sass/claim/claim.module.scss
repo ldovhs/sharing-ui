@@ -628,29 +628,26 @@ $list-text-font-size-large: 1.25rem;
         }
 
         & > button {
-            width: 13%;
+            width: 30%;
             height: auto;
             margin-bottom: 0.5rem;
-            margin-left:1rem;
+            @media (min-width: $bp-small) {
+                width: 27%;
+            }
+            @media (min-width: $bp-small-2) {
+                width: 25%;
+            }
+            
+            @media (min-width: $bp-small-3) {
+                width: 20%;
+                margin-bottom: 1rem;
+            }
         }
+
         & > button:nth-child(2) {
-            background: url('/challenger/img/sharing-ui/invite/arrow_down.png') no-repeat;
-            background-size: contain;
-
-            animation-name: move-down;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
+            margin-left: -1rem;
         }
-        & > button:nth-child(1) {
-            background: url('/challenger/img/sharing-ui/invite/arrow_up.png') no-repeat;
-            background-size: contain;
-
-            animation-name: move-up;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
+   
     }
     &_orangeBtn { 
         @include text();
@@ -698,6 +695,15 @@ $list-text-font-size-large: 1.25rem;
         overflow-y: scroll;
         position: relative;
         gap: 0.6rem;
+
+        @media (min-width: $bp-small) {
+            gap: 0.675rem;
+            flex: 75%;
+        }
+        @media (min-width: $bp-small-2) {
+            gap: 0.6rem;
+            flex: 90%;
+        }
         
         @media (min-width: $bp-small-3) {
             gap: 0.85rem;
@@ -1001,20 +1007,3 @@ $list-text-font-size-large: 1.25rem;
   }
 }
 
-@keyframes move-down {
-    0% {
-        transform: translateY(5%);
-    }
-    100% {
-        transform: translateY(-5%);
-    }
-}
-
-@keyframes move-up {
-    0% {
-        transform: translateY(-5%);
-    }
-    100% {
-        transform: translateY(5%);
-    }
-}

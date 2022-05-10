@@ -17,11 +17,28 @@ const IndividualQuestBoard = ({
 }) => {
     const [currentQuests, setCurrentQuests] = useState(userQuests);
     const [rewardAmount, setRewardAmount] = useState(null);
+    const [scroll, setScroll] = useState({
+        canScrollUp: false,
+        canScrollDown: true,
+    });
     const { web3Error, SignOut } = useContext(Web3Context);
     const scrollRef = useRef();
 
+    // console.log(userQuests);
     useEffect(async () => {
         if (userQuests && userQuests.length > 0) {
+            let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
+
+            if (!twitterAuthQuest.isDone) {
+                userQuests = userQuests.filter((q) => {
+                    if (
+                        q.type.name === Enums.TWITTER_RETWEET ||
+                        q.type.name === Enums.FOLLOW_TWITTER
+                    ) {
+                        return false;
+                    } else return true;
+                });
+            }
             userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
             let sum = userQuests
@@ -39,16 +56,40 @@ const IndividualQuestBoard = ({
     }, [userQuests]);
 
     const onScrollDown = () => {
+        let scrollValue = scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12;
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12,
+            top: scrollValue,
             behavior: "smooth",
         });
+
+        if (
+            scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
+            scrollRef.current.scrollTop + scrollValue > 0
+        ) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
+        }
+
+        if (scrollRef.current.scrollTop + scrollValue >= scrollRef.current.scrollHeight) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
+        }
     };
     const onScrollUp = () => {
+        let scrollValue = scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16;
         scrollRef.current.scrollTo({
-            top: scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16,
+            top: scrollValue,
             behavior: "smooth",
         });
+
+        if (
+            scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
+            scrollRef.current.scrollTop + scrollValue > 0
+        ) {
+            setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
+        }
+
+        if (scrollValue <= 0) {
+            setScroll((prevState) => ({ ...prevState, canScrollUp: false, canScrollDown: true }));
+        }
     };
 
     /*
@@ -215,19 +256,6 @@ const IndividualQuestBoard = ({
                                             <div className={s.boardLarge_list_container}>
                                                 <div className={s.boardLarge_list_text}>
                                                     {GetQuestText(text, type, extendedQuestData)}
-                                                    {/* {text}
-                                                    {type.name === Enums.FOLLOW_TWITTER && (
-                                                        <span className="text-teal-500">
-                                                            {` @${extendedQuestData.followAccount}`}{" "}
-                                                        </span>
-                                                    )}
-                                                    {type.name === Enums.FOLLOW_INSTAGRAM && (
-                                                        <>
-                                                            <span className="text-red-400">
-                                                                {` @${extendedQuestData.followAccount}`}{" "}
-                                                            </span>
-                                                        </>
-                                                    )} */}
                                                 </div>
                                                 <div className={s.boardLarge_list_action}>
                                                     {isDone && (
@@ -283,8 +311,26 @@ const IndividualQuestBoard = ({
 
                         {/*  Render board footer arrows */}
                         <div className={s.boardLarge_footer}>
-                            <button className={s.boardLarge_arrow} onClick={onScrollUp} />
-                            <button className={s.boardLarge_arrow} onClick={onScrollDown} />
+                            <button className={s.boardLarge_arrow} onClick={onScrollUp}>
+                                <img
+                                    src={
+                                        scroll.canScrollUp
+                                            ? `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Up_Blue.png`
+                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Up.png`
+                                    }
+                                    alt="scroll up"
+                                />
+                            </button>
+                            <button className={s.boardLarge_arrow} onClick={onScrollDown}>
+                                <img
+                                    src={
+                                        scroll.canScrollDown
+                                            ? `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Down_Blue.png`
+                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Arrow_Down.png`
+                                    }
+                                    alt="scroll up"
+                                />
+                            </button>
                         </div>
                     </div>
                 </div>

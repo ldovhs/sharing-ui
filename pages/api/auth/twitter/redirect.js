@@ -25,12 +25,14 @@ export default async function twitterRedirect(req, res) {
                 let whiteListUser = await isWhiteListUser(session);
 
                 if (!session || !utils.isAddress(whiteListUser.wallet)) {
-                    throw new Error("Unauthenticated user");
+                    let error = "Attempt to access without authenticated.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const { code } = req.query;
                 if (!code) {
-                    res.status(200).json({ message: "Missing auth code." });
+                    let error = "Missing auth code. Please contact the administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const formData = new url.URLSearchParams({
@@ -49,7 +51,8 @@ export default async function twitterRedirect(req, res) {
                 });
 
                 if (!response || !response?.data?.access_token) {
-                    throw new Error("Couldn't authenticate with Twitter Auth Oath2");
+                    let error = "Couldn't authenticate with Twitter Auth Oath2.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const userInfo = await axios.get(USERINFO_TWITTER_URL, {
@@ -59,31 +62,29 @@ export default async function twitterRedirect(req, res) {
                 });
 
                 if (!userInfo) {
-                    throw new Error("Couldn't retrieve twitter info, pls retry later!");
+                    let error = "Couldn't retrieve twitter info, pls retry later!";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 if (
                     whiteListUser.twitterId != null &&
                     (whiteListUser.twitterId.length > 0 || whiteListUser.twitterUserName.length > 0)
                 ) {
-                    return res
-                        .status(200)
-                        .json({ message: "This twitter account is already authenticated before." });
+                    let error = "Twitter account is already authenticated.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let twitterAuthQuestType = await getQuestType(Enums.TWITTER_AUTH);
                 if (!twitterAuthQuestType) {
-                    return res
-                        .status(200)
-                        .json({ isError: true, message: "Cannot find quest type twitter auth" });
+                    let error =
+                        "Cannot find quest type twitter auth. Pleaes contact administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let twitterQuest = await getQuestByTypeId(twitterAuthQuestType.id);
                 if (!twitterQuest) {
-                    return res.status(200).json({
-                        isError: true,
-                        message: "Cannot find quest associated with twitter auth",
-                    });
+                    let error = "Cannot find any quest associated with twitter auth.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let userQuest = await updateTwitterUserAndAddRewardTransaction(
@@ -93,16 +94,11 @@ export default async function twitterRedirect(req, res) {
                 );
 
                 if (!userQuest) {
-                    return res
-                        .status(200)
-                        .json({ message: "Cannot finish this quest, pls contact administrator!" });
+                    let error = "Cannot finish this quest, pls contact administrator!";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                // res.status(200).json({
-                //     message: "Quest Completed!",
-                // });
-
-                res.status(200).redirect(`/challenger/quest-complete`);
+                res.status(200).redirect(`/challenger/quest-redirect`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

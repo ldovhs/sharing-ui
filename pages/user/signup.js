@@ -62,7 +62,6 @@ function SignUp() {
             changeView(SIGNUP_SUCCESS);
 
             redirectTimeout = setTimeout(() => {
-                //router.push("/user/quest");
                 router.push("/");
             }, 2500);
         } else {

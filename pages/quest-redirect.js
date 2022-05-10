@@ -1,8 +1,11 @@
 import React from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
+import { useRouter } from "next/router";
 
 function QuestComplete() {
+    let router = useRouter();
+
     return (
         <>
             <div className={s.app}>
@@ -14,9 +17,14 @@ function QuestComplete() {
                         <div className={s.board_wrapper}>
                             <div className={s.board_content}>
                                 <>
-                                    <div className={s.board_text}>
-                                        Quest Completed. Please close this page!
-                                    </div>
+                                    {!router?.query?.error && (
+                                        <div className={s.board_text}>
+                                            Quest Completed. Please close this page!
+                                        </div>
+                                    )}
+                                    {router?.query?.error && (
+                                        <div className={s.board_text}>{router?.query?.error}</div>
+                                    )}
                                 </>
                             </div>
                         </div>

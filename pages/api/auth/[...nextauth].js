@@ -129,7 +129,7 @@ const options = {
     // site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
     session: {
         jwt: true,
-        maxAge: 60 * 60, //  30 * 24 * 60 * 60
+        maxAge: 60 * 60 * 24 * 5, //  30 * 24 * 60 * 60
     },
     jwt: {
         signingKey: NEXT_PUBLIC_NEXTAUTH_SECRET,

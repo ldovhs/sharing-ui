@@ -10,9 +10,9 @@ const Enums = {
         BOREDAPE: "Bored Ape",
         MINTLIST: "Mint List",
     },
-    ADMIN_SIGN_MSG: "Signing to authenticate as admin",
+    ADMIN_SIGN_MSG: "Sign to authenticate as admin",
     USER_SIGN_MSG:
-        "Welcome to the Cove, Anomuran.\nBeware the Challenger ahead!\nSigh in to proceed at your own risk.",
+        "Welcome to the Cove, Anomuran.\nBeware the Challenger ahead!\nSign in to proceed at your own risk.",
 
     // quest related
     DISCORD_AUTH: "Discord Authenticate",

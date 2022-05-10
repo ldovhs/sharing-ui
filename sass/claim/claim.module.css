@@ -774,34 +774,28 @@
   }
 }
 .boardLarge_footer > button {
-  width: 13%;
+  width: 30%;
   height: auto;
   margin-bottom: 0.5rem;
-  margin-left: 1rem;
+}
+@media (min-width: 24em) {
+  .boardLarge_footer > button {
+    width: 27%;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_footer > button {
+    width: 25%;
+  }
+}
+@media (min-width: 39.8em) {
+  .boardLarge_footer > button {
+    width: 20%;
+    margin-bottom: 1rem;
+  }
 }
 .boardLarge_footer > button:nth-child(2) {
-  background: url("/challenger/img/sharing-ui/invite/arrow_down.png") no-repeat;
-  background-size: contain;
-  -webkit-animation-name: move-down;
-          animation-name: move-down;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
-}
-.boardLarge_footer > button:nth-child(1) {
-  background: url("/challenger/img/sharing-ui/invite/arrow_up.png") no-repeat;
-  background-size: contain;
-  -webkit-animation-name: move-up;
-          animation-name: move-up;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
+  margin-left: -1rem;
 }
 .boardLarge_orangeBtn {
   font-family: PFRondaSeven;
@@ -914,6 +908,18 @@
   overflow-y: scroll;
   position: relative;
   gap: 0.6rem;
+}
+@media (min-width: 24em) {
+  .boardLarge_scrollableArea {
+    gap: 0.675rem;
+    flex: 75%;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_scrollableArea {
+    gap: 0.6rem;
+    flex: 90%;
+  }
 }
 @media (min-width: 39.8em) {
   .boardLarge_scrollableArea {
@@ -1402,37 +1408,5 @@
 @-webkit-keyframes ellipsis {
   to {
     width: 1.25em;
-  }
-}
-@-webkit-keyframes move-down {
-  0% {
-    transform: translateY(5%);
-  }
-  100% {
-    transform: translateY(-5%);
-  }
-}
-@keyframes move-down {
-  0% {
-    transform: translateY(5%);
-  }
-  100% {
-    transform: translateY(-5%);
-  }
-}
-@-webkit-keyframes move-up {
-  0% {
-    transform: translateY(-5%);
-  }
-  100% {
-    transform: translateY(5%);
-  }
-}
-@keyframes move-up {
-  0% {
-    transform: translateY(-5%);
-  }
-  100% {
-    transform: translateY(5%);
   }
 }/*# sourceMappingURL=claim.module.css.map */

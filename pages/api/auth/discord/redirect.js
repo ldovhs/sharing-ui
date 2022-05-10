@@ -27,12 +27,14 @@ export default async function discordRedirect(req, res) {
                 let whiteListUser = await isWhiteListUser(session);
 
                 if (!session || !whiteListUser || !utils.isAddress(whiteListUser.wallet)) {
-                    throw new Error("Unauthenticated user");
+                    let error = "Attempt to access without authenticated.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const { code } = req.query;
                 if (!code) {
-                    res.status(200).json({ message: "Missing auth code for oath2" });
+                    let error = "Missing auth code. Please contact the administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const formData = new url.URLSearchParams({
@@ -50,7 +52,8 @@ export default async function discordRedirect(req, res) {
                 });
 
                 if (!response || !response?.data?.access_token) {
-                    throw new Error("Couldn't authenticate with Discord Auth");
+                    let error = "Couldn't authenticate with Discord";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 const userInfo = await axios.get(USERINFO_DISCORD_AUTH_URL, {
@@ -60,7 +63,9 @@ export default async function discordRedirect(req, res) {
                 });
 
                 if (!userInfo) {
-                    throw new Error("Couldn't retrieve user info from auth");
+                    let error =
+                        "Could not retrieve discord user information. Please contact administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 if (
@@ -68,22 +73,25 @@ export default async function discordRedirect(req, res) {
                     (whiteListUser.discordId.length > 0 ||
                         whiteListUser.discordUserDiscriminator.length > 0)
                 ) {
-                    return res.status(200).json({ message: "Already authenticated before" });
+                    let error = "Discord account is already authenticated.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let discordAuthQuestType = await getQuestType(Enums.DISCORD_AUTH);
                 if (!discordAuthQuestType) {
-                    return res
-                        .status(200)
-                        .json({ isError: true, message: "Cannot find quest type discord auth" });
+                    let error = "Cannot find quest type discord auth";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let discordQuest = await getQuestByTypeId(discordAuthQuestType.id);
                 if (!discordQuest) {
-                    return res.status(200).json({
-                        isError: true,
-                        message: "Cannot find quest associated with discord auth",
-                    });
+                    // return res.status(200).json({
+                    //     isError: true,
+                    //     message: "Cannot find quest associated with discord auth",
+                    // });
+
+                    let error = "Cannot find quest associated with discord auth";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
                 let userQuest = await updateDiscordUserAndAddRewardTransaction(
@@ -93,15 +101,14 @@ export default async function discordRedirect(req, res) {
                 );
 
                 if (!userQuest) {
-                    return res
-                        .status(200)
-                        .json({ message: "Cannot finish quest, pls contact administrator!" });
+                    // return res
+                    //     .status(200)
+                    //     .json({ message: "Cannot finish quest, pls contact administrator!" });
+                    let error = "Cannot finish this quest, pls contact administrator!";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                // res.status(200).json({
-                //     message: "Quest completed!",
-                // });
-                res.status(200).redirect(`/challenger/quest-complete`);
+                res.status(200).redirect(`/challenger/quest-redirect`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

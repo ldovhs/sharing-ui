@@ -137,9 +137,9 @@ const options = {
     },
     callbacks: {
         signIn: async (user, account, profile) => {
-            if (user.account.provider === "discord") {
+            console.log(user);
+            if (user?.account?.provider === "discord") {
                 let discordId = user.account.providerAccountId;
-                console.log(user.profile.username);
                 const existingUser = await prisma.whiteList.findFirst({
                     where: {
                         discordId,
@@ -176,12 +176,14 @@ const options = {
         },
 
         async session({ session, token }) {
+            console.log(session);
             session.profile = token.profile;
             session.user = token.user;
             session.provider = token.provider;
             return session;
         },
         async jwt({ token, user, account, profile }) {
+            console.log(token);
             if (user) {
                 token.profile = profile;
                 token.user = user;

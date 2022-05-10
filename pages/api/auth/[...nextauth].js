@@ -138,7 +138,7 @@ const options = {
         signIn: async (user, account, profile) => {
             if (user.account.provider === "discord") {
                 let discordId = user.account.providerAccountId;
-
+                console.log(user.profile.username);
                 const existingUser = await prisma.whiteList.findFirst({
                     where: {
                         discordId,
@@ -146,7 +146,8 @@ const options = {
                 });
 
                 if (!existingUser) {
-                    return "/challenger/unauthorized";
+                    let error = `Discord ${user.profile.username}#${user.profile.discriminator} not found in our database.`;
+                    return `/challenger/quest-redirect?error=${error}`;
                 }
                 return true;
             }
@@ -161,7 +162,8 @@ const options = {
                 });
 
                 if (!existingUser) {
-                    return "/challenger/unauthorized";
+                    let error = `Twitter ${user.user.name} not found in our database.`;
+                    return `/challenger/quest-redirect?error=${error}`;
                 }
                 return true;
             }

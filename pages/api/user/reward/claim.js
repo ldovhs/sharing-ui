@@ -85,10 +85,13 @@ const userClaimRewardAPI = async (req, res) => {
                             claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                            break;
+                        case Enums.REWARDTYPE.SHELL:
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                         default:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif.gif`;
                             break;
                     }
 

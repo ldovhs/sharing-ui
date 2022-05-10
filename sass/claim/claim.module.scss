@@ -73,6 +73,9 @@ $list-text-font-size-large: 1.25rem;
     @media (min-width: $bp-xl) {  
         font-size: $heading-font-size-med;
     }
+    @media (min-width: $bp-xl-2) {  
+        line-height: 2.5rem;
+    }
 }
 
 @mixin boardText(){
@@ -262,6 +265,14 @@ $list-text-font-size-large: 1.25rem;
         display:flex;
         justify-content: center;
 
+        // @media (min-width: $bp-xl-2) {  
+        //     top: 13.75%;
+        // }
+
+        @media (min-width: $bp-xl-3) {  
+            top: 13.75%;
+        }
+
         &_content {
             margin-left: 1.25vw;
             font-family: PFRondaSeven;
@@ -320,7 +331,10 @@ $list-text-font-size-large: 1.25rem;
             padding: 0 19%;
         }
         @media (min-width: $bp-med-2) {  
-            padding: 0 8rem;
+            padding: 0 19%;
+        }
+        @media (min-width: $bp-xl-2) {  
+          //  padding: 0 5rem;
         }
     }
 
@@ -695,6 +709,7 @@ $list-text-font-size-large: 1.25rem;
         overflow-y: scroll;
         position: relative;
         gap: 0.6rem;
+        scrollbar-width: none;
 
         @media (min-width: $bp-small) {
             gap: 0.675rem;
@@ -930,6 +945,7 @@ $list-text-font-size-large: 1.25rem;
                 display: flex;
                 text-align: center;
                 align-items: center;
+                justify-content: center;
                 height: 87%;
                 gap:0.25rem;
                 & > span { 

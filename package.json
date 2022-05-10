@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.13.0",
-    "@qhuynhvhslab/anomura-prisma-package": "^1.0.18",
+    "@qhuynhvhslab/anomura-prisma-package": "^1.0.19",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",

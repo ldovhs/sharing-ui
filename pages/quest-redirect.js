@@ -23,7 +23,25 @@ function QuestComplete() {
                                         </div>
                                     )}
                                     {router?.query?.error && (
-                                        <div className={s.board_text}>{router?.query?.error}</div>
+                                        <>
+                                            <div className={s.board_text}>
+                                                {router?.query?.error}
+                                            </div>
+                                            <button
+                                                className={s.board_pinkBtn}
+                                                onClick={() => {
+                                                    router.push("/");
+                                                }}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span>Go Back</span>
+                                                </div>
+                                            </button>
+                                        </>
                                     )}
                                 </>
                             </div>

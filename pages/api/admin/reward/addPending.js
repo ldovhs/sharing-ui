@@ -80,10 +80,13 @@ const AddPendingRewardAPI = async (req, res) => {
                             pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                            break;
+                        case Enums.REWARDTYPE.SHELL:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                         default:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                     }
 

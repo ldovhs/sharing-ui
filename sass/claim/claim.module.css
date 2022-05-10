@@ -40,6 +40,11 @@
   display: flex;
   justify-content: center;
 }
+@media (min-width: 160em) {
+  .board_dollar {
+    top: 13.75%;
+  }
+}
 .board_dollar_content {
   margin-left: 1.25vw;
   font-family: PFRondaSeven;
@@ -136,7 +141,7 @@
 }
 @media (min-width: 50em) {
   .board_wrapper {
-    padding: 0 8rem;
+    padding: 0 19%;
   }
 }
 .board_content {
@@ -273,6 +278,11 @@
 @media (min-width: 90em) {
   .board_title {
     font-size: 2.25rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_title {
+    line-height: 2.5rem;
   }
 }
 .board_text {
@@ -750,6 +760,11 @@
     font-size: 2.25rem;
   }
 }
+@media (min-width: 123.75em) {
+  .boardLarge_title {
+    line-height: 2.5rem;
+  }
+}
 .boardLarge_title > div:nth-child(2) {
   margin-top: 0.15rem;
   font-size: 0.65em;
@@ -908,6 +923,7 @@
   overflow-y: scroll;
   position: relative;
   gap: 0.6rem;
+  scrollbar-width: none;
 }
 @media (min-width: 24em) {
   .boardLarge_scrollableArea {
@@ -1272,6 +1288,7 @@
   display: flex;
   text-align: center;
   align-items: center;
+  justify-content: center;
   height: 87%;
   gap: 0.25rem;
 }

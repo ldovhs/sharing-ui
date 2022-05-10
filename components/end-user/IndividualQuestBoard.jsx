@@ -52,6 +52,21 @@ const IndividualQuestBoard = ({
                 .reduce((prev, curr) => prev + curr, 0);
             setRewardAmount(sum);
             setCurrentQuests(userQuests);
+
+            // fix initial scrollable indicator if item
+            if (userQuests.length <= 3) {
+                setScroll((prevState) => ({
+                    ...prevState,
+                    canScrollDown: false,
+                    canScrollUp: false,
+                }));
+            } else {
+                setScroll((prevState) => ({
+                    ...prevState,
+                    canScrollDown: true,
+                    canScrollUp: false,
+                }));
+            }
         }
     }, [userQuests]);
 

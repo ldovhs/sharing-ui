@@ -26,7 +26,7 @@ const IndividualQuestBoard = ({
             userQuests.sort(isNotDoneFirst);
             let sum = userQuests
                 .map((r) => {
-                    if (r.rewardType.reward === "Shell" || r.rewardType.reward === "$hell") {
+                    if (r.rewardType.reward.match("hell") || r.rewardType.reward.match("$Shell")) {
                         return r.rewardedQty;
                     } else {
                         return 0;

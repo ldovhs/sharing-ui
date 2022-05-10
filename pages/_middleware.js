@@ -4,7 +4,7 @@ export async function middleware(req, ev) {
 
     const { pathname } = req.nextUrl;
     console.log(pathname);
-    if (pathname.startsWith("/api/auth")) {
+    if (pathname.startsWith("/api/auth/callback")) {
         url.pathname = `/challenger${pathname}`;
 
         return NextResponse.rewrite(url);

@@ -1,10 +1,12 @@
-const { NEXT_PUBLIC_WEBSITE_HOST } = process.env;
 const basePath = "/challenger";
 module.exports = {
     // assetPrefix: basePath,
+    env: {
+        // NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    },
     basePath: basePath,
     images: {
-        domains: [NEXT_PUBLIC_WEBSITE_HOST],
+        domains: [process.env.NEXT_PUBLIC_WEBSITE_HOST],
         path: `${basePath}/_next/image`,
     },
     publicRuntimeConfig: {

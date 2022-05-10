@@ -126,7 +126,7 @@ export default NextAuth({
             version: "2.0",
         }),
     ],
-    site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+    // site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
     session: {
         jwt: true,
         maxAge: 60 * 60, //  30 * 24 * 60 * 60

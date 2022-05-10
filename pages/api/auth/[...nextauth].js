@@ -147,7 +147,7 @@ const options = {
                 });
 
                 if (!existingUser) {
-                    let error = `Discord ${user.profile.username}#${user.profile.discriminator} not found in our database.`;
+                    let error = `Discord ${user.profile.username}\#${user.profile.discriminator} not found in our database.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
                 return true;

@@ -171,9 +171,6 @@ export default function ConnectBoard() {
                                         <button
                                             className={s.board_purpleBtn}
                                             onClick={() => {
-                                                // signIn("discord", {
-                                                //     callbackUrl: `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/callback/discord`,
-                                                // });
                                                 signIn("discord");
                                             }}
                                         >

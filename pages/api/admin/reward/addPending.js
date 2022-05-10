@@ -71,19 +71,19 @@ const AddPendingRewardAPI = async (req, res) => {
                 if (postInBotChannel || postInGeneralChannel) {
                     switch (pendingReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
                             break;
                         default:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                     }
 

@@ -76,19 +76,19 @@ const userClaimRewardAPI = async (req, res) => {
 
                     switch (claimedReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/15.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/11.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/chest_opened_175f.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
                             break;
                         default:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                     }
 

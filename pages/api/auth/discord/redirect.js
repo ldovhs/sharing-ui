@@ -98,9 +98,10 @@ export default async function discordRedirect(req, res) {
                         .json({ message: "Cannot finish quest, pls contact administrator!" });
                 }
 
-                res.status(200).json({
-                    message: "Quest completed!",
-                });
+                // res.status(200).json({
+                //     message: "Quest completed!",
+                // });
+                res.status(200).redirect(`/challenger/quest-complete`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

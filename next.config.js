@@ -22,15 +22,7 @@ module.exports = {
     serverRuntimeConfig: {
         PROJECT_ROOT: __dirname,
     },
-    // async redirects() {
-    //     return [
-    //         {
-    //             source: "/api/auth/:path*",
-    //             destination: "/api/auth/:path*",
-    //             permanent: false,
-    //         },
-    //     ];
-    // },
+
     // async headers() {
     //     return [
     //         {

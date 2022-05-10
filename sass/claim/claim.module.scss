@@ -87,6 +87,7 @@ $list-text-font-size-large: 1.25rem;
     }
     @media (min-width: $bp-med-2) {  
         font-size: $text-font-size-med;
+        line-height: 1.85rem;
     }
     @media (min-width: $bp-xl) {  
         font-size: $text-font-size-large;

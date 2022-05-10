@@ -169,8 +169,6 @@ const options = {
             return true;
         },
         async redirect({ url, baseUrl }) {
-            ///console.log(url);
-            console.log(baseUrl);
             return url;
         },
 

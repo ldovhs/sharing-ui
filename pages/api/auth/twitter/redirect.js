@@ -98,9 +98,11 @@ export default async function twitterRedirect(req, res) {
                         .json({ message: "Cannot finish this quest, pls contact administrator!" });
                 }
 
-                res.status(200).json({
-                    message: "Quest Completed!",
-                });
+                // res.status(200).json({
+                //     message: "Quest Completed!",
+                // });
+
+                res.status(200).redirect(`/challenger/quest-complete`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

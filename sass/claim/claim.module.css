@@ -293,6 +293,7 @@
 @media (min-width: 50em) {
   .board_text {
     font-size: 1.35rem;
+    line-height: 1.85rem;
   }
 }
 @media (min-width: 90em) {

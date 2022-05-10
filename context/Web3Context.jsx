@@ -178,7 +178,7 @@ export function Web3Provider({ children }) {
                 },
             });
             if (!user || !user.data || user.data.isError) {
-                setWeb3Error("User not found, please sign up");
+                setWeb3Error("User not found, please sign up.");
                 return;
             }
 

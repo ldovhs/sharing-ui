@@ -26,7 +26,6 @@ function QuestLeaderBoard() {
         <>
             <div className={s.app}>
                 <Leaderboard questData={questData} />
-                <div className={s.foreground}></div>
             </div>
         </>
     );

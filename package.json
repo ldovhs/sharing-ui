@@ -3,12 +3,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "prisma:generate": "prisma generate"
+    "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^3.13.0",
-    "@qhuynhvhslab/anomura-prisma-package": "^1.0.19",
+    "@qhuynhvhslab/anomura-prisma-package": "^1.0.21",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",

@@ -14,7 +14,7 @@ function claimReward() {
 
     useEffect(() => {
         if (web3Error) {
-            console.log(web3Error);
+            // console.log(web3Error);
             setError(web3Error);
         }
     }, [web3Error]);
@@ -25,7 +25,6 @@ function claimReward() {
         <>
             <div className={s.app}>
                 {!session ? <ConnectBoard /> : <UserClaimReward session={session} />}
-                {/* <div className={s.foreground} /> */}
             </div>
         </>
     );

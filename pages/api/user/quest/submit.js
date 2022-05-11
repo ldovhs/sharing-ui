@@ -74,7 +74,7 @@ const submitIndividualQuestAPI = async (req, res) => {
 
                 res.status(200).json(updateQuest);
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 return res.status(200).json({ isError: true, message: error.message });
             }
             break;

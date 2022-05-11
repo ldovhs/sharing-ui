@@ -478,26 +478,6 @@ $list-text-font-size-large: 1.25rem;
     }
 }
 
-.foreground{
-    position: absolute;
-    bottom: 0;
-    top: 48%;
-    width: 100%;
-    background: top/cover url("/challenger/img/sharing-ui/invite/fg01.png");
-    z-index: 2;
-    pointer-events: none;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    & > div {
-        margin-top: 12%;
-        font-size: $heading-font-size-small;  
-        color: #fff;  
-    }
-}
-
 .boardLarge {
     @include m.flex-master(column, center, center);
     width: 85%;

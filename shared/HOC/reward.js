@@ -35,7 +35,7 @@ export const withPendingRewardSubmit =
         );
 
         const handleOnSubmit = async (pendingReward) => {
-            console.log(pendingReward);
+            // console.log(pendingReward);
             return await mutateAsync(pendingReward);
         };
 

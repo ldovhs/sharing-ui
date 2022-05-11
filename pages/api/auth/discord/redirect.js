@@ -110,7 +110,7 @@ export default async function discordRedirect(req, res) {
 
                 res.status(200).redirect(`/challenger/quest-redirect`);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 res.status(200).json({ error: err.message });
             }
             break;

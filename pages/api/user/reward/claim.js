@@ -4,8 +4,7 @@ import axios from "axios";
 import Enums from "enums";
 import { UpdateClaimAndPendingRewardTransaction } from "repositories/transactions";
 
-const { DISCORD_NODEJS, DISCORD_BOT_CHANNEL, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } =
-    process.env;
+const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
 
 const ROUTE = "/api/user/reward/claim";
 
@@ -110,13 +109,14 @@ const userClaimRewardAPI = async (req, res) => {
                             }
                         )
                         .catch((err) => {
-                            console.log(err);
+                            // console.log(err);
+                            return res.status(200).json({ isError: true, message: err.message });
                         });
                 }
 
                 res.status(200).json(pendingReward);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 res.status(500).json({ err });
             }
             break;

@@ -48,7 +48,6 @@ function QuestComplete() {
                         </div>
                     </div>
                 </div>
-                <div className={s.foreground}></div>
             </div>
         </>
     );

@@ -536,24 +536,6 @@
   width: 100%;
 }
 
-.foreground {
-  position: absolute;
-  bottom: 0;
-  top: 48%;
-  width: 100%;
-  background: top/cover url("/challenger/img/sharing-ui/invite/fg01.png");
-  z-index: 2;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.foreground > div {
-  margin-top: 12%;
-  font-size: 3.75vh;
-  color: #fff;
-}
-
 .boardLarge {
   display: flex;
   flex-direction: column;

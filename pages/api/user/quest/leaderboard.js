@@ -30,7 +30,7 @@ export default async function getQuestLeaderBoardAPI(req, res) {
 
                 res.status(200).json(questData);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 res.status(500).json({ err });
             }
             break;

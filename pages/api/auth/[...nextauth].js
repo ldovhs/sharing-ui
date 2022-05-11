@@ -127,7 +127,7 @@ const options = {
         }),
     ],
     // site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
-    debug: true,
+    debug: false,
     session: {
         jwt: true,
         maxAge: 60 * 60 * 24 * 5, //  30 * 24 * 60 * 60
@@ -137,7 +137,6 @@ const options = {
     },
     callbacks: {
         signIn: async (user, account, profile) => {
-            console.log(user);
             if (user?.account?.provider === "discord") {
                 let discordId = user.account.providerAccountId;
                 const existingUser = await prisma.whiteList.findFirst({
@@ -147,7 +146,7 @@ const options = {
                 });
 
                 if (!existingUser) {
-                    let error = `Discord ${user.profile.username}\#${user.profile.discriminator} not found in our database.`;
+                    let error = `Discord ${user.profile.username}%23${user.profile.discriminator} not found in our database.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
                 return true;
@@ -163,7 +162,7 @@ const options = {
                 });
 
                 if (!existingUser) {
-                    let error = `Twitter ${user.user.name} not found in our database.`;
+                    let error = `Twitter account ${user.user.name} not found in our database.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
                 return true;
@@ -176,14 +175,12 @@ const options = {
         },
 
         async session({ session, token }) {
-            console.log(session);
             session.profile = token.profile;
             session.user = token.user;
             session.provider = token.provider;
             return session;
         },
         async jwt({ token, user, account, profile }) {
-            console.log(token);
             if (user) {
                 token.profile = profile;
                 token.user = user;

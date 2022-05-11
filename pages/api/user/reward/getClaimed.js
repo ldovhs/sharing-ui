@@ -13,7 +13,7 @@ const getClaimedRewardForUserAPI = async (req, res) => {
                 const rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
                 res.status(200).json(rewarded);
             } catch (error) {
-                console.log(err);
+                // console.log(err);
                 res.status(500).json({ err });
             }
             break;

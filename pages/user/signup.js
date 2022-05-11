@@ -188,8 +188,6 @@ function SignUp() {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className={s.foreground}></div> */}
             </div>
         </>
     );

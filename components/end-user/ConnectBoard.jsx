@@ -287,20 +287,20 @@ export default function ConnectBoard() {
                     </div>
                 </div>
             </div>
-            {(currentPrompt !== WELCOME &&
+            {((currentPrompt !== WELCOME &&
                 currentPrompt !== CONNECT_OPTIONS &&
                 currentPrompt !== AUTHENTICATING) ||
-                (web3Error && (
-                    <button className={s.board_disconnect} onClick={() => GoBack()}>
-                        <img
-                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                            alt="Back"
-                        />
-                        <div>
-                            <span>Back</span>
-                        </div>
-                    </button>
-                ))}
+                web3Error) && (
+                <button className={s.board_disconnect} onClick={() => GoBack()}>
+                    <img
+                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
+                        alt="Back"
+                    />
+                    <div>
+                        <span>Back</span>
+                    </div>
+                </button>
+            )}
         </div>
     );
 }

@@ -70,7 +70,7 @@ const AddNewReward = ({
                 } else {
                     let user = res.data.user.wallet;
                     resetForm();
-                    generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}/claim/${user}?specialcode=${res.data.generatedURL}`;
+                    generatedRef.current.value = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user}?specialcode=${res.data.generatedURL}`;
                 }
             }}
         >

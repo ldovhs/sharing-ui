@@ -11,7 +11,7 @@ import { updateDiscordUserAndAddRewardTransaction } from "repositories/transacti
 const TOKEN_DISCORD_AUTH_URL = "https://discord.com/api/oauth2/token";
 const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
 
-const { NEXT_PUBLIC_COMINGSOON_SITE, NEXT_PUBLIC_DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } =
+const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } =
     process.env;
 
 const ROUTE = "/api/auth/dicord/redirect";
@@ -42,7 +42,7 @@ export default async function discordRedirect(req, res) {
                     client_secret: DISCORD_CLIENT_SECRET,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_COMINGSOON_SITE}/challenger/api/auth/discord/redirect`,
+                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/discord/redirect`,
                 });
 
                 const response = await axios.post(TOKEN_DISCORD_AUTH_URL, formData.toString(), {

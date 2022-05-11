@@ -49,19 +49,18 @@ $list-text-font-size-large: 1.25rem;
 }
 
 @mixin boardHeading(){
-	font-size: 2.5vh;
+	font-size: 2.4vh;
 	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 500;
 	text-align: center;
     color:#35464F;
-    line-height: 1.15rem;
+    line-height: 1.3rem;
 
+    // @media (min-width: $bp-small-2) {  
+    //     font-size: 1.25rem;
+    // }
     @media (min-width: $bp-small-2) {  
-        font-size: 1.25rem;
-    }
-
-    @media (min-width: $bp-small-2) {  
-        font-size: 1.65rem;
+        font-size: 1.55rem;
     }
 	@media (min-width: $bp-small-3) {  
         font-size: $heading-font-size-small-2;
@@ -69,9 +68,11 @@ $list-text-font-size-large: 1.25rem;
     }
     @media (min-width: $bp-med-2) {  
         font-size: $heading-font-size-med;
+        line-height: 2rem;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-large-2) {  
         font-size: $heading-font-size-med;
+       
     }
     @media (min-width: $bp-xl-2) {  
         line-height: 2.5rem;
@@ -988,6 +989,11 @@ $list-text-font-size-large: 1.25rem;
 .open {
     animation: bounce-in 1.5s  ease-in ;
 }
+
+.slidedown {
+    animation: bounce-in 1.5s  ease-in ;
+}
+
 @keyframes bounce-in{
     0%    {opacity: 0;   transform: scale(0.5);}
     100%  {opacity: 1;   transform: scale(1);}

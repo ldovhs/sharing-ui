@@ -9,7 +9,6 @@ const Enums = {
         NUDE: "Nude",
         BOREDAPE: "Bored Ape",
         MINTLIST: "Mint List",
-        MINTLIST: "Mint List",
         SHELL: "$Shell",
     },
     ADMIN_SIGN_MSG: "Sign to authenticate as admin",

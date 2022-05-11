@@ -24,7 +24,7 @@ function SignUp() {
 
     useEffect(() => {
         if (session) {
-            router.push("/user/quest");
+            //router.push("/user/quest");
             router.push("/");
         }
     }, [session]);
@@ -68,6 +68,15 @@ function SignUp() {
             changeView(SIGNUP_ERROR);
         }
     };
+    const GoBack = () => {
+        if (currentPrompt === SIGNUP_OPTIONS) {
+            return router.push("/");
+        }
+        if (currentPrompt === SIGNUP_ERROR) {
+            setWeb3Error(null);
+            return router.push("/");
+        }
+    };
 
     return (
         <>
@@ -82,7 +91,7 @@ function SignUp() {
                                 {(currentPrompt === SIGNUP_ERROR || web3Error) && (
                                     <>
                                         <div className={`${s.board_text}`}>{web3Error}</div>
-                                        <button
+                                        {/* <button
                                             className={s.board_pinkBtn}
                                             onClick={() => {
                                                 setWeb3Error(null);
@@ -96,7 +105,7 @@ function SignUp() {
                                             <div>
                                                 <span>Go Back</span>
                                             </div>
-                                        </button>
+                                        </button> */}
                                     </>
                                 )}
 
@@ -131,18 +140,20 @@ function SignUp() {
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
-                                            <button
-                                                className={s.board_orangeBtn}
-                                                onClick={() => handleSignUp(Enums.METAMASK)}
-                                            >
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                    alt="connectToContinue"
-                                                />
-                                                <div>
-                                                    <span>Metamask</span>
-                                                </div>
-                                            </button>
+                                            {!isMetamaskDisabled && !isMobile && (
+                                                <button
+                                                    className={s.board_orangeBtn}
+                                                    onClick={() => handleSignUp(Enums.METAMASK)}
+                                                >
+                                                    <img
+                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                        alt="connectToContinue"
+                                                    />
+                                                    <div>
+                                                        <span>MetaMask</span>
+                                                    </div>
+                                                </button>
+                                            )}
                                             <button
                                                 className={s.board_tealBtn}
                                                 onClick={() => handleSignUp(Enums.WALLETCONNECT)}
@@ -187,6 +198,17 @@ function SignUp() {
                             </div>
                         </div>
                     </div>
+                    {currentPrompt !== SIGNUP_AWAIT && currentPrompt !== SIGNUP_SUCCESS && (
+                        <button className={s.board_disconnect} onClick={() => GoBack()}>
+                            <img
+                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
+                                alt="Back"
+                            />
+                            <div>
+                                <span>Back</span>
+                            </div>
+                        </button>
+                    )}
                 </div>
             </div>
         </>

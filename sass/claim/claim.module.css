@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   padding: 0;
-  color: #A4B7B6;
+  color: #BED3D2;
 }
 .board_disconnect > div {
   position: absolute;
@@ -470,6 +470,59 @@
 .board_tealBtn:hover {
   color: #559BCE !important;
 }
+.board_blackBtn {
+  position: relative;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+.board_blackBtn > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_blackBtn > div > span {
+  font-size: 2.5vh;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15rem;
+}
+@media (min-width: 31.25em) {
+  .board_blackBtn > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_blackBtn > div > span {
+    font-size: 1.75rem;
+    line-height: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_blackBtn > div > span {
+    font-size: 2.25rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_blackBtn > div > span {
+    font-size: 2.25rem;
+  }
+}
+.board_blackBtn:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
+}
+.board_blackBtn:disabled:hover {
+  color: #A2B7B6;
+}
+.board_blackBtn:hover {
+  color: #BED3D2 !important;
+}
 .board_purpleBtn {
   position: relative;
   width: 60%;
@@ -581,7 +634,7 @@
   display: flex;
   justify-content: center;
   padding: 0;
-  color: #A4B7B6;
+  color: #BED3D2;
 }
 .boardLarge_disconnect > div {
   position: absolute;

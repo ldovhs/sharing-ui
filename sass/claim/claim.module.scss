@@ -197,7 +197,7 @@ $list-text-font-size-large: 1.25rem;
     display:flex;
     justify-content: center;
     padding: 0;
-    color: #A4B7B6;
+    color: #BED3D2;
 
     & > div {
         position:absolute;
@@ -456,6 +456,12 @@ $list-text-font-size-large: 1.25rem;
         @include large_button();
         &:hover {
             color: #559BCE!important;
+		}
+    }
+    &_blackBtn { 
+        @include large_button();
+        &:hover {
+            color: #BED3D2!important;
 		}
     }
     &_purpleBtn { 

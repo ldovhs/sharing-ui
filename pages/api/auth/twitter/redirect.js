@@ -10,7 +10,7 @@ import { updateTwitterUserAndAddRewardTransaction } from "repositories/transacti
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET } =
+const { NEXT_PUBLIC_COMINGSOON_SITE, NEXT_PUBLIC_TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET } =
     process.env;
 
 const ROUTE = "/api/auth/twitter/redirect";
@@ -40,7 +40,7 @@ export default async function twitterRedirect(req, res) {
                     client_secret: TWITTER_CLIENT_SECRET,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect`,
+                    redirect_uri: `${NEXT_PUBLIC_COMINGSOON_SITE}/challenger/api/auth/twitter/redirect`,
                     code_verifier: "challenge",
                 });
 

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { recoverPersonalSignature } from "eth-sig-util";
+import { recoverPersonalSignature } from "@metamask/eth-sig-util";
 import { bufferToHex } from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
 import { utils } from "ethers";
@@ -30,50 +30,55 @@ const options = {
             type: "credentials",
 
             authorize: async (credentials, req) => {
-                const { address, signature } = credentials;
-                if (!address || !signature) throw new Error("Missing address or signature");
+                try {
+                    const { address, signature } = credentials;
+                    if (!address || !signature) throw new Error("Missing address or signature");
 
-                let wallet = utils.getAddress(address);
-                if (!wallet && !utils.isAddress(address)) throw new Error("Invalid wallet address");
+                    let wallet = utils.getAddress(address);
+                    if (!wallet && !utils.isAddress(address))
+                        throw new Error("Invalid wallet address");
 
-                const admin = await prisma.admin.findUnique({
-                    where: {
-                        wallet,
-                    },
-                });
+                    const admin = await prisma.admin.findUnique({
+                        where: {
+                            wallet,
+                        },
+                    });
 
-                if (!admin) throw new Error("Wallet address not belong to any admin!");
+                    if (!admin) throw new Error("Wallet address not belong to any admin!");
 
-                const nonce = admin.nonce.trim();
-                const msg = `${Enums.ADMIN_SIGN_MSG}: ${nonce}`;
+                    const nonce = admin.nonce.trim();
+                    const msg = `${Enums.ADMIN_SIGN_MSG}: ${nonce}`;
 
-                const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
-                const originalAddress = recoverPersonalSignature({
-                    data: msgBufferHex,
-                    sig: signature,
-                });
+                    const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
+                    const originalAddress = recoverPersonalSignature({
+                        data: msgBufferHex,
+                        signature: signature,
+                    });
 
-                if (originalAddress.toLowerCase() !== address.toLowerCase())
-                    throw new Error("Signature verification failed");
+                    if (originalAddress.toLowerCase() !== address.toLowerCase())
+                        throw new Error("Signature verification failed");
 
-                const newNonce = CryptoJS.lib.WordArray.random(16).toString();
+                    const newNonce = CryptoJS.lib.WordArray.random(16).toString();
 
-                let res = await prisma.Admin.update({
-                    where: {
-                        //wallet: { equals: originalAddress.toLowerCase(), mode: "insensitive" },
-                        id: admin.id,
-                    },
-                    data: {
-                        nonce: newNonce,
-                    },
-                });
+                    let res = await prisma.Admin.update({
+                        where: {
+                            //wallet: { equals: originalAddress.toLowerCase(), mode: "insensitive" },
+                            id: admin.id,
+                        },
+                        data: {
+                            nonce: newNonce,
+                        },
+                    });
 
-                if (!res) {
-                    console.error("cannot update new nonce");
+                    if (!res) {
+                        console.error("cannot update new nonce");
+                    }
+
+                    console.log("Authenticated as admin successfully");
+                    return { address: originalAddress, isAdmin: true };
+                } catch (error) {
+                    throw new Error(error);
                 }
-
-                console.log("Authenticated as admin successfully");
-                return { address: originalAddress, isAdmin: true };
             },
         }),
         CredentialsProvider({
@@ -81,38 +86,43 @@ const options = {
             name: "Non-admin authentication",
             type: "credentials",
             authorize: async (credentials, req) => {
-                console.log("Authenticating as user");
-                let { address, signature } = credentials;
+                try {
+                    console.log("Authenticating as user");
+                    let { address, signature } = credentials;
 
-                if (!address || !signature) throw new Error("Missing address or signature");
+                    if (!address || !signature) throw new Error("Missing address or signature");
 
-                if (utils.getAddress(address) && !utils.isAddress(address))
-                    throw new Error("Invalid address");
+                    if (utils.getAddress(address) && !utils.isAddress(address))
+                        throw new Error("Invalid address");
 
-                const user = await prisma.whiteList.findFirst({
-                    where: {
-                        wallet: { equals: address, mode: "insensitive" },
-                    },
-                });
+                    const user = await prisma.whiteList.findFirst({
+                        where: {
+                            wallet: { equals: address, mode: "insensitive" },
+                        },
+                    });
 
-                if (!user) {
-                    throw new Error("This wallet account is not in our record.");
+                    if (!user) {
+                        throw new Error("This wallet account is not in our record.");
+                    }
+
+                    const msg = `${Enums.USER_SIGN_MSG}`;
+
+                    const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
+
+                    const originalAddress = recoverPersonalSignature({
+                        data: msgBufferHex,
+                        signature: signature.trim(),
+                    });
+
+                    if (originalAddress.toLowerCase() !== address.toLowerCase())
+                        throw new Error("Signature verification failed");
+
+                    console.log("Authenticated as user successfully");
+
+                    return { address: originalAddress, isAdmin: false };
+                } catch (error) {
+                    console.log(error);
                 }
-
-                const msg = `${Enums.USER_SIGN_MSG}`;
-
-                const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
-                const originalAddress = recoverPersonalSignature({
-                    data: msgBufferHex,
-                    sig: signature.trim(),
-                });
-
-                if (originalAddress.toLowerCase() !== address.toLowerCase())
-                    throw new Error("Signature verification failed");
-
-                console.log("Authenticated as user successfully");
-
-                return { address: originalAddress, isAdmin: false };
             },
         }),
         // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth

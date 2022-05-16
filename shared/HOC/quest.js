@@ -10,13 +10,6 @@ const USER_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submit`;
 const ADMIN_QUEST_QUERY = `${Enums.BASEPATH}/api/admin/quest/`;
 const ADMIN_QUEST_UPSERT = `${Enums.BASEPATH}/api/admin/quest/upsert`;
 
-// const QUEST_TYPE_QUERY = `/api/admin/quest/type`;
-// const USER_QUEST_QUERY = `/api/user/quest/`;
-// const USER_QUEST_SUBMIT = `/api/user/quest/submit`;
-
-// const ADMIN_QUEST_QUERY = `/api/admin/quest/`;
-// const ADMIN_QUEST_UPSERT = `/api/admin/quest/upsert`;
-
 export const withQuestUpsert =
     (Component) =>
     ({ ...props }) => {
@@ -48,9 +41,16 @@ export const withQuestUpsert =
 export const withUserQuestSubmit =
     (Component) =>
     ({ ...props }) => {
+        const queryClient = useQueryClient();
         const { data, error, isError, isLoading, isSuccess, mutate, mutateAsync } = useMutation(
             "submitQuest",
-            (quest) => axios.post(USER_QUEST_SUBMIT, quest)
+            (quest) => axios.post(USER_QUEST_SUBMIT, quest),
+            {
+                onSuccess: () => {
+                    queryClient.invalidateQueries("userRewardQuery");
+                    console.log(123);
+                },
+            }
         );
 
         const handleOnSubmit = async (quest, currentQuests) => {

@@ -8,6 +8,8 @@ import {
     AnomuraSeeFoodQuest,
     TwitterRetweetQuest,
     InstagramFollowQuest,
+    ZedOwnQuest,
+    NoodsOwnQuest,
 } from "./index";
 
 const EditQuest = ({ quest, closeModal, rewardTypes }) => {
@@ -50,6 +52,22 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.FOLLOW_INSTAGRAM && rewardTypes && (
                             <InstagramFollowQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.ZED_CLAIM && rewardTypes && (
+                            <ZedOwnQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.NOODS_CLAIM && rewardTypes && (
+                            <NoodsOwnQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

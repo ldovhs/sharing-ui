@@ -5,7 +5,7 @@ import { object, array, string, number } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
 import QuestFormTemplate from "./QuestFormTemplate";
 
-const DiscordAuthQuest = ({
+const NoodsOwnQuest = ({
     quest = null,
     rewardTypes,
     closeModal,
@@ -15,9 +15,9 @@ const DiscordAuthQuest = ({
     onUpsert,
 }) => {
     const initialValues = {
-        type: Enums.DISCORD_AUTH,
-        text: quest?.text || "Authenticate your Discord",
-        description: quest?.description ?? "Require the user to authenticate their Discord Id",
+        type: Enums.NOODS_CLAIM,
+        text: quest?.text || "Claim $SHELL for owning Noods.",
+        description: quest?.description ?? "NOODS owner can claim $SHELL",
         completedText: quest?.completedText || "Completed",
         rewardTypeId: quest?.rewardTypeId || 1,
         quantity: quest?.quantity || 0,
@@ -26,7 +26,7 @@ const DiscordAuthQuest = ({
         id: quest?.id || 0,
     };
 
-    const DiscordQuestSchema = object().shape({
+    const NoodsOwnQuestSchema = object().shape({
         text: string().required("Quest text is required"),
         completedText: string().required("Completed Text is required"),
         quantity: number().required().min(0), // optional
@@ -50,7 +50,7 @@ const DiscordAuthQuest = ({
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={DiscordQuestSchema}
+            validationSchema={NoodsOwnQuestSchema}
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={onSubmit}
@@ -59,7 +59,7 @@ const DiscordAuthQuest = ({
                 return (
                     <Form>
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
-                        <small>Create a Discord Authentication Requirement</small>
+                        <small>Owner of NOODS can claim $SHELL</small>
                         <div className="row">
                             <QuestFormTemplate
                                 values={values}
@@ -107,4 +107,4 @@ const DiscordAuthQuest = ({
     );
 };
 
-export default withQuestUpsert(DiscordAuthQuest);
+export default withQuestUpsert(NoodsOwnQuest);

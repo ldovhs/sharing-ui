@@ -1,6 +1,5 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import { useRecoilValue } from "recoil";
+
 import { AdminLayout } from "/components/admin";
 import React, { useEffect, useState } from "react";
 

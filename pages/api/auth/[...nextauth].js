@@ -185,9 +185,22 @@ const options = {
         },
 
         async session({ session, token }) {
+            let socialMediaUser;
+
+            if (token.provider == "twitter") {
+                socialMediaUser = await prisma.whiteList.findFirst({
+                    where: {
+                        twitterId: token.user.id,
+                    },
+                });
+            }
+
             session.profile = token.profile;
             session.user = token.user;
             session.provider = token.provider;
+            if (socialMediaUser) {
+                session.user.walletAddress = socialMediaUser.wallet;
+            }
             return session;
         },
         async jwt({ token, user, account, profile }) {

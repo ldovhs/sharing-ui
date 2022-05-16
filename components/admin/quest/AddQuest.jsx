@@ -7,6 +7,8 @@ import {
     AnomuraSeeFoodQuest,
     InstagramFollowQuest,
     TwitterRetweetQuest,
+    ZedOwnQuest,
+    NoodsOwnQuest,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -72,6 +74,22 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.FOLLOW_INSTAGRAM && (
                             <InstagramFollowQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.ZED_CLAIM && (
+                            <ZedOwnQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.NOODS_CLAIM && (
+                            <NoodsOwnQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

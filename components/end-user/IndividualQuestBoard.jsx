@@ -3,13 +3,16 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
+import axios from "axios";
+import { withUserRewardQuery } from "@shared/HOC/reward";
 
 const IndividualQuestBoard = ({
     session,
     isFetchingUserQuests,
     isFetchingUser,
+    isFetchingUserRewards,
     userQuests,
-    currentUser,
+    userRewards,
     queryError,
     onSubmit,
     isSubmitting,
@@ -24,36 +27,83 @@ const IndividualQuestBoard = ({
     const { web3Error, SignOut } = useContext(Web3Context);
     const scrollRef = useRef();
 
-    // console.log(userQuests);
+    //console.log(userQuests);
+    // console.log(session);
     useEffect(async () => {
+        handleRenderUserQuest();
+    }, [userQuests]);
+
+    useEffect(async () => {
+        if (userRewards) {
+            let shellReward = userRewards.find(
+                (r) =>
+                    r.rewardType.reward.match("hell") ||
+                    r.rewardType.reward.match("$Shell") ||
+                    r.rewardType.reward.match("$SHELL")
+            );
+            if (shellReward?.quantity && shellReward.quantity > 0)
+                setRewardAmount(shellReward.quantity);
+        }
+    }, [userRewards]);
+
+    const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
             let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
+            let haveZedHorse = true,
+                haveNood = true;
 
-            if (!twitterAuthQuest.isDone) {
-                userQuests = userQuests.filter((q) => {
-                    if (
-                        q.type.name === Enums.TWITTER_RETWEET ||
-                        q.type.name === Enums.FOLLOW_TWITTER
-                    ) {
-                        return false;
-                    } else return true;
-                });
+            // check if user can claim shell for owing NOODS or ZED Horse
+            try {
+                let wallet = session.user.address || session.user.walletAddress;
+                let allNFTsOwned = await axios.get(
+                    `https://deep-index.moralis.io/api/v2/${wallet}/nft?chain=eth&format=decimal`,
+                    {
+                        headers: {
+                            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_APIKEY,
+                        },
+                    }
+                );
+
+                if (allNFTsOwned?.data?.result?.length > 0) {
+                    let nftsToProcess = allNFTsOwned?.data?.result;
+                    console.log(nftsToProcess);
+                    let promiseCheck = nftsToProcess.map((nft) => {
+                        if (nft.symbol === "NOODS" || nft.name === "Human Park") {
+                            haveNood = true;
+                        }
+                        if (nft.symbol === "ZED" || nft.name === "ZED Horse") {
+                            haveZedHorse = true;
+                        }
+                    });
+                    Promise.all(promiseCheck);
+                }
+            } catch (e) {
+                console.log(e.message);
             }
+
+            // check if user has authenticated twitter, to show twitter related quests
+
+            userQuests = userQuests.filter((q) => {
+                if (
+                    !twitterAuthQuest.isDone &&
+                    (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
+                ) {
+                    return false;
+                }
+                if (haveZedHorse === false && q.type.name === Enums.ZED_CLAIM) {
+                    return true;
+                }
+                if (haveNood === false && q.type.name === Enums.NOODS_CLAIM) {
+                    return false;
+                }
+                return true;
+            });
+
             userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
-            let sum = userQuests
-                .map((r) => {
-                    if (r.rewardType.reward.match("hell") || r.rewardType.reward.match("$Shell")) {
-                        return r.rewardedQty;
-                    } else {
-                        return 0;
-                    }
-                })
-                .reduce((prev, curr) => prev + curr, 0);
-            setRewardAmount(sum);
+
             setCurrentQuests(userQuests);
 
-            // fix initial scrollable indicator if item
             if (userQuests.length <= 3) {
                 setScroll((prevState) => ({
                     ...prevState,
@@ -68,7 +118,7 @@ const IndividualQuestBoard = ({
                 }));
             }
         }
-    }, [userQuests]);
+    };
 
     const onScroll = (e) => {
         if (
@@ -100,17 +150,6 @@ const IndividualQuestBoard = ({
             top: scrollValue,
             behavior: "smooth",
         });
-
-        // if (
-        //     scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
-        //     scrollRef.current.scrollTop + scrollValue > 0
-        // ) {
-        //     setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
-        // }
-
-        // if (scrollRef.current.scrollTop + scrollValue >= scrollRef.current.scrollHeight) {
-        //     setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
-        // }
     };
     const onScrollUp = () => {
         let scrollValue = scrollRef.current.scrollTop - scrollRef.current.offsetHeight - 16;
@@ -118,18 +157,6 @@ const IndividualQuestBoard = ({
             top: scrollValue,
             behavior: "smooth",
         });
-
-        // setState based on scroll
-        // if (
-        //     scrollRef.current.scrollTop + scrollValue < scrollRef.current.scrollHeight &&
-        //     scrollRef.current.scrollTop + scrollValue > 0
-        // ) {
-        //     setScroll((prevState) => ({ ...prevState, canScrollDown: true, canScrollUp: true }));
-        // }
-
-        // if (scrollValue <= 0) {
-        //     setScroll((prevState) => ({ ...prevState, canScrollUp: false, canScrollDown: true }));
-        // }
     };
 
     /*
@@ -218,6 +245,7 @@ const IndividualQuestBoard = ({
         ) {
             return <span>{text}</span>;
         }
+        return <span>{text}</span>;
     };
     return (
         <div className={s.boardLarge}>
@@ -254,7 +282,10 @@ const IndividualQuestBoard = ({
                             onScroll={onScroll}
                         >
                             {/* Is Loading */}
-                            {(isFetchingUserQuests || isSubmitting || isFetchingUser) && (
+                            {(isFetchingUserQuests ||
+                                isSubmitting ||
+                                isFetchingUser ||
+                                isFetchingUserRewards) && (
                                 <div className={s.boardLarge_loading}>
                                     <div className={s.boardLarge_loading_wrapper}>
                                         <img
@@ -277,6 +308,7 @@ const IndividualQuestBoard = ({
                             {!isFetchingUserQuests &&
                                 !isSubmitting &&
                                 !isFetchingUser &&
+                                !isFetchingUserRewards &&
                                 !currentQuests?.isError &&
                                 currentQuests?.length > 0 &&
                                 currentQuests?.map((item, index, row) => {
@@ -411,4 +443,5 @@ function isAlphabeticallly(a, b) {
 }
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
-export default withUserQuestQuery(firstHOC);
+const secondHOC = withUserRewardQuery(firstHOC);
+export default withUserQuestQuery(secondHOC);

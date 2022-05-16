@@ -21,6 +21,8 @@ const Enums = {
     TWITTER_RETWEET: "Retweet a Tweet",
     FOLLOW_TWITTER: "Follow Twitter Account",
     FOLLOW_INSTAGRAM: "Follow Instagram Account",
+    ZED_CLAIM: "Own ZED to claim $SHELL",
+    NOODS_CLAIM: "Own NOODS to claim $SHELL",
     ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
 };
 

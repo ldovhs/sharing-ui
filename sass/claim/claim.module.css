@@ -310,11 +310,16 @@
 }
 .board_pinkBtn {
   position: relative;
-  width: 55%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 31.25em) {
+  .board_pinkBtn {
+    width: 45%;
+  }
 }
 @media (min-width: 50em) {
   .board_pinkBtn {
@@ -386,11 +391,16 @@
 }
 .board_orangeBtn {
   position: relative;
-  width: 55%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 31.25em) {
+  .board_orangeBtn {
+    width: 45%;
+  }
 }
 @media (min-width: 50em) {
   .board_orangeBtn {
@@ -455,11 +465,16 @@
 }
 .board_tealBtn {
   position: relative;
-  width: 55%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 31.25em) {
+  .board_tealBtn {
+    width: 45%;
+  }
 }
 @media (min-width: 50em) {
   .board_tealBtn {
@@ -524,11 +539,16 @@
 }
 .board_blackBtn {
   position: relative;
-  width: 55%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 31.25em) {
+  .board_blackBtn {
+    width: 45%;
+  }
 }
 @media (min-width: 50em) {
   .board_blackBtn {
@@ -593,11 +613,16 @@
 }
 .board_purpleBtn {
   position: relative;
-  width: 55%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 31.25em) {
+  .board_purpleBtn {
+    width: 45%;
+  }
 }
 @media (min-width: 50em) {
   .board_purpleBtn {

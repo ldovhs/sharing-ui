@@ -15,7 +15,7 @@ import { withQuestTypeQuery } from "@shared/HOC/quest";
 const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
     const [selectedType, setSelectedType] = useState();
 
-    useEffect(async () => {}, []);
+    useEffect(async () => { }, []);
 
     const handleOnSelectChange = (e) => {
         setSelectedType(e.target.value);
@@ -79,6 +79,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                         )}
 
                         {selectedType === Enums.ANOMURA_SUBMISSION_QUEST && (
+                            <AnomuraSeeFoodQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.TWITTER_SPACE_CODE_QUEST && (
                             <AnomuraSeeFoodQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

@@ -23,6 +23,7 @@ const Enums = {
     FOLLOW_TWITTER: "Follow Twitter Account",
     FOLLOW_INSTAGRAM: "Follow Instagram Account",
     ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
+    TWITTER_SPACE_CODE_QUEST: "Enter Twitter Space Codes",
 };
 
 module.exports = Enums;

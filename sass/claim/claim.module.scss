@@ -148,7 +148,7 @@ $list-text-font-size-large: 1.25rem;
 
 @mixin large_button() {
     position:relative;
-	width: 60%; //10.375rem;
+	width: 40%;
 	display:flex;
 	justify-content: center;
     padding: 0;
@@ -161,6 +161,7 @@ $list-text-font-size-large: 1.25rem;
 		align-items: center;
 		height: 90%;
 		& > span { 
+            width: 100%;
             font-size: 2.5vh;
 	        font-family: Safety Goggles;
             font-weight: 500;
@@ -180,6 +181,11 @@ $list-text-font-size-large: 1.25rem;
             @media (min-width: $bp-xl) {  
                 font-size: $heading-font-size-med;
             }
+		}
+        & > img { 
+            margin-left: 0.35rem;
+            max-height: 55%;
+            width: auto!important;
 		}
     }
     &:disabled {
@@ -311,7 +317,6 @@ $list-text-font-size-large: 1.25rem;
     &_disconnect {
         @include disconnect_button();
     }
-
     &_wrapper {
         position: absolute;
         width: 100%;
@@ -338,12 +343,12 @@ $list-text-font-size-large: 1.25rem;
           //  padding: 0 5rem;
         }
     }
-
     &_content {
         @include m.flex-master(column, center, center);
         width: 100%;
         height: 100%;
         gap: 0.15rem;
+        margin-left: 0.5rem;
 
         @media (min-width: $bp-small-2) {  
             gap: 1rem;
@@ -352,7 +357,6 @@ $list-text-font-size-large: 1.25rem;
             gap: 1.75rem;
         }
     }
-
     &_loading {
         margin-bottom: 2.5rem;
         width: 100%;
@@ -424,11 +428,9 @@ $list-text-font-size-large: 1.25rem;
             }
         }
     }
-
     &_headingIcon {
         height: 10%;
     }
-   
     &_title { 
         @include boardHeading();
     }
@@ -443,6 +445,14 @@ $list-text-font-size-large: 1.25rem;
         &:hover {
             color: #CE3C85;
 		}
+
+        &:disabled {
+            cursor: not-allowed!important;
+            color: #A2B7B6!important;
+            &:hover {
+                color: #A2B7B6!important;
+            }
+        }
     }
     
     &_orangeBtn { 
@@ -901,6 +911,7 @@ $list-text-font-size-large: 1.25rem;
                 }
 
                 & > img {
+              
                     max-height: 55%;
                     width: auto!important;
                     @media (min-width: $bp-small-2) {  

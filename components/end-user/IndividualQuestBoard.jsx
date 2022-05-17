@@ -3,8 +3,9 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
-import axios from "axios";
+
 import { withUserRewardQuery } from "@shared/HOC/reward";
+import { useRouter } from "next/router";
 
 const IndividualQuestBoard = ({
     session,
@@ -26,6 +27,7 @@ const IndividualQuestBoard = ({
     });
     const { web3Error, SignOut } = useContext(Web3Context);
     const scrollRef = useRef();
+    let router = useRouter();
 
     //console.log(userQuests);
     // console.log(session);
@@ -49,51 +51,13 @@ const IndividualQuestBoard = ({
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
             let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
-            let haveZedHorse = true,
-                haveNood = true;
-
-            // check if user can claim shell for owing NOODS or ZED Horse
-            try {
-                let wallet = session.user.address || session.user.walletAddress;
-                let allNFTsOwned = await axios.get(
-                    `https://deep-index.moralis.io/api/v2/${wallet}/nft?chain=eth&format=decimal`,
-                    {
-                        headers: {
-                            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_APIKEY,
-                        },
-                    }
-                );
-
-                if (allNFTsOwned?.data?.result?.length > 0) {
-                    let nftsToProcess = allNFTsOwned?.data?.result;
-                    console.log(nftsToProcess);
-                    let promiseCheck = nftsToProcess.map((nft) => {
-                        if (nft.symbol === "NOODS" || nft.name === "Human Park") {
-                            haveNood = true;
-                        }
-                        if (nft.symbol === "ZED" || nft.name === "ZED Horse") {
-                            haveZedHorse = true;
-                        }
-                    });
-                    Promise.all(promiseCheck);
-                }
-            } catch (e) {
-                console.log(e.message);
-            }
 
             // check if user has authenticated twitter, to show twitter related quests
-
             userQuests = userQuests.filter((q) => {
                 if (
                     !twitterAuthQuest.isDone &&
                     (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
                 ) {
-                    return false;
-                }
-                if (haveZedHorse === false && q.type.name === Enums.ZED_CLAIM) {
-                    return true;
-                }
-                if (haveNood === false && q.type.name === Enums.NOODS_CLAIM) {
                     return false;
                 }
                 return true;
@@ -166,14 +130,18 @@ const IndividualQuestBoard = ({
      */
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
+        if (type.name === Enums.ZED_CLAIM) {
+            return router.push("/zed");
+        }
+        if (type.name === Enums.NOODS_CLAIM) {
+            return router.push("/noods");
+        }
         if (type.name === Enums.DISCORD_AUTH) {
-            window.open(getDiscordAuthLink(), "_blank");
-            return;
+            return window.open(getDiscordAuthLink(), "_blank");
         }
 
         if (type.name === Enums.TWITTER_AUTH) {
-            window.open(getTwitterAuthLink(), "_blank");
-            return;
+            return window.open(getTwitterAuthLink(), "_blank");
         }
 
         if (type.name === Enums.TWITTER_RETWEET) {

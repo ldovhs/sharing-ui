@@ -15,6 +15,8 @@ const Enums = {
     USER_SIGN_MSG:
         "Welcome to the Cove, Anomuran.\nBeware the Challenger ahead!\nSign in to proceed at your own risk.",
 
+    USER_CLAIM_NFT_MSG:
+        "Welcome to the Cove, Anomuran.\nSign this message to verify you are the owner of nft.",
     // quest related
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",

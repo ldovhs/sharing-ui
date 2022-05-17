@@ -53,7 +53,6 @@ export function Web3Provider({ children }) {
         if (session) {
             let providerInstance;
             if (window?.ethereum) {
-                //providerInstance = new ethers.providers.Web3Provider(window.ethereum);
                 SubscribeProvider(window.ethereum);
             } else {
                 providerInstance = new WalletConnectProvider({

@@ -310,7 +310,7 @@
 }
 .board_pinkBtn {
   position: relative;
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -330,9 +330,9 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 2.5vh;
+  font-size: 2.3vh;
   font-family: Safety Goggles;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
@@ -386,7 +386,7 @@
 }
 .board_orangeBtn {
   position: relative;
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -406,9 +406,9 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 2.5vh;
+  font-size: 2.3vh;
   font-family: Safety Goggles;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
@@ -455,7 +455,7 @@
 }
 .board_tealBtn {
   position: relative;
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -475,9 +475,9 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 2.5vh;
+  font-size: 2.3vh;
   font-family: Safety Goggles;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
@@ -524,7 +524,7 @@
 }
 .board_blackBtn {
   position: relative;
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -544,9 +544,9 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 2.5vh;
+  font-size: 2.3vh;
   font-family: Safety Goggles;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
@@ -593,7 +593,7 @@
 }
 .board_purpleBtn {
   position: relative;
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -613,9 +613,9 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 2.5vh;
+  font-size: 2.3vh;
   font-family: Safety Goggles;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
@@ -699,7 +699,7 @@
   width: 100%;
   height: 0;
   padding-top: 136.32%;
-  background: url("/challenger/img/sharing-ui/invite/Board_large.png") no-repeat;
+  background: url("/challenger/img/sharing-ui/invite/board_large.png") no-repeat;
   background-size: contain;
 }
 @media (min-width: 31.25em) {

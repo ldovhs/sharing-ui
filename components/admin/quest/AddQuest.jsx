@@ -7,6 +7,7 @@ import {
     AnomuraSeeFoodQuest,
     InstagramFollowQuest,
     TwitterRetweetQuest,
+    TwitterSpaceCodeQuest
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -87,7 +88,7 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                         )}
 
                         {selectedType === Enums.TWITTER_SPACE_CODE_QUEST && (
-                            <AnomuraSeeFoodQuest
+                            <TwitterSpaceCodeQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

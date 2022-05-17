@@ -30,7 +30,7 @@ const ClaimShellForOwningNFT = ({
     const [title, setTitle] = useState("Claimable $SHELL for owning NFT");
     const [currentView, setView] = useState(CLAIMABLE);
     let router = useRouter();
-
+    console.log(NFT);
     useEffect(() => {
         if (
             /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
@@ -90,12 +90,9 @@ const ClaimShellForOwningNFT = ({
 
             if (allNFTsOwned?.data?.result?.length > 0) {
                 let nftsToProcess = allNFTsOwned?.data?.result;
-
+                let nftToCheck = getNFT();
                 let promiseCheck = nftsToProcess.map((nft) => {
-                    if (nft.symbol === "NOODS" || nft.name === "Human Park") {
-                        haveNft = true;
-                    }
-                    if (nft.symbol === "ZED" || nft.name === "ZED Horse") {
+                    if (nft.symbol === nftToCheck) {
                         haveNft = true;
                     }
                 });

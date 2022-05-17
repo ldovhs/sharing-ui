@@ -170,7 +170,8 @@ const ClaimShellForOwningNFT = ({
                                     !isValidating && (
                                         <>
                                             <div className={s.board_title}>
-                                                Claim $SHELL for owning {getNFT()}
+                                                {/* Claim $SHELL for owning {getNFT()} */}
+                                                {nftQuest.text}
                                             </div>
 
                                             <button

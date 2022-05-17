@@ -9,6 +9,7 @@ import {
     TwitterRetweetQuest,
     ZedOwnQuest,
     NoodsOwnQuest,
+    FreeLimitedShell,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -98,6 +99,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.ANOMURA_SUBMISSION_QUEST && (
                             <AnomuraSeeFoodQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.LIMITED_FREE_SHELL && (
+                            <FreeLimitedShell
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

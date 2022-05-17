@@ -16,7 +16,8 @@ const Enums = {
         "Welcome to the Cove, Anomuran.\nBeware the Challenger ahead!\nSign in to proceed at your own risk.",
 
     USER_CLAIM_NFT_MSG:
-        "Welcome to the Cove, Anomuran.\nSign this message to verify you are the owner of nft.",
+        "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
+
     // quest related
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
@@ -26,6 +27,7 @@ const Enums = {
     ZED_CLAIM: "Own ZED to claim $SHELL",
     NOODS_CLAIM: "Own NOODS to claim $SHELL",
     ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
+    LIMITED_FREE_SHELL: "Limited Free $SHELL",
 };
 
 module.exports = Enums;

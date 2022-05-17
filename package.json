@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@metamask/eth-sig-util": "^4.0.1",
-    "@qhuynhvhslab/anomura-prisma-package": "^1.0.21",
+    "@qhuynhvhslab/anomura-prisma-package": "^1.0.22",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",

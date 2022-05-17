@@ -310,11 +310,16 @@
 }
 .board_pinkBtn {
   position: relative;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 50em) {
+  .board_pinkBtn {
+    width: 60%;
+  }
 }
 .board_pinkBtn > div {
   position: absolute;
@@ -357,6 +362,11 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 50em) {
+  .board_pinkBtn > div > img {
+    max-height: 85%;
+  }
+}
 .board_pinkBtn:disabled {
   cursor: not-allowed !important;
   color: #A2B7B6;
@@ -376,11 +386,16 @@
 }
 .board_orangeBtn {
   position: relative;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 50em) {
+  .board_orangeBtn {
+    width: 60%;
+  }
 }
 .board_orangeBtn > div {
   position: absolute;
@@ -423,6 +438,11 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 50em) {
+  .board_orangeBtn > div > img {
+    max-height: 85%;
+  }
+}
 .board_orangeBtn:disabled {
   cursor: not-allowed !important;
   color: #A2B7B6;
@@ -435,11 +455,16 @@
 }
 .board_tealBtn {
   position: relative;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 50em) {
+  .board_tealBtn {
+    width: 60%;
+  }
 }
 .board_tealBtn > div {
   position: absolute;
@@ -482,6 +507,11 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 50em) {
+  .board_tealBtn > div > img {
+    max-height: 85%;
+  }
+}
 .board_tealBtn:disabled {
   cursor: not-allowed !important;
   color: #A2B7B6;
@@ -494,11 +524,16 @@
 }
 .board_blackBtn {
   position: relative;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 50em) {
+  .board_blackBtn {
+    width: 60%;
+  }
 }
 .board_blackBtn > div {
   position: absolute;
@@ -541,6 +576,11 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 50em) {
+  .board_blackBtn > div > img {
+    max-height: 85%;
+  }
+}
 .board_blackBtn:disabled {
   cursor: not-allowed !important;
   color: #A2B7B6;
@@ -553,11 +593,16 @@
 }
 .board_purpleBtn {
   position: relative;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
   color: #FFFFFF;
+}
+@media (min-width: 50em) {
+  .board_purpleBtn {
+    width: 60%;
+  }
 }
 .board_purpleBtn > div {
   position: absolute;
@@ -599,6 +644,11 @@
   margin-left: 0.35rem;
   max-height: 55%;
   width: auto !important;
+}
+@media (min-width: 50em) {
+  .board_purpleBtn > div > img {
+    max-height: 85%;
+  }
 }
 .board_purpleBtn:disabled {
   cursor: not-allowed !important;

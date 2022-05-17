@@ -148,11 +148,15 @@ $list-text-font-size-large: 1.25rem;
 
 @mixin large_button() {
     position:relative;
-	width: 40%;
+	width: 50%;
 	display:flex;
 	justify-content: center;
     padding: 0;
     color: #FFFFFF;
+
+    @media (min-width: $bp-med-2) {  
+        width: 60%;
+    }
 
 	& > div {
 		position:absolute;
@@ -186,6 +190,9 @@ $list-text-font-size-large: 1.25rem;
             margin-left: 0.35rem;
             max-height: 55%;
             width: auto!important;
+            @media (min-width: $bp-med-2) {  
+                max-height: 85%;
+            }
 		}
     }
     &:disabled {

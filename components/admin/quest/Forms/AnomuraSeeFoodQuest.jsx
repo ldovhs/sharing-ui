@@ -17,8 +17,8 @@ const AnomuraSeeFoodQuest = ({
     const initialValues = {
         type: Enums.ANOMURA_SUBMISSION_QUEST,
         extendedQuestData: quest?.extendedQuestData ?? { discordChannel: "" },
-        text: quest?.text || "An app submission for #SUBMISSION",
-        description: quest?.description ?? "Allow the user to upload their submission",
+        text: quest?.text || "Seafood Image Upload #SUBMISSION",
+        description: quest?.description ?? "Allow the user to upload their Seafood submission",
         completedText: quest?.completedText || "Completed",
         rewardTypeId: quest?.rewardTypeId || 1,
         quantity: quest?.quantity || 0,
@@ -75,8 +75,8 @@ const AnomuraSeeFoodQuest = ({
                                         className={
                                             "form-control" +
                                             (errors.extendedQuestData &&
-                                            errors.extendedQuestData?.discordChannel &&
-                                            touched.extendedQuestData?.discordChannel
+                                                errors.extendedQuestData?.discordChannel &&
+                                                touched.extendedQuestData?.discordChannel
                                                 ? " is-invalid"
                                                 : "")
                                         }
@@ -101,9 +101,8 @@ const AnomuraSeeFoodQuest = ({
                                 rewardTypes={rewardTypes}
                             />
                             <div
-                                className={`col-12 mb-3 text-red-500 ${
-                                    status ? "d-block" : "d-none"
-                                }`}
+                                className={`col-12 mb-3 text-red-500 ${status ? "d-block" : "d-none"
+                                    }`}
                             >
                                 <label className="form-label">API error: {status}</label>
                             </div>

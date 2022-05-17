@@ -47,8 +47,7 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             type: true,
                         },
                     });
-                    console.log(questType);
-                    // DISCORD_AUTH TWITTER_AUTH
+
                     let existingDiscordTwitterAuth = discordTwitterAuthCheck(
                         existingQuests,
                         questType.name
@@ -59,7 +58,7 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
-                    // TWITTER_RETWEET check
+
                     let existingTwitterRetweet = retweetCheck(
                         existingQuests,
                         extendedQuestData,
@@ -72,7 +71,6 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-                    // FOLLOW_TWITTER check
                     let existingFollowTwitter = followTwitterCheck(
                         existingQuests,
                         extendedQuestData,
@@ -85,7 +83,6 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-                    // FOLLOW_INSTAGRAM check
                     let existingFollowInstagram = followInstagramCheck(
                         existingQuests,
                         extendedQuestData,
@@ -97,9 +94,25 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
+
+                    let existingNoodsClaim = noodsClaimCheck(existingQuests, questType.name);
+                    if (existingNoodsClaim) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type to quest list `,
+                            isError: true,
+                        });
+                    }
+
+                    let existingZEDClaim = ZEDClaimCheck(existingQuests, questType.name);
+                    if (existingZEDClaim) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type to quest list `,
+                            isError: true,
+                        });
+                    }
                     // TODO: ANOMURA_SUBMISSION_QUEST CHECK  add guard for app submission app request
                 } else {
-                    // updating, we need to get original extendedQuestData and create a new object to avoid data loss
+                    // update, we need to get original extendedQuestData and create a new object to avoid data loss
                     let originalQuest = await prisma.quest.findUnique({
                         where: { id },
                     });
@@ -193,6 +206,27 @@ const retweetCheck = (existingQuests, extendedQuestData, type) => {
     return twitterRetweetQuest.some(
         (q) => q.extendedQuestData.tweetId === extendedQuestData.tweetId
     );
+};
+
+const noodsClaimCheck = (existingQuests, type) => {
+    if (type != Enums.NOODS_CLAIM) return;
+
+    let noodsQuest = existingQuests.filter((q) => q.type.name === Enums.NOODS_CLAIM);
+
+    if (noodsQuest?.length >= 1 && type === Enums.NOODS_CLAIM) {
+        return true;
+    }
+    return false;
+};
+const ZEDClaimCheck = (existingQuests, type) => {
+    if (type != Enums.ZED_CLAIM) return;
+
+    let zedQuest = existingQuests.filter((q) => q.type.name === Enums.ZED_CLAIM);
+
+    if (zedQuest?.length >= 1 && type === Enums.ZED_CLAIM) {
+        return true;
+    }
+    return false;
 };
 
 export default adminMiddleware(AdminQuestUpsertAPI);

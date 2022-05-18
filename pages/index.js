@@ -40,7 +40,7 @@ function Home() {
                 ></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
-                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
                     content="https://anomuragame.com/challenger/DeepSeaChallengerThumbnail_2.png"

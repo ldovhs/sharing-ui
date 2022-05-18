@@ -18,7 +18,7 @@ function zedClaimShell() {
                 <meta property="og:description" content="Collaboration Test" />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/ColorMonster.png"
+                    content="https://sharing-ui-staging.vercel.app/challenger/ColorMonster.png"
                 />
                 <meta property="og:site_name" content="Anomura x ColorMonster"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
@@ -26,7 +26,7 @@ function zedClaimShell() {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/ColorMonster.png"
+                    content="https://sharing-ui-staging.vercel.app/challenger/ColorMonster.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

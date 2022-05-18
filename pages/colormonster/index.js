@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import s from "/sass/claim/claim.module.css";
 import { useSession } from "next-auth/react";
 import { ConnectBoard } from "@components/end-user";

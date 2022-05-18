@@ -30,7 +30,10 @@ function Home() {
                     property="og:description"
                     content="Complete quests, earn $SHELL, unlock prizes"
                 />
-                <meta property="og:image" content="/challenger/DeepSeaChallengerThumbnail_2.png" />
+                <meta
+                    property="og:image"
+                    content="https://anomuragame.com/challenger/DeepSeaChallengerThumbnail_2.png"
+                />
                 <meta
                     property="og:site_name"
                     content="Anomura: The Cove's DeepSea Challenger"

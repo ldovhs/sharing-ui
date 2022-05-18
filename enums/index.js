@@ -19,6 +19,7 @@ const Enums = {
         "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
 
     // quest related
+    JOIN_DISCORD: "Join our Discord",
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
     TWITTER_RETWEET: "Retweet a Tweet",

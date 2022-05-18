@@ -59,6 +59,14 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
+                    let existingJoinDiscord = joinDiscordCheck(existingQuests, questType.name);
+                    if (existingJoinDiscord) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type`,
+                            isError: true,
+                        });
+                    }
+
                     let existingTwitterRetweet = retweetCheck(
                         existingQuests,
                         extendedQuestData,
@@ -175,6 +183,17 @@ const discordTwitterAuthCheck = (existingQuests, type) => {
         (discordAuthQuest?.length >= 1 && type === Enums.DISCORD_AUTH) ||
         (twitterAuthQuest?.length >= 1 && type === Enums.TWITTER_AUTH)
     ) {
+        return true;
+    }
+    return false;
+};
+
+const joinDiscordCheck = (existingQuests, type) => {
+    if (type != Enums.JOIN_DISCORD) return;
+
+    let joinDiscordQuest = existingQuests.filter((q) => q.type.name === Enums.JOIN_DISCORD);
+
+    if (joinDiscordQuest?.length >= 1 && type === Enums.JOIN_DISCORD) {
         return true;
     }
     return false;

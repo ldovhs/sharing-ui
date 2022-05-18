@@ -140,6 +140,10 @@ const IndividualQuestBoard = ({
             return window.open(getTwitterAuthLink(), "_blank");
         }
 
+        if (type.name === Enums.JOIN_DISCORD) {
+            window.open("https://discord.com/invite/anomuragame", "_blank");
+        }
+
         if (type.name === Enums.TWITTER_RETWEET) {
             window.open(
                 `https://twitter.com/intent/retweet?tweet_id=${extendedQuestData.tweetId}`,

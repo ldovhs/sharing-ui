@@ -14,6 +14,7 @@ import {
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
 import { withQuestTypeQuery } from "@shared/HOC/quest";
+import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
 const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
     const [selectedType, setSelectedType] = useState();
@@ -107,6 +108,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.LIMITED_FREE_SHELL && (
                             <FreeLimitedShell
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.JOIN_DISCORD && (
+                            <JoinDiscordQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

@@ -12,6 +12,7 @@ import {
     NoodsOwnQuest,
     FreeLimitedShell,
 } from "./index";
+import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
 const EditQuest = ({ quest, closeModal, rewardTypes }) => {
     return (
@@ -85,6 +86,14 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.LIMITED_FREE_SHELL && (
                             <FreeLimitedShell
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.JOIN_DISCORD && (
+                            <JoinDiscordQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

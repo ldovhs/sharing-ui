@@ -8,6 +8,7 @@ import {
     AnomuraSeeFoodQuest,
     TwitterRetweetQuest,
     InstagramFollowQuest,
+    TwitterSpaceCodeQuest
 } from "./index";
 
 const EditQuest = ({ quest, closeModal, rewardTypes }) => {
@@ -58,6 +59,13 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
                             <AnomuraSeeFoodQuest
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+                        {quest.type.name === Enums.TWITTER_SPACE_CODE_QUEST && (
+                            <TwitterSpaceCodeQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

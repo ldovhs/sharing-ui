@@ -12,7 +12,7 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
     const [currentQuests, setCurrentQuests] = useState(null);
 
     useEffect(() => {
-        if (quests) {
+        if ((quests && quests.length > 0)) {
             setCurrentQuests(quests.sort(shortByText));
         }
     }, [quests]);

@@ -257,7 +257,7 @@ const IndividualQuestBoard = ({
                                 <div className={s.boardLarge_loading}>
                                     <div className={s.boardLarge_loading_wrapper}>
                                         <img
-                                            src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/Loading_Blob fish.gif`}
                                             alt="Loading data"
                                         />
                                         <div className={s.boardLarge_loading_wrapper_text}>

@@ -48,7 +48,6 @@ export const withUserQuestSubmit =
             {
                 onSuccess: () => {
                     queryClient.invalidateQueries("userRewardQuery");
-                    console.log(123);
                 },
             }
         );

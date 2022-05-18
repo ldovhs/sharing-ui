@@ -86,7 +86,7 @@ const ClaimShellForOwningNFT = ({
                 }
             );
 
-            console.log(allNFTsOwned);
+            // console.log(allNFTsOwned);
 
             if (allNFTsOwned?.data?.result?.length > 0) {
                 let nftsToProcess = allNFTsOwned?.data?.result;
@@ -146,7 +146,7 @@ const ClaimShellForOwningNFT = ({
                                     <div className={s.board_loading}>
                                         <div className={s.board_loading_wrapper}>
                                             <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/clamsparkle.gif`}
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/Loading_Blob fish.gif`}
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>

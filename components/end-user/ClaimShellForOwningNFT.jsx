@@ -19,6 +19,7 @@ const ClaimShellForOwningNFT = ({
     isFetchingUserQuests,
     userQuests,
     chain,
+    NftSymbol,
 }) => {
     const [nftQuest, setNftQuest] = useState(null);
     const [error, setError] = useState(null);
@@ -27,10 +28,9 @@ const ClaimShellForOwningNFT = ({
     const [isMobile, setIsMobile] = useState(false);
 
     const [isValidating, setIsValidating] = useState(false);
-    const [title, setTitle] = useState("Claimable $SHELL for owning NFT");
     const [currentView, setView] = useState(CLAIMABLE);
     let router = useRouter();
-    console.log(NFT);
+
     useEffect(() => {
         if (
             /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
@@ -90,9 +90,8 @@ const ClaimShellForOwningNFT = ({
 
             if (allNFTsOwned?.data?.result?.length > 0) {
                 let nftsToProcess = allNFTsOwned?.data?.result;
-                let nftToCheck = getNFT();
                 let promiseCheck = nftsToProcess.map((nft) => {
-                    if (nft.symbol === nftToCheck) {
+                    if (nft.symbol === NftSymbol) {
                         haveNft = true;
                     }
                 });
@@ -232,7 +231,7 @@ const ClaimShellForOwningNFT = ({
                                 {currentView === UNCLAIMABLE && (
                                     <>
                                         <div className={s.board_title}>
-                                            Unclaimable. You don't own any {getNFT()}
+                                            Unclaimable. You don't own any {NftSymbol}
                                         </div>
                                         <button
                                             className={s.board_pinkBtn}

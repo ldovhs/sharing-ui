@@ -18,6 +18,7 @@ function noodClaimShell() {
                         session={session}
                         NFT={Enums.NOODS_CLAIM}
                         chain={"polygon"}
+                        NftSymbol={"NOODS"}
                     />
                 )}
             </div>

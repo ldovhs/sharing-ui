@@ -18,6 +18,7 @@ function zedClaimShell() {
                         session={session}
                         NFT={Enums.ZED_CLAIM}
                         chain={"polygon"}
+                        NftSymbol={"ZED"}
                     />
                 )}
             </div>

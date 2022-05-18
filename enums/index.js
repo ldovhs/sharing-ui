@@ -9,14 +9,13 @@ const Enums = {
         NUDE: "Nude",
         BOREDAPE: "Bored Ape",
         MINTLIST: "Mint List",
-        MINTLIST: "Mint List",
         SHELL: "$Shell",
     },
     ADMIN_SIGN_MSG: "Sign to authenticate as admin",
     USER_SIGN_MSG:
         "Welcome to the Cove, Anomuran.\nBeware the Challenger ahead!\nSign in to proceed at your own risk.",
 
-    // quest related
+    // quest related these need to be the same as the quest type in the database.
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
     TWITTER_RETWEET: "Retweet a Tweet",

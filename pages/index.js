@@ -40,7 +40,7 @@ function Home() {
                 <meta name="twitter:card" content="summary" />
                 <meta
                     property="twitter:image"
-                    content="/challenger/DeepSeaChallengerThumbnail_2.png"
+                    content="https://anomuragame.com/challenger/DeepSeaChallengerThumbnail_2.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

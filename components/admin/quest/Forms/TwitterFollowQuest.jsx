@@ -75,8 +75,7 @@ const TwitterFollowQuest = ({
                                         className={
                                             "form-control" +
                                             (errors.extendedQuestData &&
-                                            errors.extendedQuestData.followAccount &&
-                                            touched.extendedQuestData.followAccount
+                                                errors.extendedQuestData.followAccount
                                                 ? " is-invalid"
                                                 : "")
                                         }
@@ -101,9 +100,8 @@ const TwitterFollowQuest = ({
                                 rewardTypes={rewardTypes}
                             />
                             <div
-                                className={`col-12 mb-3 text-red-500 ${
-                                    status ? "d-block" : "d-none"
-                                }`}
+                                className={`col-12 mb-3 text-red-500 ${status ? "d-block" : "d-none"
+                                    }`}
                             >
                                 <label className="form-label">API error: {status}</label>
                             </div>

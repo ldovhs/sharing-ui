@@ -30,7 +30,7 @@ const IndividualQuestBoard = ({
     let router = useRouter();
 
     //console.log(userQuests);
-    // console.log(session);
+    //const test = true;
     useEffect(async () => {
         handleRenderUserQuest();
     }, [userQuests]);
@@ -51,7 +51,6 @@ const IndividualQuestBoard = ({
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
             let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
-
             // check if user has authenticated twitter, to show twitter related quests
             userQuests = userQuests.filter((q) => {
                 if (
@@ -62,12 +61,9 @@ const IndividualQuestBoard = ({
                 }
                 return true;
             });
-
             userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
-
             setCurrentQuests(userQuests);
-
             if (userQuests.length <= 3) {
                 setScroll((prevState) => ({
                     ...prevState,

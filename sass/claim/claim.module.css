@@ -185,22 +185,22 @@
 }
 .board_loading_wrapper > img {
   display: block;
-  width: 40%;
+  width: 30%;
   height: auto;
 }
 @media (min-width: 24em) {
   .board_loading_wrapper > img {
-    width: 40%;
+    width: 30%;
   }
 }
 @media (min-width: 31.25em) {
   .board_loading_wrapper > img {
-    width: 50%;
+    width: 40%;
   }
 }
 @media (min-width: 46.8em) {
   .board_loading_wrapper > img {
-    width: 80%;
+    width: 60%;
   }
 }
 .board_loading_wrapper_text {
@@ -216,19 +216,19 @@
 @media (min-width: 24em) {
   .board_loading_wrapper_text {
     font-size: 0.6rem;
-    bottom: 18%;
+    bottom: 12%;
   }
 }
 @media (min-width: 31.25em) {
   .board_loading_wrapper_text {
     font-size: 1.125rem;
-    bottom: 19%;
+    bottom: 9%;
   }
 }
 @media (min-width: 46.8em) {
   .board_loading_wrapper_text {
     font-size: 1.35rem;
-    bottom: 19%;
+    bottom: 12%;
   }
 }
 .board_loading_wrapper_text_ellipsis {
@@ -1106,7 +1106,7 @@
 }
 .boardLarge_loading_wrapper > img {
   display: block;
-  width: 50%;
+  width: 45%;
   height: auto;
 }
 @media (min-width: 24em) {
@@ -1116,18 +1116,18 @@
 }
 @media (min-width: 31.25em) {
   .boardLarge_loading_wrapper > img {
-    width: 50%;
+    width: 40%;
   }
 }
 @media (min-width: 46.8em) {
   .boardLarge_loading_wrapper > img {
-    width: 60%;
+    width: 50%;
   }
 }
 .boardLarge_loading_wrapper_text {
   position: absolute;
   width: 100%;
-  bottom: 7%;
+  bottom: 1%;
   text-align: center;
   font-size: 0.51rem;
   display: flex;
@@ -1139,13 +1139,25 @@
 @media (min-width: 24em) {
   .boardLarge_loading_wrapper_text {
     font-size: 0.75rem;
-    bottom: 11%;
+    bottom: 3%;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_loading_wrapper_text {
+    font-size: 0.8rem;
+    bottom: -5%;
   }
 }
 @media (min-width: 39.8em) {
   .boardLarge_loading_wrapper_text {
     font-size: 0.85rem;
-    bottom: 12%;
+    bottom: 1%;
+  }
+}
+@media (min-width: 50em) {
+  .boardLarge_loading_wrapper_text {
+    font-size: 1.15rem;
+    bottom: 1%;
   }
 }
 .boardLarge_loading_wrapper_text_ellipsis {

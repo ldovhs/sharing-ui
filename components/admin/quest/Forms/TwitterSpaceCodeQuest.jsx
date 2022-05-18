@@ -1,7 +1,7 @@
 import Enums from "enums";
 import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, array, string, number } from "yup";
+import { object, array, string, number, date } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
 import QuestFormTemplate from "./QuestFormTemplate";
 
@@ -14,9 +14,10 @@ const TwitterSpaceQuest = ({
     mutationError,
     onUpsert,
 }) => {
+
     const initialValues = {
         type: Enums.TWITTER_SPACE_CODE_QUEST,
-        extendedQuestData: quest?.extendedQuestData ?? { discordChannel: "" },
+        extendedQuestData: quest?.extendedQuestData ?? { twitterSpaceCode: "Anomura", dateDeadline: "", timeDeadLine: "" },
         text: quest?.text || "Twitter Space Codes",
         description: quest?.description ?? "Allow users to enter codes we give on Twitter Spaces",
         completedText: quest?.completedText || "Completed",
@@ -25,10 +26,13 @@ const TwitterSpaceQuest = ({
         isEnabled: quest?.isEnabled ?? true,
         isRequired: quest?.isRequired ?? false,
         id: quest?.id || 0,
+        twitterCode: quest?.twitterCode || "Code"
     };
     const TwitterSpaceQuestSchema = object().shape({
         extendedQuestData: object().shape({
-            discordChannel: string().required("A Discord channel Id is required!"),
+            twitterSpaceCode: string().required("Code for Twitter Space is required!!"),
+            dateDeadline: string().required("Date deadline for code is required!!"),
+            timeDeadline: string().required("Time deadline for code is required!!"),
         }),
         text: string().required("Quest text is required"),
         completedText: string().required("Complete Text is required"),
@@ -64,30 +68,6 @@ const TwitterSpaceQuest = ({
                         <small>Create a Twitter Space Code Input</small>
                         <div className="row">
                             {/* Discord channel for quest */}
-                            <div className="col-xxl-12 col-xl-12 col-lg-12">
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">
-                                        Discord Quest Channel Id (947009220262363136)
-                                    </label>
-                                    <Field
-                                        name={`extendedQuestData.discordChannel`}
-                                        type="text"
-                                        className={
-                                            "form-control" +
-                                            (errors.extendedQuestData &&
-                                                errors.extendedQuestData?.discordChannel &&
-                                                touched.extendedQuestData?.discordChannel
-                                                ? " is-invalid"
-                                                : "")
-                                        }
-                                    />
-                                    <ErrorMessage
-                                        name={`extendedQuestData.discordChannel`}
-                                        component="div"
-                                        className="invalid-feedback"
-                                    />
-                                </div>
-                            </div>
                             <QuestFormTemplate
                                 values={values}
                                 errors={errors}
@@ -100,6 +80,52 @@ const TwitterSpaceQuest = ({
                                 onIsEnabledChange={handleChange}
                                 rewardTypes={rewardTypes}
                             />
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Twitter Space Code</label>
+                                <Field
+                                    name="extendedQuestData.twitterSpaceCode"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors?.extendedQuestData &&
+                                            errors?.extendedQuestData.twitterSpaceCode
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+
+                                />
+                                <ErrorMessage name="extendedQuestData.twitterSpaceCode" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Time Deadline</label>
+                                <Field
+                                    name="extendedQuestData.timeDeadline"
+                                    type="time"
+                                    className={
+                                        "form-control" +
+                                        (errors?.extendedQuestData &&
+                                            errors?.extendedQuestData.timeDeadline
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage name="extendedQuestData.timeDeadline" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Date Deadline</label>
+                                <Field
+                                    name="extendedQuestData.dateDeadline"
+                                    type="date"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                            errors?.extendedQuestData.dateDeadline
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage name="extendedQuestData.dateDeadline" component="div" className="invalid-feedback" />
+                            </div>
                             <div
                                 className={`col-12 mb-3 text-red-500 ${status ? "d-block" : "d-none"
                                     }`}

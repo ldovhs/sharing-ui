@@ -10,6 +10,7 @@ import {
     ZedOwnQuest,
     NoodsOwnQuest,
     FreeLimitedShell,
+    CollaborationFreeShell,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -116,6 +117,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.JOIN_DISCORD && (
                             <JoinDiscordQuest
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.COLLABORATION_FREE_SHELL && (
+                            <CollaborationFreeShell
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

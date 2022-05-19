@@ -4,7 +4,7 @@ import s from "/sass/claim/claim.module.css";
 import { useSession } from "next-auth/react";
 import { ConnectBoard } from "@components/end-user";
 import Enums from "enums";
-import ClaimShellForOwningNFT from "@components/end-user/ClaimShellForOwningNFT";
+import CollaborationClaimShell from "@components/end-user/CollaborationClaimShell";
 
 function zedClaimShell() {
     const { data: session, status } = useSession({ required: false });
@@ -31,17 +31,15 @@ function zedClaimShell() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.app}>
-                {/* {!session ? (
+                {!session ? (
                     <ConnectBoard />
                 ) : (
-                    <ClaimShellForOwningNFT
+                    <CollaborationClaimShell
                         session={session}
-                        claimType={Enums.ZED_CLAIM}
-                        chain={"polygon"}
-                        NftSymbol={"ZED"}
+                        claimType={Enums.COLLABORATION_FREE_SHELL}
+                        collaboration={"colormonster"}
                     />
-                )} */}
-                <ConnectBoard />
+                )}
             </div>
         </>
     );

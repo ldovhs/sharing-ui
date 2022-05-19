@@ -141,6 +141,18 @@ const IndividualQuestBoard = ({
                 return router.push("/humanpark");
             }
         }
+
+        // sub directory quest, should RETURN
+        if (type.name === Enums.COLLABORATION_FREE_SHELL) {
+            console.log(extendedQuestData);
+
+            switch (extendedQuestData.collaboration) {
+                case "colormonster":
+                    return router.push("/colormonster");
+                default:
+                    return router.push("/");
+            }
+        }
         if (type.name === Enums.DISCORD_AUTH) {
             return window.open(getDiscordAuthLink(), "_blank");
         }
@@ -170,14 +182,14 @@ const IndividualQuestBoard = ({
             window.open(`https://www.instagram.com/${extendedQuestData.followAccount}`, "_blank");
         }
 
-        let submission = {
-            questId,
-            type,
-            rewardTypeId,
-            quantity,
-            extendedQuestData,
-        };
-        let updatedQuestArr = await onSubmit(submission, currentQuests);
+        // let submission = {
+        //     questId,
+        //     type,
+        //     rewardTypeId,
+        //     quantity,
+        //     extendedQuestData,
+        // };
+        // let updatedQuestArr = await onSubmit(submission, currentQuests);
 
         setCurrentQuests(updatedQuestArr);
     };

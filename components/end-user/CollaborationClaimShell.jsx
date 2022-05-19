@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
-import axios from "axios";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
@@ -10,15 +9,14 @@ const CLAIMABLE = 0;
 const CLAIMED = 1;
 const UNCLAIMABLE = 2;
 
-const ClaimShellBase = ({
-    session,
-    reward,
+const CollaborationClaimShell = ({
     onSubmit,
     isSubmitting,
-    claimType,
     isFetchingUserQuests,
     userQuests,
-    chain,
+    session,
+    claimType,
+    collaboration,
 }) => {
     const [quest, setQuest] = useState(null);
     const [error, setError] = useState(null);
@@ -49,8 +47,16 @@ const ClaimShellBase = ({
 
     useEffect(async () => {
         if (userQuests) {
-            let findQuest = userQuests.find((q) => q.type.name === claimType);
-
+            let findQuest = userQuests.find(
+                (q) =>
+                    q.type.name === claimType && q.extendedQuestData.collaboration === collaboration
+            );
+            console.log(findQuest);
+            if (!findQuest) {
+                // set error somewhere here
+                setError("Something is wrong. Please contact your administrator.");
+                setView(UNCLAIMABLE);
+            }
             if (findQuest) {
                 setQuest(findQuest);
                 if (findQuest.isDone) {
@@ -92,12 +98,6 @@ const ClaimShellBase = ({
         }
     };
 
-    const getNFT = () => {
-        let pathname = router.pathname;
-        const nft = pathname.split("/");
-        return nft[1].toString().trim().toUpperCase();
-    };
-
     return (
         <div className={s.board}>
             <div className={s.board_container}>
@@ -116,7 +116,7 @@ const ClaimShellBase = ({
                                                 alt="Loading data"
                                             />
                                             <div className={s.board_loading_wrapper_text}>
-                                                Loading
+                                                Awaiting
                                                 <span
                                                     className={
                                                         s.board_loading_wrapper_text_ellipsis
@@ -132,10 +132,7 @@ const ClaimShellBase = ({
                                     !isFetchingUserQuests &&
                                     !isValidating && (
                                         <>
-                                            <div className={s.board_title}>
-                                                {/* Claim $SHELL for owning {getNFT()} */}
-                                                {quest.text}
-                                            </div>
+                                            <div className={s.board_title}>{quest.text}</div>
 
                                             <button
                                                 className={s.board_pinkBtn}
@@ -195,9 +192,7 @@ const ClaimShellBase = ({
                                 )}
                                 {currentView === UNCLAIMABLE && (
                                     <>
-                                        <div className={s.board_title}>
-                                            Unclaimable. You don't own any {NftSymbol}
-                                        </div>
+                                        <div className={s.board_title}>Unclaimable. {error}</div>
                                         <button
                                             className={s.board_pinkBtn}
                                             onClick={() => {
@@ -235,5 +230,5 @@ const ClaimShellBase = ({
     );
 };
 
-const firstHOC = withUserQuestSubmit(ClaimShellBase);
+const firstHOC = withUserQuestSubmit(CollaborationClaimShell);
 export default withUserQuestQuery(firstHOC);

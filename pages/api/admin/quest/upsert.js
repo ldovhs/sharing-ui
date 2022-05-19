@@ -118,6 +118,18 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
+
+                    let existingCollaboration = collaborationClaimQuestCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
+                    if (existingCollaboration) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type of quest for same collaboration "${extendedQuestData.collaboration}".`,
+                            isError: true,
+                        });
+                    }
                     // TODO: ANOMURA_SUBMISSION_QUEST CHECK  add guard for app submission app request
                 } else {
                     // update, we need to get original extendedQuestData and create a new object to avoid data loss
@@ -246,6 +258,17 @@ const ZEDClaimCheck = (existingQuests, type) => {
         return true;
     }
     return false;
+};
+
+const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.COLLABORATION_FREE_SHELL) return;
+    let collaborationClaim = existingQuests.filter(
+        (q) => q.type.name === Enums.COLLABORATION_FREE_SHELL
+    );
+
+    return collaborationClaim.some(
+        (q) => q.extendedQuestData.collaboration === extendedQuestData.collaboration
+    );
 };
 
 export default adminMiddleware(AdminQuestUpsertAPI);

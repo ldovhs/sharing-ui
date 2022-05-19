@@ -28,7 +28,7 @@ const Enums = {
     NOODS_CLAIM: "Own NOODS to claim $SHELL",
     ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
-    FREE_SHELL_COLLABORATION: "Free $SHELL On Collaboration",
+    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration",
 };
 
 module.exports = Enums;

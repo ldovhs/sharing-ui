@@ -51,6 +51,12 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                                                             {quest.extendedQuestData.tweetId}
                                                         </span>
                                                     )}
+                                                    {quest.type.name ===
+                                                        Enums.CollaborationFreeShell && (
+                                                        <span className="text-teal-500 ml-1">
+                                                            {quest.extendedQuestData.collaboration}
+                                                        </span>
+                                                    )}
                                                 </h5>
 
                                                 <small>{quest.description}</small>

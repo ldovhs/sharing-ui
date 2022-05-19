@@ -12,7 +12,6 @@ const UNCLAIMABLE = 2;
 
 const ClaimShellForOwningNFT = ({
     session,
-    reward,
     onSubmit,
     isSubmitting,
     NFT,

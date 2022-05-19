@@ -7,3 +7,4 @@ export { default as TwitterRetweetQuest } from "./Forms/TwitterRetweetQuest";
 export { default as ZedOwnQuest } from "./Forms/ZedOwnQuest";
 export { default as NoodsOwnQuest } from "./Forms/NoodsOwnQuest";
 export { default as FreeLimitedShell } from "./Forms/FreeLimitedShell";
+export { default as CollaborationFreeShell } from "./Forms/CollaborationFreeShell";

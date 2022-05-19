@@ -138,27 +138,22 @@ const ClaimShellForOwningNFT = ({
                 </div>
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
+                        {(isSubmitting || isFetchingUserQuests || isValidating) && (
+                            <div className={s.board_loading}>
+                                <div className={s.board_loading_wrapper}>
+                                    <img
+                                        src={`${Enums.BASEPATH}/img/sharing-ui/Loading_Blob fish.gif`}
+                                        alt="Loading data"
+                                    />
+                                    <div className={s.board_loading_wrapper_text}>
+                                        Loading
+                                        <span className={s.board_loading_wrapper_text_ellipsis} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                         {nftQuest && !error && (
                             <>
-                                {(isSubmitting || isFetchingUserQuests || isValidating) && (
-                                    <div className={s.board_loading}>
-                                        <div className={s.board_loading_wrapper}>
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/Loading_Blob fish.gif`}
-                                                alt="Loading data"
-                                            />
-                                            <div className={s.board_loading_wrapper_text}>
-                                                Loading
-                                                <span
-                                                    className={
-                                                        s.board_loading_wrapper_text_ellipsis
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
                                 {currentView === CLAIMABLE &&
                                     !isSubmitting &&
                                     !isFetchingUserQuests &&

@@ -128,18 +128,20 @@ const IndividualQuestBoard = ({
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
         console.log(process.env.NODE_ENV);
         if (type.name === Enums.ZED_CLAIM) {
-            if (process.env.NODE_ENV === "production") {
-                return window.open(`${process.env.NEXT_PUBLIC_WEBSITE_HOST}/zed`);
-            } else {
-                return router.push("/zed");
-            }
+            // if (process.env.NODE_ENV === "production") {
+            //     return window.open(`${process.env.NEXT_PUBLIC_WEBSITE_HOST}/zed`);
+            // } else {
+            //     return router.push("/zed");
+            // }
+            return router.push("/zed");
         }
         if (type.name === Enums.NOODS_CLAIM) {
-            if (process.env.NODE_ENV === "production") {
-                return window.open(`${process.env.NEXT_PUBLIC_WEBSITE_HOST}/humanpark`);
-            } else {
-                return router.push("/humanpark");
-            }
+            // if (process.env.NODE_ENV === "production") {
+            //     return window.open(`${process.env.NEXT_PUBLIC_WEBSITE_HOST}/humanpark`);
+            // } else {
+            //     return router.push("/humanpark");
+            // }
+            return router.push("/humanpark");
         }
 
         // sub directory quest, should RETURN

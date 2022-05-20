@@ -136,7 +136,12 @@ const CollaborationQuestBoard = ({
                     return false;
                 }
 
-                if (q.type.name === Enums.ZED_CLAIM || q.type.name === Enums.NOODS_CLAIM) {
+                /* exclude daily free cell */
+                if (
+                    q.type.name === Enums.ZED_CLAIM ||
+                    q.type.name === Enums.NOODS_CLAIM ||
+                    q.type.name === Enums.DAILY_SHELL
+                ) {
                     return false;
                 }
 

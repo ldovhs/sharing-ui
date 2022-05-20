@@ -85,7 +85,7 @@ const CollaborationQuestBoard = ({
                         if (currentUser.twitterId !== null && currentUser.twitterId.length > 1) {
                             hasTwitterId = true;
                         }
-                        if (currentUser.discordId !== null || currentUser.discordId.length > 1) {
+                        if (currentUser.discordId !== null && currentUser.discordId.length > 1) {
                             hasDiscordId = true;
                         }
 
@@ -142,8 +142,6 @@ const CollaborationQuestBoard = ({
 
                 return true;
             });
-
-            console.log(userQuests);
 
             userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
@@ -210,7 +208,7 @@ const CollaborationQuestBoard = ({
      */
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
-        console.log(type.name);
+
         if (type.name === Enums.ZED_CLAIM) {
             return router.push("/zed");
         }
@@ -220,8 +218,6 @@ const CollaborationQuestBoard = ({
 
         // sub directory quest, should RETURN
         if (type.name === Enums.COLLABORATION_FREE_SHELL) {
-            console.log(extendedQuestData);
-
             switch (extendedQuestData.collaboration) {
                 case "colormonster":
                     return router.push("/colormonster");

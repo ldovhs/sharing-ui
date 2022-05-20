@@ -39,7 +39,10 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         .json({ isError: true, message: `Cannot find quest type ${type}` });
                 }
                 let newExtendedQuestData;
+
                 if (id === 0) {
+                    // add new userquest
+                    console.log(`** Creating new quest **`);
                     newExtendedQuestData = { ...extendedQuestData };
 
                     let existingQuests = await prisma.quest.findMany({
@@ -59,7 +62,11 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-                    let existingJoinDiscord = joinDiscordCheck(existingQuests, questType.name);
+                    let existingJoinDiscord = joinDiscordCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
                     if (existingJoinDiscord) {
                         return res.status(200).json({
                             message: `Cannot add more than one "${type}" type`,
@@ -132,7 +139,8 @@ const AdminQuestUpsertAPI = async (req, res) => {
                     }
                     // TODO: ANOMURA_SUBMISSION_QUEST CHECK  add guard for app submission app request
                 } else {
-                    // update, we need to get original extendedQuestData and create a new object to avoid data loss
+                    // update userquest, we need to get original extendedQuestData and create a new object to avoid data loss
+                    console.log(`** Upserting a quest **`);
                     let originalQuest = await prisma.quest.findUnique({
                         where: { id },
                     });
@@ -145,7 +153,6 @@ const AdminQuestUpsertAPI = async (req, res) => {
                     }
                 }
 
-                console.log(`** Upsert a quest **`);
                 let newQuest = await questUpsert(
                     id,
                     questType.id,
@@ -205,10 +212,9 @@ const joinDiscordCheck = (existingQuests, type) => {
 
     let joinDiscordQuest = existingQuests.filter((q) => q.type.name === Enums.JOIN_DISCORD);
 
-    if (joinDiscordQuest?.length >= 1 && type === Enums.JOIN_DISCORD) {
-        return true;
-    }
-    return false;
+    return joinDiscordQuest.some(
+        (q) => q.extendedQuestData.discordServer === extendedQuestData.discordServer
+    );
 };
 
 const followTwitterCheck = (existingQuests, extendedQuestData, type) => {

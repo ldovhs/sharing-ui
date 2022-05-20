@@ -6,6 +6,7 @@ import Enums from "enums";
 const QUEST_TYPE_QUERY = `${Enums.BASEPATH}/api/admin/quest/type`;
 const USER_QUEST_QUERY = `${Enums.BASEPATH}/api/user/quest/`;
 const USER_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submit`;
+const USER_DAILY_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submitDaily`;
 
 const ADMIN_QUEST_QUERY = `${Enums.BASEPATH}/api/admin/quest/`;
 const ADMIN_QUEST_UPSERT = `${Enums.BASEPATH}/api/admin/quest/upsert`;
@@ -34,6 +35,49 @@ export const withQuestUpsert =
                 isLoading={isLoading}
                 mutationError={error}
                 onUpsert={(quest) => handleOnUpsert(quest)}
+            />
+        );
+    };
+
+export const withUserDailyQuestSubmit =
+    (Component) =>
+    ({ ...props }) => {
+        const queryClient = useQueryClient();
+        const { data, error, isError, isLoading, isSuccess, mutate, mutateAsync } = useMutation(
+            "submitDailyQuest",
+            (quest) => axios.post(USER_DAILY_QUEST_SUBMIT, quest),
+            {
+                onSuccess: () => {
+                    queryClient.invalidateQueries("userRewardQuery");
+                },
+            }
+        );
+
+        const handleOnSubmit = async (quest, currentQuests) => {
+            let submitted = await mutateAsync(quest);
+
+            if (submitted) {
+                let updatedQuests = currentQuests.map((q) => {
+                    if (q.questId == quest.questId) {
+                        q.isDone = true;
+                    }
+                    return q;
+                });
+
+                return await Promise.all(updatedQuests).then(() => {
+                    updatedQuests.sort(isNotDoneFirst);
+                    return updatedQuests;
+                });
+            }
+        };
+
+        return (
+            <Component
+                {...props}
+                isSubmittingDaily={isLoading}
+                submittedDailyQuest={data?.data}
+                mutationDailyError={error}
+                onSubmitDaily={(quest, currentQuests) => handleOnSubmit(quest, currentQuests)}
             />
         );
     };

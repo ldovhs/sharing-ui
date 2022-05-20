@@ -17,6 +17,11 @@ const Enums = {
     USER_CLAIM_NFT_MSG:
         "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
 
+    DAILY: "daily",
+    HOURLY: "hourly",
+    WEEKLY: "weekly",
+    MONTHLY: "monthly",
+
     // quest related
     JOIN_DISCORD: "Join our Discord",
     DISCORD_AUTH: "Discord Authenticate",
@@ -29,6 +34,7 @@ const Enums = {
     ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
     COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration",
+    DAILY_SHELL: "Daily Shell Quest",
 };
 
 module.exports = Enums;

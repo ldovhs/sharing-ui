@@ -8,3 +8,4 @@ export { default as ZedOwnQuest } from "./Forms/ZedOwnQuest";
 export { default as NoodsOwnQuest } from "./Forms/NoodsOwnQuest";
 export { default as FreeLimitedShell } from "./Forms/FreeLimitedShell";
 export { default as CollaborationFreeShell } from "./Forms/CollaborationFreeShell";
+export { default as DailyShellQuestForm } from "./Forms/DailyShellQuestForm";

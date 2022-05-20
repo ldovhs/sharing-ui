@@ -16,7 +16,7 @@ const TwitterFollowQuest = ({
 }) => {
     const initialValues = {
         type: Enums.FOLLOW_TWITTER,
-        extendedQuestData: quest?.extendedQuestData ?? { followAccount: "" },
+        extendedQuestData: quest?.extendedQuestData ?? { followAccount: "", collaboration: "" },
         text: quest?.text || "Follow Twitter Account",
         description: quest?.description ?? "Require the user to follow a Twitter Account",
         completedText: quest?.completedText || "Completed",
@@ -64,30 +64,48 @@ const TwitterFollowQuest = ({
                         <small>Create a Twitter Follow Requirement</small>
                         <div className="row">
                             {/* Follow Twitter Account */}
-                            <div className="col-xxl-12 col-xl-12 col-lg-12">
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">
-                                        Follow Twitter Account (whale.drop)
-                                    </label>
-                                    <Field
-                                        name="extendedQuestData.followAccount"
-                                        type="text"
-                                        className={
-                                            "form-control" +
-                                            (errors.extendedQuestData &&
-                                            errors.extendedQuestData.followAccount &&
-                                            touched.extendedQuestData.followAccount
-                                                ? " is-invalid"
-                                                : "")
-                                        }
-                                    />
-                                    <ErrorMessage
-                                        name="extendedQuestData.followAccount"
-                                        component="div"
-                                        className="invalid-feedback"
-                                    />
-                                </div>
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Follow Twitter Account (whale.drop)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.followAccount"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.followAccount &&
+                                        touched.extendedQuestData.followAccount
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.followAccount"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
                             </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Part of Collaboration (colormonster, leave blank if not
+                                    collaborate)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.collaboration"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.collaboration &&
+                                        touched.extendedQuestData.collaboration
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                            </div>
+
                             <QuestFormTemplate
                                 values={values}
                                 errors={errors}

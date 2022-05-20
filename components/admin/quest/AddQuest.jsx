@@ -11,6 +11,7 @@ import {
     NoodsOwnQuest,
     FreeLimitedShell,
     CollaborationFreeShell,
+    DailyShellQuestForm,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -125,6 +126,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.COLLABORATION_FREE_SHELL && (
                             <CollaborationFreeShell
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.DAILY_SHELL && (
+                            <DailyShellQuestForm
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

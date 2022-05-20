@@ -1,11 +1,14 @@
 import Enums from "enums";
-import React, { useEffect } from "react";
+import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
 import QuestFormTemplate from "./QuestFormTemplate";
 
-const FreeLimitedShell = ({
+/**
+ * This is for sub directory of quest for claiming free $SHELL per frequent
+ */
+const DailyShellQuestForm = ({
     quest = null,
     rewardTypes,
     closeModal,
@@ -15,29 +18,32 @@ const FreeLimitedShell = ({
     onUpsert,
 }) => {
     const initialValues = {
-        type: Enums.LIMITED_FREE_SHELL,
-        extendedQuestData: quest?.extendedQuestData ?? { collaboration: "" },
-        text: quest?.text || "Free limited $SHELL.",
-        description: quest?.description ?? "Free shell seasonal",
+        type: Enums.DAILY_SHELL,
+        extendedQuestData: quest?.extendedQuestData ?? { frequently: "", questRule: "" },
+        text: quest?.text || "Daily Free $SHELL",
+        description: quest?.description ?? "Allow user to claim free shell on frequently basis",
         completedText: quest?.completedText || "Completed",
         rewardTypeId: quest?.rewardTypeId || 1,
         quantity: quest?.quantity || 0,
         isEnabled: quest?.isEnabled ?? true,
-        isRequired: quest?.isRequired ?? true,
+        isRequired: quest?.isRequired ?? false,
         id: quest?.id || 0,
     };
-
-    const FreeShellQuestSchema = object().shape({
+    const DailyShellQuestSchema = object().shape({
+        extendedQuestData: object().shape({
+            frequently: string().required("A frequently identity is required!"),
+            questRule: string().required("A rule identity is required!"),
+        }),
         text: string().required("Quest text is required"),
-        completedText: string().required("Completed Text is required"),
-        quantity: number().required().min(0), // optional
+        completedText: string().required("Complete Text is required"),
+        quantity: number().required().min(0), //optional
     });
 
     const onSubmit = async (fields, { setStatus }) => {
         try {
             let res = await onUpsert(fields);
 
-            if (res.data.isError) {
+            if (res?.data?.isError) {
                 setStatus(res.data.message);
             } else {
                 closeModal();
@@ -50,7 +56,7 @@ const FreeLimitedShell = ({
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={FreeShellQuestSchema}
+            validationSchema={DailyShellQuestSchema}
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={onSubmit}
@@ -59,31 +65,53 @@ const FreeLimitedShell = ({
                 return (
                     <Form>
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
-                        <small>Seasonal Free Limited $SHELL</small>
+                        <small>Create a free $SHELL Daily quest</small>
                         <div className="row">
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">
-                                    Part of Collaboration (colormonsters, or leave blank if not
-                                    collaborate)
+                                    Frequent Rule (Enter 'daily/hourly/weekly' for rule)
                                 </label>
                                 <Field
-                                    name="extendedQuestData.collaboration"
+                                    name="extendedQuestData.frequently"
                                     type="text"
                                     className={
                                         "form-control" +
                                         (errors.extendedQuestData &&
-                                        errors.extendedQuestData.collaboration &&
-                                        touched.extendedQuestData.collaboration
+                                        errors.extendedQuestData.frequently &&
+                                        touched.extendedQuestData.frequently
                                             ? " is-invalid"
                                             : "")
                                     }
                                 />
                                 <ErrorMessage
-                                    name="extendedQuestData.collaboration"
+                                    name="extendedQuestData.frequently"
                                     component="div"
                                     className="invalid-feedback"
                                 />
                             </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Quest Rule (Enter 'any' for rule)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.questRule"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.questRule &&
+                                        touched.extendedQuestData.questRule
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.questRule"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+
                             <QuestFormTemplate
                                 values={values}
                                 errors={errors}
@@ -96,7 +124,6 @@ const FreeLimitedShell = ({
                                 onIsEnabledChange={handleChange}
                                 rewardTypes={rewardTypes}
                             />
-
                             <div
                                 className={`col-12 mb-3 text-red-500 ${
                                     status ? "d-block" : "d-none"
@@ -111,13 +138,14 @@ const FreeLimitedShell = ({
                                     className="btn btn-success mr-2"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? "Saving" : "Save"}
+                                    {isLoading ? "Saving..." : "Save"}
                                 </button>
 
                                 <button
                                     type="button"
                                     className="btn btn-primary"
                                     onClick={closeModal}
+                                    disabled={isLoading}
                                 >
                                     Close
                                 </button>
@@ -130,4 +158,4 @@ const FreeLimitedShell = ({
     );
 };
 
-export default withQuestUpsert(FreeLimitedShell);
+export default withQuestUpsert(DailyShellQuestForm);

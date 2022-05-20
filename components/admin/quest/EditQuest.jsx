@@ -12,6 +12,7 @@ import {
     NoodsOwnQuest,
     FreeLimitedShell,
     CollaborationFreeShell,
+    DailyShellQuestForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
@@ -103,6 +104,14 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.COLLABORATION_FREE_SHELL && (
                             <CollaborationFreeShell
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.DAILY_SHELL && (
+                            <DailyShellQuestForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

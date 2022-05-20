@@ -71,6 +71,11 @@ export const getQuestsDoneByThisUser = async (wallet) => {
         },
         include: {
             user: true,
+            quest: {
+                include: {
+                    type: true,
+                },
+            },
         },
     });
 };

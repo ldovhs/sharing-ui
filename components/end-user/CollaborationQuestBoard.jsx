@@ -2,15 +2,17 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
-import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
+import axios from "axios";
 
+import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import { withUserRewardQuery } from "@shared/HOC/reward";
 import { useRouter } from "next/router";
+import { withCurrentUserQuery } from "@shared/HOC/user";
+const CHECK_TWITTER_FOLLOWER = `${Enums.BASEPATH}/api/twitter/checkFollowers`;
 
-const IndividualQuestBoard = ({
+const CollaborationQuestBoard = ({
     session,
     isFetchingUserQuests,
-    isFetchingUser,
     isFetchingUserRewards,
     userQuests,
     userRewards,
@@ -18,6 +20,9 @@ const IndividualQuestBoard = ({
     onSubmit,
     isSubmitting,
     submittedQuest,
+    collaboration,
+    isFetchingUser,
+    currentUser,
 }) => {
     const [currentQuests, setCurrentQuests] = useState(userQuests);
     const [rewardAmount, setRewardAmount] = useState(null);
@@ -31,6 +36,7 @@ const IndividualQuestBoard = ({
 
     //console.log(userQuests);
     //const test = true;
+    // console.log(currentUser);
     useEffect(async () => {
         handleRenderUserQuest();
     }, [userQuests]);
@@ -51,7 +57,7 @@ const IndividualQuestBoard = ({
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
             let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
-            // check if user has authenticated twitter, to show twitter related quests
+
             userQuests = userQuests.filter((q) => {
                 if (
                     !twitterAuthQuest.isDone &&
@@ -61,13 +67,83 @@ const IndividualQuestBoard = ({
                 }
                 if (
                     q.extendedQuestData.collaboration &&
-                    q.extendedQuestData.collaboration.length > 0
+                    q.extendedQuestData.collaboration.length > 0 &&
+                    q.extendedQuestData.collaboration === collaboration
                 ) {
+                    if (
+                        collaboration === "colormonsters" &&
+                        q.type.name === Enums.LIMITED_FREE_SHELL
+                    ) {
+                        /*check if user follow twitter and in color monster server discord
+                        if yes we show the free shell 500$, else dont show this 500$
+                        */
+
+                        let hasTwitterId = false,
+                            hasDiscordId = false,
+                            hasFollowColorMonsterTwitter = false,
+                            hasJoinColorMonsterDiscord = false;
+                        if (currentUser.twitterId !== null && currentUser.twitterId.length > 1) {
+                            hasTwitterId = true;
+                        }
+                        if (currentUser.discordId !== null || currentUser.discordId.length > 1) {
+                            hasDiscordId = true;
+                        }
+
+                        let followColorMonsterTwitter = userQuests.find(
+                            (q) =>
+                                q.type.name === Enums.FOLLOW_TWITTER &&
+                                q.extendedQuestData.collaboration &&
+                                q.extendedQuestData.collaboration === collaboration
+                        );
+                        if (followColorMonsterTwitter.isDone === true) {
+                            hasFollowColorMonsterTwitter = true;
+                        }
+
+                        let shareColorMonsterTweetArray = userQuests.filter(
+                            (q) =>
+                                q.type.name === Enums.TWITTER_RETWEET &&
+                                q.extendedQuestData.collaboration &&
+                                q.extendedQuestData.collaboration === collaboration
+                        );
+                        let isShare = true;
+                        shareColorMonsterTweetArray.map((q) => {
+                            if (q.isDone === false) {
+                                isShare = false;
+                            }
+                        });
+                        if (isShare) {
+                            hasJoinColorMonsterDiscord = true;
+                        }
+
+                        if (
+                            hasTwitterId &&
+                            hasDiscordId &&
+                            hasFollowColorMonsterTwitter &&
+                            hasJoinColorMonsterDiscord
+                        ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                if (
+                    q.extendedQuestData.collaboration &&
+                    q.extendedQuestData.collaboration.length > 0 &&
+                    q.extendedQuestData.collaboration !== collaboration
+                ) {
+                    return false;
+                }
+
+                if (q.type.name === Enums.ZED_CLAIM || q.type.name === Enums.NOODS_CLAIM) {
                     return false;
                 }
 
                 return true;
             });
+
+            console.log(userQuests);
 
             userQuests.sort(isAlphabeticallly);
             userQuests.sort(isNotDoneFirst);
@@ -433,6 +509,7 @@ function isAlphabeticallly(a, b) {
     return a.text.localeCompare(b.text);
 }
 
-const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
+const firstHOC = withUserQuestSubmit(CollaborationQuestBoard);
 const secondHOC = withUserRewardQuery(firstHOC);
-export default withUserQuestQuery(secondHOC);
+const thirdHOC = withCurrentUserQuery(secondHOC);
+export default withUserQuestQuery(thirdHOC);

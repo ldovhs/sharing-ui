@@ -16,7 +16,7 @@ const TwitterRetweetQuest = ({
 }) => {
     const initialValues = {
         type: Enums.TWITTER_RETWEET,
-        extendedQuestData: quest?.extendedQuestData ?? { tweetId: "" },
+        extendedQuestData: quest?.extendedQuestData ?? { tweetId: "", collaboration: "" },
         text: quest?.text || "Retweet a Tweet",
         description: quest?.description ?? "Require the user to retweet a Tweet",
         completedText: quest?.completedText || "Completed",
@@ -64,29 +64,51 @@ const TwitterRetweetQuest = ({
                         <small>Create a Twitter Retweet Requirement</small>
                         <div className="row">
                             {/* Retweet a Tweet */}
-                            <div className="col-xxl-12 col-xl-12 col-lg-12">
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">
-                                        Retweet a tweet (Enter id of the original tweet)
-                                    </label>
-                                    <Field
-                                        name="extendedQuestData.tweetId"
-                                        type="text"
-                                        className={
-                                            "form-control" +
-                                            (errors.extendedQuestData &&
-                                            errors.extendedQuestData.tweetId &&
-                                            touched.extendedQuestData.tweetId
-                                                ? " is-invalid"
-                                                : "")
-                                        }
-                                    />
-                                    <ErrorMessage
-                                        name="extendedQuestData.tweetId"
-                                        component="div"
-                                        className="invalid-feedback"
-                                    />
-                                </div>
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Retweet a tweet (Enter id of the original tweet)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.tweetId"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.tweetId &&
+                                        touched.extendedQuestData.tweetId
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.tweetId"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Part of Collaboration (colormonsters, or leave blank if not
+                                    collaborate)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.collaboration"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.collaboration &&
+                                        touched.extendedQuestData.collaboration
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.collaboration"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
                             </div>
 
                             <QuestFormTemplate

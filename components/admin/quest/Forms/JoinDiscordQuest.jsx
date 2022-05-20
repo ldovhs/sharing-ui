@@ -16,6 +16,7 @@ const JoinDiscordQuest = ({
 }) => {
     const initialValues = {
         type: Enums.JOIN_DISCORD,
+        extendedQuestData: quest?.extendedQuestData ?? { discordServer: "", collaboration: "" },
         text: quest?.text || "Join Our Discord",
         description: quest?.description ?? "Let user join our discord",
         completedText: quest?.completedText || "Completed",
@@ -27,6 +28,9 @@ const JoinDiscordQuest = ({
     };
 
     const JoinDiscordSchema = object().shape({
+        extendedQuestData: object().shape({
+            discordServer: string().required("A discord server id is required!"),
+        }),
         text: string().required("Quest text is required"),
         completedText: string().required("Completed Text is required"),
         quantity: number().required().min(0), // optional
@@ -60,6 +64,54 @@ const JoinDiscordQuest = ({
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
                         <small>Join Discord Requirement</small>
                         <div className="row">
+                            {/* Join Discord */}
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Join Discord Server (colormonsters)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.discordServer"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.discordServer &&
+                                        touched.extendedQuestData.discordServer
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.discordServer"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Part of Collaboration (colormonsters, leave blank if not
+                                    collaborate)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.collaboration"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData.collaboration &&
+                                        touched.extendedQuestData.collaboration
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.collaboration"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+
                             <QuestFormTemplate
                                 values={values}
                                 errors={errors}

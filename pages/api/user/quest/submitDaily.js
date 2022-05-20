@@ -5,7 +5,6 @@ import axios from "axios";
 import Enums from "enums";
 import { submitNewUserQuestTransaction } from "repositories/transactions";
 import { updateUserQuest } from "repositories/userQuest";
-import { prisma } from "context/PrismaContext";
 
 const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
 

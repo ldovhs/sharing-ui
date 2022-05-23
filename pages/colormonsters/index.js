@@ -14,7 +14,7 @@ function zedClaimShell() {
                 <title>DeepSea Challenger Collaboration</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta property="og:title" content="DeepSea Challenger Collaboration" />
-                <meta property="og:description" content="Collaboration Test" />
+                <meta property="og:description" content="Collaboration" />
                 <meta
                     property="og:image"
                     content="https://sharing-ui-staging.vercel.app/challenger/ColorMonster.png"

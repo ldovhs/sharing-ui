@@ -4,7 +4,6 @@ import s from "/sass/claim/claim.module.css";
 import { useSession } from "next-auth/react";
 import { CollaborationQuestBoard, ConnectBoard } from "@components/end-user";
 import Enums from "enums";
-import CollaborationClaimShell from "@components/end-user/CollaborationClaimShell";
 
 function zedClaimShell() {
     const { data: session, status } = useSession({ required: false });

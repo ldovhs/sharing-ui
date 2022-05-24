@@ -19,7 +19,14 @@ const submitIndividualQuestAPI = async (req, res) => {
                 const whiteListUser = req.whiteListUser;
                 const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
                 let userQuest;
-                let updateQuest;
+
+                /** This route is not for image upload quest */
+                if (type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                    return res.status(200).json({
+                        isError: true,
+                        message: "This route is not for image upload quest!",
+                    });
+                }
 
                 // Handling daily quest
                 if (type.name === Enums.DAILY_SHELL) {
@@ -78,39 +85,7 @@ const submitIndividualQuestAPI = async (req, res) => {
                     }
                 }
 
-                if (type === Enums.ANOMURA_SUBMISSION_QUEST) {
-                    // TODO
-                    let discordMsg = await discordHelper(whiteListUser, extendedQuestData);
-
-                    // need a better handling
-                    if (!discordMsg) {
-                        console.log(`**Cannot post message to discord**`);
-                    }
-
-                    let extendedUserQuestData = {
-                        ...extendedQuestData,
-                        messageId: discordMsg.data.id,
-                    };
-
-                    updateQuest = await updateUserQuest(
-                        whiteListUser.wallet,
-                        questId,
-                        rewardTypeId,
-                        quantity,
-                        extendedUserQuestData
-                    );
-                }
-                // FOR OTHER QUEST TYPES
-                else {
-                    // updateQuest = await updateUserQuest(
-                    //     whiteListUser.wallet,
-                    //     questId,
-                    //     rewardTypeId,
-                    //     quantity
-                    // );
-                }
-                if (updateQuest) return res.status(200).json(updateQuest);
-                else return res.status(200).json(userQuest);
+                return res.status(200).json(userQuest);
             } catch (error) {
                 // console.log(error);
                 return res.status(200).json({ isError: true, message: error.message });
@@ -120,45 +95,6 @@ const submitIndividualQuestAPI = async (req, res) => {
             res.setHeader("Allow", ["GET", "PUT"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
-};
-
-const discordHelper = async (user, extendedQuestData) => {
-    let discordChannel = extendedQuestData.discordChannel;
-
-    let url = [
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/01.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/02.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/03.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/04.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/05.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/06.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/07.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/08.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/09.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/10.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/11.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/12.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/13.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/14.png`,
-        `${NEXT_PUBLIC_WEBSITE_HOST}/img/test/15.png`,
-    ];
-    let imageUrl = url[Math.floor(Math.random() * url.length)];
-
-    let discordPost = await axios.post(
-        `${DISCORD_NODEJS}/api/v1/channels/questSubmission`,
-        {
-            user,
-            imageUrl,
-        },
-        {
-            headers: {
-                Authorization: `Bot ${NODEJS_SECRET}`,
-                "Content-Type": "application/json",
-            },
-        }
-    );
-
-    return discordPost;
 };
 
 export default whitelistUserMiddleware(submitIndividualQuestAPI);

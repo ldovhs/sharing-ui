@@ -13,6 +13,7 @@ import {
     FreeLimitedShell,
     CollaborationFreeShell,
     DailyShellQuestForm,
+    ImageUploadQuest,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
@@ -78,8 +79,8 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {quest.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
-                            <AnomuraSeeFoodQuest
+                        {quest.type.name === Enums.IMAGE_UPLOAD_QUEST && (
+                            <ImageUploadQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

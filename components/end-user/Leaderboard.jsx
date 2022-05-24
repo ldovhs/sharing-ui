@@ -20,7 +20,7 @@ export default function Leaderboard({ questData }) {
                         <div className={s.boardLarge_title}>{questData?.type || "Quest Page"}</div>
                         {questData &&
                             !questData.isError &&
-                            questData?.type.name === Enums.ANOMURA_SUBMISSION_QUEST && (
+                            questData?.type.name === Enums.IMAGE_UPLOAD_QUEST && (
                                 <div className="flex justify-content-between">
                                     <div className=" text-yellow-500">User</div>
                                     <div className="  text-green-500">Reactions</div>

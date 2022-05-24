@@ -450,7 +450,6 @@ $list-text-font-size-large: 1.25rem;
         width: 85%;
         overflow-wrap: break-word;
     }
-
     &_pinkBtn { // 526 x 129
         @include large_button();
         &:hover {
@@ -465,14 +464,11 @@ $list-text-font-size-large: 1.25rem;
             }
         }
     }
-    
     &_orangeBtn { 
         @include large_button();
         &:hover {
             color: #E06655;
 		}
-
-     
     }
     &_tealBtn { 
         @include large_button();
@@ -492,7 +488,6 @@ $list-text-font-size-large: 1.25rem;
             color: #7967DE!important;
 		}
     }
-
     &_signin {
         &_wrapper {
             width:100%;
@@ -503,6 +498,9 @@ $list-text-font-size-large: 1.25rem;
             height: 100%;
             width:100%;
         }
+    }
+    &_imageUpload {
+        max-width:8rem;
     }
 }
 

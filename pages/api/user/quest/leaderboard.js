@@ -21,7 +21,7 @@ export default async function getQuestLeaderBoardAPI(req, res) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
 
-                if (questData.type !== Enums.ANOMURA_SUBMISSION_QUEST) {
+                if (questData.type !== Enums.IMAGE_UPLOAD_QUEST) {
                     return res.status(200).json({
                         isError: true,
                         message: `No data for this type of quest ${questData.type}`,

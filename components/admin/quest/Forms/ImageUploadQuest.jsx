@@ -5,7 +5,7 @@ import { object, array, string, number } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
 import QuestFormTemplate from "./QuestFormTemplate";
 
-const AnomuraSeeFoodQuest = ({
+const ImageUploadQuest = ({
     quest = null,
     rewardTypes,
     closeModal,
@@ -15,8 +15,8 @@ const AnomuraSeeFoodQuest = ({
     onUpsert,
 }) => {
     const initialValues = {
-        type: Enums.ANOMURA_SUBMISSION_QUEST,
-        extendedQuestData: quest?.extendedQuestData ?? { discordChannel: "" },
+        type: Enums.IMAGE_UPLOAD_QUEST,
+        extendedQuestData: quest?.extendedQuestData ?? { discordChannel: "", collaboration: "" },
         text: quest?.text || "An app submission for #SUBMISSION",
         description: quest?.description ?? "Allow the user to upload their submission",
         completedText: quest?.completedText || "Completed",
@@ -26,9 +26,9 @@ const AnomuraSeeFoodQuest = ({
         isRequired: quest?.isRequired ?? false,
         id: quest?.id || 0,
     };
-    const AnomuraSeeFoodQuestSchema = object().shape({
+    const ImageUploadSchema = object().shape({
         extendedQuestData: object().shape({
-            discordChannel: string().required("A Discord channel Id is required!"),
+            discordChannel: string().required("An discord channel Id is required!"),
         }),
         text: string().required("Quest text is required"),
         completedText: string().required("Complete Text is required"),
@@ -52,7 +52,7 @@ const AnomuraSeeFoodQuest = ({
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={AnomuraSeeFoodQuestSchema}
+            validationSchema={ImageUploadSchema}
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={onSubmit}
@@ -63,31 +63,49 @@ const AnomuraSeeFoodQuest = ({
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
                         <small>Create an app submission</small>
                         <div className="row">
-                            {/* Discord channel for quest */}
-                            <div className="col-xxl-12 col-xl-12 col-lg-12">
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">
-                                        Discord Quest Channel Id (947009220262363136)
-                                    </label>
-                                    <Field
-                                        name={`extendedQuestData.discordChannel`}
-                                        type="text"
-                                        className={
-                                            "form-control" +
-                                            (errors.extendedQuestData &&
-                                            errors.extendedQuestData?.discordChannel &&
-                                            touched.extendedQuestData?.discordChannel
-                                                ? " is-invalid"
-                                                : "")
-                                        }
-                                    />
-                                    <ErrorMessage
-                                        name={`extendedQuestData.discordChannel`}
-                                        component="div"
-                                        className="invalid-feedback"
-                                    />
-                                </div>
+                            {/* Anomura Event */}
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Discord to post image to</label>
+                                <Field
+                                    name={`extendedQuestData.discordChannel`}
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData?.discordChannel &&
+                                        touched.extendedQuestData?.discordChannel
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name={`extendedQuestData.discordChannel`}
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
                             </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Collaboration</label>
+                                <Field
+                                    name={`extendedQuestData.collaboration`}
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData?.collaboration &&
+                                        touched.extendedQuestData?.collaboration
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name={`extendedQuestData.collaboration`}
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+
                             <QuestFormTemplate
                                 values={values}
                                 errors={errors}
@@ -134,4 +152,4 @@ const AnomuraSeeFoodQuest = ({
     );
 };
 
-export default withQuestUpsert(AnomuraSeeFoodQuest);
+export default withQuestUpsert(ImageUploadQuest);

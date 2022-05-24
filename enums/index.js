@@ -31,7 +31,7 @@ const Enums = {
     FOLLOW_INSTAGRAM: "Follow Instagram Account",
     ZED_CLAIM: "Own ZED to claim $SHELL",
     NOODS_CLAIM: "Own NOODS to claim $SHELL",
-    ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
+    IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
     COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration",
     DAILY_SHELL: "Daily Shell Quest",

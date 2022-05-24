@@ -64,7 +64,7 @@ const submitIndividualDailyQuestAPI = async (req, res) => {
                     return res.status(200).json(updateQuest);
                 }
 
-                // if (type === Enums.ANOMURA_SUBMISSION_QUEST) {
+                // if (type === Enums.IMAGE_UPLOAD_QUEST) {
                 //     let extendedUserQuestData = {
                 //         ...extendedQuestData,
                 //         messageId: discordMsg.data.id,

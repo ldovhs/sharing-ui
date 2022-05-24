@@ -697,6 +697,9 @@
   height: 100%;
   width: 100%;
 }
+.board_imageUpload {
+  max-width: 8rem;
+}
 
 .boardLarge {
   display: flex;

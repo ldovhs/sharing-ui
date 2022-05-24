@@ -12,6 +12,7 @@ import {
     FreeLimitedShell,
     CollaborationFreeShell,
     DailyShellQuestForm,
+    ImageUploadQuest,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -100,8 +101,8 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                             />
                         )}
 
-                        {selectedType === Enums.ANOMURA_SUBMISSION_QUEST && (
-                            <AnomuraSeeFoodQuest
+                        {selectedType === Enums.IMAGE_UPLOAD_QUEST && (
+                            <ImageUploadQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

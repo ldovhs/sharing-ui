@@ -137,7 +137,7 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
-                    // TODO: ANOMURA_SUBMISSION_QUEST CHECK  add guard for app submission app request
+                    // TODO: IMAGE_UPLOAD_QUEST CHECK  add guard for app submission app request
                 } else {
                     // update userquest, we need to get original extendedQuestData and create a new object to avoid data loss
                     console.log(`** Upserting a quest **`);
@@ -190,7 +190,7 @@ const AdminQuestUpsertAPI = async (req, res) => {
 // TWITTER_RETWEET: "Retweet a Tweet",
 // FOLLOW_TWITTER: "Follow Twitter Account",
 // FOLLOW_INSTAGRAM: "Follow Instagram Account",
-// ANOMURA_SUBMISSION_QUEST: "Anomura #SUBMISSION Quest",
+// IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
 
 const discordTwitterAuthCheck = (existingQuests, type) => {
     if (type != Enums.DISCORD_AUTH && type != Enums.TWITTER_AUTH) return;

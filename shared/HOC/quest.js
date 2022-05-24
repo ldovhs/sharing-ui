@@ -6,6 +6,7 @@ import Enums from "enums";
 const QUEST_TYPE_QUERY = `${Enums.BASEPATH}/api/admin/quest/type`;
 const USER_QUEST_QUERY = `${Enums.BASEPATH}/api/user/quest/`;
 const USER_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submit`;
+const USER_IMAGE_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submit-image`;
 const USER_DAILY_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submitDaily`;
 
 const ADMIN_QUEST_QUERY = `${Enums.BASEPATH}/api/admin/quest/`;
@@ -121,6 +122,50 @@ export const withUserQuestSubmit =
                 submittedQuest={data?.data}
                 mutationError={error}
                 onSubmit={(quest, currentQuests) => handleOnSubmit(quest, currentQuests)}
+            />
+        );
+    };
+
+export const withUserImageQuestSubmit =
+    (Component) =>
+    ({ ...props }) => {
+        const queryClient = useQueryClient();
+        const { data, error, isError, isLoading, isSuccess, mutate, mutateAsync } = useMutation(
+            "submitImageQuest",
+            (quest) => axios.post(USER_IMAGE_QUEST_SUBMIT, quest),
+            {
+                onSuccess: () => {
+                    queryClient.invalidateQueries("userRewardQuery");
+                },
+            }
+        );
+
+        const handleOnSubmit = async (quest, currentQuests) => {
+            return await mutateAsync(quest);
+            let submitted = await mutateAsync(quest);
+
+            if (submitted) {
+                let updatedQuests = currentQuests.map((q) => {
+                    if (q.questId == quest.questId) {
+                        q.isDone = true;
+                    }
+                    return q;
+                });
+
+                return await Promise.all(updatedQuests).then(() => {
+                    updatedQuests.sort(isNotDoneFirst);
+                    return updatedQuests;
+                });
+            }
+        };
+
+        return (
+            <Component
+                {...props}
+                isSubmitting={isLoading}
+                submittedQuest={data?.data}
+                mutationError={error}
+                onSubmitImageQuest={(quest, currentQuests) => handleOnSubmit(quest, currentQuests)}
             />
         );
     };

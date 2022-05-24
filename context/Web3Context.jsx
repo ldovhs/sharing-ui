@@ -55,41 +55,45 @@ export function Web3Provider({ children }) {
             if (window?.ethereum) {
                 SubscribeProvider(window.ethereum);
             } else {
-                providerInstance = new WalletConnectProvider({
-                    infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-                    qrcodeModalOptions: {
-                        mobileLinks: ["trust"],
-                        desktopLinks: ["encrypted ink"],
-                    },
-                });
-                await provider.enable();
-                SubscribeProvider(providerInstance);
+                // let provider = new WalletConnectProvider({
+                //     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                //     qrcodeModalOptions: {
+                //         mobileLinks: ["trust"],
+                //         desktopLinks: ["encrypted ink"],
+                //     },
+                // });
+                // await provider.enable();
+                // SubscribeProvider(providerInstance);
             }
         }
     }, [session]);
 
     const SubscribeProvider = async (provider) => {
-        provider.on("error", (e) => console.error("WS Error", e));
-        provider.on("end", (e) => console.error("WS End", e));
+        try {
+            provider.on("error", (e) => console.error("WS Error", e));
+            provider.on("end", (e) => console.error("WS End", e));
 
-        provider.on("accountsChanged", async (accounts) => {
-            console.log("On account changed, would need to login again");
+            provider.on("accountsChanged", async (accounts) => {
+                console.log("On account changed, would need to login again");
 
-            SignOut();
-        });
+                SignOut();
+            });
 
-        provider.on("chainChanged", async (chainId) => {
-            SignOut();
-            console.log(chainId);
-        });
+            provider.on("chainChanged", async (chainId) => {
+                SignOut();
+                console.log(chainId);
+            });
 
-        provider.on("connect", (info) => {});
+            provider.on("connect", (info) => {});
 
-        provider.on("disconnect", async (error) => {
-            console.log("disconnect");
-            console.log(error);
-            SignOut();
-        });
+            provider.on("disconnect", async (error) => {
+                console.log("disconnect");
+                console.log(error);
+                SignOut();
+            });
+        } catch (error) {
+            console.log(111);
+        }
     };
 
     const TryConnectAsAdmin = async (walletType) => {
@@ -183,7 +187,8 @@ export function Web3Provider({ children }) {
                 await provider.enable();
 
                 providerInstance = new ethers.providers.Web3Provider(provider);
-                addresses = provider.accounts;
+
+                addresses = provider?.accounts;
                 SubscribeProvider(provider);
             }
 
@@ -211,6 +216,7 @@ export function Web3Provider({ children }) {
                     });
 
                 const address = await signer.getAddress();
+
                 signIn("non-admin-authenticate", {
                     redirect: false,
                     signature,
@@ -228,7 +234,7 @@ export function Web3Provider({ children }) {
                     });
             }, 1000);
         } catch (error) {
-            // console.log(error);
+            console.log(error);
             setWeb3Error(error.message);
         }
     };

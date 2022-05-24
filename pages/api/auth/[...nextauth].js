@@ -187,7 +187,7 @@ const options = {
         async session({ session, token }) {
             let socialMediaUser;
 
-            if (token.provider == "twitter") {
+            if (token?.provider == "twitter") {
                 socialMediaUser = await prisma.whiteList.findFirst({
                     where: {
                         twitterId: token.user.id,
@@ -197,7 +197,7 @@ const options = {
 
             session.profile = token.profile;
             session.user = token.user;
-            session.provider = token.provider;
+            // session?.provider = token?.provider;
             if (socialMediaUser) {
                 session.user.walletAddress = socialMediaUser.wallet;
             }
@@ -207,7 +207,7 @@ const options = {
             if (user) {
                 token.profile = profile;
                 token.user = user;
-                token.provider = account.provider;
+                // token?.provider = account?.provider;
             }
             return token;
         },

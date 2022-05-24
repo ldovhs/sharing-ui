@@ -4,7 +4,7 @@ import { utils } from "ethers";
 export const isWhiteListUser = async (session) => {
     // session login through discord
     let user;
-    if (session.provider === "discord") {
+    if (session?.provider === "discord") {
         user = await prisma.whiteList.findFirst({
             where: {
                 discordId: session.user.id,
@@ -12,7 +12,7 @@ export const isWhiteListUser = async (session) => {
         });
     }
 
-    if (session.provider === "twitter") {
+    if (session?.provider === "twitter") {
         user = await prisma.whiteList.findFirst({
             where: {
                 twitterId: session.user.id,

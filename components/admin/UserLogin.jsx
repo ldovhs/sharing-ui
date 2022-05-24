@@ -71,7 +71,7 @@ const UserLogin = () => {
                 <div
                     className={s.nonPixelModal_container}
                     onClick={async () => {
-                        let res = await TryConnectAsUser(Enums.WALLETCONNECT);
+                        await TryConnectAsUser(Enums.WALLETCONNECT);
                     }}
                 >
                     <div className={s.nonPixelModal_providerIcon}>

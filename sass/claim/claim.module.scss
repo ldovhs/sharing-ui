@@ -866,7 +866,7 @@ $list-text-font-size-large: 1.25rem;
             display:flex;
             justify-content: center;
             padding: 0;
-            color: #5EC1D3;
+            color: #5EC1D3!important;
 
             & > div {
                 position:absolute;
@@ -892,9 +892,9 @@ $list-text-font-size-large: 1.25rem;
             }
             &:disabled {
                 cursor: not-allowed!important;
-                color: #5EC1D3;
+                color: #5EC1D3!important;
                 &:hover {
-                    color: #5EC1D3;
+                    color: #5EC1D3!important;
                 }
             }
         }

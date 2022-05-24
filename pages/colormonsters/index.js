@@ -13,13 +13,16 @@ function zedClaimShell() {
             <Head>
                 <title>DeepSea Challenger Collaboration</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Color Monster Collaboration" />
-                <meta property="og:description" content="Color Monster Collaboration" />
+                <meta property="og:title" content="Anomura x ColorMonsters" />
+                <meta
+                    property="og:description"
+                    content="We’ve partnered with ColorMonsters! Complete quests, earn $SHELL, unlock prizes."
+                />
                 <meta
                     property="og:image"
                     content="https://anomuragame.com/challenger/ColorMonsterCollaboration.gif"
                 />
-                <meta property="og:site_name" content="Anomura x ColorMonster"></meta>
+                <meta property="og:site_name" content="Anomura x ColorMonsters"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
                 <meta name="twitter:card" content="summary_large_image" />

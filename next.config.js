@@ -43,4 +43,14 @@ module.exports = {
     //         },
     //     ];
     // },
+    async redirects() {
+        return [
+            {
+                // do not include basePath in redirect here
+                source: "/colormonster",
+                destination: "/colormonsters",
+                permanent: false,
+            },
+        ];
+    },
 };

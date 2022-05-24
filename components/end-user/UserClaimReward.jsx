@@ -3,6 +3,7 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
 import Enums from "enums";
+import { BoardSmallDollarSign } from ".";
 
 const UserClaimReward = ({
     session,
@@ -27,9 +28,7 @@ const UserClaimReward = ({
     return (
         <div className={s.board}>
             <div className={s.board_container}>
-                <div className={s.board_dollar}>
-                    <div className={s.board_dollar_content}>$$$</div>
-                </div>
+                <BoardSmallDollarSign />
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         {error && (

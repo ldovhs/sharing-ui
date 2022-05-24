@@ -2,6 +2,7 @@ import React from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { useRouter } from "next/router";
+import { BoardSmallDollarSign } from "@components/end-user";
 
 function QuestComplete() {
     let router = useRouter();
@@ -11,9 +12,7 @@ function QuestComplete() {
             <div className={s.app}>
                 <div className={s.board}>
                     <div className={s.board_container}>
-                        <div className={s.board_dollar}>
-                            <div className={s.board_dollar_content}>$$$</div>
-                        </div>
+                        <BoardSmallDollarSign />
                         <div className={s.board_wrapper}>
                             <div className={s.board_content}>
                                 <>

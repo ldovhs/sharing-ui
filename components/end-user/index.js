@@ -4,3 +4,5 @@ export { default as Leaderboard } from "./Leaderboard";
 export { default as UserClaimReward } from "./UserClaimReward";
 export { default as CollaborationQuestBoard } from "./CollaborationQuestBoard";
 export { default as ImageUpload } from "./ImageUpload";
+export { default as BoardSmallDollarSign } from "./shared/BoardSmallDollarSign";
+export { default as BoardLargeDollarSign } from "./shared/BoardLargeDollarSign";

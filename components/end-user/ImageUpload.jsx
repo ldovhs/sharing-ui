@@ -5,6 +5,7 @@ import axios from "axios";
 import { withUserQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
+import { BoardSmallDollarSign } from ".";
 
 const UPLOADABLE = 0;
 const SUBMITTABLE = 1;
@@ -117,9 +118,7 @@ const ImageUpload = ({
     return (
         <div className={s.board}>
             <div className={s.board_container}>
-                <div className={s.board_dollar}>
-                    <div className={s.board_dollar_content}>$$$</div>
-                </div>
+                <BoardSmallDollarSign />
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         {(isSubmitting || isFetchingUserQuests || isValidating) && (

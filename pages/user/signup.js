@@ -4,6 +4,7 @@ import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Enums from "enums";
+import { BoardSmallDollarSign } from "@components/end-user";
 
 const util = require("util");
 
@@ -83,9 +84,7 @@ function SignUp() {
             <div className={s.app}>
                 <div className={s.board}>
                     <div className={s.board_container}>
-                        <div className={s.board_dollar}>
-                            <div className={s.board_dollar_content}>$$$</div>
-                        </div>
+                        <BoardSmallDollarSign />
                         <div className={s.board_wrapper}>
                             <div className={s.board_content}>
                                 {(currentPrompt === SIGNUP_ERROR || web3Error) && (

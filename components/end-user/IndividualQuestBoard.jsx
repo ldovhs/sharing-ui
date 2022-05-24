@@ -6,6 +6,7 @@ import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 
 import { withUserRewardQuery } from "@shared/HOC/reward";
 import { useRouter } from "next/router";
+import { BoardLargeDollarSign } from ".";
 
 const IndividualQuestBoard = ({
     session,
@@ -241,12 +242,7 @@ const IndividualQuestBoard = ({
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
-                <div className={s.boardLarge_dollar}>
-                    <div className={s.boardLarge_dollar_content}>
-                        {rewardAmount !== null && rewardAmount !== 0 ? `$${rewardAmount}` : "$$$"}
-                    </div>
-                </div>
-
+                <BoardLargeDollarSign rewardAmount={rewardAmount} />
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
                         <div className={s.boardLarge_title}>

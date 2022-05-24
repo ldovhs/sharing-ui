@@ -36,35 +36,80 @@
 .board_dollar {
   position: absolute;
   width: 100%;
-  top: 13.25%;
+  top: 14.35%;
   display: flex;
   justify-content: center;
 }
+@media (min-width: 50em) {
+  .board_dollar {
+    top: 14.55%;
+  }
+}
+@media (min-width: 75em) {
+  .board_dollar {
+    top: 14.35%;
+  }
+}
 @media (min-width: 160em) {
   .board_dollar {
-    top: 13.75%;
+    top: 15%;
   }
 }
 .board_dollar_content {
-  margin-left: 1.25vw;
+  margin-left: 7px;
   font-family: PFRondaSeven;
   color: #F8D61D;
   font-size: 2.5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  text-align: center;
+}
+@media (min-width: 24em) {
+  .board_dollar_content {
+    margin-left: 12px;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_dollar_content {
+    margin-left: 12px;
+  }
 }
 @media (min-width: 39.8em) {
   .board_dollar_content {
-    margin-left: 1rem;
+    margin-left: 17px;
   }
 }
-@media (min-width: 54.5em) {
+@media (min-width: 123.75em) {
   .board_dollar_content {
-    font-size: 1.35rem;
+    margin-left: 17px;
   }
 }
-@media (min-width: 90em) {
-  .board_dollar_content {
-    margin-left: 0.75vw;
-    font-size: 1.5rem;
+.board_dollar_content > img {
+  width: 0.65rem;
+  margin-right: 1px;
+}
+@media (min-width: 24em) {
+  .board_dollar_content > img {
+    width: 0.75rem;
+    margin-right: 3px;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_dollar_content > img {
+    width: 0.95rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_dollar_content > img {
+    width: 1.25rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_dollar_content > img {
+    width: 1.5rem;
   }
 }
 .board_container {
@@ -248,12 +293,12 @@
   height: 10%;
 }
 .board_title {
-  font-size: 2.4vh;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.3rem;
+  line-height: 1rem;
 }
 @media (min-width: 31.25em) {
   .board_title {
@@ -310,7 +355,7 @@
 }
 .board_pinkBtn {
   position: relative;
-  width: 40%;
+  width: 45%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -335,7 +380,7 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 2.3vh;
+  font-size: 1.9vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -391,7 +436,7 @@
 }
 .board_orangeBtn {
   position: relative;
-  width: 40%;
+  width: 45%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -416,7 +461,7 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 2.3vh;
+  font-size: 1.9vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -465,7 +510,7 @@
 }
 .board_tealBtn {
   position: relative;
-  width: 40%;
+  width: 45%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -490,7 +535,7 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 2.3vh;
+  font-size: 1.9vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -539,7 +584,7 @@
 }
 .board_blackBtn {
   position: relative;
-  width: 40%;
+  width: 45%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -564,7 +609,7 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 2.3vh;
+  font-size: 1.9vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -613,7 +658,7 @@
 }
 .board_purpleBtn {
   position: relative;
-  width: 40%;
+  width: 45%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -638,7 +683,7 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 2.3vh;
+  font-size: 1.9vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -826,59 +871,113 @@
 .boardLarge_dollar {
   position: absolute;
   width: 100%;
-  top: 9%;
+  top: 8.75%;
   display: flex;
   justify-content: center;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar {
-    top: 9.05%;
+    top: 8.85%;
   }
 }
 @media (min-width: 31.25em) {
   .boardLarge_dollar {
-    top: 11.25%;
+    top: 11.55%;
   }
 }
 @media (min-width: 46.8em) {
   .boardLarge_dollar {
-    top: 11.25%;
+    top: 11.75%;
+  }
+}
+@media (min-width: 54.5em) {
+  .boardLarge_dollar {
+    top: 11.75%;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_dollar {
-    top: 11.25%;
+    top: 11.75%;
   }
 }
 .boardLarge_dollar_content {
-  margin-left: 5px;
+  margin-left: 7px;
   font-family: PFRondaSeven;
   color: #F8D61D;
-  font-size: 0.9vh;
+  font-size: 0.8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  text-align: center;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar_content {
-    font-size: 1.2vh;
+    margin-left: 12px;
+    font-size: 0.8vh;
   }
 }
 @media (min-width: 31.25em) {
   .boardLarge_dollar_content {
-    font-size: 1.4vh;
+    margin-left: 12px;
+    font-size: 1.05vh;
   }
 }
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content {
-    margin-left: 10px;
-    font-size: 1.7vh;
+    margin-left: 15px;
+    font-size: 1.3vh;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_dollar_content {
+    margin-left: 15px;
+    font-size: 1.35vh;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_dollar_content {
+    margin-left: 17px;
+  }
+}
+.boardLarge_dollar_content > img {
+  height: 1.25vh;
+  margin-right: 1px;
+}
+@media (min-width: 24em) {
+  .boardLarge_dollar_content > img {
+    height: 1.4vh;
+    margin-right: 3px;
+  }
+}
+@media (min-width: 31.25em) {
+  .boardLarge_dollar_content > img {
+    height: 1.65vh;
+  }
+}
+@media (min-width: 39.8em) {
+  .boardLarge_dollar_content > img {
+    height: 2.1vh;
+  }
+}
+@media (min-width: 75em) {
+  .boardLarge_dollar_content > img {
+    height: 2.2vh;
+  }
+}
+@media (min-width: 123.75em) {
+  .boardLarge_dollar_content > img {
+    height: 2.2vh;
   }
 }
 .boardLarge_title {
-  font-size: 2.4vh;
+  font-size: 2vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
   color: #35464F;
-  line-height: 1.3rem;
+  line-height: 1rem;
   overflow-wrap: break-word;
 }
 @media (min-width: 31.25em) {

@@ -49,12 +49,12 @@ $list-text-font-size-large: 1.25rem;
 }
 
 @mixin boardHeading(){
-	font-size: 2.4vh;
+	font-size: 2vh;
 	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 500;
 	text-align: center;
     color:#35464F;
-    line-height: 1.3rem;
+    line-height: 1rem;
 
     // @media (min-width: $bp-small-2) {  
     //     font-size: 1.25rem;
@@ -148,7 +148,7 @@ $list-text-font-size-large: 1.25rem;
 
 @mixin large_button() {
     position:relative;
-	width: 40%;
+	width: 45%;
 	display:flex;
 	justify-content: center;
     padding: 0;
@@ -170,7 +170,7 @@ $list-text-font-size-large: 1.25rem;
 		height: 90%;
 		& > span { 
             width: 100%;
-            font-size: 2.3vh;
+            font-size: 1.9vh;
 	        font-family: Safety Goggles;
             font-weight: 400;
 	        text-align: center;
@@ -279,44 +279,84 @@ $list-text-font-size-large: 1.25rem;
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 13.25%;
+        top: 14.35%;
         display:flex;
         justify-content: center;
 
-        // @media (min-width: $bp-xl-2) {  
-        //     top: 13.75%;
-        // }
+       
+        @media (min-width: $bp-med-2) {
+            top: 14.55%;
+        } 
+
+        @media (min-width: $bp-large-2) {
+            top: 14.35%;
+        } 
 
         @media (min-width: $bp-xl-3) {  
-            top: 13.75%;
+            top: 15%;
         }
 
         &_content {
-            margin-left: 1.25vw;
+            margin-left: 7px;
             font-family: PFRondaSeven;
             color: #F8D61D;
 
             font-size: 2.5vw;
+            display: flex;
+            flex-direction: row;
+            justify-content:center;
+            align-items: center;
+            height:10%;
+            text-align: center;
+
+            @media (min-width: $bp-small) {
+                margin-left: 12px;
+          
+            } 
             @media (min-width: $bp-small-2) {
-                
+                margin-left: 12px;
+               
             } 
             @media (min-width: $bp-small-3) {
-              margin-left: 1rem;
+                margin-left: 17px;
+             
             } 
-            @media (min-width: $bp-large) {
 
-              font-size: $text-font-size-med;
+            @media (min-width: $bp-xl-2) {
+                margin-left: 17px;
             } 
-            @media (min-width: $bp-xl) { 
-                margin-left: 0.75vw;
-                font-size: $text-font-size-large;
-            }
-            @media (min-width: $bp-xl-2) {  
-                //margin-left: 0.5vw;
+            & > img {
+                // height: 1.25vh;
+                width: 0.65rem;
+                margin-right: 1px;
+
+                @media (min-width: $bp-small) {
+                    // height: 1.4vh;
+                    width: 0.75rem;
+                    margin-right: 3px;
+                } 
+                @media (min-width: $bp-small-2) {
+                    // height: 1.65vh;
+                    width: 0.95rem;
+                } 
+                @media (min-width: $bp-small-3) {
+                    // height: 2.1vh;
+                    width: 1.25rem;
+                } 
+                @media (min-width: $bp-large) {
+                    // height: 2.2vh;
+                } 
+                @media (min-width: $bp-large-2) {
+                    // height: 2.25vh;
+                    width: 1.5rem;
+                } 
+
+                @media (min-width: $bp-xl-2) {
+                    // height: 2.2vh;
+                } 
             }
         }
     }
-
     &_container {
         position: relative;
         width: 100%;
@@ -580,42 +620,84 @@ $list-text-font-size-large: 1.25rem;
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 9%;
+        top: 8.75%;
         display:flex;
         justify-content: center;
 
         @media (min-width: $bp-small) {
-            top: 9.05%;
+            top: 8.85%;
         } 
         @media (min-width: $bp-small-2) {
-            top: 11.25%;
+            top: 11.55%;
         } 
         @media (min-width: $bp-med) {
-            top: 11.25%;
+            top: 11.75%;
+        } 
+        @media (min-width: $bp-large) {
+            top: 11.75%;
         } 
         @media (min-width: $bp-xl) {
-            top: 11.25%;
+            top: 11.75%;
         } 
     
         &_content {
-            margin-left: 5px;
+            margin-left: 7px;
             font-family: PFRondaSeven;
             color: #F8D61D;
 
-            font-size: 0.9vh;
+            font-size: 0.8vh;
+
+            display: flex;
+            flex-direction: row;
+            justify-content:center;
+            align-items: center;
+            height:10%;
+            text-align: center;
+
             @media (min-width: $bp-small) {
-                font-size: 1.2vh;
+                margin-left: 12px;
+                font-size: 0.8vh;
             } 
             @media (min-width: $bp-small-2) {
-                font-size: 1.4vh;
+                margin-left: 12px;
+                font-size: 1.05vh;
             } 
             @media (min-width: $bp-small-3) {
-                margin-left: 10px;
-                font-size: 1.7vh;
+                margin-left: 15px;
+                font-size: 1.3vh;
             } 
-            // @media (min-width: $bp-med) {
-            //     font-size: 1.7vh;
-            // } 
+            @media (min-width: $bp-large-2) {
+                margin-left: 15px;
+                font-size: 1.35vh;
+            } 
+
+            @media (min-width: $bp-xl-2) {
+                margin-left: 17px;
+            } 
+  
+            & > img {
+                height: 1.25vh;
+                margin-right: 1px;
+
+                @media (min-width: $bp-small) {
+                    height: 1.4vh;
+                    margin-right: 3px;
+                } 
+                @media (min-width: $bp-small-2) {
+                    height: 1.65vh;
+                } 
+
+                @media (min-width: $bp-small-3) {
+                    height: 2.1vh;
+                } 
+                @media (min-width: $bp-large-2) {
+                    height: 2.2vh;
+                } 
+
+                @media (min-width: $bp-xl-2) {
+                    height: 2.2vh;
+                } 
+            }
         }
     }
 

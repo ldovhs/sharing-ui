@@ -4,6 +4,7 @@ import { Web3Context } from "@context/Web3Context";
 import Enums from "enums";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { BoardSmallDollarSign } from ".";
 
 const util = require("util");
 
@@ -66,9 +67,7 @@ export default function ConnectBoard() {
     return (
         <div className={s.board}>
             <div className={s.board_container}>
-                <div className={s.board_dollar}>
-                    <div className={s.board_dollar_content}>$$$</div>
-                </div>
+                <BoardSmallDollarSign />
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         <>

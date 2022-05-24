@@ -8,6 +8,7 @@ import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import { withUserRewardQuery } from "@shared/HOC/reward";
 import { useRouter } from "next/router";
 import { withCurrentUserQuery } from "@shared/HOC/user";
+import { BoardLargeDollarSign } from ".";
 const CHECK_TWITTER_FOLLOWER = `${Enums.BASEPATH}/api/twitter/checkFollowers`;
 
 const CollaborationQuestBoard = ({
@@ -318,11 +319,7 @@ const CollaborationQuestBoard = ({
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
-                <div className={s.boardLarge_dollar}>
-                    <div className={s.boardLarge_dollar_content}>
-                        {rewardAmount !== null && rewardAmount !== 0 ? `$${rewardAmount}` : "$$$"}
-                    </div>
-                </div>
+                <BoardLargeDollarSign rewardAmount={rewardAmount} />
 
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import axios from "axios";
@@ -6,6 +6,8 @@ import { withUserQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from ".";
+import * as tf from "@tensorflow/tfjs";
+import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
 const UPLOADABLE = 0;
 const SUBMITTABLE = 1;
@@ -20,20 +22,22 @@ const ImageUpload = ({
     userQuests,
 }) => {
     const [submissionQuest, setSubmissionQuest] = useState(null);
+    const [submittedQuest, setSubmittedQuest] = useState(null);
     const [error, setError] = useState(null);
     const { SignOut, TryValidate } = useContext(Web3Context);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-
-    const [isValidating, setIsValidating] = useState(false);
+    const [nsfwModel, setNSFWModel] = useState(null);
     const [currentView, setView] = useState(UPLOADABLE);
-
     const [imageSrc, setImageSrc] = useState();
-    const [uploadData, setUploadData] = useState();
-    let router = useRouter();
+    const [imageFile, setImageFile] = useState(null);
+
+    const router = useRouter();
+    const hiddenFileInput = useRef(null);
+    const imageEl = useRef(null);
     const cloudName = "deepsea";
 
-    useEffect(() => {
+    useEffect(async () => {
         if (
             /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
                 navigator.userAgent
@@ -48,6 +52,9 @@ const ImageUpload = ({
         }
         const ethereum = window.ethereum;
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
+
+        let model = await nsfwjs.load();
+        setNSFWModel(model);
     }, []);
 
     useEffect(async () => {
@@ -58,38 +65,68 @@ const ImageUpload = ({
 
             if (findSubmissionQuest) {
                 if (findSubmissionQuest.isDone) {
+                    let submittedQuestBefore = await axios.get(
+                        `${Enums.BASEPATH}/api/user/quest/${findSubmissionQuest.questId}`
+                    );
+
+                    if (submittedQuestBefore) {
+                        setSubmittedQuest(submittedQuestBefore.data);
+                    }
+
                     setView(SUBMITTED);
                 }
             }
+
             setSubmissionQuest(findSubmissionQuest);
         }
     }, [userQuests]);
 
-    /**
-     * handleOnChange
-     * @description Triggers when the file input changes (ex: when a file is selected)
-     */
+    const handleClick = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        hiddenFileInput.current.click();
+    };
+
     function handleOnChange(changeEvent) {
         const reader = new FileReader();
 
         reader.onload = function (onLoadEvent) {
             setImageSrc(onLoadEvent.target.result);
-            setUploadData(undefined);
         };
 
         reader.readAsDataURL(changeEvent.target.files[0]);
+        setImageFile(changeEvent.target.files[0]);
+        setView(SUBMITTABLE);
     }
+    // console.log(submittedQuest);
 
-    async function handleOnSubmit(event) {
-        event.preventDefault();
-        const form = event.currentTarget;
-        const fileInput = Array.from(form.elements).find(({ name }) => name === "file");
-        const formData = new FormData();
+    async function handleOnSubmit() {
+        const predictions = await nsfwModel.classify(imageEl.current);
+        console.log("Predictions: ", predictions);
 
-        for (const file of fileInput.files) {
-            formData.append("file", file);
+        /** Checking for NSFW */
+        let toContinue = true;
+        let imageProcess = predictions.map((p) => {
+            if (p?.className === "Porn" && p.probability >= 0.8) {
+                console.log(p.probability);
+                toContinue = false;
+            }
+            if (p?.className === "Hentai" && p.probability >= 0.8) {
+                console.log(p.probability);
+                toContinue = false;
+            }
+        });
+
+        await Promise.all(imageProcess);
+        if (!toContinue) {
+            setError("Image contains NSFW content. Please reupload new image.");
+            return;
         }
 
+        /** Upload to cloudinary */
+        const formData = new FormData();
+
+        formData.append("file", imageFile);
         formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
         formData.append("public_id", session.user.address || session.user.walletAddress);
 
@@ -98,9 +135,7 @@ const ImageUpload = ({
             body: formData,
         }).then((r) => r.json());
 
-        console.log(data);
-        // await onSubmitImageQuest();
-
+        /** Submit this quest */
         const { questId, type, rewardTypeId, quantity, extendedQuestData } = submissionQuest;
 
         let submission = {
@@ -112,7 +147,14 @@ const ImageUpload = ({
             extendedQuestData,
         };
         let submittedQuest = await onSubmitImageQuest(submission, userQuests);
-        console.log(submittedQuest);
+        // console.log(submittedQuest);
+
+        if (!submittedQuest.data.isError) {
+            setSubmittedQuest(submittedQuest);
+            setView(SUBMITTED);
+        } else {
+            setError(submittedQuest.data.message);
+        }
     }
 
     return (
@@ -121,7 +163,7 @@ const ImageUpload = ({
                 <BoardSmallDollarSign />
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
-                        {(isSubmitting || isFetchingUserQuests || isValidating) && (
+                        {(isSubmitting || isFetchingUserQuests) && (
                             <div className={s.board_loading}>
                                 <div className={s.board_loading_wrapper}>
                                     <img
@@ -135,103 +177,85 @@ const ImageUpload = ({
                                 </div>
                             </div>
                         )}
-                        {submissionQuest &&
-                            !isSubmitting &&
-                            !isFetchingUserQuests &&
-                            !isValidating &&
-                            !error && (
-                                <>
-                                    {currentView === UPLOADABLE && (
-                                        <>
-                                            <div className={s.board_title}>
-                                                {submissionQuest.text}
-                                            </div>
+                        {submissionQuest && !isSubmitting && !isFetchingUserQuests && (
+                            <>
+                                {currentView === UPLOADABLE && (
+                                    <>
+                                        <div className={s.board_title}>{submissionQuest.text}</div>
 
-                                            {/* <button
-                                                className={s.board_pinkBtn}
-                                                onClick={handleOnUploadImage}
-                                                // disabled={
-                                                //     submissionQuest?.isDone ||
-                                                //     isSubmitting ||
-                                                //     isFetchingUserQuests
-                                                // }
-                                                disabled={true}
+                                        <form
+                                            id="image-upload"
+                                            method="post"
+                                            onChange={handleOnChange}
+                                        >
+                                            <p className={s.board_imageUpload_wrapper}>
+                                                <button
+                                                    className={s.board_pinkBtn}
+                                                    onClick={handleClick}
+                                                >
+                                                    <img
+                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
+                                                        alt="Choose File"
+                                                    />
+                                                    <div>
+                                                        <span>Choose File</span>
+                                                    </div>
+                                                </button>
+                                                <input
+                                                    type="file"
+                                                    name="file"
+                                                    accept="image/jpeg, image/png"
+                                                    style={{ display: "none" }}
+                                                    ref={hiddenFileInput}
+                                                />
+                                            </p>
+                                        </form>
+                                    </>
+                                )}
+                                {currentView === SUBMITTABLE && (
+                                    <>
+                                        {!error && (
+                                            <span className={s.board_imageUpload_imageName}>
+                                                {imageFile.name}
+                                            </span>
+                                        )}
+                                        {error && (
+                                            <span className={s.board_imageUpload_imageName}>
+                                                {error}
+                                            </span>
+                                        )}
+                                        <img
+                                            src={imageSrc}
+                                            className={s.board_imageUpload_imagePreview}
+                                            ref={imageEl}
+                                        />
+
+                                        <div className={s.board_imageUpload_buttonContainer}>
+                                            <button
+                                                className={s.board_blackBtn}
+                                                onClick={() => {
+                                                    setView(UPLOADABLE);
+                                                    setImageFile(null);
+                                                    setImageSrc(null);
+                                                    setError(null);
+                                                }}
                                             >
                                                 <img
-                                                    src={
-                                                        !submissionQuest?.isDone
-                                                            ? `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small.png`
-                                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`
-                                                    }
-                                                    alt="connectToContinue"
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`}
+                                                    alt="Go Back"
                                                 />
                                                 <div>
-                                            
-                                                    <span>{submissionQuest.quantity}</span>
-                                                    {submissionQuest.rewardType.reward.match(
-                                                        "hell"
-                                                    ) && (
-                                                        <img
-                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
-                                                            alt="reward icon"
-                                                        />
-                                                    )}
-
-                                                    {submissionQuest.rewardType.reward.match(
-                                                        /bowl|Bowl/
-                                                    ) && (
-                                                        <img
-                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/bowl10frames.gif`}
-                                                            alt="reward icon"
-                                                        />
-                                                    )}
+                                                    <span>Back</span>
                                                 </div>
-                                            </button> */}
-                                            <form
-                                                id="image-upload"
-                                                method="post"
-                                                onChange={handleOnChange}
-                                                onSubmit={handleOnSubmit}
-                                            >
-                                                <p>
-                                                    <input type="file" name="file" />
-                                                </p>
-
-                                                <img
-                                                    src={imageSrc}
-                                                    className={s.board_imageUpload}
-                                                />
-
-                                                {imageSrc && !uploadData && (
-                                                    <p>
-                                                        <button form="image-upload" type="submit">
-                                                            Upload Files
-                                                        </button>
-                                                    </p>
-                                                )}
-
-                                                {uploadData && (
-                                                    <code>
-                                                        <pre>
-                                                            {JSON.stringify(uploadData, null, 2)}
-                                                        </pre>
-                                                    </code>
-                                                )}
-                                            </form>
-                                        </>
-                                    )}
-                                    {currentView === SUBMITTABLE && (
-                                        <>
-                                            <div className={s.board_title}>
-                                                Claimed successfully
-                                            </div>
+                                            </button>
                                             <button
                                                 className={s.board_pinkBtn}
                                                 onClick={handleOnSubmit}
                                                 disabled={
                                                     submissionQuest?.isDone ||
                                                     isSubmitting ||
-                                                    isFetchingUserQuests
+                                                    isFetchingUserQuests ||
+                                                    error
                                                 }
                                             >
                                                 <img
@@ -240,10 +264,9 @@ const ImageUpload = ({
                                                             ? `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small.png`
                                                             : `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`
                                                     }
-                                                    alt="connectToContinue"
+                                                    alt="Submit"
                                                 />
                                                 <div>
-                                                    {/* {!nftQuest?.isDone ? "Claim" : "Claimed"} */}
                                                     <span>{submissionQuest.quantity}</span>
                                                     {submissionQuest.rewardType.reward.match(
                                                         "hell"
@@ -264,29 +287,49 @@ const ImageUpload = ({
                                                     )}
                                                 </div>
                                             </button>
-                                            {/* <button
-                                            className={s.board_pinkBtn}
+                                        </div>
+                                    </>
+                                )}
+                                {currentView === SUBMITTED && (
+                                    <>
+                                        <div className={s.board_title}>
+                                            Thanks for your submission!
+                                        </div>
+                                        <button
+                                            className={s.board_purpleBtn}
+                                            onClick={() => {
+                                                window.open(
+                                                    `https://discord.com/channels/${submittedQuest?.extendedUserQuestData?.discordServer}/${submittedQuest?.extendedUserQuestData?.discordChannel}/${submittedQuest?.extendedUserQuestData?.messageId}`,
+                                                    "_blank"
+                                                );
+                                            }}
+                                        >
+                                            <img
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 4.png`}
+                                                alt="See In Discord"
+                                            />
+                                            <div>
+                                                <span>See it in Discord</span>
+                                            </div>
+                                        </button>
+                                        <button
+                                            className={s.board_tealBtn}
                                             onClick={() => {
                                                 router.push("/");
                                             }}
                                         >
                                             <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                alt="connectToContinue"
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                alt="Back To Quest page"
                                             />
                                             <div>
-                                                <span>Back</span>
+                                                <span>Back to quests</span>
                                             </div>
-                                        </button> */}
-                                        </>
-                                    )}
-                                    {currentView === SUBMITTED && (
-                                        <>
-                                            <div className={s.board_title}>Submitted</div>
-                                        </>
-                                    )}
-                                </>
-                            )}
+                                        </button>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

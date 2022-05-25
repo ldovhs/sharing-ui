@@ -196,7 +196,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  gap: 0.15rem;
+  gap: 0.35rem;
   margin-left: 0.5rem;
 }
 @media (min-width: 31.25em) {
@@ -205,6 +205,11 @@
   }
 }
 @media (min-width: 50em) {
+  .board_content {
+    gap: 1.5rem;
+  }
+}
+@media (min-width: 90em) {
   .board_content {
     gap: 1.75rem;
   }
@@ -293,15 +298,22 @@
   height: 10%;
 }
 .board_title {
-  font-size: 2vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
   color: #35464F;
   line-height: 1rem;
 }
+@media (min-width: 24em) {
+  .board_title {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_title {
+    line-height: 1.35rem;
     font-size: 1.55rem;
   }
 }
@@ -355,7 +367,7 @@
 }
 .board_pinkBtn {
   position: relative;
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -363,7 +375,7 @@
 }
 @media (min-width: 31.25em) {
   .board_pinkBtn {
-    width: 45%;
+    width: 50%;
   }
 }
 @media (min-width: 50em) {
@@ -380,15 +392,20 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 1.9vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
+@media (min-width: 24em) {
+  .board_pinkBtn > div > span {
+    font-size: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_pinkBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -399,7 +416,7 @@
 }
 @media (min-width: 50em) {
   .board_pinkBtn > div > span {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -412,10 +429,23 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 39.8em) {
+  .board_pinkBtn > div > img {
+    max-height: 65%;
+  }
+}
 @media (min-width: 50em) {
   .board_pinkBtn > div > img {
-    max-height: 85%;
+    max-height: 80%;
   }
+}
+@media (min-width: 75em) {
+  .board_pinkBtn > div > img {
+    max-height: 70%;
+  }
+}
+.board_pinkBtn > div > img:nth-child(2) {
+  margin-left: 0.25rem;
 }
 .board_pinkBtn:disabled {
   cursor: not-allowed !important;
@@ -436,7 +466,7 @@
 }
 .board_orangeBtn {
   position: relative;
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -444,7 +474,7 @@
 }
 @media (min-width: 31.25em) {
   .board_orangeBtn {
-    width: 45%;
+    width: 50%;
   }
 }
 @media (min-width: 50em) {
@@ -461,15 +491,20 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 1.9vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
+@media (min-width: 24em) {
+  .board_orangeBtn > div > span {
+    font-size: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_orangeBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -480,7 +515,7 @@
 }
 @media (min-width: 50em) {
   .board_orangeBtn > div > span {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -493,10 +528,23 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 39.8em) {
+  .board_orangeBtn > div > img {
+    max-height: 65%;
+  }
+}
 @media (min-width: 50em) {
   .board_orangeBtn > div > img {
-    max-height: 85%;
+    max-height: 80%;
   }
+}
+@media (min-width: 75em) {
+  .board_orangeBtn > div > img {
+    max-height: 70%;
+  }
+}
+.board_orangeBtn > div > img:nth-child(2) {
+  margin-left: 0.25rem;
 }
 .board_orangeBtn:disabled {
   cursor: not-allowed !important;
@@ -510,7 +558,7 @@
 }
 .board_tealBtn {
   position: relative;
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -518,7 +566,7 @@
 }
 @media (min-width: 31.25em) {
   .board_tealBtn {
-    width: 45%;
+    width: 50%;
   }
 }
 @media (min-width: 50em) {
@@ -535,15 +583,20 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 1.9vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
+@media (min-width: 24em) {
+  .board_tealBtn > div > span {
+    font-size: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_tealBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -554,7 +607,7 @@
 }
 @media (min-width: 50em) {
   .board_tealBtn > div > span {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -567,10 +620,23 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 39.8em) {
+  .board_tealBtn > div > img {
+    max-height: 65%;
+  }
+}
 @media (min-width: 50em) {
   .board_tealBtn > div > img {
-    max-height: 85%;
+    max-height: 80%;
   }
+}
+@media (min-width: 75em) {
+  .board_tealBtn > div > img {
+    max-height: 70%;
+  }
+}
+.board_tealBtn > div > img:nth-child(2) {
+  margin-left: 0.25rem;
 }
 .board_tealBtn:disabled {
   cursor: not-allowed !important;
@@ -584,7 +650,7 @@
 }
 .board_blackBtn {
   position: relative;
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -592,7 +658,7 @@
 }
 @media (min-width: 31.25em) {
   .board_blackBtn {
-    width: 45%;
+    width: 50%;
   }
 }
 @media (min-width: 50em) {
@@ -609,15 +675,20 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 1.9vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
+@media (min-width: 24em) {
+  .board_blackBtn > div > span {
+    font-size: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_blackBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -628,7 +699,7 @@
 }
 @media (min-width: 50em) {
   .board_blackBtn > div > span {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -641,10 +712,23 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 39.8em) {
+  .board_blackBtn > div > img {
+    max-height: 65%;
+  }
+}
 @media (min-width: 50em) {
   .board_blackBtn > div > img {
-    max-height: 85%;
+    max-height: 80%;
   }
+}
+@media (min-width: 75em) {
+  .board_blackBtn > div > img {
+    max-height: 70%;
+  }
+}
+.board_blackBtn > div > img:nth-child(2) {
+  margin-left: 0.25rem;
 }
 .board_blackBtn:disabled {
   cursor: not-allowed !important;
@@ -658,7 +742,7 @@
 }
 .board_purpleBtn {
   position: relative;
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -666,7 +750,7 @@
 }
 @media (min-width: 31.25em) {
   .board_purpleBtn {
-    width: 45%;
+    width: 50%;
   }
 }
 @media (min-width: 50em) {
@@ -683,15 +767,20 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 1.9vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
   line-height: 1.15rem;
 }
+@media (min-width: 24em) {
+  .board_purpleBtn > div > span {
+    font-size: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .board_purpleBtn > div > span {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -702,7 +791,7 @@
 }
 @media (min-width: 50em) {
   .board_purpleBtn > div > span {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 }
 @media (min-width: 90em) {
@@ -715,10 +804,23 @@
   max-height: 55%;
   width: auto !important;
 }
+@media (min-width: 39.8em) {
+  .board_purpleBtn > div > img {
+    max-height: 65%;
+  }
+}
 @media (min-width: 50em) {
   .board_purpleBtn > div > img {
-    max-height: 85%;
+    max-height: 80%;
   }
+}
+@media (min-width: 75em) {
+  .board_purpleBtn > div > img {
+    max-height: 70%;
+  }
+}
+.board_purpleBtn > div > img:nth-child(2) {
+  margin-left: 0.25rem;
 }
 .board_purpleBtn:disabled {
   cursor: not-allowed !important;
@@ -742,8 +844,156 @@
   height: 100%;
   width: 100%;
 }
-.board_imageUpload {
-  max-width: 8rem;
+.board_imageUpload_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.board_imageUpload_imagePreview {
+  max-width: 30%;
+}
+.board_imageUpload_imageName {
+  font-size: 0.6rem;
+  font-family: PFRondaSeven;
+  font-weight: 400;
+  text-align: center;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+@media (min-width: 24em) {
+  .board_imageUpload_imageName {
+    font-size: 0.675rem;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_imageUpload_imageName {
+    font-size: 0.675rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_imageUpload_imageName {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_imageUpload_imageName {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 123.75em) {
+  .board_imageUpload_imageName {
+    font-size: 1.25rem;
+  }
+}
+.board_imageUpload_buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+.board_imageUpload_buttonContainer > button:nth-child(2) {
+  margin-left: 0.75rem;
+}
+.board_imageUpload_chooseFileLabel {
+  position: relative;
+  width: 50%;
+}
+.board_imageUpload_chooseFileLabel > span {
+  position: absolute;
+  width: 6rem;
+}
+.board_imageUpload_chooseFileButton {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+  position: absolute;
+  width: 6rem;
+}
+@media (min-width: 31.25em) {
+  .board_imageUpload_chooseFileButton {
+    width: 50%;
+  }
+}
+@media (min-width: 50em) {
+  .board_imageUpload_chooseFileButton {
+    width: 60%;
+  }
+}
+.board_imageUpload_chooseFileButton > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.board_imageUpload_chooseFileButton > div > span {
+  width: 100%;
+  font-size: 1.75vh;
+  font-family: Safety Goggles;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.15rem;
+}
+@media (min-width: 24em) {
+  .board_imageUpload_chooseFileButton > div > span {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_imageUpload_chooseFileButton > div > span {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_imageUpload_chooseFileButton > div > span {
+    font-size: 1.75rem;
+    line-height: 1.5rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_imageUpload_chooseFileButton > div > span {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 90em) {
+  .board_imageUpload_chooseFileButton > div > span {
+    font-size: 2.25rem;
+  }
+}
+.board_imageUpload_chooseFileButton > div > img {
+  margin-left: 0.35rem;
+  max-height: 55%;
+  width: auto !important;
+}
+@media (min-width: 39.8em) {
+  .board_imageUpload_chooseFileButton > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 50em) {
+  .board_imageUpload_chooseFileButton > div > img {
+    max-height: 80%;
+  }
+}
+@media (min-width: 75em) {
+  .board_imageUpload_chooseFileButton > div > img {
+    max-height: 70%;
+  }
+}
+.board_imageUpload_chooseFileButton > div > img:nth-child(2) {
+  margin-left: 0.25rem;
+}
+.board_imageUpload_chooseFileButton:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
+}
+.board_imageUpload_chooseFileButton:disabled:hover {
+  color: #A2B7B6;
 }
 
 .boardLarge {
@@ -972,7 +1222,7 @@
   }
 }
 .boardLarge_title {
-  font-size: 2vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -980,8 +1230,15 @@
   line-height: 1rem;
   overflow-wrap: break-word;
 }
+@media (min-width: 24em) {
+  .boardLarge_title {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+  }
+}
 @media (min-width: 31.25em) {
   .boardLarge_title {
+    line-height: 1.35rem;
     font-size: 1.55rem;
   }
 }

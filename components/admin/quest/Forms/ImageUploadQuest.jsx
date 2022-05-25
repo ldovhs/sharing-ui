@@ -16,7 +16,11 @@ const ImageUploadQuest = ({
 }) => {
     const initialValues = {
         type: Enums.IMAGE_UPLOAD_QUEST,
-        extendedQuestData: quest?.extendedQuestData ?? { discordChannel: "", collaboration: "" },
+        extendedQuestData: quest?.extendedQuestData ?? {
+            discordServer: "",
+            discordChannel: "",
+            collaboration: "",
+        },
         text: quest?.text || "An app submission for #SUBMISSION",
         description: quest?.description ?? "Allow the user to upload their submission",
         completedText: quest?.completedText || "Completed",
@@ -28,6 +32,7 @@ const ImageUploadQuest = ({
     };
     const ImageUploadSchema = object().shape({
         extendedQuestData: object().shape({
+            discordServer: string().required("An discord server Id is required!"),
             discordChannel: string().required("An discord channel Id is required!"),
         }),
         text: string().required("Quest text is required"),
@@ -64,9 +69,29 @@ const ImageUploadQuest = ({
                         <small>Create an app submission</small>
                         <div className="row">
                             {/* Anomura Event */}
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">Discord Server</label>
+                                <Field
+                                    name={`extendedQuestData.discordServer`}
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData?.discordServer &&
+                                        touched.extendedQuestData?.discordServer
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name={`extendedQuestData.discordServer`}
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
 
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                <label className="form-label">Discord to post image to</label>
+                                <label className="form-label">Discord Channel</label>
                                 <Field
                                     name={`extendedQuestData.discordChannel`}
                                     type="text"

@@ -3,8 +3,6 @@ import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import axios from "axios";
 
 import Enums from "enums";
-import { submitNewUserQuestTransaction } from "repositories/transactions";
-import { updateUserQuest } from "repositories/userQuest";
 
 const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
 

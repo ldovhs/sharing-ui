@@ -107,11 +107,11 @@ const ImageUpload = ({
         /** Checking for NSFW */
         let toContinue = true;
         let imageProcess = predictions.map((p) => {
-            if (p?.className === "Porn" && p.probability >= 0.8) {
+            if (p?.className === "Porn" && p.probability >= 0.675) {
                 console.log(p.probability);
                 toContinue = false;
             }
-            if (p?.className === "Hentai" && p.probability >= 0.8) {
+            if (p?.className === "Hentai" && p.probability >= 0.675) {
                 console.log(p.probability);
                 toContinue = false;
             }
@@ -122,7 +122,7 @@ const ImageUpload = ({
             setError("Image contains NSFW content. Please reupload new image.");
             return;
         }
-
+        return;
         /** Upload to cloudinary */
         const formData = new FormData();
 

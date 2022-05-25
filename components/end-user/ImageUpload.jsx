@@ -122,7 +122,7 @@ const ImageUpload = ({
             setError("Image contains NSFW content. Please reupload new image.");
             return;
         }
-        return;
+
         /** Upload to cloudinary */
         const formData = new FormData();
 

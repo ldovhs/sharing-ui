@@ -2,19 +2,24 @@ import React, { useEffect, useState, useContext } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { utils } from "ethers";
+import { useRouter } from "next/router";
 
 import Enums from "enums";
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
-const questId = "2cd47a70-9e2a-4b1b-bf33-2caf45999abc";
+// const questId = "2cd47a70-9e2a-4b1b-bf33-2caf45999abc";
 
 const takeNumber = 5;
 const ImageUploadApproval = () => {
+    const router = useRouter();
+    const { questId } = router.query;
     const [count, setCount] = useState(0);
     const [pageIndex, setPageIndex] = useState(0);
     const [isWorking, setIsWorking] = useState(false);
     const { data, mutate, isValidating, error } = useSWR(
-        `${Enums.BASEPATH}/api/user/quest/getUserQuestsById?questId=${questId}&page=${pageIndex}`,
+        questId
+            ? `${Enums.BASEPATH}/api/user/quest/getUserQuestsById?questId=${questId}&page=${pageIndex}`
+            : null,
         fetcher
     );
     useEffect(async () => {
@@ -23,10 +28,13 @@ const ImageUploadApproval = () => {
             if (data && data.count) {
                 setCount(data.count);
             }
+            if (router.query) {
+                questId = router.query.questId;
+            }
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [router, data]);
     console.log(count);
     const PostToDiscord = async (userQuest) => {
         try {
@@ -51,7 +59,9 @@ const ImageUploadApproval = () => {
                 to{" "}
                 <span className="font-semibold text-gray-900 dark:text-white">
                     {pageIndex * takeNumber + takeNumber}
-                </span>
+                </span>{" "}
+                of Total:{" "}
+                <span className="font-semibold text-gray-900 dark:text-white">{count}</span>{" "}
             </span>
 
             <div className="inline-flex mt-2 xs:mt-0">

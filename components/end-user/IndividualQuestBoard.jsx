@@ -66,6 +66,9 @@ const IndividualQuestBoard = ({
                 ) {
                     return false;
                 }
+                if (q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                    return false;
+                }
 
                 return true;
             });

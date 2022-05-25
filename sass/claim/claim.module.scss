@@ -565,6 +565,7 @@ $list-text-font-size-large: 1.25rem;
         }
         &_imagePreview {
             max-width:30%;
+            max-height:35%;
         }
         &_imageName {
             @include listText();

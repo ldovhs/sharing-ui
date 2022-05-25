@@ -852,6 +852,7 @@
 }
 .board_imageUpload_imagePreview {
   max-width: 30%;
+  max-height: 35%;
 }
 .board_imageUpload_imageName {
   font-size: 0.6rem;

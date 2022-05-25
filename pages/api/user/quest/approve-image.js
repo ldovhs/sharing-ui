@@ -6,90 +6,68 @@ import Enums from "enums";
 
 const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
 
-const ROUTE = "/api/user/quest/submit-image";
+const ROUTE = "/api/user/quest/approve-image";
 
-const submitImageQuestAPI = async (req, res) => {
+const approveImageQuestAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
         case "POST":
             try {
-                const whiteListUser = req.whiteListUser;
-                const { questId, type, rewardTypeId, quantity, extendedQuestData, imageUrl } =
-                    req.body;
-                let userQuest;
-
-                if (type.name !== Enums.IMAGE_UPLOAD_QUEST) {
-                    return res.status(200).json({
-                        isError: true,
-                        message: "This route is only for image-upload quest!",
-                    });
-                }
+                const { questId, extendedUserQuestData, user } = req.body;
+                const { discordChannel, imageUrl } = extendedUserQuestData;
 
                 let entry = await prisma.UserQuest.findUnique({
                     where: {
-                        wallet_questId: { wallet: whiteListUser.wallet, questId },
+                        wallet_questId: { wallet: user.wallet, questId },
                     },
                 });
-                if (entry) {
+                if (!entry) {
                     return res
                         .status(200)
-                        .json({ isError: true, message: "This quest already submitted before!" });
+                        .json({ isError: true, message: "Cannot find this user quest!" });
                 }
 
                 /**
                  * 1. Post a message to discord channel
-                 * 2. Add new UserQuest with discord message id
+                 * 2. Update UserQuest with discord message id
                  */
-                // let discordMsg = await discordHelper(
-                //     whiteListUser,
-                //     extendedQuestData.discordChannel,
-                //     imageUrl
-                // );
+                let discordMsg = await discordHelper(user, discordChannel, imageUrl);
 
-                // if (!discordMsg) {
-                //     return res.status(200).json({
-                //         isError: true,
-                //         message: "Image cannot be uploaded. Pls contact administrator!",
-                //     });
-                // }
-                // if (!discordMsg?.data?.response?.id) {
-                //     return res.status(200).json({
-                //         isError: true,
-                //         message:
-                //             "Cannot get discord message id after uploaded. Pls contact administrator!",
-                //     });
-                // }
+                if (!discordMsg) {
+                    return res.status(200).json({
+                        isError: true,
+                        message: "Image cannot be uploaded. Pls contact administrator!",
+                    });
+                }
+                if (!discordMsg?.data?.response?.id) {
+                    return res.status(200).json({
+                        isError: true,
+                        message:
+                            "Cannot get discord message id after uploaded. Pls contact administrator!",
+                    });
+                }
 
-                let extendedUserQuestData = {
-                    ...extendedQuestData,
-                    // messageId: discordMsg?.data?.response?.id,
-                    imageUrl,
+                let newExtendedUserQuestData = {
+                    ...extendedUserQuestData,
+                    messageId: discordMsg?.data?.response?.id,
                 };
 
-                userQuest = await submitNewUserImageQuestTransaction(
-                    questId,
-                    type,
-                    rewardTypeId,
-                    quantity,
-                    extendedUserQuestData,
-                    whiteListUser.wallet
-                );
-                if (!userQuest) {
+                let updateQuest = await prisma.UserQuest.update({
+                    where: {
+                        wallet_questId: { wallet: user.wallet, questId },
+                    },
+                    data: {
+                        extendedUserQuestData: newExtendedUserQuestData,
+                    },
+                });
+                if (!updateQuest) {
                     return res
                         .status(200)
                         .json({ isError: true, message: "User Quest cannot be submitted!" });
                 }
 
-                // updateQuest = await updateUserQuest(
-                //     whiteListUser.wallet,
-                //     questId,
-                //     rewardTypeId,
-                //     quantity,
-                //     extendedUserQuestData
-                // );
-
-                return res.status(200).json(userQuest);
+                return res.status(200).json(updateQuest);
             } catch (error) {
                 console.log(error);
                 return res.status(200).json({ isError: true, message: error.message });
@@ -120,7 +98,7 @@ const discordHelper = async (user, discordChannel, imageUrl) => {
     return discordPost;
 };
 
-export default whitelistUserMiddleware(submitImageQuestAPI);
+export default whitelistUserMiddleware(approveImageQuestAPI);
 
 export const submitNewUserImageQuestTransaction = async (
     questId,

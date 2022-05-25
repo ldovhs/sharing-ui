@@ -14,3 +14,5 @@ export { default as AddQuest } from "./quest/AddQuest";
 
 export { default as SearchForm } from "./search/SearchForm";
 export { default as SearchResult } from "./search/SearchResult";
+
+export { default as ImageUploadApproval } from "./image-approval/ImageUploadApproval";

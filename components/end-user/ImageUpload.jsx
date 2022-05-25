@@ -107,11 +107,11 @@ const ImageUpload = ({
         /** Checking for NSFW */
         let toContinue = true;
         let imageProcess = predictions.map((p) => {
-            if (p?.className === "Porn" && p.probability >= 0.675) {
+            if (p?.className === "Porn" && p.probability >= 0.6) {
                 console.log(p.probability);
                 toContinue = false;
             }
-            if (p?.className === "Hentai" && p.probability >= 0.675) {
+            if (p?.className === "Hentai" && p.probability >= 0.6) {
                 console.log(p.probability);
                 toContinue = false;
             }

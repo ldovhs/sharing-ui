@@ -373,6 +373,11 @@
   padding: 0;
   color: #FFFFFF;
 }
+@media (min-width: 24em) {
+  .board_pinkBtn {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_pinkBtn {
     width: 50%;
@@ -392,7 +397,7 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -400,7 +405,7 @@
 }
 @media (min-width: 24em) {
   .board_pinkBtn > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -472,6 +477,11 @@
   padding: 0;
   color: #FFFFFF;
 }
+@media (min-width: 24em) {
+  .board_orangeBtn {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_orangeBtn {
     width: 50%;
@@ -491,7 +501,7 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -499,7 +509,7 @@
 }
 @media (min-width: 24em) {
   .board_orangeBtn > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -564,6 +574,11 @@
   padding: 0;
   color: #FFFFFF;
 }
+@media (min-width: 24em) {
+  .board_tealBtn {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_tealBtn {
     width: 50%;
@@ -583,7 +598,7 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -591,7 +606,7 @@
 }
 @media (min-width: 24em) {
   .board_tealBtn > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -656,6 +671,11 @@
   padding: 0;
   color: #FFFFFF;
 }
+@media (min-width: 24em) {
+  .board_blackBtn {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_blackBtn {
     width: 50%;
@@ -675,7 +695,7 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -683,7 +703,7 @@
 }
 @media (min-width: 24em) {
   .board_blackBtn > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -748,6 +768,11 @@
   padding: 0;
   color: #FFFFFF;
 }
+@media (min-width: 24em) {
+  .board_purpleBtn {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_purpleBtn {
     width: 50%;
@@ -767,7 +792,7 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -775,7 +800,7 @@
 }
 @media (min-width: 24em) {
   .board_purpleBtn > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -915,6 +940,11 @@
   position: absolute;
   width: 6rem;
 }
+@media (min-width: 24em) {
+  .board_imageUpload_chooseFileButton {
+    width: 55%;
+  }
+}
 @media (min-width: 31.25em) {
   .board_imageUpload_chooseFileButton {
     width: 50%;
@@ -934,7 +964,7 @@
 }
 .board_imageUpload_chooseFileButton > div > span {
   width: 100%;
-  font-size: 1.75vh;
+  font-size: 1.65vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -942,7 +972,7 @@
 }
 @media (min-width: 24em) {
   .board_imageUpload_chooseFileButton > div > span {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 31.25em) {
@@ -1122,7 +1152,7 @@
 .boardLarge_dollar {
   position: absolute;
   width: 100%;
-  top: 8.75%;
+  top: 9%;
   display: flex;
   justify-content: center;
 }
@@ -1155,12 +1185,11 @@
   margin-left: 7px;
   font-family: PFRondaSeven;
   color: #F8D61D;
-  font-size: 0.8vh;
+  font-size: 0.9vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 10%;
   text-align: center;
 }
 @media (min-width: 24em) {
@@ -1178,7 +1207,7 @@
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content {
     margin-left: 15px;
-    font-size: 1.3vh;
+    font-size: 1.2vh;
   }
 }
 @media (min-width: 75em) {
@@ -1209,7 +1238,7 @@
 }
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content > img {
-    height: 2.1vh;
+    height: 1.9vh;
   }
 }
 @media (min-width: 75em) {

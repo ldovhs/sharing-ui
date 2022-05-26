@@ -156,6 +156,10 @@ $list-text-font-size-large: 1.25rem;
     padding: 0;
     color: #FFFFFF;
 
+    @media (min-width: $bp-small) {  
+        width: 55%;
+    }
+
     @media (min-width: $bp-small-2) {  
         width: 50%;
     }
@@ -172,14 +176,14 @@ $list-text-font-size-large: 1.25rem;
 		height: 90%;
 		& > span { 
             width: 100%;
-            font-size: 1.75vh;
+            font-size: 1.65vh;
 	        font-family: Safety Goggles;
             font-weight: 400;
 	        text-align: center;
 
             line-height: 1.15rem;
             @media (min-width: $bp-small) {  
-                font-size: 1.25rem;
+                font-size: 1rem;
             }
             @media (min-width: $bp-small-2) {  
                 font-size: 1.5rem;
@@ -677,7 +681,7 @@ $list-text-font-size-large: 1.25rem;
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 8.75%;
+        top: 9%;
         display:flex;
         justify-content: center;
 
@@ -701,14 +705,11 @@ $list-text-font-size-large: 1.25rem;
             margin-left: 7px;
             font-family: PFRondaSeven;
             color: #F8D61D;
-
-            font-size: 0.8vh;
-
+            font-size: 0.9vh;
             display: flex;
             flex-direction: row;
             justify-content:center;
             align-items: center;
-            height:10%;
             text-align: center;
 
             @media (min-width: $bp-small) {
@@ -721,7 +722,7 @@ $list-text-font-size-large: 1.25rem;
             } 
             @media (min-width: $bp-small-3) {
                 margin-left: 15px;
-                font-size: 1.3vh;
+                font-size: 1.2vh;
             } 
             @media (min-width: $bp-large-2) {
                 margin-left: 15px;
@@ -745,7 +746,7 @@ $list-text-font-size-large: 1.25rem;
                 } 
 
                 @media (min-width: $bp-small-3) {
-                    height: 2.1vh;
+                    height: 1.9vh;
                 } 
                 @media (min-width: $bp-large-2) {
                     height: 2.2vh;

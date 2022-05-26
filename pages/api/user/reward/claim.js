@@ -94,9 +94,11 @@ const userClaimRewardAPI = async (req, res) => {
                             claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                         default:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                     }
+
+                    console.log(claimedReward.imageUrl);
 
                     let discordPost = await axios
                         .post(

@@ -184,8 +184,6 @@ const options = {
             return url;
         },
         async jwt({ token, user, account, profile }) {
-            console.log(12);
-            console.log(user);
             if (user) {
                 token.profile = profile;
                 token.user = user;
@@ -195,8 +193,6 @@ const options = {
             return token;
         },
         async session({ session, token }) {
-            console.log(13);
-            console.log(token);
             let socialMediaUser;
 
             if (token.provider === "twitter") {

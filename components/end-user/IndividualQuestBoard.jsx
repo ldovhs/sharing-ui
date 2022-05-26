@@ -30,8 +30,8 @@ const IndividualQuestBoard = ({
     const scrollRef = useRef();
     let router = useRouter();
 
-    console.log(session);
-    //const test = true;
+    // console.log(session);
+    // const test = true;
     useEffect(async () => {
         handleRenderUserQuest();
     }, [userQuests]);

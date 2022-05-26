@@ -1,37 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AdminLayout } from "/components/admin";
 import AddNewReward from "@components/admin/reward/AddNewReward";
 import Enums from "enums";
+import { useSession } from "next-auth/react";
+import { utils } from "ethers";
+
+const modsAddress = [
+    "0x2fe1d1B26401a922D19E1E74bed2bA799c64E040",
+    "0xc08f1F50B7d926d0c60888220176c27CE55dA926",
+    "0xC055fe5B545F4FDCF55C4d010aB4eE4972319b92",
+    "0xcA70D03e8eFFb0C55542a9AEA892dD74Fe208335",
+];
 
 const AdminRewards = () => {
-    useEffect(async () => {}, []);
+    const { data: session, status } = useSession({ required: false });
+    const [viewable, setViewable] = useState(false);
 
-    return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-xxl-6 col-xl-6 col-lg-6">
-                    <h4 className="card-title mb-3">Reward</h4>
-                    <div className="card">
-                        <div className="card-body">
-                            <AddNewReward />
+    useEffect(async () => {
+        if (modsAddress.includes(utils.getAddress(session?.user?.address))) {
+            setViewable(false);
+        } else {
+            setViewable(true);
+        }
+    }, [session]);
+
+    if (viewable) {
+        return (
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xxl-6 col-xl-6 col-lg-6">
+                        <h4 className="card-title mb-3">Reward</h4>
+                        <div className="card">
+                            <div className="card-body">
+                                <AddNewReward />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-xxl-4 col-xl-4 col-lg-6">
-                    <h4 className="card-title mb-3">Preview</h4>
-                    <div className="card items">
-                        <div className="card-body">
-                            <img
-                                className=""
-                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/preview.png`}
-                                alt="reward-preview"
-                            />
+                    <div className="col-xxl-4 col-xl-4 col-lg-6">
+                        <h4 className="card-title mb-3">Preview</h4>
+                        <div className="card items">
+                            <div className="card-body">
+                                <img
+                                    className=""
+                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/preview.png`}
+                                    alt="reward-preview"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return <label>Sorry we can't see this page</label>;
+    }
 };
 
 AdminRewards.Layout = AdminLayout;

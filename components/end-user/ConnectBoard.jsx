@@ -74,36 +74,6 @@ export default function ConnectBoard() {
                             {web3Error && (
                                 <>
                                     <div className={s.board_text}>{web3Error}</div>
-                                    {/* <button
-                                        className={s.board_pinkBtn}
-                                        onClick={() => {
-                                            setWeb3Error(null);
-                                            changeView(WELCOME);
-                                        }}
-                                    >
-                                        <img
-                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                            alt="connectToContinue"
-                                        />
-                                        <div>
-                                            <span>Go Back</span>
-                                        </div>
-                                    </button> */}
-                                    {/* <button
-                                        className={s.board_disconnect}
-                                        onClick={() => {
-                                            setWeb3Error(null);
-                                            changeView(WELCOME);
-                                        }}
-                                    >
-                                        <img
-                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                                            alt="Back"
-                                        />
-                                        <div>
-                                            <span>Back</span>
-                                        </div>
-                                    </button> */}
                                 </>
                             )}
 

@@ -128,7 +128,7 @@ const ImageUpload = ({
 
         formData.append("file", imageFile);
         formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
-        formData.append("public_id", session.user.address || session.user.walletAddress);
+        formData.append("public_id", session.user.address);
 
         const data = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
             method: "POST",

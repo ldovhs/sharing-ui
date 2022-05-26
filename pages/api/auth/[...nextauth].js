@@ -183,11 +183,23 @@ const options = {
         async redirect({ url, baseUrl }) {
             return url;
         },
+        async jwt({ token, user, account, profile }) {
+            console.log(12);
+            console.log(user);
+            if (user) {
+                token.profile = profile;
+                token.user = user;
+                token.provider = account.provider;
+            }
 
+            return token;
+        },
         async session({ session, token }) {
+            console.log(13);
+            console.log(token);
             let socialMediaUser;
 
-            if (token?.provider == "twitter") {
+            if (token.provider === "twitter") {
                 socialMediaUser = await prisma.whiteList.findFirst({
                     where: {
                         twitterId: token.user.id,
@@ -195,21 +207,21 @@ const options = {
                 });
             }
 
+            if (token.provider === "discord") {
+                socialMediaUser = await prisma.whiteList.findFirst({
+                    where: {
+                        discordId: token.user.id,
+                    },
+                });
+            }
+
             session.profile = token.profile;
             session.user = token.user;
-            // session?.provider = token?.provider;
+            session.provider = token.provider;
             if (socialMediaUser) {
-                session.user.walletAddress = socialMediaUser.wallet;
+                session.user.address = socialMediaUser.wallet;
             }
             return session;
-        },
-        async jwt({ token, user, account, profile }) {
-            if (user) {
-                token.profile = profile;
-                token.user = user;
-                // token?.provider = account?.provider;
-            }
-            return token;
         },
     },
     secret: NEXT_PUBLIC_NEXTAUTH_SECRET,

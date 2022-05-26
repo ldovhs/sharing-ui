@@ -30,7 +30,7 @@ const IndividualQuestBoard = ({
     const scrollRef = useRef();
     let router = useRouter();
 
-    //console.log(userQuests);
+    console.log(session);
     //const test = true;
     useEffect(async () => {
         handleRenderUserQuest();
@@ -38,6 +38,7 @@ const IndividualQuestBoard = ({
 
     useEffect(async () => {
         if (userRewards) {
+            console.log(userRewards);
             let shellReward = userRewards.find(
                 (r) =>
                     r.rewardType.reward.match("hell") ||

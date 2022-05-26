@@ -4,7 +4,8 @@ import axios from "axios";
 import Enums from "enums";
 import { UpdateClaimAndPendingRewardTransaction } from "repositories/transactions";
 
-const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
+const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
+    process.env;
 
 const ROUTE = "/api/user/reward/claim";
 
@@ -66,31 +67,34 @@ const userClaimRewardAPI = async (req, res) => {
                 }
 
                 // post to discord if discordId exists
-                if (
-                    whiteListUser &&
-                    whiteListUser.discordId !== null &&
-                    whiteListUser.discordId.length > 0
-                ) {
-                    claimedReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
+                if (claimedReward) {
+                    if (
+                        whiteListUser.discordId != null &&
+                        whiteListUser.discordId.trim().length > 0
+                    ) {
+                        claimedReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
+                    } else {
+                        claimedReward.claimedUser = whiteListUser.wallet;
+                    }
 
                     switch (claimedReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
                             break;
                         case Enums.REWARDTYPE.SHELL:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                         default:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif.gif`;
+                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif.gif`;
                             break;
                     }
 
@@ -109,14 +113,14 @@ const userClaimRewardAPI = async (req, res) => {
                             }
                         )
                         .catch((err) => {
-                            // console.log(err);
+                            console.log(err);
                             return res.status(200).json({ isError: true, message: err.message });
                         });
                 }
 
                 res.status(200).json(pendingReward);
             } catch (err) {
-                // console.log(err);
+                console.log(err);
                 res.status(500).json({ err });
             }
             break;

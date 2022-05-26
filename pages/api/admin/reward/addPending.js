@@ -4,7 +4,8 @@ import axios from "axios";
 import { createPendingReward } from "repositories/reward";
 import adminMiddleware from "middlewares/adminMiddleware";
 
-const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
+const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
+    process.env;
 
 const ROUTE = "/api/admin/reward/addPending";
 
@@ -69,26 +70,30 @@ const AddPendingRewardAPI = async (req, res) => {
                 }
 
                 if (postInBotChannel || postInGeneralChannel) {
-                    switch (pendingReward.rewardType.reward) {
-                        case Enums.REWARDTYPE.MYSTERYBOWL:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
-                            break;
-                        case Enums.REWARDTYPE.NUDE:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
-                            break;
-                        case Enums.REWARDTYPE.BOREDAPE:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
-                            break;
-                        case Enums.REWARDTYPE.MINTLIST:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
-                            break;
-                        case Enums.REWARDTYPE.SHELL:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                            break;
-                        default:
-                            pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                            break;
-                    }
+                    // switch (pendingReward.rewardType.reward) {
+                    //     case Enums.REWARDTYPE.MYSTERYBOWL:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                    //         break;
+                    //     case Enums.REWARDTYPE.NUDE:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
+                    //         break;
+                    //     case Enums.REWARDTYPE.BOREDAPE:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
+                    //         break;
+                    //     case Enums.REWARDTYPE.MINTLIST:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                    //         break;
+                    //     case Enums.REWARDTYPE.SHELL:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                    //         break;
+                    //     default:
+                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                    //         break;
+                    // }
+
+                    /* pending reward should be a chest for lore purpose*/
+                    pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
+                    pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;
 
                     if (user.discordId != null && user.discordId.trim().length > 0) {
                         pendingReward.receivingUser = `<@${user.discordId.trim()}>`;

@@ -38,7 +38,6 @@ const IndividualQuestBoard = ({
 
     useEffect(async () => {
         if (userRewards) {
-            console.log(userRewards);
             let shellReward = userRewards.find(
                 (r) =>
                     r.rewardType.reward.match("hell") ||

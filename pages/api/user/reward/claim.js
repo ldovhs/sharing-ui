@@ -36,6 +36,9 @@ const userClaimRewardAPI = async (req, res) => {
                             generatedURL,
                         },
                     },
+                    include: {
+                        rewardType: true,
+                    },
                 });
 
                 if (!pendingReward) {
@@ -52,14 +55,14 @@ const userClaimRewardAPI = async (req, res) => {
                     });
                 }
 
-                let claimedReward = await UpdateClaimAndPendingRewardTransaction(
+                let claimReward = await UpdateClaimAndPendingRewardTransaction(
                     whiteListUser.wallet,
                     rewardTypeId,
                     quantity,
                     generatedURL
                 );
 
-                if (!claimedReward) {
+                if (!claimReward) {
                     return res.status(200).json({
                         isError: true,
                         message: `Reward cannot be claimed for user ${wallet} or already claimed, userId ${userId}, please contact administrator!`,
@@ -67,44 +70,44 @@ const userClaimRewardAPI = async (req, res) => {
                 }
 
                 // post to discord if discordId exists
-                if (claimedReward) {
+                if (claimReward) {
                     if (
                         whiteListUser.discordId != null &&
                         whiteListUser.discordId.trim().length > 0
                     ) {
-                        claimedReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
+                        pendingReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
                     } else {
-                        claimedReward.claimedUser = whiteListUser.wallet;
+                        pendingReward.claimedUser = whiteListUser.wallet;
                     }
 
-                    switch (claimedReward.rewardType.reward) {
+                    switch (pendingReward.rewardType.reward) {
                         case Enums.REWARDTYPE.MYSTERYBOWL:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
                             break;
                         case Enums.REWARDTYPE.NUDE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/15.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/15.gif`;
                             break;
                         case Enums.REWARDTYPE.BOREDAPE:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/11.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/11.gif`;
                             break;
                         case Enums.REWARDTYPE.MINTLIST:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
                             break;
                         case Enums.REWARDTYPE.SHELL:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                         default:
-                            claimedReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
                             break;
                     }
 
-                    console.log(claimedReward.imageUrl);
+                    console.log(pendingReward.imageUrl);
 
                     let discordPost = await axios
                         .post(
                             `${DISCORD_NODEJS}/api/v1/channels/claimedReward`,
                             {
-                                claimedReward,
+                                pendingReward,
                             },
                             {
                                 //authorization

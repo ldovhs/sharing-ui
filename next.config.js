@@ -51,6 +51,11 @@ module.exports = {
                 destination: "/colormonsters",
                 permanent: false,
             },
+            {
+                source: "/voidrunner",
+                destination: "/voidrunners",
+                permanent: false,
+            },
         ];
     },
 };

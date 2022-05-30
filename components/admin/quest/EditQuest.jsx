@@ -13,7 +13,7 @@ import {
     CollaborationFreeShell,
     DailyShellQuestForm,
     ImageUploadQuest,
-    TwitterSpaceCodeForm,
+    CodeQuestForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
@@ -120,7 +120,7 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                         )}
 
                         {quest.type.name === Enums.CODE_QUEST && (
-                            <TwitterSpaceCodeForm
+                            <CodeQuestForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

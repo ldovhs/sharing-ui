@@ -12,7 +12,7 @@ import {
     CollaborationFreeShell,
     DailyShellQuestForm,
     ImageUploadQuest,
-    TwitterSpaceCodeForm,
+    CodeQuestForm,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -142,7 +142,7 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                         )}
 
                         {selectedType === Enums.CODE_QUEST && (
-                            <TwitterSpaceCodeForm
+                            <CodeQuestForm
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

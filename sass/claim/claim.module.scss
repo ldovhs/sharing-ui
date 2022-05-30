@@ -73,11 +73,10 @@ $list-text-font-size-large: 1.25rem;
         line-height: 2rem;
     }
     @media (min-width: $bp-large-2) {  
-        font-size: $heading-font-size-large;
-       
+        font-size: $heading-font-size-med;
     }
     @media (min-width: $bp-xl-2) {  
-        line-height: 2.75rem;
+        line-height: 2.5rem;
     }
 }
 

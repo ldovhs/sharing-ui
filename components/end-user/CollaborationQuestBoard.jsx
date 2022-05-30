@@ -48,62 +48,62 @@ const CollaborationQuestBoard = ({
                     q.extendedQuestData.collaboration.length > 0 &&
                     q.extendedQuestData.collaboration === collaboration
                 ) {
-                    if (
-                        collaboration === "colormonsters" &&
-                        q.type.name === Enums.LIMITED_FREE_SHELL
-                    ) {
-                        /*check if user follow twitter and in color monster server discord
-                        if yes we show the free shell 500$, else dont show this 500$
-                        */
+                    // if (
+                    //     // collaboration === "colormonsters" &&
+                    //     q.type.name === Enums.LIMITED_FREE_SHELL
+                    // ) {
+                    //     /*check if user follow twitter and in color monster server discord
+                    //     if yes we show the free shell 500$, else dont show this 500$
+                    //     */
 
-                        let hasTwitterId = false,
-                            hasDiscordId = false,
-                            hasFollowColorMonsterTwitter = false,
-                            hasJoinColorMonsterDiscord = false;
-                        if (currentUser?.twitterId !== null && currentUser?.twitterId.length > 1) {
-                            hasTwitterId = true;
-                        }
-                        if (currentUser?.discordId !== null && currentUser?.discordId.length > 1) {
-                            hasDiscordId = true;
-                        }
+                    //     let hasTwitterId = false,
+                    //         hasDiscordId = false,
+                    //         hasFollowColorMonsterTwitter = false,
+                    //         hasJoinColorMonsterDiscord = false;
+                    //     if (currentUser?.twitterId !== null && currentUser?.twitterId.length > 1) {
+                    //         hasTwitterId = true;
+                    //     }
+                    //     if (currentUser?.discordId !== null && currentUser?.discordId.length > 1) {
+                    //         hasDiscordId = true;
+                    //     }
 
-                        let followColorMonsterTwitter = userQuests.find(
-                            (q) =>
-                                q.type.name === Enums.FOLLOW_TWITTER &&
-                                q.extendedQuestData.collaboration &&
-                                q.extendedQuestData.collaboration === collaboration
-                        );
-                        if (followColorMonsterTwitter.isDone === true) {
-                            hasFollowColorMonsterTwitter = true;
-                        }
+                    //     let followColorMonsterTwitter = userQuests.find(
+                    //         (q) =>
+                    //             q.type.name === Enums.FOLLOW_TWITTER &&
+                    //             q.extendedQuestData.collaboration &&
+                    //             q.extendedQuestData.collaboration === collaboration
+                    //     );
+                    //     if (followColorMonsterTwitter.isDone === true) {
+                    //         hasFollowColorMonsterTwitter = true;
+                    //     }
 
-                        let shareColorMonsterTweetArray = userQuests.filter(
-                            (q) =>
-                                q.type.name === Enums.TWITTER_RETWEET &&
-                                q.extendedQuestData.collaboration &&
-                                q.extendedQuestData.collaboration === collaboration
-                        );
-                        let isShare = true;
-                        shareColorMonsterTweetArray.map((q) => {
-                            if (q.isDone === false) {
-                                isShare = false;
-                            }
-                        });
-                        if (isShare) {
-                            hasJoinColorMonsterDiscord = true;
-                        }
+                    //     let shareColorMonsterTweetArray = userQuests.filter(
+                    //         (q) =>
+                    //             q.type.name === Enums.TWITTER_RETWEET &&
+                    //             q.extendedQuestData.collaboration &&
+                    //             q.extendedQuestData.collaboration === collaboration
+                    //     );
+                    //     let isShare = true;
+                    //     shareColorMonsterTweetArray.map((q) => {
+                    //         if (q.isDone === false) {
+                    //             isShare = false;
+                    //         }
+                    //     });
+                    //     if (isShare) {
+                    //         hasJoinColorMonsterDiscord = true;
+                    //     }
 
-                        if (
-                            hasTwitterId &&
-                            hasDiscordId &&
-                            hasFollowColorMonsterTwitter &&
-                            hasJoinColorMonsterDiscord
-                        ) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
+                    //     if (
+                    //         hasTwitterId &&
+                    //         hasDiscordId &&
+                    //         hasFollowColorMonsterTwitter &&
+                    //         hasJoinColorMonsterDiscord
+                    //     ) {
+                    //         return true;
+                    //     } else {
+                    //         return false;
+                    //     }
+                    // }
                     return true;
                 }
                 if (

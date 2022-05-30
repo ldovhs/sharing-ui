@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { CollaborationQuestBoard, ConnectBoard } from "@components/end-user";
 import Enums from "enums";
 
-function ColorMonster() {
+function VoidRunners() {
     const { data: session, status } = useSession({ required: false });
 
     return (
@@ -13,10 +13,10 @@ function ColorMonster() {
             <Head>
                 <title>DeepSea Challenger Collaboration</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Anomura x ColorMonsters" />
+                <meta property="og:title" content="Anomura x VoidRunners" />
                 <meta
                     property="og:description"
-                    content="We’ve partnered with ColorMonsters! Complete quests, earn $SHELL, unlock prizes."
+                    content="We’ve partnered with VoidRunners! Complete quests, earn $SHELL, unlock prizes."
                 />
                 <meta
                     property="og:image"
@@ -36,11 +36,11 @@ function ColorMonster() {
                 {!session ? (
                     <ConnectBoard />
                 ) : (
-                    <CollaborationQuestBoard session={session} collaboration={"colormonsters"} />
+                    <CollaborationQuestBoard session={session} collaboration={"voidrunners"} />
                 )}
             </div>
         </>
     );
 }
 
-export default ColorMonster;
+export default VoidRunners;

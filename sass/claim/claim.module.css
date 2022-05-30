@@ -341,12 +341,12 @@
 }
 @media (min-width: 75em) {
   .board_title {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_title {
-    line-height: 2.75rem;
+    line-height: 2.5rem;
   }
 }
 .board_text {
@@ -1360,12 +1360,12 @@
 }
 @media (min-width: 75em) {
   .boardLarge_title {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_title {
-    line-height: 2.75rem;
+    line-height: 2.5rem;
   }
 }
 .boardLarge_title > div:nth-child(2) {

@@ -27,7 +27,6 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             );
 
             if (!codeQuestOfThisEvent) {
-                console.log(2);
                 return setView(OVERDUE);
             }
 

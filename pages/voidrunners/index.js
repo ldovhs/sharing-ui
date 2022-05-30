@@ -13,22 +13,22 @@ function VoidRunners() {
             <Head>
                 <title>DeepSea Challenger Collaboration</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Anomura x VoidRunners" />
+                <meta property="og:title" content="Anomura x Void Runners" />
                 <meta
                     property="og:description"
-                    content="We’ve partnered with VoidRunners! Complete quests, earn $SHELL, unlock prizes."
+                    content="We’ve partnered with Void Runners! Complete quests, earn $SHELL, unlock prizes."
                 />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/ColorMonsterCollaboration.gif"
+                    content="https://anomuragame.com/challenger/Void Runner.jpg"
                 />
-                <meta property="og:site_name" content="Anomura x ColorMonsters"></meta>
+                <meta property="og:site_name" content="Anomura x Void Runners"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/ColorMonsterCollaboration.gif"
+                    content="https://anomuragame.com/challenger/Void Runner.jpg"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

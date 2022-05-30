@@ -11,8 +11,7 @@ import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
 const UPLOADABLE = 0;
 const SUBMITTABLE = 1;
-const UPLOADED = 2;
-const SUBMITTED = 3;
+const SUBMITTED = 2;
 
 const ImageUpload = ({
     session,
@@ -35,7 +34,6 @@ const ImageUpload = ({
     const router = useRouter();
     const hiddenFileInput = useRef(null);
     const imageEl = useRef(null);
-    const cloudName = "deepsea";
 
     useEffect(async () => {
         if (
@@ -123,18 +121,15 @@ const ImageUpload = ({
             return;
         }
 
-        /** Upload to cloudinary */
-        const formData = new FormData();
-
-        formData.append("file", imageFile);
-        formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
-        formData.append("public_id", session.user.address);
-
-        const data = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-            method: "POST",
-            body: formData,
-        }).then((r) => r.json());
-
+        const res = await axios.post("/challenger/api/user/image-upload", {
+            data: imageSrc,
+        });
+        // console.log(res);
+        if (!res?.data?.secure_url) {
+            //set error here to prevent continueing
+            console.error("Image is not cached");
+            return;
+        }
         /** Submit this quest */
         const { questId, type, rewardTypeId, quantity, extendedQuestData } = submissionQuest;
 
@@ -143,7 +138,7 @@ const ImageUpload = ({
             type,
             rewardTypeId,
             quantity,
-            imageUrl: data.secure_url,
+            imageUrl: res?.data?.secure_url,
             extendedQuestData,
         };
         let submittedQuest = await onSubmitImageQuest(submission, userQuests);

@@ -36,6 +36,9 @@ const Enums = {
     COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // do not use this
     DAILY_SHELL: "Daily Shell Quest",
     CODE_QUEST: "Code Quest",
+
+    // Image approval
+    ITEM_PER_PAGE: 5,
 };
 
 module.exports = Enums;

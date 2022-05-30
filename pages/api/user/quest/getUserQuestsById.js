@@ -4,7 +4,7 @@ import Enums from "enums";
 import { prisma } from "@context/PrismaContext";
 
 const ROUTE = "/api/user/userquests";
-
+const ITEM_PER_PAGE = Enums.ITEM_PER_PAGE;
 const questQueryAPI = async (req, res) => {
     const { method } = req;
 
@@ -27,13 +27,13 @@ const questQueryAPI = async (req, res) => {
                     where: {
                         questId,
                     },
-                    skip: page * 5,
-                    take: 5,
-                    orderBy: [
-                        {
-                            updatedAt: "asc",
-                        },
-                    ],
+                    skip: page * ITEM_PER_PAGE,
+                    take: ITEM_PER_PAGE,
+                    // orderBy: [
+                    //     {
+                    //         updatedAt: "asc",
+                    //     },
+                    // ],
                     include: {
                         user: true,
                     },

@@ -103,19 +103,10 @@ export const withClaimRewardSubmit =
         );
     };
 
-// already claimed
-export const withUserRewardQuery =
-    (Component) =>
-    ({ ...props }) => {
-        const { data, status, isLoading, error } = useQuery("userRewardQuery", () =>
-            axios.get(USER_GET_CLAIMED_REWARD)
-        );
-        return (
-            <Component
-                {...props}
-                isFetchingUserRewards={isLoading}
-                userRewards={data?.data}
-                queryError={error}
-            />
-        );
-    };
+export const useUserRewardQuery = () => {
+    const { data, isLoading } = useQuery("userRewardQuery", () =>
+        axios.get(USER_GET_CLAIMED_REWARD).then((r) => r.data)
+    );
+
+    return [data, isLoading];
+};

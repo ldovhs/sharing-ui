@@ -33,8 +33,9 @@ const Enums = {
     NOODS_CLAIM: "Own NOODS to claim $SHELL",
     IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
-    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration",
+    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // do not use this
     DAILY_SHELL: "Daily Shell Quest",
+    TWITTER_SPACE_CODE: "Twitter Space Code",
 };
 
 module.exports = Enums;

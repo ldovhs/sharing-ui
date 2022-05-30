@@ -2,10 +2,8 @@ import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 import Enums from "enums";
 
-const USER_API = `${Enums.BASEPATH}/api/user/current`;
+const CURRENT_USER_API = `${Enums.BASEPATH}/api/user/current`;
 const ADD_USER_API = `${Enums.BASEPATH}/api/admin/user/add`;
-//const USER_API = `/api/user/current`;
-//const ADD_USER_API = `/api/admin/user/add`;
 
 export const withUserUpsert =
     (Component) =>
@@ -31,19 +29,10 @@ export const withUserUpsert =
         );
     };
 
-export const withCurrentUserQuery =
-    (Component) =>
-    ({ ...props }) => {
-        const { data, status, isLoading, error } = useQuery("currentUser", () =>
-            axios.get(USER_API)
-        );
+export const useCurrentUserQuery = () => {
+    const { data, loading } = useQuery("currentUserQuery", () =>
+        axios.get(CURRENT_USER_API).then((r) => r.data)
+    );
 
-        return (
-            <Component
-                {...props}
-                isFetchingUser={isLoading}
-                currentUser={data?.data}
-                queryError={error}
-            />
-        );
-    };
+    return [data, loading];
+};

@@ -137,6 +137,18 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
+
+                    let existingTwitterSpaceCode = twitterSpaceCodeQuestCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
+                    if (existingTwitterSpaceCode) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type of twitter space code for same event "${extendedQuestData.twitterEvent}".`,
+                            isError: true,
+                        });
+                    }
                     // TODO: IMAGE_UPLOAD_QUEST CHECK  add guard for app submission app request
                 } else {
                     // update userquest, we need to get original extendedQuestData and create a new object to avoid data loss
@@ -274,6 +286,18 @@ const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) =
 
     return collaborationClaim.some(
         (q) => q.extendedQuestData.collaboration === extendedQuestData.collaboration
+    );
+};
+
+const twitterSpaceCodeQuestCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.TWITTER_SPACE_CODE) return;
+
+    let existingTwitterQuests = existingQuests.filter(
+        (q) => q.type.name === Enums.TWITTER_SPACE_CODE
+    );
+
+    return existingTwitterQuests.some(
+        (q) => q.extendedQuestData.twitterEvent === extendedQuestData.twitterEvent
     );
 };
 

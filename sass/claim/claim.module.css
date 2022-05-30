@@ -36,18 +36,23 @@
 .board_dollar {
   position: absolute;
   width: 100%;
-  top: 14.35%;
+  top: 14.15%;
   display: flex;
   justify-content: center;
 }
-@media (min-width: 50em) {
+@media (min-width: 31.25em) {
   .board_dollar {
-    top: 14.55%;
+    top: 14.15%;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_dollar {
+    top: 14%;
   }
 }
 @media (min-width: 75em) {
   .board_dollar {
-    top: 14.35%;
+    top: 14.25%;
   }
 }
 @media (min-width: 160em) {
@@ -56,30 +61,35 @@
   }
 }
 .board_dollar_content {
-  margin-left: 7px;
-  font-family: PFRondaSeven;
-  color: #F8D61D;
-  font-size: 2.5vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 10%;
-  text-align: center;
+  font-family: PFRondaSeven;
+  color: #F8D61D;
+  margin-left: 7px;
+  font-size: 2.25vw;
 }
 @media (min-width: 24em) {
   .board_dollar_content {
     margin-left: 12px;
+    font-size: 0.5rem;
   }
 }
 @media (min-width: 31.25em) {
   .board_dollar_content {
-    margin-left: 12px;
+    font-size: 0.675rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_dollar_content {
-    margin-left: 17px;
+    margin-left: 15px;
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 46.8em) {
+  .board_dollar_content {
+    font-size: 1rem;
   }
 }
 @media (min-width: 123.75em) {
@@ -331,12 +341,12 @@
 }
 @media (min-width: 75em) {
   .board_title {
-    font-size: 2.25rem;
+    font-size: 2.75rem;
   }
 }
 @media (min-width: 123.75em) {
   .board_title {
-    line-height: 2.5rem;
+    line-height: 2.75rem;
   }
 }
 .board_text {
@@ -361,6 +371,11 @@
   }
 }
 @media (min-width: 90em) {
+  .board_text {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 123.75em) {
   .board_text {
     font-size: 1.5rem;
   }
@@ -912,16 +927,6 @@
     font-size: 1.25rem;
   }
 }
-.board_imageUpload_buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  max-width: 50%;
-}
-.board_imageUpload_buttonContainer > button:nth-child(2) {
-  margin-left: 0.75rem;
-}
 .board_imageUpload_chooseFileLabel {
   position: relative;
   width: 50%;
@@ -1025,6 +1030,78 @@
 }
 .board_imageUpload_chooseFileButton:disabled:hover {
   color: #A2B7B6;
+}
+.board_input_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.board_input_custom {
+  font-family: PFRondaSeven;
+  color: #35454F;
+  width: 60%;
+  padding-bottom: 3px;
+  background: url("/challenger/img/sharing-ui/invite/Text Input Box.png") no-repeat;
+  background-size: 100% 100%;
+  background-color: rgba(0, 0, 0, 0);
+  border: transparent solid 1px;
+  text-align: center;
+  position: relative;
+  font-size: 1.35vh;
+}
+.board_input_custom::-webkit-input-placeholder {
+  color: #A3B7B6;
+}
+.board_input_custom::-moz-placeholder {
+  color: #A3B7B6;
+}
+.board_input_custom:-ms-input-placeholder {
+  color: #A3B7B6;
+}
+.board_input_custom:-moz-placeholder {
+  color: #A3B7B6;
+}
+@media (min-width: 24em) {
+  .board_input_custom {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_input_custom {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_input_custom {
+    font-size: 1.45rem;
+  }
+}
+@media (min-width: 46.8em) {
+  .board_input_custom {
+    font-size: 1.65rem;
+  }
+}
+@media (min-width: 50em) {
+  .board_input_custom {
+    font-size: 1.85rem;
+  }
+}
+.board_input_error {
+  height: 0.7rem;
+  color: #C1344F;
+  font-weight: 600;
+}
+.board_buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+.board_buttonContainer > button:nth-child(2) {
+  margin-left: 0.75rem;
 }
 
 .boardLarge {
@@ -1168,52 +1245,49 @@
 }
 @media (min-width: 46.8em) {
   .boardLarge_dollar {
-    top: 11.75%;
+    top: 11.25%;
   }
 }
 @media (min-width: 54.5em) {
   .boardLarge_dollar {
-    top: 11.75%;
+    top: 11.25%;
   }
 }
 @media (min-width: 90em) {
   .boardLarge_dollar {
-    top: 11.75%;
+    top: 11.25%;
   }
 }
 .boardLarge_dollar_content {
-  margin-left: 7px;
-  font-family: PFRondaSeven;
-  color: #F8D61D;
-  font-size: 0.9vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  font-family: PFRondaSeven;
+  color: #F8D61D;
+  margin-left: 7px;
+  font-size: 2.25vw;
 }
 @media (min-width: 24em) {
   .boardLarge_dollar_content {
     margin-left: 12px;
-    font-size: 0.8vh;
+    font-size: 0.5rem;
   }
 }
 @media (min-width: 31.25em) {
   .boardLarge_dollar_content {
-    margin-left: 12px;
-    font-size: 1.05vh;
+    font-size: 0.675rem;
   }
 }
 @media (min-width: 39.8em) {
   .boardLarge_dollar_content {
     margin-left: 15px;
-    font-size: 1.2vh;
+    font-size: 0.9rem;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 46.8em) {
   .boardLarge_dollar_content {
-    margin-left: 15px;
-    font-size: 1.35vh;
+    font-size: 1rem;
   }
 }
 @media (min-width: 123.75em) {
@@ -1286,12 +1360,12 @@
 }
 @media (min-width: 75em) {
   .boardLarge_title {
-    font-size: 2.25rem;
+    font-size: 2.75rem;
   }
 }
 @media (min-width: 123.75em) {
   .boardLarge_title {
-    line-height: 2.5rem;
+    line-height: 2.75rem;
   }
 }
 .boardLarge_title > div:nth-child(2) {

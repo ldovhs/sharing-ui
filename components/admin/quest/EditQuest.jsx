@@ -5,7 +5,6 @@ import {
     DiscordAuthQuest,
     TwitterAuthQuest,
     TwitterFollowQuest,
-    AnomuraSeeFoodQuest,
     TwitterRetweetQuest,
     InstagramFollowQuest,
     ZedOwnQuest,
@@ -14,6 +13,7 @@ import {
     CollaborationFreeShell,
     DailyShellQuestForm,
     ImageUploadQuest,
+    TwitterSpaceCodeForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
@@ -113,6 +113,14 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.DAILY_SHELL && (
                             <DailyShellQuestForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.TWITTER_SPACE_CODE && (
+                            <TwitterSpaceCodeForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

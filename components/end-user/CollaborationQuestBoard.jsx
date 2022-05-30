@@ -1,59 +1,33 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { Web3Context } from "@context/Web3Context";
+import React, { useEffect, useState, useRef } from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
-import axios from "axios";
-
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
-import { withUserRewardQuery } from "@shared/HOC/reward";
 import { useRouter } from "next/router";
-import { withCurrentUserQuery } from "@shared/HOC/user";
+import { useCurrentUserQuery } from "@shared/HOC";
 import { BoardLargeDollarSign } from ".";
-const CHECK_TWITTER_FOLLOWER = `${Enums.BASEPATH}/api/twitter/checkFollowers`;
+import DisconnectButton from "./shared/DisconnectButton";
 
 const CollaborationQuestBoard = ({
     session,
     isFetchingUserQuests,
-    isFetchingUserRewards,
     userQuests,
-    userRewards,
-    queryError,
     onSubmit,
     isSubmitting,
     submittedQuest,
     collaboration,
-    isFetchingUser,
-    currentUser,
 }) => {
+    const [currentUser, fetchingCurrentUser] = useCurrentUserQuery();
     const [currentQuests, setCurrentQuests] = useState(userQuests);
-    const [rewardAmount, setRewardAmount] = useState(null);
     const [scroll, setScroll] = useState({
         canScrollUp: false,
         canScrollDown: true,
     });
-    const { web3Error, SignOut } = useContext(Web3Context);
     const scrollRef = useRef();
     let router = useRouter();
 
-    //console.log(userQuests);
-    //const test = true;
-    // console.log(currentUser);
     useEffect(async () => {
         handleRenderUserQuest();
     }, [userQuests]);
-
-    useEffect(async () => {
-        if (userRewards) {
-            let shellReward = userRewards.find(
-                (r) =>
-                    r.rewardType.reward.match("hell") ||
-                    r.rewardType.reward.match("$Shell") ||
-                    r.rewardType.reward.match("$SHELL")
-            );
-            if (shellReward?.quantity && shellReward.quantity > 0)
-                setRewardAmount(shellReward.quantity);
-        }
-    }, [userRewards]);
 
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
@@ -64,6 +38,9 @@ const CollaborationQuestBoard = ({
                     !twitterAuthQuest.isDone &&
                     (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
                 ) {
+                    return false;
+                }
+                if (q.type.name === Enums.TWITTER_SPACE_CODE) {
                     return false;
                 }
                 if (
@@ -83,10 +60,10 @@ const CollaborationQuestBoard = ({
                             hasDiscordId = false,
                             hasFollowColorMonsterTwitter = false,
                             hasJoinColorMonsterDiscord = false;
-                        if (currentUser.twitterId !== null && currentUser.twitterId.length > 1) {
+                        if (currentUser?.twitterId !== null && currentUser?.twitterId.length > 1) {
                             hasTwitterId = true;
                         }
-                        if (currentUser.discordId !== null && currentUser.discordId.length > 1) {
+                        if (currentUser?.discordId !== null && currentUser?.discordId.length > 1) {
                             hasDiscordId = true;
                         }
 
@@ -319,7 +296,7 @@ const CollaborationQuestBoard = ({
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
-                <BoardLargeDollarSign rewardAmount={rewardAmount} />
+                <BoardLargeDollarSign />
 
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
@@ -347,10 +324,7 @@ const CollaborationQuestBoard = ({
                             onScroll={onScroll}
                         >
                             {/* Is Loading */}
-                            {(isFetchingUserQuests ||
-                                isSubmitting ||
-                                isFetchingUser ||
-                                isFetchingUserRewards) && (
+                            {(isFetchingUserQuests || isSubmitting || fetchingCurrentUser) && (
                                 <div className={s.boardLarge_loading}>
                                     <div className={s.boardLarge_loading_wrapper}>
                                         <img
@@ -372,8 +346,7 @@ const CollaborationQuestBoard = ({
                             {/*  Render individual quest board */}
                             {!isFetchingUserQuests &&
                                 !isSubmitting &&
-                                !isFetchingUser &&
-                                !isFetchingUserRewards &&
+                                !fetchingCurrentUser &&
                                 !currentQuests?.isError &&
                                 currentQuests?.length > 0 &&
                                 currentQuests?.map((item, index, row) => {
@@ -477,17 +450,7 @@ const CollaborationQuestBoard = ({
                 </div>
             </div>
             {/*  Disconnect */}
-            {!isFetchingUserQuests && !isFetchingUser && (
-                <button className={s.boardLarge_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            {!isFetchingUserQuests && !fetchingCurrentUser && <DisconnectButton />}
         </div>
     );
 };
@@ -508,6 +471,4 @@ function isAlphabeticallly(a, b) {
 }
 
 const firstHOC = withUserQuestSubmit(CollaborationQuestBoard);
-const secondHOC = withUserRewardQuery(firstHOC);
-const thirdHOC = withCurrentUserQuery(secondHOC);
-export default withUserQuestQuery(thirdHOC);
+export default withUserQuestQuery(firstHOC);

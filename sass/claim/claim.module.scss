@@ -73,11 +73,11 @@ $list-text-font-size-large: 1.25rem;
         line-height: 2rem;
     }
     @media (min-width: $bp-large-2) {  
-        font-size: $heading-font-size-med;
+        font-size: $heading-font-size-large;
        
     }
     @media (min-width: $bp-xl-2) {  
-        line-height: 2.5rem;
+        line-height: 2.75rem;
     }
 }
 
@@ -96,6 +96,9 @@ $list-text-font-size-large: 1.25rem;
         line-height: 1.85rem;
     }
     @media (min-width: $bp-xl) {  
+        font-size: $text-font-size-large;
+    }
+    @media (min-width: $bp-xl-2) {  
         font-size: $text-font-size-large;
     }
 }
@@ -299,49 +302,44 @@ $list-text-font-size-large: 1.25rem;
     &_dollar {
         position: absolute;
         width: 100%;
-        top: 14.35%;
+        top: 14.15%;
         display:flex;
         justify-content: center;
 
-       
-        @media (min-width: $bp-med-2) {
-            top: 14.55%;
+        @media (min-width: $bp-small-2) {
+            top: 14.15%;
         } 
-
+        @media (min-width: $bp-small-3) {
+            top: 14%;
+        } 
         @media (min-width: $bp-large-2) {
-            top: 14.35%;
+            top: 14.25%;
         } 
-
         @media (min-width: $bp-xl-3) {  
             top: 15%;
         }
 
         &_content {
-            margin-left: 7px;
+            @include m.flex-master(row, center, center);
             font-family: PFRondaSeven;
             color: #F8D61D;
-
-            font-size: 2.5vw;
-            display: flex;
-            flex-direction: row;
-            justify-content:center;
-            align-items: center;
-            height:10%;
-            text-align: center;
-
+            margin-left: 7px;
+            font-size: 2.25vw;
+            
             @media (min-width: $bp-small) {
                 margin-left: 12px;
-          
+                font-size: 0.5rem;
             } 
             @media (min-width: $bp-small-2) {
-                margin-left: 12px;
-               
+                font-size: 0.675rem;
             } 
             @media (min-width: $bp-small-3) {
-                margin-left: 17px;
-             
+                margin-left: 15px;
+                font-size: 0.9rem;
             } 
-
+            @media (min-width: $bp-med) {
+                font-size: 1rem;
+            } 
             @media (min-width: $bp-xl-2) {
                 margin-left: 17px;
             } 
@@ -367,7 +365,6 @@ $list-text-font-size-large: 1.25rem;
                     // height: 2.2vh;
                 } 
                 @media (min-width: $bp-large-2) {
-                    // height: 2.25vh;
                     width: 1.5rem;
                 } 
 
@@ -576,15 +573,6 @@ $list-text-font-size-large: 1.25rem;
             max-width: 100%;
             overflow-wrap: break-word;
         }
-
-        &_buttonContainer {
-            @include m.flex-master(row, center, center);
-            max-width: 50%;
-
-            & > button:nth-child(2) { 
-                margin-left: 0.75rem;
-             }
-        }
         &_chooseFileLabel{
             position: relative;
            
@@ -596,12 +584,77 @@ $list-text-font-size-large: 1.25rem;
         }
 
         &_chooseFileButton {
-            
             @include large_button();
             position: absolute;
             width: 6rem;
         }
         
+    }
+    &_input {
+        &_wrapper{
+            @include m.flex-master(column, space-evenly, center);
+            width:100%;
+        }
+
+        &_custom {
+            font-family: PFRondaSeven;
+            color:  #35454F;
+            width: 60%;
+            padding-bottom: 3px;
+            background: url("/challenger/img/sharing-ui/invite/Text Input Box.png") no-repeat;
+            background-size: 100% 100%;
+
+            background-color: rgba(0, 0, 0, 0);
+            border: transparent solid 1px;
+            text-align: center;
+            position: relative;
+
+            &::-webkit-input-placeholder {
+                color: #A3B7B6;
+            }
+            &::-moz-placeholder {
+              color: #A3B7B6;
+            }
+            &:-ms-input-placeholder {
+              color: #A3B7B6;
+            }
+            &:-moz-placeholder {
+              color: #A3B7B6;
+            }
+
+            font-size: 1.35vh;
+            @media (min-width: $bp-small) {
+                font-size: 1rem;
+            } 
+            @media (min-width: $bp-small-2) {
+                font-size: 1.25rem;
+            }
+            @media (min-width: $bp-small-3) {
+                font-size: 1.45rem;
+            } 
+            @media (min-width: $bp-med) {
+            //    font-size: 2.05vh;
+                font-size: 1.65rem;
+            } 
+            @media (min-width: $bp-med-2) {  
+                font-size: 1.85rem;
+            }
+        }
+        &_error {
+            height: 0.7rem;
+            color: #C1344F;
+            font-weight: 600;
+        }
+       
+    }
+
+    &_buttonContainer {
+        @include m.flex-master(row, center, center);
+        max-width: 50%;
+
+        & > button:nth-child(2) { 
+            margin-left: 0.75rem;
+         }
     }
 }
 
@@ -692,43 +745,36 @@ $list-text-font-size-large: 1.25rem;
             top: 11.55%;
         } 
         @media (min-width: $bp-med) {
-            top: 11.75%;
+            top: 11.25%;
         } 
         @media (min-width: $bp-large) {
-            top: 11.75%;
+            top: 11.25%;
         } 
         @media (min-width: $bp-xl) {
-            top: 11.75%;
+            top: 11.25%;
         } 
     
         &_content {
-            margin-left: 7px;
+            @include m.flex-master(row, center, center);
             font-family: PFRondaSeven;
             color: #F8D61D;
-            font-size: 0.9vh;
-            display: flex;
-            flex-direction: row;
-            justify-content:center;
-            align-items: center;
-            text-align: center;
+            margin-left: 7px;
+            font-size: 2.25vw;
 
             @media (min-width: $bp-small) {
                 margin-left: 12px;
-                font-size: 0.8vh;
+                font-size: 0.5rem;
             } 
             @media (min-width: $bp-small-2) {
-                margin-left: 12px;
-                font-size: 1.05vh;
+                font-size: 0.675rem;
             } 
             @media (min-width: $bp-small-3) {
                 margin-left: 15px;
-                font-size: 1.2vh;
+                font-size: 0.9rem;
             } 
-            @media (min-width: $bp-large-2) {
-                margin-left: 15px;
-                font-size: 1.35vh;
+            @media (min-width: $bp-med) {
+                font-size: 1rem;
             } 
-
             @media (min-width: $bp-xl-2) {
                 margin-left: 17px;
             } 

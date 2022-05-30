@@ -4,7 +4,6 @@ import {
     DiscordAuthQuest,
     TwitterAuthQuest,
     TwitterFollowQuest,
-    AnomuraSeeFoodQuest,
     InstagramFollowQuest,
     TwitterRetweetQuest,
     ZedOwnQuest,
@@ -13,6 +12,7 @@ import {
     CollaborationFreeShell,
     DailyShellQuestForm,
     ImageUploadQuest,
+    TwitterSpaceCodeForm,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -135,6 +135,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
 
                         {selectedType === Enums.DAILY_SHELL && (
                             <DailyShellQuestForm
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
+
+                        {selectedType === Enums.TWITTER_SPACE_CODE && (
+                            <TwitterSpaceCodeForm
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}

@@ -142,21 +142,6 @@ export const withUserImageQuestSubmit =
 
         const handleOnSubmit = async (quest, currentQuests) => {
             return await mutateAsync(quest);
-            let submitted = await mutateAsync(quest);
-
-            if (submitted) {
-                let updatedQuests = currentQuests.map((q) => {
-                    if (q.questId == quest.questId) {
-                        q.isDone = true;
-                    }
-                    return q;
-                });
-
-                return await Promise.all(updatedQuests).then(() => {
-                    updatedQuests.sort(isNotDoneFirst);
-                    return updatedQuests;
-                });
-            }
         };
 
         return (

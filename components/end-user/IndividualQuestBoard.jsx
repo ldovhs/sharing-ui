@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
-
-import { withUserRewardQuery } from "@shared/HOC/reward";
 import { useRouter } from "next/router";
 import { BoardLargeDollarSign } from ".";
+import DisconnectButton from "./shared/DisconnectButton";
 
 const IndividualQuestBoard = ({
     session,
@@ -14,40 +12,23 @@ const IndividualQuestBoard = ({
     isFetchingUser,
     isFetchingUserRewards,
     userQuests,
-    userRewards,
     queryError,
     onSubmit,
     isSubmitting,
     submittedQuest,
 }) => {
     const [currentQuests, setCurrentQuests] = useState(userQuests);
-    const [rewardAmount, setRewardAmount] = useState(null);
     const [scroll, setScroll] = useState({
         canScrollUp: false,
         canScrollDown: true,
     });
-    const { web3Error, SignOut } = useContext(Web3Context);
+
     const scrollRef = useRef();
     let router = useRouter();
 
-    // console.log(session);
-    // const test = true;
     useEffect(async () => {
         handleRenderUserQuest();
     }, [userQuests]);
-
-    useEffect(async () => {
-        if (userRewards) {
-            let shellReward = userRewards.find(
-                (r) =>
-                    r.rewardType.reward.match("hell") ||
-                    r.rewardType.reward.match("$Shell") ||
-                    r.rewardType.reward.match("$SHELL")
-            );
-            if (shellReward?.quantity && shellReward.quantity > 0)
-                setRewardAmount(shellReward.quantity);
-        }
-    }, [userRewards]);
 
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
@@ -58,6 +39,9 @@ const IndividualQuestBoard = ({
                     !twitterAuthQuest.isDone &&
                     (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
                 ) {
+                    return false;
+                }
+                if (q.type.name === Enums.TWITTER_SPACE_CODE) {
                     return false;
                 }
                 if (
@@ -100,7 +84,6 @@ const IndividualQuestBoard = ({
             setScroll((prevState) => ({ ...prevState, canScrollDown: false, canScrollUp: true }));
             return;
         }
-
         if (
             e.target.scrollTop <
                 scrollRef.current.scrollHeight - scrollRef.current.offsetHeight - 16 &&
@@ -115,7 +98,6 @@ const IndividualQuestBoard = ({
             return;
         }
     };
-
     const onScrollDown = () => {
         let scrollValue = scrollRef.current.scrollTop + scrollRef.current.offsetHeight + 12;
         scrollRef.current.scrollTo({
@@ -148,8 +130,6 @@ const IndividualQuestBoard = ({
 
         // sub directory quest, should RETURN
         if (type.name === Enums.COLLABORATION_FREE_SHELL) {
-            console.log(extendedQuestData);
-
             switch (extendedQuestData.collaboration) {
                 case "colormonster":
                     return router.push("/colormonster");
@@ -166,7 +146,6 @@ const IndividualQuestBoard = ({
         }
 
         if (type.name === Enums.JOIN_DISCORD) {
-            //window.open(`https://discord.com/invite/anomuragame`, "_blank");
             let discordServer = extendedQuestData.discordServer;
             window.open(`https://discord.com/invite/${discordServer}`, "_blank");
         }
@@ -245,7 +224,7 @@ const IndividualQuestBoard = ({
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
-                <BoardLargeDollarSign rewardAmount={rewardAmount} />
+                <BoardLargeDollarSign />
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
                         <div className={s.boardLarge_title}>
@@ -330,7 +309,7 @@ const IndividualQuestBoard = ({
                                                         >
                                                             <img
                                                                 src={`${Enums.BASEPATH}/img/sharing-ui/invite/Quest_Done Button.png`}
-                                                                alt="connectToContinue"
+                                                                alt="done"
                                                             />
                                                             <div>
                                                                 <span>Done</span>
@@ -402,17 +381,7 @@ const IndividualQuestBoard = ({
                 </div>
             </div>
             {/*  Disconnect */}
-            {!isFetchingUserQuests && !isFetchingUser && (
-                <button className={s.boardLarge_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            {!isFetchingUserQuests && !isFetchingUser && <DisconnectButton />}
         </div>
     );
 };
@@ -433,5 +402,4 @@ function isAlphabeticallly(a, b) {
 }
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
-const secondHOC = withUserRewardQuery(firstHOC);
-export default withUserQuestQuery(secondHOC);
+export default withUserQuestQuery(firstHOC);

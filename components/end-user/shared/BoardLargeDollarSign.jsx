@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import s from "/sass/claim/claim.module.css";
-
 import Enums from "enums";
+import { useUserRewardQuery } from "@shared/HOC";
 
-export default function BoardLargeDollarSign({ rewardAmount }) {
+export default function BoardLargeDollarSign() {
+    const [userRewards, userRewardLoading] = useUserRewardQuery();
+    const [rewardAmount, setRewardAmount] = useState(null);
+    useEffect(async () => {
+        if (userRewards && userRewards.length > 0) {
+            let shellReward = userRewards.find(
+                (r) =>
+                    r.rewardType.reward.match("hell") ||
+                    r.rewardType.reward.match("$Shell") ||
+                    r.rewardType.reward.match("$SHELL")
+            );
+            if (shellReward?.quantity && shellReward.quantity > 0)
+                setRewardAmount(shellReward.quantity);
+        }
+    }, [userRewards]);
+
     return (
         <div className={s.boardLarge_dollar}>
             <div className={s.boardLarge_dollar_content}>

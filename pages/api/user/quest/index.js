@@ -23,17 +23,20 @@ const questQueryAPI = async (req, res) => {
                     availableQuests.map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
+                            //Enums.DAILY_SHELL
                             if (
                                 relatedQuest?.quest.type.name === Enums.DAILY_SHELL &&
                                 relatedQuest?.extendedUserQuestData?.frequently === Enums.DAILY
                             ) {
-                                //console.log(relatedQuest?.extendedUserQuestData?.date);
                                 let oldDate = relatedQuest?.extendedUserQuestData?.date;
                                 let [today] = new Date().toISOString().split("T");
                                 if (today > oldDate) {
                                     aq.isDone = false;
                                 } else aq.isDone = true;
-                            } else {
+                            }
+
+                            // THE REST
+                            else {
                                 aq.isDone = true;
                                 aq.rewardedQty = relatedQuest.rewardedQty;
                             }

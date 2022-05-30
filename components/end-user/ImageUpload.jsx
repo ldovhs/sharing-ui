@@ -230,7 +230,7 @@ const ImageUpload = ({
                                             ref={imageEl}
                                         />
 
-                                        <div className={s.board_imageUpload_buttonContainer}>
+                                        <div className={s.board_buttonContainer}>
                                             <button
                                                 className={s.board_blackBtn}
                                                 onClick={() => {

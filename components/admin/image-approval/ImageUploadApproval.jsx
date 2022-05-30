@@ -35,7 +35,7 @@ const ImageUploadApproval = () => {
             console.log(error);
         }
     }, [router, data]);
-    console.log(count);
+    console.log(questId);
     const PostToDiscord = async (userQuest) => {
         try {
             setIsWorking(true);

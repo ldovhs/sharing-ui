@@ -72,11 +72,11 @@ const CodeQuestForm = ({
                 return (
                     <Form>
                         <h4 className="card-title mb-3">{isCreate ? "Create" : "Edit"} Quest</h4>
-                        <small>Create a Twitter Code Quest</small>
+                        <small>Create a Code Quest Event</small>
                         <div className="row">
-                            {/* Twitter Code Event */}
+                            {/* Code Quest Code Event */}
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                <label className="form-label">Unique Twitter Event</label>
+                                <label className="form-label">Unique Event Name</label>
                                 <Field
                                     name={`extendedQuestData.codeEvent`}
                                     type="text"

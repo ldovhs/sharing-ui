@@ -6,4 +6,4 @@ export { default as CollaborationQuestBoard } from "./CollaborationQuestBoard";
 export { default as ImageUpload } from "./ImageUpload";
 export { default as BoardSmallDollarSign } from "./shared/BoardSmallDollarSign";
 export { default as BoardLargeDollarSign } from "./shared/BoardLargeDollarSign";
-export { default as TwitterSpaceSubmit } from "./TwitterSpaceSubmit";
+export { default as CodeQuestSubmit } from "./CodeQuestSubmit";

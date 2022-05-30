@@ -10,13 +10,7 @@ const SUBMITTABLE = 1;
 const SUBMITTED = 2;
 const OVERDUE = 3;
 
-const TwitterSpaceSubmit = ({
-    session,
-    onSubmit,
-    isSubmitting,
-    isFetchingUserQuests,
-    userQuests,
-}) => {
+const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests, userQuests }) => {
     const [submissionQuest, setSubmissionQuest] = useState(null);
     const [inputError, setInputError] = useState(null);
     const [inputCode, setInputCode] = useState(null);
@@ -28,23 +22,22 @@ const TwitterSpaceSubmit = ({
         if (userQuests && router) {
             let event = router.query.event;
 
-            let twitterSpaceCodeQuestOfThisEvent = userQuests.find(
+            let codeQuestOfThisEvent = userQuests.find(
                 (q) => q.type.name === Enums.CODE_QUEST && q.extendedQuestData.codeEvent === event
             );
 
-            if (!twitterSpaceCodeQuestOfThisEvent) {
+            if (!codeQuestOfThisEvent) {
                 console.log(2);
                 return setView(OVERDUE);
             }
 
-            setSubmissionQuest(twitterSpaceCodeQuestOfThisEvent);
+            setSubmissionQuest(codeQuestOfThisEvent);
 
             if (
-                twitterSpaceCodeQuestOfThisEvent?.extendedQuestData.hasOwnProperty("endDate") &&
-                twitterSpaceCodeQuestOfThisEvent?.extendedQuestData?.endDate !== null
+                codeQuestOfThisEvent?.extendedQuestData.hasOwnProperty("endDate") &&
+                codeQuestOfThisEvent?.extendedQuestData?.endDate !== null
             ) {
-                let [endDate] =
-                    twitterSpaceCodeQuestOfThisEvent?.extendedQuestData?.endDate.split("T");
+                let [endDate] = codeQuestOfThisEvent?.extendedQuestData?.endDate.split("T");
                 let [today] = new Date().toISOString().split("T");
 
                 if (today > endDate) {
@@ -52,7 +45,7 @@ const TwitterSpaceSubmit = ({
                 }
             }
 
-            if (twitterSpaceCodeQuestOfThisEvent.isDone) {
+            if (codeQuestOfThisEvent.isDone) {
                 return setView(SUBMITTED);
             }
         }
@@ -218,9 +211,7 @@ const TwitterSpaceSubmit = ({
                                 )}
                                 {currentView === OVERDUE && (
                                     <>
-                                        <div className={s.board_title}>
-                                            This Space event is over!
-                                        </div>
+                                        <div className={s.board_title}>This event is over!</div>
                                     </>
                                 )}
                             </>
@@ -244,7 +235,7 @@ const TwitterSpaceSubmit = ({
     );
 };
 
-const firstHOC = withUserQuestSubmit(TwitterSpaceSubmit);
+const firstHOC = withUserQuestSubmit(CodeQuestSubmit);
 export default withUserQuestQuery(firstHOC);
 
 function debounce(func, wait) {

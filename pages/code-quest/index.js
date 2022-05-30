@@ -1,7 +1,7 @@
 import React from "react";
 import s from "/sass/claim/claim.module.css";
 import { useSession } from "next-auth/react";
-import { ConnectBoard, TwitterSpaceSubmit } from "@components/end-user";
+import { ConnectBoard, CodeQuestSubmit } from "@components/end-user";
 import Enums from "enums";
 
 function TwitterSpaceComponent() {
@@ -10,7 +10,7 @@ function TwitterSpaceComponent() {
     return (
         <>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : <TwitterSpaceSubmit session={session} />}
+                {!session ? <ConnectBoard /> : <CodeQuestSubmit session={session} />}
             </div>
         </>
     );

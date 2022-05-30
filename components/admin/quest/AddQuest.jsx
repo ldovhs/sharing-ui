@@ -141,7 +141,7 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                             />
                         )}
 
-                        {selectedType === Enums.TWITTER_SPACE_CODE && (
+                        {selectedType === Enums.CODE_QUEST && (
                             <TwitterSpaceCodeForm
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

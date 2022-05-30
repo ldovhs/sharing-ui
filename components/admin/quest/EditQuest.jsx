@@ -119,7 +119,7 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                             />
                         )}
 
-                        {quest.type.name === Enums.TWITTER_SPACE_CODE && (
+                        {quest.type.name === Enums.CODE_QUEST && (
                             <TwitterSpaceCodeForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}

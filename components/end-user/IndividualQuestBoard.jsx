@@ -41,7 +41,7 @@ const IndividualQuestBoard = ({
                 ) {
                     return false;
                 }
-                if (q.type.name === Enums.TWITTER_SPACE_CODE) {
+                if (q.type.name === Enums.CODE_QUEST) {
                     return false;
                 }
                 if (

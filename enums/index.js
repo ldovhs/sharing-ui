@@ -35,7 +35,7 @@ const Enums = {
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
     COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // do not use this
     DAILY_SHELL: "Daily Shell Quest",
-    TWITTER_SPACE_CODE: "Twitter Space Code",
+    CODE_QUEST: "Code Quest",
 };
 
 module.exports = Enums;

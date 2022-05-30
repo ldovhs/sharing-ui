@@ -7,7 +7,7 @@ import QuestFormTemplate from "./QuestFormTemplate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const TwitterSpaceCodeForm = ({
+const CodeQuestForm = ({
     quest = null,
     rewardTypes,
     closeModal,
@@ -17,14 +17,14 @@ const TwitterSpaceCodeForm = ({
     onUpsert,
 }) => {
     const initialValues = {
-        type: Enums.TWITTER_SPACE_CODE,
+        type: Enums.CODE_QUEST,
         extendedQuestData: quest?.extendedQuestData ?? {
-            twitterEvent: "",
+            codeEvent: "",
             endDate: "",
             secretCode: "",
             collaboration: "",
         },
-        text: quest?.text || "Twitter Code Quest For SPACES Event",
+        text: quest?.text || "Code Quest For Event",
         description: quest?.description ?? "Allow the user to enter a code and claim $SHELL",
         completedText: quest?.completedText || "Completed",
         rewardTypeId: quest?.rewardTypeId || 1,
@@ -33,9 +33,9 @@ const TwitterSpaceCodeForm = ({
         isRequired: quest?.isRequired ?? false,
         id: quest?.id || 0,
     };
-    const TwitterSpaceCodeSchema = object().shape({
+    const CodeQuestSchema = object().shape({
         extendedQuestData: object().shape({
-            twitterEvent: string().required("An unique event space is needed!"),
+            codeEvent: string().required("An unique event is needed!"),
             // endDate: string().required("An end date is required!"),
             secretCode: string().required("A secret code is required!"),
         }),
@@ -63,7 +63,7 @@ const TwitterSpaceCodeForm = ({
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={TwitterSpaceCodeSchema}
+            validationSchema={CodeQuestSchema}
             validateOnBlur={true}
             validateOnChange={false}
             onSubmit={onSubmit}
@@ -78,19 +78,19 @@ const TwitterSpaceCodeForm = ({
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">Unique Twitter Event</label>
                                 <Field
-                                    name={`extendedQuestData.twitterEvent`}
+                                    name={`extendedQuestData.codeEvent`}
                                     type="text"
                                     className={
                                         "form-control" +
                                         (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.twitterEvent &&
-                                        touched.extendedQuestData?.twitterEvent
+                                        errors.extendedQuestData?.codeEvent &&
+                                        touched.extendedQuestData?.codeEvent
                                             ? " is-invalid"
                                             : "")
                                     }
                                 />
                                 <ErrorMessage
-                                    name={`extendedQuestData.twitterEvent`}
+                                    name={`extendedQuestData.codeEvent`}
                                     component="div"
                                     className="invalid-feedback"
                                 />
@@ -239,4 +239,4 @@ const TwitterSpaceCodeForm = ({
     );
 };
 
-export default withQuestUpsert(TwitterSpaceCodeForm);
+export default withQuestUpsert(CodeQuestForm);

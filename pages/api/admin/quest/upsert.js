@@ -138,14 +138,14 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-                    let existingTwitterSpaceCode = twitterSpaceCodeQuestCheck(
+                    let existingCodeQuest = codeQuestCheck(
                         existingQuests,
                         extendedQuestData,
                         questType.name
                     );
-                    if (existingTwitterSpaceCode) {
+                    if (existingCodeQuest) {
                         return res.status(200).json({
-                            message: `Cannot add more than one "${type}" type of twitter space code for same event "${extendedQuestData.twitterEvent}".`,
+                            message: `Cannot add more than one "${type}" type of code quest for same event "${extendedQuestData.codeEvent}".`,
                             isError: true,
                         });
                     }
@@ -289,15 +289,13 @@ const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) =
     );
 };
 
-const twitterSpaceCodeQuestCheck = (existingQuests, extendedQuestData, type) => {
-    if (type !== Enums.TWITTER_SPACE_CODE) return;
+const codeQuestCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.CODE_QUEST) return;
 
-    let existingTwitterQuests = existingQuests.filter(
-        (q) => q.type.name === Enums.TWITTER_SPACE_CODE
-    );
+    let existingTwitterQuests = existingQuests.filter((q) => q.type.name === Enums.CODE_QUEST);
 
     return existingTwitterQuests.some(
-        (q) => q.extendedQuestData.twitterEvent === extendedQuestData.twitterEvent
+        (q) => q.extendedQuestData.codeEvent === extendedQuestData.codeEvent
     );
 };
 

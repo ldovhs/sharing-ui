@@ -29,9 +29,7 @@ const TwitterSpaceSubmit = ({
             let event = router.query.event;
 
             let twitterSpaceCodeQuestOfThisEvent = userQuests.find(
-                (q) =>
-                    q.type.name === Enums.TWITTER_SPACE_CODE &&
-                    q.extendedQuestData.twitterEvent === event
+                (q) => q.type.name === Enums.CODE_QUEST && q.extendedQuestData.codeEvent === event
             );
 
             if (!twitterSpaceCodeQuestOfThisEvent) {

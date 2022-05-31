@@ -20,7 +20,7 @@ function VoidRunners() {
                 />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/Void Runner.jpg"
+                    content="https://anomuragame.com/challenger/Void_Runners_preview.png"
                 />
                 <meta property="og:site_name" content="Anomura x Void Runners"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
@@ -28,7 +28,7 @@ function VoidRunners() {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/Void Runner.jpg"
+                    content="https://anomuragame.com/challenger/Void_Runners_preview.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

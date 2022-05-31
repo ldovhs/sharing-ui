@@ -161,11 +161,9 @@ $list-text-font-size-large: 1.25rem;
     @media (min-width: $bp-small) {  
         width: 55%;
     }
-
     @media (min-width: $bp-small-2) {  
         width: 50%;
     }
-
     @media (min-width: $bp-med-2) {  
         width: 60%;
     }
@@ -178,7 +176,7 @@ $list-text-font-size-large: 1.25rem;
 		height: 90%;
 		& > span { 
             width: 100%;
-            font-size: 1.65vh;
+            font-size: 1.35vh;
 	        font-family: Safety Goggles;
             font-weight: 400;
 	        text-align: center;
@@ -188,7 +186,7 @@ $list-text-font-size-large: 1.25rem;
                 font-size: 1rem;
             }
             @media (min-width: $bp-small-2) {  
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 	        @media (min-width: $bp-small-3) {  
                 font-size: 1.75rem;
@@ -644,7 +642,6 @@ $list-text-font-size-large: 1.25rem;
             color: #C1344F;
             font-weight: 600;
         }
-       
     }
 
     &_buttonContainer {
@@ -654,6 +651,75 @@ $list-text-font-size-large: 1.25rem;
         & > button:nth-child(2) { 
             margin-left: 0.75rem;
          }
+    }
+
+    &_singleClaimBtn { // 526 x 129
+        position:relative;
+	    width: 90%;
+	    display:flex;
+	    justify-content: center;
+        padding: 0;
+        color: #FFFFFF;
+
+	    & > div {
+	    	position:absolute;
+	    	display: flex;
+	    	align-items: center;
+	    	height: 90%;
+            width: 100%;
+	    	& > div { 
+                @include m.flex-master(row, center, center);
+                width: 100%;
+                height:100%;
+                font-size: 1.35vh;
+	            font-family: Safety Goggles;
+                font-weight: 400;
+                line-height: 1rem;
+               
+                @media (min-width: $bp-small) {  
+                    font-size: 0.9rem;
+                    line-height: 1rem;
+                }
+                @media (min-width: $bp-small-2) {  
+                    font-size: 1.3rem;
+                }
+	            @media (min-width: $bp-small-3) {  
+                    font-size: 1.75rem;
+                    line-height: 1.5rem;
+                }
+	    	}
+            & > img { 
+       
+                max-height: 50%;
+                width: auto!important;
+                margin-right:0.5rem;
+
+                @media (min-width: $bp-small-3) {  
+                    max-height: 65%;
+                }
+                @media (min-width: $bp-med-2) {  
+                    max-height: 65%;
+                    margin-right:1rem;
+                }
+                @media (min-width: $bp-large-2) {  
+                    max-height: 65%;
+                }
+                @media (min-width: $bp-xl) {  
+                    margin-right:1.25rem;
+                }
+	    	}
+        }
+            &:hover {
+                color: #CE3C85;
+	    	}
+
+            &:disabled {
+                cursor: not-allowed!important;
+                color: #A2B7B6!important;
+                &:hover {
+                    color: #A2B7B6!important;
+                }
+            }
     }
 }
 

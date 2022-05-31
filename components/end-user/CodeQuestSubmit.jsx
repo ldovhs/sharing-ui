@@ -129,25 +129,8 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                             </label>
                                         </div>
                                         <div className={s.board_buttonContainer}>
-                                            {/* <button
-                                                className={s.board_blackBtn}
-                                                onClick={() => {
-                                                    setView(UPLOADABLE);
-                                                    setImageFile(null);
-                                                    setImageSrc(null);
-                                                    setError(null);
-                                                }}
-                                            >
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`}
-                                                    alt="Go Back"
-                                                />
-                                                <div>
-                                                    <span>Back</span>
-                                                </div>
-                                            </button> */}
                                             <button
-                                                className={s.board_pinkBtn}
+                                                className={s.board_singleClaimBtn}
                                                 onClick={handleOnSubmit}
                                                 disabled={
                                                     submissionQuest?.isDone ||
@@ -156,15 +139,11 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                                 }
                                             >
                                                 <img
-                                                    src={
-                                                        !submissionQuest?.isDone
-                                                            ? `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small.png`
-                                                            : `${Enums.BASEPATH}/img/sharing-ui/invite/Button_Small 2.png`
-                                                    }
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
                                                     alt="Submit"
                                                 />
                                                 <div>
-                                                    <span>{submissionQuest.quantity}</span>
+                                                    <div>Claim {submissionQuest.quantity}</div>
                                                     {submissionQuest.rewardType.reward.match(
                                                         "hell"
                                                     ) && (
@@ -190,7 +169,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                 {submissionQuest && currentView === SUBMITTED && (
                                     <>
                                         <div className={s.board_title}>
-                                            Thanks for your submission!
+                                            Success! Quest completed.
                                         </div>
                                         <button
                                             className={s.board_tealBtn}
@@ -210,7 +189,24 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                 )}
                                 {currentView === OVERDUE && (
                                     <>
-                                        <div className={s.board_title}>This event is over!</div>
+                                        <div className={s.board_title}>
+                                            Sorry, you're too late. All the $SHELL has been found
+                                            for this quest.
+                                        </div>
+                                        <button
+                                            className={s.board_tealBtn}
+                                            onClick={() => {
+                                                router.push("/");
+                                            }}
+                                        >
+                                            <img
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                alt="Back To Quest page"
+                                            />
+                                            <div>
+                                                <span>Back to quests</span>
+                                            </div>
+                                        </button>
                                     </>
                                 )}
                             </>

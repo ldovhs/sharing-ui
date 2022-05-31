@@ -412,7 +412,7 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -425,7 +425,7 @@
 }
 @media (min-width: 31.25em) {
   .board_pinkBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -516,7 +516,7 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -529,7 +529,7 @@
 }
 @media (min-width: 31.25em) {
   .board_orangeBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -613,7 +613,7 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -626,7 +626,7 @@
 }
 @media (min-width: 31.25em) {
   .board_tealBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -710,7 +710,7 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -723,7 +723,7 @@
 }
 @media (min-width: 31.25em) {
   .board_blackBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -807,7 +807,7 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -820,7 +820,7 @@
 }
 @media (min-width: 31.25em) {
   .board_purpleBtn > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -969,7 +969,7 @@
 }
 .board_imageUpload_chooseFileButton > div > span {
   width: 100%;
-  font-size: 1.65vh;
+  font-size: 1.35vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
@@ -982,7 +982,7 @@
 }
 @media (min-width: 31.25em) {
   .board_imageUpload_chooseFileButton > div > span {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 39.8em) {
@@ -1102,6 +1102,86 @@
 }
 .board_buttonContainer > button:nth-child(2) {
   margin-left: 0.75rem;
+}
+.board_singleClaimBtn {
+  position: relative;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+.board_singleClaimBtn > div {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+}
+.board_singleClaimBtn > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.35vh;
+  font-family: Safety Goggles;
+  font-weight: 400;
+  line-height: 1rem;
+}
+@media (min-width: 24em) {
+  .board_singleClaimBtn > div > div {
+    font-size: 0.9rem;
+    line-height: 1rem;
+  }
+}
+@media (min-width: 31.25em) {
+  .board_singleClaimBtn > div > div {
+    font-size: 1.3rem;
+  }
+}
+@media (min-width: 39.8em) {
+  .board_singleClaimBtn > div > div {
+    font-size: 1.75rem;
+    line-height: 1.5rem;
+  }
+}
+.board_singleClaimBtn > div > img {
+  max-height: 50%;
+  width: auto !important;
+  margin-right: 0.5rem;
+}
+@media (min-width: 39.8em) {
+  .board_singleClaimBtn > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 50em) {
+  .board_singleClaimBtn > div > img {
+    max-height: 65%;
+    margin-right: 1rem;
+  }
+}
+@media (min-width: 75em) {
+  .board_singleClaimBtn > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 90em) {
+  .board_singleClaimBtn > div > img {
+    margin-right: 1.25rem;
+  }
+}
+.board_singleClaimBtn:hover {
+  color: #CE3C85;
+}
+.board_singleClaimBtn:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6 !important;
+}
+.board_singleClaimBtn:disabled:hover {
+  color: #A2B7B6 !important;
 }
 
 .boardLarge {

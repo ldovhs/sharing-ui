@@ -48,12 +48,22 @@ module.exports = {
             {
                 // do not include basePath in redirect here
                 source: "/colormonster",
-                destination: "/colormonsters",
+                destination: "/",
+                permanent: false,
+            },
+            {
+                source: "/colormonsters",
+                destination: "/",
                 permanent: false,
             },
             {
                 source: "/voidrunner",
-                destination: "/voidrunners",
+                destination: "/",
+                permanent: false,
+            },
+            {
+                source: "/voidrunners",
+                destination: "/",
                 permanent: false,
             },
         ];

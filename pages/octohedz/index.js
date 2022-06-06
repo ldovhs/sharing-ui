@@ -19,7 +19,7 @@ function OctoHedz() {
                 />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/Void_Runners_preview.png"
+                    content="https://anomuragame.com/challenger/Anomura_x_OctoHedz_preview.png"
                 />
                 <meta property="og:site_name" content="Anomura x OctoHedz"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
@@ -27,7 +27,7 @@ function OctoHedz() {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/Void_Runners_preview.png"
+                    content="https://anomuragame.com/challenger/Anomura_x_OctoHedz_preview.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

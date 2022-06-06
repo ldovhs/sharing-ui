@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Enums from "enums";
 import { Modal } from "/components/admin";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { EditQuest, AddQuest } from "..";
-import { withAdminQuestQuery } from "shared/HOC/quest";
+import { useAdminQuestSoftDelete, withAdminQuestQuery } from "shared/HOC/quest";
+import { debounce } from "utils/";
 
 const CurrentQuests = ({ quests, isLoading, error }) => {
     let router = useRouter();
     const [isModalOpen, setModalOpen] = useState(false);
     const [currentQuests, setCurrentQuests] = useState(null);
+    const [currentSearch, setCurrentSearch] = useState("");
+    const [deleteQuest, deletingQuest, handleOnDelete] = useAdminQuestSoftDelete();
 
     useEffect(() => {
         if (quests) {
@@ -17,8 +20,53 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
         }
     }, [quests]);
 
+    useEffect(() => {
+        if (quests) {
+            let filter = quests.filter((q) => {
+                // search by name
+                if (q.text.toLowerCase().indexOf(currentSearch.toLowerCase()) > -1) {
+                    return true;
+                }
+
+                // search by extended quest data ~ collaboration
+                if (
+                    q.extendedQuestData?.collaboration
+                        ?.toLowerCase()
+                        .indexOf(currentSearch.toLowerCase()) > -1
+                ) {
+                    return true;
+                }
+            });
+            setCurrentQuests(filter.sort(shortByText));
+        }
+    }, [currentSearch]);
+
+    const handleOnChange = (e) => {
+        e.preventDefault();
+
+        let search = e.target.value;
+        setCurrentSearch(search);
+    };
+
+    const debouncedChangeHandler = useCallback(debounce(handleOnChange, 500), []);
+
+    const handleQuestSoftDelete = (quest) => {
+        if (confirm(`Deleting this quest "${quest.text}" ?`)) {
+            handleOnDelete(quest);
+        }
+    };
     return (
-        <>
+        <div className="col-xxl-6 col-xl-6 col-lg-6">
+            <h4 className="card-title mb-3">Customize Quests</h4>
+            <div>
+                <input
+                    type="text"
+                    className="form-control mb-2"
+                    placeholder="Search Quests"
+                    onChange={debouncedChangeHandler}
+                />
+            </div>
+
             <div className="card">
                 {currentQuests && currentQuests.length > 0 && (
                     <div className="card-body">
@@ -69,10 +117,17 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                                                 )}
                                             </div>
                                         </div>
-
-                                        <Link href={`${router.pathname}/?id=${quest.id}`}>
-                                            <button className=" btn btn-dark">Manage </button>
-                                        </Link>
+                                        <div className="d-flex align-items-center flex-col">
+                                            <Link href={`${router.pathname}/?id=${quest.id}`}>
+                                                <button className=" btn btn-dark">Manage</button>
+                                            </Link>
+                                            <button
+                                                className=" btn btn-secondary mt-2"
+                                                onClick={() => handleQuestSoftDelete(quest)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
                                     </div>
                                     {/* last row */}
                                     {index + 1 !== row.length && (
@@ -126,7 +181,7 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                 isConfirm={true}
             />
             {/* )} */}
-        </>
+        </div>
     );
 };
 

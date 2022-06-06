@@ -28,10 +28,8 @@ const AdminQuest = () => {
         return (
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-xxl-6 col-xl-6 col-lg-6">
-                        <h4 className="card-title mb-3">Customize Quests</h4>
-                        <CurrentQuests />
-                    </div>
+                    <CurrentQuests />
+
                     <div className="col-xxl-4 col-xl-4 col-lg-6">
                         <h4 className="card-title mb-3">Preview</h4>
                         <div className="card items">

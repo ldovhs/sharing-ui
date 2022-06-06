@@ -9,6 +9,9 @@ const AdminQuestQueryAPI = async (req, res) => {
         case "GET":
             try {
                 let allQuests = await prisma.quest.findMany({
+                    where: {
+                        isDeleted: false,
+                    },
                     include: {
                         type: true,
                     },

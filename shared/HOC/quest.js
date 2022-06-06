@@ -11,6 +11,7 @@ const USER_DAILY_QUEST_SUBMIT = `${Enums.BASEPATH}/api/user/quest/submitDaily`;
 
 const ADMIN_QUEST_QUERY = `${Enums.BASEPATH}/api/admin/quest/`;
 const ADMIN_QUEST_UPSERT = `${Enums.BASEPATH}/api/admin/quest/upsert`;
+const ADMIN_QUEST_DELETE = `${Enums.BASEPATH}/api/admin/quest/delete`;
 
 export const withQuestUpsert =
     (Component) =>
@@ -197,6 +198,25 @@ export const withQuestTypeQuery =
             />
         );
     };
+
+export const useAdminQuestSoftDelete = () => {
+    const queryClient = useQueryClient();
+    const { data, isLoading, mutateAsync } = useMutation(
+        "adminQuestDelete",
+        (quest) => axios.post(ADMIN_QUEST_DELETE, quest).then((r) => r.data),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries("adminQueryQuest");
+            },
+        }
+    );
+
+    const handleOnDelete = async (quest) => {
+        return await mutateAsync(quest);
+    };
+
+    return [data, isLoading, handleOnDelete];
+};
 
 function isNotDoneFirst(a, b) {
     return Number(a.isDone) - Number(b.isDone);

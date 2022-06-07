@@ -14,6 +14,11 @@ const SUBMITTABLE = 1;
 const SUBMITTED = 2;
 const ERROR = 3;
 
+/*
+
+    Weekly image upload contest, rely on environment NEXT_PUBLIC_CURRENT_IMAGE_EVENT
+    to get into correct contest of that week
+*/
 const ImageUpload = ({
     session,
     onSubmitImageQuest,
@@ -31,8 +36,8 @@ const ImageUpload = ({
     const [imageSrc, setImageSrc] = useState();
     const [imageFile, setImageFile] = useState(null);
 
-    const router = useRouter();
-    const { event } = router.query;
+    // const router = useRouter();
+    // const { event } = router.query;
 
     const hiddenFileInput = useRef(null);
     const imageEl = useRef(null);
@@ -43,11 +48,12 @@ const ImageUpload = ({
     }, []);
 
     useEffect(async () => {
-        if (userQuests && event) {
+        if (userQuests) {
             let findSubmissionQuest = userQuests.find(
                 (q) =>
                     q.type.name === Enums.IMAGE_UPLOAD_QUEST &&
-                    q.extendedQuestData.discordChannel === event
+                    q.extendedQuestData.discordChannel ===
+                        process.env.NEXT_PUBLIC_CURRENT_IMAGE_EVENT
             );
 
             if (!findSubmissionQuest) {
@@ -71,7 +77,7 @@ const ImageUpload = ({
 
             setCurrentQuest(findSubmissionQuest);
         }
-    }, [userQuests, router]);
+    }, [userQuests]);
 
     const handleClick = (e) => {
         e.stopPropagation();

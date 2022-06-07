@@ -2169,6 +2169,7 @@
 @media (min-width: 39.8em) {
   .boardLarge_rankingCol > div:nth-child(1) {
     font-size: 1rem;
+    margin-left: 4.25rem;
   }
 }
 .boardLarge_rankingCol > div:nth-child(2) {

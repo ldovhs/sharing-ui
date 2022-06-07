@@ -221,6 +221,7 @@ const IndividualQuestBoard = ({
         }
         return <span>{text}</span>;
     };
+
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>

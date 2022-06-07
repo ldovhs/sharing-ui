@@ -11,10 +11,10 @@ function QuestLeaderBoard() {
     const router = useRouter();
     const { questId } = router.query;
     const [questData, setQuestData] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(async () => {
         if (!router.isReady || !questId) return;
-
+        setIsLoading(true);
         const res = await axios
             .get(`${Enums.BASEPATH}/api/user/quest/leaderboard`, {
                 params: {
@@ -23,15 +23,17 @@ function QuestLeaderBoard() {
             })
             .then((r) => r.data);
         if (res && res.hasOwnProperty("userQuests")) {
-            console.log(res);
             setQuestData(res);
+            setIsLoading(false);
         }
     }, [router]);
 
     // console.log(questData);
     return (
         <>
-            <div className={s.app}>{questData && <Leaderboard questData={questData} />}</div>
+            <div className={s.app}>
+                {questData && <Leaderboard isLoading={isLoading} questData={questData} />}
+            </div>
         </>
     );
 }

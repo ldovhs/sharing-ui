@@ -3,13 +3,13 @@ import Enums from "enums";
 import s from "/sass/claim/claim.module.css";
 import { BoardLargeDollarSign } from ".";
 
-export default function Leaderboard({ questData }) {
+export default function Leaderboard({ questData, isLoading }) {
     const [questsRanking, setQuestRanking] = useState([]);
     const [scroll, setScroll] = useState({
         canScrollUp: false,
         canScrollDown: true,
     });
-    // console.log(questData);
+
     useEffect(async () => {
         if (questData?.userQuests?.length > 0) {
             let questsNotRanked = [...questData.userQuests];
@@ -17,7 +17,7 @@ export default function Leaderboard({ questData }) {
             setQuestRanking(questsNotRanked);
         }
     }, [questData]);
-    // console.log(questsRanking);
+
     const scrollRef = useRef();
 
     const onScroll = (e) => {
@@ -56,14 +56,17 @@ export default function Leaderboard({ questData }) {
             behavior: "smooth",
         });
     };
+
     return (
         <div className={s.boardLarge}>
             <div className={s.boardLarge_container}>
                 <BoardLargeDollarSign />
                 <div className={s.boardLarge_wrapper}>
                     <div className={s.boardLarge_content}>
-                        <div className={s.boardLarge_title}> Submission Quest Ranking</div>
-                        {questData &&
+                        <div className={s.boardLarge_title}>Submission Quest Ranking</div>
+
+                        {!isLoading &&
+                            questData &&
                             !questData.isError &&
                             questData?.type.name == Enums.IMAGE_UPLOAD_QUEST && (
                                 <div className={s.boardLarge_rankingCol}>
@@ -81,6 +84,25 @@ export default function Leaderboard({ questData }) {
                                 (!questData?.userQuests && (
                                     <div className="text-center">Not a valid quest page.</div>
                                 ))}
+                            {/* Is Loading */}
+                            {isLoading && (
+                                <div className={s.boardLarge_loading}>
+                                    <div className={s.boardLarge_loading_wrapper}>
+                                        <img
+                                            src={`${Enums.BASEPATH}/img/sharing-ui/Loading_Blob fish.gif`}
+                                            alt="Loading data"
+                                        />
+                                        <div className={s.boardLarge_loading_wrapper_text}>
+                                            Fetching data{" "}
+                                            <span
+                                                className={
+                                                    s.boardLarge_loading_wrapper_text_ellipsis
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                             {questsRanking &&
                                 questsRanking.map((item, index, row) => {
                                     const {

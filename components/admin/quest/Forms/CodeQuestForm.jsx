@@ -23,6 +23,7 @@ const CodeQuestForm = ({
             endDate: "",
             secretCode: "",
             collaboration: "",
+            others: "",
         },
         text: quest?.text || "Code Quest For Event",
         description: quest?.description ?? "Allow the user to enter a code and claim $SHELL",
@@ -119,13 +120,6 @@ const CodeQuestForm = ({
                                                     (field.value && new Date(field.value)) || null
                                                 }
                                                 onChange={(val) => {
-                                                    // console.log(val);
-                                                    // let reference = val;
-                                                    // let adjusteddateValue = new Date(
-                                                    //     reference.getTime() -
-                                                    //         reference.getTimezoneOffset() * 24000
-                                                    // ).toISOString();
-
                                                     setFieldValue(`extendedQuestData.endDate`, val);
                                                 }}
                                             />
@@ -156,6 +150,23 @@ const CodeQuestForm = ({
                                     name={`extendedQuestData.secretCode`}
                                     component="div"
                                     className="invalid-feedback"
+                                />
+                            </div>
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Other Answers (answer 1, answer 2, answer 3)
+                                </label>
+                                <Field
+                                    name={`extendedQuestData.otherAnswers`}
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors.extendedQuestData &&
+                                        errors.extendedQuestData?.otherAnswers &&
+                                        touched.extendedQuestData?.otherAnswers
+                                            ? " is-invalid"
+                                            : "")
+                                    }
                                 />
                             </div>
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">

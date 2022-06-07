@@ -61,33 +61,47 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
     const debouncedChangeHandler = useCallback(debounce(handleOnChange, 300), []);
 
     async function handleOnSubmit() {
-        /** compare the code */
+        /* compare the code */
         if (!inputCode) {
             return;
         }
+
+        // trying to find other answers as well
+        let foundOtherAnswersCorrect = -1;
+        if (submissionQuest?.extendedQuestData.hasOwnProperty("otherAnswers")) {
+            let { otherAnswers } = submissionQuest?.extendedQuestData;
+            let answersArray = otherAnswers.split(",");
+
+            foundOtherAnswersCorrect = answersArray.findIndex((element) => {
+                return element.toLowerCase() === inputCode.toLowerCase();
+            });
+        }
+
         if (
-            inputCode.toLowerCase() !== submissionQuest?.extendedQuestData.secretCode.toLowerCase()
+            inputCode.toLowerCase() ===
+                submissionQuest?.extendedQuestData.secretCode.toLowerCase() ||
+            foundOtherAnswersCorrect !== -1
         ) {
-            setInputError("Incorrect Code");
-            return;
+            /** Submit this quest */
+            const { questId, type, rewardTypeId, quantity, extendedQuestData } = submissionQuest;
+
+            let submission = {
+                questId,
+                type,
+                rewardTypeId,
+                quantity,
+                extendedQuestData,
+            };
+            let res = await onSubmit(submission, userQuests);
+
+            if (res) {
+                setSubmissionQuest((prevState) => ({ ...prevState, isDone: true }));
+                return setView(SUBMITTED);
+            }
         }
 
-        /** Submit this quest */
-        const { questId, type, rewardTypeId, quantity, extendedQuestData } = submissionQuest;
-
-        let submission = {
-            questId,
-            type,
-            rewardTypeId,
-            quantity,
-            extendedQuestData,
-        };
-        let res = await onSubmit(submission, userQuests);
-
-        if (res) {
-            setSubmissionQuest((prevState) => ({ ...prevState, isDone: true }));
-            return setView(SUBMITTED);
-        }
+        setInputError("Incorrect Code");
+        return;
     }
 
     return (

@@ -73,7 +73,10 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             let answersArray = otherAnswers.split(",");
 
             foundOtherAnswersCorrect = answersArray.findIndex((element) => {
-                return element.toLowerCase() === inputCode.toLowerCase();
+                return (
+                    element.trimStart().trimEnd().toLowerCase() ===
+                    inputCode.trimStart().trimEnd().toLowerCase()
+                );
             });
         }
 

@@ -154,7 +154,7 @@ const CodeQuestForm = ({
                             </div>
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">
-                                    Other Answers (answer 1, answer 2, answer 3)
+                                    Other Answers (answer 1,answer 2,answer 3)
                                 </label>
                                 <Field
                                     name={`extendedQuestData.otherAnswers`}

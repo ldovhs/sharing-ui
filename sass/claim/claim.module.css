@@ -1116,7 +1116,7 @@
   display: flex;
   align-items: center;
   height: 90%;
-  width: 100%;
+  gap: 0.45rem;
 }
 .board_singleClaimBtn > div > div {
   display: flex;
@@ -1147,30 +1147,24 @@
     line-height: 1.5rem;
   }
 }
-.board_singleClaimBtn > div > img {
+.board_singleClaimBtn > div > div > img {
   max-height: 50%;
   width: auto !important;
-  margin-right: 0.5rem;
+  margin-left: 0.4rem;
 }
 @media (min-width: 39.8em) {
-  .board_singleClaimBtn > div > img {
-    max-height: 65%;
+  .board_singleClaimBtn > div > div > img {
+    max-height: 62%;
   }
 }
 @media (min-width: 50em) {
-  .board_singleClaimBtn > div > img {
-    max-height: 65%;
-    margin-right: 1rem;
+  .board_singleClaimBtn > div > div > img {
+    max-height: 62%;
   }
 }
 @media (min-width: 75em) {
-  .board_singleClaimBtn > div > img {
-    max-height: 65%;
-  }
-}
-@media (min-width: 90em) {
-  .board_singleClaimBtn > div > img {
-    margin-right: 1.25rem;
+  .board_singleClaimBtn > div > div > img {
+    max-height: 62%;
   }
 }
 .board_singleClaimBtn:hover {
@@ -1599,7 +1593,7 @@
 .boardLarge_scrollableArea {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   flex: 90%;
   overflow-x: hidden;
@@ -2017,48 +2011,65 @@
   color: #CE3C85;
   cursor: pointer;
 }
-.boardLarge_list_containerRanking {
+.boardLarge_list_ranking_container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   font-family: PFRondaSeven;
   text-align: center;
   font-size: 0.6rem;
+  background: url("/challenger/img/sharing-ui/invite/Ranking_List bg.png") no-repeat;
+  background-size: 100% 100%;
   text-align: left;
+  max-height: 25%;
+  min-height: 25%;
+  margin-left: 10%;
+  position: relative;
 }
 @media (min-width: 39.8em) {
-  .boardLarge_list_containerRanking {
+  .boardLarge_list_ranking_container {
     font-size: 0.6rem;
   }
 }
 @media (min-width: 50em) {
-  .boardLarge_list_containerRanking {
+  .boardLarge_list_ranking_container {
     font-size: 0.6rem;
   }
 }
 @media (min-width: 75em) {
-  .boardLarge_list_containerRanking {
+  .boardLarge_list_ranking_container {
     font-size: 0.6rem;
   }
 }
 @media (min-width: 90em) {
-  .boardLarge_list_containerRanking {
+  .boardLarge_list_ranking_container {
     font-size: 0.6rem;
   }
 }
 @media (min-width: 123.75em) {
-  .boardLarge_list_containerRanking {
+  .boardLarge_list_ranking_container {
     font-size: 0.6rem;
   }
 }
-.boardLarge_list_containerRanking:nth-child(1) {
-  color: #F19A46;
-}
-.boardLarge_list_containerRanking:nth-child(2) {
+.boardLarge_list_ranking_text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.8rem;
   color: #8ED5FB;
 }
-.boardLarge_list_containerRanking:nth-child(3) {
-  color: #B88AF5;
+.boardLarge_list_ranking_text > div:nth-child(1) {
+  margin-left: 2rem;
+}
+.boardLarge_list_ranking_number {
+  position: absolute;
+  left: 0;
+  height: 80%;
+}
+.boardLarge_list_ranking_number_img {
+  margin-left: -40%;
+  height: 100%;
 }
 
 .close {

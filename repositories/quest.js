@@ -89,6 +89,7 @@ export const getQuestById = async (questId) => {
                     user: true,
                 },
             },
+            type: true,
         },
     });
 };

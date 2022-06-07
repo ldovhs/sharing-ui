@@ -16,7 +16,7 @@ const handler = async (req, res) => {
                         .status(200)
                         .json({ isError: true, message: "Missing userquestId query." });
                 }
-                console.log(req.whiteListUser);
+
                 let userQuestData = await prisma.userQuest.findFirst({
                     where: {
                         questId: userquestId,
@@ -34,8 +34,6 @@ const handler = async (req, res) => {
                         .status(200)
                         .json({ isError: true, message: "Find more than 1 user quest per user." });
                 }
-
-                console.log(userQuestData);
 
                 res.status(200).json(userQuestData);
             } catch (err) {

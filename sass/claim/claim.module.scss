@@ -643,7 +643,6 @@ $list-text-font-size-large: 1.25rem;
             font-weight: 600;
         }
     }
-
     &_buttonContainer {
         @include m.flex-master(row, center, center);
         max-width: 50%;
@@ -652,7 +651,6 @@ $list-text-font-size-large: 1.25rem;
             margin-left: 0.75rem;
          }
     }
-
     &_singleClaimBtn { // 526 x 129
         position:relative;
 	    width: 90%;
@@ -666,7 +664,8 @@ $list-text-font-size-large: 1.25rem;
 	    	display: flex;
 	    	align-items: center;
 	    	height: 90%;
-            width: 100%;
+            // width: 100%;
+            gap:0.45rem;
 	    	& > div { 
                 @include m.flex-master(row, center, center);
                 width: 100%;
@@ -687,27 +686,28 @@ $list-text-font-size-large: 1.25rem;
                     font-size: 1.75rem;
                     line-height: 1.5rem;
                 }
-	    	}
-            & > img { 
-       
-                max-height: 50%;
-                width: auto!important;
-                margin-right:0.5rem;
 
-                @media (min-width: $bp-small-3) {  
-                    max-height: 65%;
-                }
-                @media (min-width: $bp-med-2) {  
-                    max-height: 65%;
-                    margin-right:1rem;
-                }
-                @media (min-width: $bp-large-2) {  
-                    max-height: 65%;
-                }
-                @media (min-width: $bp-xl) {  
-                    margin-right:1.25rem;
+                & > img { 
+       
+                    max-height: 50%;
+                    width: auto!important;
+                    margin-left:0.4rem;
+    
+                    @media (min-width: $bp-small-3) {  
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-med-2) {  
+                        max-height: 62%;
+                        
+                    }
+                    @media (min-width: $bp-large-2) {  
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-xl) {  
+                    }
                 }
 	    	}
+            
         }
             &:hover {
                 color: #CE3C85;
@@ -959,7 +959,8 @@ $list-text-font-size-large: 1.25rem;
     }
 
     &_scrollableArea {
-        @include m.flex-master(column, space-between, null);
+        // @include m.flex-master(column, space-between, null);
+        @include m.flex-master(column, flex-start, null);
         width:100%;
         flex: 90%;
         overflow-x: hidden;
@@ -1244,20 +1245,53 @@ $list-text-font-size-large: 1.25rem;
         }
 
         /* same as above, except ranking has color style*/
-        &_containerRanking{
-            @include m.flex-master(row, space-between, null);
-            @include text();
-            text-align: left;
+        &_ranking{
+            &_container{
+
+           
+                @include m.flex-master(row, null, null);
+                @include text();
+                background: url('/challenger/img/sharing-ui/invite/Ranking_List bg.png') no-repeat;
+                background-size: 100% 100%;
+                text-align: left;
+
+                // padding: 0.6rem;
+                max-height: 25%;
+                min-height: 25%;
+                margin-left:10%;
+
+                @media (min-width: $bp-small-2) {  
+                    // padding: 0.5rem 1rem;
+                }
+                position: relative;
+
+                // @media (min-width: $bp-small-3) { 
+                //     background: url('/challenger/img/sharing-ui/invite/Ranking_List bg.png') no-repeat;
+                //     background-size: 100% 100%; 
+                //     padding: 0.5rem 1.5rem;
+                // }
+            }
+            &_text {
+                @include m.flex-master(row, space-between, center);
+                width:100%;
+                font-size: 0.8rem;
+                color:#8ED5FB;
+                & > div:nth-child(1) { 
+                    margin-left:2rem;
+                }
+            }
+            &_number {
+                position: absolute;
+                left:0;
+                height: 80%;
+        
+                &_img {
+                     margin-left:-40%;
+                    height: 100%;
+                }
+            }
         }
-        &_containerRanking:nth-child(1) {
-            color:#F19A46;
-        }
-        &_containerRanking:nth-child(2) {
-            color:#8ED5FB;
-        }
-        &_containerRanking:nth-child(3){
-            color:#B88AF5;
-        }
+       
     }
 
     z-index:3;
@@ -1282,13 +1316,11 @@ $list-text-font-size-large: 1.25rem;
     0%    {opacity: 1;   transform: scale(1);}
     100%  {opacity: 0;   transform: scale(0.5);}
 }
-
 @keyframes ellipsis {
     to {
       width: 1.25em;    
     }
 }
-  
 @-webkit-keyframes ellipsis {
   to {
     width: 1.25em;    

@@ -42,3 +42,10 @@ const ImageUploadAPI = async (req, res) => {
     }
 };
 export default whitelistUserMiddleware(ImageUploadAPI);
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: "4mb",
+        },
+    },
+};

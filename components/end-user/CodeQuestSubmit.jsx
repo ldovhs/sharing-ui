@@ -143,24 +143,25 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                                     alt="Submit"
                                                 />
                                                 <div>
-                                                    <div>Claim {submissionQuest.quantity}</div>
-                                                    {submissionQuest.rewardType.reward.match(
-                                                        "hell"
-                                                    ) && (
-                                                        <img
-                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
-                                                            alt="reward icon"
-                                                        />
-                                                    )}
-
-                                                    {submissionQuest.rewardType.reward.match(
-                                                        /bowl|Bowl/
-                                                    ) && (
-                                                        <img
-                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/bowl10frames.gif`}
-                                                            alt="reward icon"
-                                                        />
-                                                    )}
+                                                    <div>
+                                                        Claim {submissionQuest.quantity}
+                                                        {submissionQuest.rewardType.reward.match(
+                                                            "hell"
+                                                        ) && (
+                                                            <img
+                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
+                                                                alt="reward icon"
+                                                            />
+                                                        )}
+                                                        {submissionQuest.rewardType.reward.match(
+                                                            /bowl|Bowl/
+                                                        ) && (
+                                                            <img
+                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/bowl10frames.gif`}
+                                                                alt="reward icon"
+                                                            />
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </button>
                                         </div>

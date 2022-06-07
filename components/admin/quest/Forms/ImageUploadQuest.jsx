@@ -3,7 +3,9 @@ import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
 import { withQuestUpsert } from "shared/HOC/quest";
+import DatePicker from "react-datepicker";
 import QuestFormTemplate from "./QuestFormTemplate";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ImageUploadQuest = ({
     quest = null,
@@ -20,6 +22,7 @@ const ImageUploadQuest = ({
             discordServer: "",
             discordChannel: "",
             collaboration: "",
+            endDate: "",
         },
         text: quest?.text || "An app submission for #SUBMISSION",
         description: quest?.description ?? "Allow the user to upload their submission",
@@ -34,6 +37,7 @@ const ImageUploadQuest = ({
         extendedQuestData: object().shape({
             discordServer: string().required("An discord server Id is required!"),
             discordChannel: string().required("An discord channel Id is required!"),
+            // endDate: string().required("An end date is required!"),
         }),
         text: string().required("Quest text is required"),
         completedText: string().required("Complete Text is required"),
@@ -126,6 +130,40 @@ const ImageUploadQuest = ({
                                 />
                                 <ErrorMessage
                                     name={`extendedQuestData.collaboration`}
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
+                            </div>
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">End Date</label>
+                                <Field name={`extendedQuestData.endDate`}>
+                                    {({ field, meta, form: { setFieldValue } }) => {
+                                        return (
+                                            <DatePicker
+                                                className={
+                                                    "form-control" +
+                                                    (errors.extendedQuestData &&
+                                                    errors.extendedQuestData?.endDate &&
+                                                    touched.extendedQuestData?.endDate
+                                                        ? " is-invalid"
+                                                        : "")
+                                                }
+                                                {...field}
+                                                utcOffset={0}
+                                                dateFormat="yyyy-MM-dd"
+                                                selected={
+                                                    (field.value && new Date(field.value)) || null
+                                                }
+                                                onChange={(val) => {
+                                                    setFieldValue(`extendedQuestData.endDate`, val);
+                                                }}
+                                            />
+                                        );
+                                    }}
+                                </Field>
+                                <ErrorMessage
+                                    name={`extendedQuestData.endDate`}
                                     component="div"
                                     className="invalid-feedback"
                                 />

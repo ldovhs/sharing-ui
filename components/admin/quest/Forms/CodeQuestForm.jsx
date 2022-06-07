@@ -98,18 +98,6 @@ const CodeQuestForm = ({
 
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">End Date</label>
-                                {/* <Field
-                                    name={`extendedQuestData.endDate`}
-                                    type="text"
-                                    className={
-                                        "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.endDate &&
-                                        touched.extendedQuestData?.endDate
-                                            ? " is-invalid"
-                                            : "")
-                                    }
-                                /> */}
                                 <Field name={`extendedQuestData.endDate`}>
                                     {({ field, meta, form: { setFieldValue } }) => {
                                         // console.log(field);

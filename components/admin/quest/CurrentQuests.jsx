@@ -57,6 +57,13 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
     };
     return (
         <div className="col-xxl-6 col-xl-6 col-lg-6">
+            <button
+                type="button"
+                className="btn btn-primary m-2"
+                onClick={() => setModalOpen(true)}
+            >
+                Add New Quest
+            </button>
             <h4 className="card-title mb-3">Customize Quests</h4>
             <div>
                 <input
@@ -139,13 +146,6 @@ const CurrentQuests = ({ quests, isLoading, error }) => {
                     </div>
                 )}
             </div>
-            <button
-                type="button"
-                className="btn btn-primary m-2"
-                onClick={() => setModalOpen(true)}
-            >
-                Add New Quest
-            </button>
 
             {/* {router.query.typeId && ( */}
             <Modal

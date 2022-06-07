@@ -31,10 +31,11 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             }
 
             setSubmissionQuest(codeQuestOfThisEvent);
-
+            console.log(codeQuestOfThisEvent);
             if (
                 codeQuestOfThisEvent?.extendedQuestData.hasOwnProperty("endDate") &&
-                codeQuestOfThisEvent?.extendedQuestData?.endDate !== null
+                codeQuestOfThisEvent?.extendedQuestData?.endDate !== null &&
+                codeQuestOfThisEvent?.extendedQuestData?.endDate.length > 0
             ) {
                 let [endDate] = codeQuestOfThisEvent?.extendedQuestData?.endDate.split("T");
                 let [today] = new Date().toISOString().split("T");

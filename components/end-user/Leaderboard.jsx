@@ -5,6 +5,10 @@ import { BoardLargeDollarSign } from ".";
 
 export default function Leaderboard({ questData }) {
     const [questsRanking, setQuestRanking] = useState([]);
+    const [scroll, setScroll] = useState({
+        canScrollUp: false,
+        canScrollDown: true,
+    });
     // console.log(questData);
     useEffect(async () => {
         if (questData?.userQuests?.length > 0) {
@@ -62,9 +66,9 @@ export default function Leaderboard({ questData }) {
                         {questData &&
                             !questData.isError &&
                             questData?.type.name == Enums.IMAGE_UPLOAD_QUEST && (
-                                <div className="flex justify-content-between w-full">
-                                    <div className=" text-blue-700 ml-12">User</div>
-                                    <div className="  text-blue-700">Reactions</div>
+                                <div className={s.boardLarge_rankingCol}>
+                                    <div>User</div>
+                                    <div>Reactions</div>
                                 </div>
                             )}
 
@@ -83,30 +87,68 @@ export default function Leaderboard({ questData }) {
                                         wallet,
                                         questId,
                                         user,
-                                        extendedUserQuestData: { reaction },
+                                        extendedUserQuestData: {
+                                            reaction,
+                                            discordServer,
+                                            discordChannel,
+                                            messageId,
+                                        },
                                     } = item;
 
                                     return (
                                         <React.Fragment key={index}>
                                             <div className={s.boardLarge_list_ranking_container}>
-                                                <div
-                                                    className={`${s.boardLarge_list_ranking_number}`}
+                                                <span
+                                                    className={`${s.boardLarge_list_ranking_digit}`}
                                                 >
-                                                    <img
-                                                        className={`${s.boardLarge_list_ranking_number_img}`}
-                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Ranking_Number 1.png`}
-                                                    />
+                                                    {index + 1}
+                                                </span>
+                                                <div
+                                                    className={`${s.boardLarge_list_ranking_numberContainer}`}
+                                                >
+                                                    {/* ranking 1 */}
+                                                    {index === 0 && (
+                                                        <img
+                                                            className={`${s.boardLarge_list_ranking_numberContainer_img}`}
+                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Ranking_Number 1.png`}
+                                                        />
+                                                    )}
+                                                    {/* ranking 2 */}
+                                                    {index === 1 && (
+                                                        <img
+                                                            className={`${s.boardLarge_list_ranking_numberContainer_img}`}
+                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Ranking_Number 2.png`}
+                                                        />
+                                                    )}
+                                                    {/* ranking 3 */}
+                                                    {index === 2 && (
+                                                        <img
+                                                            className={`${s.boardLarge_list_ranking_numberContainer_img}`}
+                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Ranking_Number 3.png`}
+                                                        />
+                                                    )}
+                                                    {/* rest */}
+                                                    {index !== 0 && index !== 1 && index !== 2 && (
+                                                        <img
+                                                            className={`${s.boardLarge_list_ranking_numberContainer_img}`}
+                                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Ranking_Number 4.png`}
+                                                        />
+                                                    )}
                                                 </div>
-                                                <div className={s.boardLarge_list_ranking_text}>
+                                                <a
+                                                    className={s.boardLarge_list_ranking_text}
+                                                    href={`https://discord.com/channels/${discordServer}/${discordChannel}/${messageId}`}
+                                                    target="_blank"
+                                                >
                                                     <div>
                                                         {user.discordUserDiscriminator != null &&
                                                         user.discordUserDiscriminator.trim()
                                                             .length > 0
                                                             ? user.discordUserDiscriminator
-                                                            : user.wallet}
+                                                            : shortenAddress(user.wallet)}
                                                     </div>
                                                     <div>{reaction || 0}</div>
-                                                </div>
+                                                </a>
                                             </div>
                                         </React.Fragment>
                                     );
@@ -149,3 +191,6 @@ const sortOnReactionCountAndCreateDateFirst = (a, b) => {
         return b.extendedUserQuestData.reaction - a.extendedUserQuestData.reaction;
     }
 };
+
+const shortenAddress = (address) =>
+    `${address.slice(0, 5)}...${address.slice(address.length - 10)}`;

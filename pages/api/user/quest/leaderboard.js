@@ -20,7 +20,7 @@ export default async function getQuestLeaderBoardAPI(req, res) {
                 if (!questData) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }
-                console.log(questData);
+
                 if (questData.type.name !== Enums.IMAGE_UPLOAD_QUEST) {
                     return res.status(200).json({
                         isError: true,

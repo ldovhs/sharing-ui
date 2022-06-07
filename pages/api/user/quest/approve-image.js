@@ -51,6 +51,7 @@ const approveImageQuestAPI = async (req, res) => {
                 let newExtendedUserQuestData = {
                     ...extendedUserQuestData,
                     messageId: discordMsg?.data?.response?.id,
+                    reaction: 0,
                 };
 
                 let updateQuest = await prisma.UserQuest.update({

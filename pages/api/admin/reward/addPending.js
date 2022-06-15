@@ -92,7 +92,7 @@ const AddPendingRewardAPI = async (req, res) => {
                     // }
 
                     /* pending reward should be a chest for lore purpose*/
-                    pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/chest_opened_175f.gif`;
+                    pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
                     pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;
 
                     if (user.discordId != null && user.discordId.trim().length > 0) {

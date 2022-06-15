@@ -28,6 +28,7 @@ const ImageUploadAPI = async (req, res) => {
 
                 let uploaded = await cloudinary.uploader.upload(data, {
                     public_id: whiteListUser.wallet,
+                    upload_preset: NEXT_PUBLIC_CLOUDINARY_PRESET
                 });
                 return res.status(200).json(uploaded);
             } catch (err) {

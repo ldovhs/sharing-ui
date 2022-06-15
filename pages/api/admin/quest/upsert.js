@@ -292,9 +292,9 @@ const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) =
 const codeQuestCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.CODE_QUEST) return;
 
-    let existingTwitterQuests = existingQuests.filter((q) => q.type.name === Enums.CODE_QUEST);
+    let existingCodeQuests = existingQuests.filter((q) => q.type.name === Enums.CODE_QUEST);
 
-    return existingTwitterQuests.some(
+    return existingCodeQuests.some(
         (q) => q.extendedQuestData.codeEvent === extendedQuestData.codeEvent
     );
 };

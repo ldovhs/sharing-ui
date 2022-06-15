@@ -8,9 +8,7 @@ const AdminQuestDeleteAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
-        /*  
-            @dev Create a new quest for user
-        */
+
         case "POST":
             try {
                 const {

@@ -17,18 +17,10 @@ const avatars = [
 ];
 
 const initialValues = {
-    discordId: "",
-    discordUserDiscriminator: "",
-    twitterId: "",
-    twitterUserName: "",
     wallet: "",
 };
 
 const UserSchema = object().shape({
-    discordId: string(),
-    twitterId: string(),
-    twitterUserName: string(),
-    discordUserDiscriminator: string(),
     wallet: string()
         .required()
         .test("valid address", "Wallet Address is not valid!", function () {
@@ -85,69 +77,6 @@ const AddNewUser = ({ isLoading, mutationError, onUpsert, data }) => {
                             </div>
                         </div>
 
-                        {/* Discord Input  */}
-                        <div className="col-12 mb-3">
-                            <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Discord Id:</label>
-                                <Field
-                                    name="discordId"
-                                    type="text"
-                                    className={
-                                        "form-control" +
-                                        (errors.discordId && touched.discordId ? " is-invalid" : "")
-                                    }
-                                />
-                            </div>
-                            <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Discord User Discriminator:</label>
-                                <Field
-                                    name="discordUserDiscriminator"
-                                    type="text"
-                                    className={
-                                        "form-control" +
-                                        (errors.discordUserDiscriminator &&
-                                        touched.discordUserDiscriminator
-                                            ? " is-invalid"
-                                            : "")
-                                    }
-                                />
-                            </div>
-                        </div>
-                        {/* Type of social media account  */}
-                        {/* <div className="col-6 mb-3">
-                            <label className="form-label">Type</label>
-                            <Field name="type" as="select" className={"form-control"}>
-                                <option value="Discord">Discord</option>
-                            </Field>
-                        </div> */}
-
-                        {/* Twitter Input  */}
-                        <div className="col-12 mb-3">
-                            <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Twitter Id</label>
-                                <Field
-                                    name="twitterId"
-                                    type="text"
-                                    className={
-                                        "form-control" +
-                                        (errors.twitterId && touched.twitterId ? " is-invalid" : "")
-                                    }
-                                />
-                            </div>
-                            <div className="col col-sm-12 col-md-12 col-lg-6">
-                                <label className="form-label">Twitter Username</label>
-                                <Field
-                                    name="twitterUserName"
-                                    type="text"
-                                    className={
-                                        "form-control" +
-                                        (errors.twitterUserName && touched.twitterUserName
-                                            ? " is-invalid"
-                                            : "")
-                                    }
-                                />
-                            </div>
-                        </div>
                         {/* Wallet */}
                         <div className="col-12 mb-3">
                             <label className="form-label">Wallet Address*</label>

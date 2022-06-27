@@ -41,3 +41,21 @@ export const getClaimedRewardsOfUser = async (wallet) => {
         include: { rewardType: true },
     });
 };
+
+export const getRewardType = async (rewardTypeId) => {
+    return await prisma.rewardType.findFirst({
+        where: { id: rewardTypeId }
+    })
+}
+
+export const AddOrUpdateWhiteListAddressTable = async (wallet) => {
+    return await prisma.whiteListAddress.upsert({
+        where: { wallet },
+        update: {
+            wallet
+        },
+        create: {
+            wallet
+        }
+    })
+}

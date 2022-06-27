@@ -9,38 +9,27 @@ const whitelistUserAddAPI = async (req, res) => {
         case "POST":
             try {
                 console.log(`**Add New User**`);
-                const { discordId, discordUserDiscriminator, wallet, twitterId, twitterUserName } =
-                    req.body;
+                const { wallet } = req.body;
 
-                let updateCondition = {};
-
-                if (discordId.trim().length > 0) {
-                    updateCondition = { ...updateCondition, discordId };
-                }
-                if (discordUserDiscriminator.trim().length > 0) {
-                    updateCondition = { ...updateCondition, discordUserDiscriminator };
-                }
-                if (twitterId.trim().length > 0) {
-                    updateCondition = { ...updateCondition, twitterId };
-                }
-                if (twitterUserName.trim().length > 0) {
-                    updateCondition = { ...updateCondition, twitterUserName };
+                let existingUser = await prisma.whiteList.findUnique({ where: { wallet } })
+                if (existingUser) {
+                    console.log(1)
+                    return res.status(200).json(existingUser);
                 }
 
-                const user = await prisma.whiteList.upsert({
-                    where: { wallet },
-                    update: updateCondition,
-                    create: {
-                        wallet,
-                        discordId,
-                        discordUserDiscriminator,
-                        twitterId,
-                        twitterUserName,
-                    },
-                });
+                else {
+                    console.log(wallet)
+                    const user = await prisma.whiteList.create({
+                        data: {
+                            wallet
+                        },
+                    });
 
-                res.status(200).json(user);
+                    res.status(200).json(user);
+                }
+
             } catch (error) {
+                console.log(error)
                 return res.status(200).json({ isError: true, message: error.message });
             }
 

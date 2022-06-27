@@ -12,7 +12,9 @@
             "@repository/*": ["repository/*"],
             "@context/*": ["context/*"],
             "@shared/*": ["shared/*"],
-            "@middlewares/*": ["middlewares/*"]
+            "@middlewares/*": ["middlewares/*"],
+            "@hooks/*": ["hooks/*"],
+            "@sass/*": ["sass/*"]
           }
     },
      "include": [

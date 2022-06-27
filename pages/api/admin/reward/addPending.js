@@ -1,7 +1,7 @@
 import { prisma } from "@context/PrismaContext";
 import Enums from "enums";
 import axios from "axios";
-import { createPendingReward } from "repositories/reward";
+import { AddOrUpdateWhiteListAddressTable, createPendingReward, getRewardType } from "repositories/reward";
 import adminMiddleware from "middlewares/adminMiddleware";
 
 const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
@@ -51,9 +51,8 @@ const AddPendingRewardAPI = async (req, res) => {
 
                 if (!user) {
                     res.status(200).json({
-                        message: `Cannot find any user with ${
-                            type === Enums.DISCORD ? "Discord Id" : "Twitter"
-                        } : ${username}, on wallet ${wallet}.`,
+                        message: `Cannot find any user with ${type === Enums.DISCORD ? "Discord Id" : "Twitter"
+                            } : ${username}, on wallet ${wallet}.`,
                         isError: true,
                     });
                     return;
@@ -69,27 +68,17 @@ const AddPendingRewardAPI = async (req, res) => {
                     });
                 }
 
+                /* if the reward is mintlist spot type, add this wallet to whitelist address table */
+
+                // get type of reward
+
+                let rewardType = await getRewardType(parseInt(rewardTypeId));
+
+                if (rewardType && rewardType.reward === Enums.REWARDTYPE.MINTLIST) {
+                    await AddOrUpdateWhiteListAddressTable(wallet)
+                }
+
                 if (postInBotChannel || postInGeneralChannel) {
-                    // switch (pendingReward.rewardType.reward) {
-                    //     case Enums.REWARDTYPE.MYSTERYBOWL:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
-                    //         break;
-                    //     case Enums.REWARDTYPE.NUDE:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/15.gif`;
-                    //         break;
-                    //     case Enums.REWARDTYPE.BOREDAPE:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/11.gif`;
-                    //         break;
-                    //     case Enums.REWARDTYPE.MINTLIST:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
-                    //         break;
-                    //     case Enums.REWARDTYPE.SHELL:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                    //         break;
-                    //     default:
-                    //         pendingReward.imageUrl = `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                    //         break;
-                    // }
 
                     /* pending reward should be a chest for lore purpose*/
                     pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
@@ -122,8 +111,8 @@ const AddPendingRewardAPI = async (req, res) => {
 
                 res.status(200).json(pendingReward);
             } catch (err) {
-                console.log(err);
-                res.status(500).json({ err });
+                console.log(err)
+                res.status(500).json({ err: err.message });
             }
             break;
         default:

@@ -8,7 +8,7 @@
   "dependencies": {
     "@metamask/eth-sig-util": "^4.0.1",
     "@nsfw-filter/nsfwjs": "^2.2.0",
-    "@qhuynhvhslab/anomura-prisma-package": "^1.0.49",
+    "@qhuynhvhslab/anomura-prisma-package": "^1.0.52",
     "@tensorflow/tfjs": "^3.18.0",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",

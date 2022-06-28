@@ -69,17 +69,12 @@ const AddPendingRewardAPI = async (req, res) => {
                 }
 
                 /* if the reward is mintlist spot type, add this wallet to whitelist address table */
-
-                // get type of reward
-
                 let rewardType = await getRewardType(parseInt(rewardTypeId));
-
                 if (rewardType && rewardType.reward === Enums.REWARDTYPE.MINTLIST) {
                     await AddOrUpdateWhiteListAddressTable(wallet)
                 }
 
                 if (postInBotChannel || postInGeneralChannel) {
-
                     /* pending reward should be a chest for lore purpose*/
                     pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
                     pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;

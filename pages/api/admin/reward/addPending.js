@@ -68,11 +68,6 @@ const AddPendingRewardAPI = async (req, res) => {
                     });
                 }
 
-                /* if the reward is mintlist spot type, add this wallet to whitelist address table */
-                let rewardType = await getRewardType(parseInt(rewardTypeId));
-                if (rewardType && rewardType.reward === Enums.REWARDTYPE.MINTLIST) {
-                    await AddOrUpdateWhiteListAddressTable(wallet)
-                }
 
                 if (postInBotChannel || postInGeneralChannel) {
                     /* pending reward should be a chest for lore purpose*/
@@ -91,6 +86,7 @@ const AddPendingRewardAPI = async (req, res) => {
                             {
                                 pendingReward,
                                 postInDiscord: { postInBotChannel, postInGeneralChannel },
+                                user
                             },
                             {
                                 headers: {

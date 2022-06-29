@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react";
 import { utils } from "ethers";
 
 const modsAddress = [
-    "0x2fe1d1B26401a922D19E1E74bed2bA799c64E040",
-    "0xc08f1F50B7d926d0c60888220176c27CE55dA926",
-    "0xC055fe5B545F4FDCF55C4d010aB4eE4972319b92",
-    "0xcA70D03e8eFFb0C55542a9AEA892dD74Fe208335",
+    // "0x2fe1d1B26401a922D19E1E74bed2bA799c64E040",
+    // "0xc08f1F50B7d926d0c60888220176c27CE55dA926",
+    // "0xC055fe5B545F4FDCF55C4d010aB4eE4972319b92",
+    // "0xcA70D03e8eFFb0C55542a9AEA892dD74Fe208335",
 ];
 
 const AdminUsers = () => {

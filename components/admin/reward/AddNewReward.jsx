@@ -204,7 +204,7 @@ const AddNewReward = ({
                                     type="checkbox"
                                     className="mr-2"
                                 />
-                                General channel
+                                #deepsea-treasures
                             </label>
                         </div>
                         {errors && <div className="text-red-500"> {errors.username}</div>}

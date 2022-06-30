@@ -13,10 +13,9 @@ const adminUpdateUserStatsAPI = async (req, res) => {
 
             try {
                 let ownersInContract = []
-                console.log(chainId)
+
 
                 if (contract && contract.length > 0) {
-                    // check if contract address is a valid address first
 
                     // query db first
                     let data = await prisma.moralisNftData.findUnique({
@@ -30,42 +29,35 @@ const adminUpdateUserStatsAPI = async (req, res) => {
                     }
 
                     if (ownersInContract.length < 1) {
-                        console.log(`hanle nft owner through moralis`)
-                        ownersInContract = await handleGetNftOwners(contract, chainId)
+                        console.log(`handle nft owner through moralis`)
+                        await handleGetNftOwnersRequest(contract, chainId)
                     } else {
-                        // there is data, but we check last updated, if it is more than 10 days then we use moralis
+
                         let ms = new Date().getTime() + 86400000 * 10;
 
-                        let tenDayFromUpdateAt = new Date(data.updatedAt).getTime() + 86400000 * 10
+                        let tenDayFromUpdateAt = new Date(data.updatedAt).getTime() + 86400000 * 2
                         let [tendayFromLastUpdatedAt] = new Date(tenDayFromUpdateAt).toISOString().split("T");
                         let [today] = new Date().toISOString().split("T");
 
                         if (tendayFromLastUpdatedAt < today) {
-                            console.log(`hanle nft owner through moralis`)
-                            ownersInContract = await handleGetNftOwners(contract, chainId)
+                            console.log(`there is data, but we check last updated, asit is more than 2 days so we use moralis`)
+                            await handleGetNftOwnersRequest(contract, chainId)
+
                         }
                         else {
                             console.log(`nft data found, no need moralis`)
+                            return res.status(200).json(ownersInContract);
                         }
                     }
                 }
 
-                // save to db if we query from moralis
-                if (ownersInContract.length > 0) {
-                    await prisma.moralisNftData.upsert({
-                        where: {
-                            contractAddress: contract
-                        },
-                        update: {
-                            contractData: ownersInContract
-                        },
-                        create: {
-                            contractAddress: contract,
-                            contractData: ownersInContract
-                        }
-                    })
-                }
-
+                //likely its good to go now, just do the query
+                let data = await prisma.moralisNftData.findUnique({
+                    where: {
+                        contractAddress: contract
+                    }
+                })
+                ownersInContract = data.contractData
                 return res.status(200).json(ownersInContract);
 
             } catch (err) {
@@ -80,54 +72,34 @@ const adminUpdateUserStatsAPI = async (req, res) => {
 };
 
 export default adminMiddleware(adminUpdateUserStatsAPI);
-
-const handleGetNftOwners = async (contractAddress, chainId) => {
-
-    // query moralis
-    let cursor = "";
-    let result = [];
-    console.log(chainId)
-    do {
-        let response = await axios
-            .get(
-                `https://deep-index.moralis.io/api/v2/nft/${contractAddress}/owners?cursor=${cursor}&chain=${chainId}`,
-                {
-                    headers: {
-                        "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_APIKEY,
-                    },
-                }
-            )
-
-        let data = response.data;
-        let headers = response.headers
-
-        console.log(
-            `Got page ${data.page} of ${Math.ceil(data.total / data.page_size)}, ${data.total
-            } total \n`
-        );
-
-        for (const nft of data.result) {
-
-            result = [...result, nft];
-        }
-        cursor = data.cursor;
-
-        let rateLimit = parseInt(headers["x-rate-limit-limit"])
-        let rateLimitUsed = parseInt(headers["x-rate-limit-used"])
-        let requestWeight = parseInt(headers["x-request-weight"])
-
-        if (rateLimitUsed + requestWeight > rateLimit) {
-            console.log(`Rate Limit hit within 1 second, awaiting next window`)
-            await timer(1000) // ~ 1 second
-        }
-
-    } while (cursor != "" && cursor != null);
-
-    let owners = result.map(r => {
-        return r["owner_of"]
-    })
-
-    return owners
-};
-
 const timer = ms => new Promise(res => setTimeout(res, ms))
+
+const handleGetNftOwnersRequest = async (contractAddress, chainId) => {
+    let res = await axios
+        .post(
+            `${process.env.DISCORD_NODEJS}/api/v1/user-stats/getContractOwnersJobRequest`,
+            {
+                contractAddress, chainId
+            },
+            {
+                headers: {
+                    Authorization: `Bot ${process.env.NODEJS_SECRET}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        .catch((err) => {
+            console.log(err);
+        });
+
+    let bullJob
+    do {
+
+        bullJob = await prisma.bullJob.findUnique({
+            where: {
+                jobId: res.data.jobId
+            },
+        })
+        await timer(2000)
+    } while (bullJob?.state !== "completed")
+};

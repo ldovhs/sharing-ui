@@ -26,8 +26,6 @@ export default function UserStatsSearchResult({ formData }) {
                         chainId: formData.chainId,
                     });
 
-                    console.log(res.data);
-
                     filtered = data.filter((d) => {
                         let index = res.data.findIndex(
                             (e) => e.toLowerCase() == d.wallet.toLowerCase()

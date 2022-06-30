@@ -42,7 +42,6 @@ const adminUpdateUserStatsAPI = async (req, res) => {
                         if (tendayFromLastUpdatedAt < today) {
                             console.log(`there is data, but we check last updated, asit is more than 2 days so we use moralis`)
                             await handleGetNftOwnersRequest(contract, chainId)
-
                         }
                         else {
                             console.log(`nft data found, no need moralis`)
@@ -51,7 +50,7 @@ const adminUpdateUserStatsAPI = async (req, res) => {
                     }
                 }
 
-                //likely its good to go now, just do the query
+                console.log("likely its good to go now, just do the query")
                 let data = await prisma.moralisNftData.findUnique({
                     where: {
                         contractAddress: contract
@@ -61,7 +60,7 @@ const adminUpdateUserStatsAPI = async (req, res) => {
                 return res.status(200).json(ownersInContract);
 
             } catch (err) {
-                console.log(err)
+                console.log(err.message)
                 res.status(500).json({ err: err.message });
             }
             break;

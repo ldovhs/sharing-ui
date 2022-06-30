@@ -91,14 +91,14 @@ const handleGetNftOwnersRequest = async (contractAddress, chainId) => {
             console.log(err);
         });
 
-    let bullJob
-    do {
+    // let bullJob
+    // do {
 
-        bullJob = await prisma.bullJob.findUnique({
-            where: {
-                jobId: res.data.jobId
-            },
-        })
-        await timer(2000)
-    } while (bullJob?.state !== "completed")
+    //     bullJob = await prisma.bullJob.findUnique({
+    //         where: {
+    //             jobId: res.data.jobId
+    //         },
+    //     })
+    //     await timer(2000)
+    // } while (bullJob?.state !== "completed")
 };

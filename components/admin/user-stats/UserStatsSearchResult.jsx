@@ -8,6 +8,7 @@ import TableFooter from "../elements/Table/TableFooter";
 const fetcher = async (url, req) => await axios.post(url, req).then((res) => res.data);
 
 const USER_STATS_SEARCH = "/challenger/api/admin/user-stats";
+const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function UserStatsSearchResult({ formData }) {
     const { data, error } = useSWR([USER_STATS_SEARCH, formData], fetcher);
@@ -21,19 +22,42 @@ export default function UserStatsSearchResult({ formData }) {
                 if (formData.contract.length > 0) {
                     let filtered = [];
                     setIsLoading(true);
+
+                    // request a job to run
                     let res = await axios.post(`/challenger/api/admin/user-stats/update`, {
                         contract: formData.contract,
                         chainId: formData.chainId,
                     });
 
+                    if (res.data?.length < 1) {
+                        let request;
+                        do {
+                            request = await axios.get(
+                                `/challenger/api/admin/user-stats/getJobState`
+                            );
+                            console.log(request);
+                            await timer(3000);
+                        } while (request.data.state !== "completed");
+                    }
+                    // keep checking database for state change
+
+                    console.log("wait done");
+
+                    res = await axios.get(
+                        `/challenger/api/admin/user-stats/getData?contractAddress=${formData.contract}`
+                    );
+
+                    console.log("2nd query done");
+                    console.log(res.data);
                     filtered = data.filter((d) => {
-                        let index = res.data.findIndex(
+                        let index = res.data.contractData.findIndex(
                             (e) => e.toLowerCase() == d.wallet.toLowerCase()
                         );
                         if (index !== -1) {
                             return true;
                         } else return false;
                     });
+
                     setIsLoading(false);
                     return setTableData(filtered);
                 }

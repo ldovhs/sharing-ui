@@ -59,6 +59,8 @@ const ImageUpload = ({
                 //process.env.NEXT_PUBLIC_CURRENT_IMAGE_EVENT
             );
 
+            console.log(findSubmissionQuest);
+
             if (!findSubmissionQuest) {
                 setView(ERROR);
                 return setError("Cannot find this quest");

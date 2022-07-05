@@ -149,7 +149,19 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
-                    // TODO: IMAGE_UPLOAD_QUEST CHECK  add guard for app submission app request
+
+
+                    let existingImageUploadQuest = imageUploadQuestCheck(existingQuests,
+                        extendedQuestData,
+                        questType.name)
+
+                    if (existingImageUploadQuest) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type of image quest for same event "${extendedQuestData?.eventName}" or same discord channel "${extendedQuestData.discordChannel}".`,
+                            isError: true,
+                        });
+                    }
+
                 } else {
                     // update userquest, we need to get original extendedQuestData and create a new object to avoid data loss
                     console.log(`** Upserting a quest **`);
@@ -228,7 +240,6 @@ const joinDiscordCheck = (existingQuests, type) => {
         (q) => q.extendedQuestData.discordServer === extendedQuestData.discordServer
     );
 };
-
 const followTwitterCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.FOLLOW_TWITTER) return;
     let followTwitterQuest = existingQuests.filter((q) => q.type.name === Enums.FOLLOW_TWITTER);
@@ -237,7 +248,6 @@ const followTwitterCheck = (existingQuests, extendedQuestData, type) => {
         (q) => q.extendedQuestData.followAccount === extendedQuestData.followAccount
     );
 };
-
 const followInstagramCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.FOLLOW_INSTAGRAM) return;
 
@@ -247,7 +257,6 @@ const followInstagramCheck = (existingQuests, extendedQuestData, type) => {
         (q) => q.extendedQuestData.followAccount === extendedQuestData.followAccount
     );
 };
-
 const retweetCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.TWITTER_RETWEET) return;
     let twitterRetweetQuest = existingQuests.filter((q) => q.type.name === Enums.TWITTER_RETWEET);
@@ -256,7 +265,6 @@ const retweetCheck = (existingQuests, extendedQuestData, type) => {
         (q) => q.extendedQuestData.tweetId === extendedQuestData.tweetId
     );
 };
-
 const noodsClaimCheck = (existingQuests, type) => {
     if (type != Enums.NOODS_CLAIM) return;
 
@@ -277,7 +285,6 @@ const ZEDClaimCheck = (existingQuests, type) => {
     }
     return false;
 };
-
 const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.COLLABORATION_FREE_SHELL) return;
     let collaborationClaim = existingQuests.filter(
@@ -288,7 +295,6 @@ const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) =
         (q) => q.extendedQuestData.collaboration === extendedQuestData.collaboration
     );
 };
-
 const codeQuestCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.CODE_QUEST) return;
 
@@ -296,6 +302,16 @@ const codeQuestCheck = (existingQuests, extendedQuestData, type) => {
 
     return existingCodeQuests.some(
         (q) => q.extendedQuestData.codeEvent === extendedQuestData.codeEvent
+    );
+};
+
+const imageUploadQuestCheck = (existingQuests, extendedQuestData, type) => {
+    if (type !== Enums.IMAGE_UPLOAD_QUEST) return;
+
+    let existingCodeQuests = existingQuests.filter((q) => q.type.name === Enums.IMAGE_UPLOAD_QUEST);
+
+    return existingCodeQuests.some(
+        (q) => q.extendedQuestData.eventName === extendedQuestData.eventName || q.extendedQuestData.discordChannel === extendedQuestData.discordChannel
     );
 };
 

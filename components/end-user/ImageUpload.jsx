@@ -49,7 +49,7 @@ const ImageUpload = ({
         let model = await nsfwjs.load();
         setNSFWModel(model);
     }, []);
-
+    console.log(userQuests);
     useEffect(async () => {
         if (userQuests) {
             let findSubmissionQuest = userQuests.find(

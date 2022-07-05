@@ -56,10 +56,7 @@ const ImageUpload = ({
                 (q) =>
                     q.type.name === Enums.IMAGE_UPLOAD_QUEST &&
                     q.extendedQuestData.eventName === eventName
-                //process.env.NEXT_PUBLIC_CURRENT_IMAGE_EVENT
             );
-
-            console.log(findSubmissionQuest);
 
             if (!findSubmissionQuest) {
                 setView(ERROR);
@@ -177,7 +174,7 @@ const ImageUpload = ({
                                 </div>
                             </div>
                         )}
-                        {currentQuest && !isSubmitting && !isFetchingUserQuests && (
+                        {currentQuest && !isSubmitting && !isFetchingUserQuests && !isLoading && (
                             <>
                                 {currentView === ERROR && (
                                     <span className={s.board_imageUpload_imageName}>{error}</span>

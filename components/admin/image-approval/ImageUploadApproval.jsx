@@ -12,13 +12,13 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 const takeNumber = 5;
 const ImageUploadApproval = () => {
     const router = useRouter();
-    const { questId } = router.query;
+    const { eventName } = router.query;
     const [count, setCount] = useState(0);
     const [pageIndex, setPageIndex] = useState(0);
     const [isWorking, setIsWorking] = useState(false);
     const { data, mutate, isValidating, error } = useSWR(
-        questId
-            ? `${Enums.BASEPATH}/api/user/quest/getUserQuestsById?questId=${questId}&page=${pageIndex}`
+        eventName
+            ? `${Enums.BASEPATH}/api/user/quest/getUserQuestsByEventName?eventName=${eventName}&page=${pageIndex}`
             : null,
         fetcher
     );
@@ -29,17 +29,19 @@ const ImageUploadApproval = () => {
                 setCount(data.count);
             }
             if (router.query) {
-                questId = router.query.questId;
+                eventName = router.query.eventName;
+                console.log(eventName);
             }
         } catch (error) {
             console.log(error);
         }
     }, [router, data]);
-    console.log(questId);
+
     const PostToDiscord = async (userQuest) => {
         try {
             setIsWorking(true);
             let res = await axios.post(`${Enums.BASEPATH}/api/user/quest/approve-image`, userQuest);
+
             mutate();
             setIsWorking(false);
         } catch (error) {
@@ -48,7 +50,6 @@ const ImageUploadApproval = () => {
         }
     };
 
-    if (data) console.log(data);
     return (
         <div className="flex flex-col items-center">
             <span className="text-md text-gray-700 dark:text-gray-400">
@@ -123,7 +124,7 @@ const ImageUploadApproval = () => {
                                                         viewBox="0 0 24 24"
                                                     >
                                                         <circle
-                                                            class="opacity-25"
+                                                            className="opacity-25"
                                                             cx="12"
                                                             cy="12"
                                                             r="10"

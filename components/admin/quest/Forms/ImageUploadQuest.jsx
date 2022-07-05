@@ -19,10 +19,10 @@ const ImageUploadQuest = ({
     const initialValues = {
         type: Enums.IMAGE_UPLOAD_QUEST,
         extendedQuestData: quest?.extendedQuestData ?? {
-            discordServer: "",
+            eventName: "",
             discordChannel: "",
             collaboration: "",
-            endDate: "",
+            // endDate: "",
         },
         text: quest?.text || "An app submission for #SUBMISSION",
         description: quest?.description ?? "Allow the user to upload their submission",
@@ -35,7 +35,7 @@ const ImageUploadQuest = ({
     };
     const ImageUploadSchema = object().shape({
         extendedQuestData: object().shape({
-            discordServer: string().required("An discord server Id is required!"),
+            eventName: string().required("An event name is required!"),
             discordChannel: string().required("An discord channel Id is required!"),
             // endDate: string().required("An end date is required!"),
         }),
@@ -74,21 +74,21 @@ const ImageUploadQuest = ({
                         <div className="row">
                             {/* Anomura Event */}
                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                <label className="form-label">Discord Server</label>
+                                <label className="form-label">Event Name (No spaces)</label>
                                 <Field
-                                    name={`extendedQuestData.discordServer`}
+                                    name={`extendedQuestData.eventName`}
                                     type="text"
                                     className={
                                         "form-control" +
                                         (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.discordServer &&
-                                        touched.extendedQuestData?.discordServer
+                                        errors.extendedQuestData?.eventName &&
+                                        touched.extendedQuestData?.eventName
                                             ? " is-invalid"
                                             : "")
                                     }
                                 />
                                 <ErrorMessage
-                                    name={`extendedQuestData.discordServer`}
+                                    name={`extendedQuestData.eventName`}
                                     component="div"
                                     className="invalid-feedback"
                                 />
@@ -135,7 +135,7 @@ const ImageUploadQuest = ({
                                 />
                             </div>
 
-                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                            {/* <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
                                 <label className="form-label">End Date</label>
                                 <Field name={`extendedQuestData.endDate`}>
                                     {({ field, meta, form: { setFieldValue } }) => {
@@ -167,7 +167,7 @@ const ImageUploadQuest = ({
                                     component="div"
                                     className="invalid-feedback"
                                 />
-                            </div>
+                            </div> */}
 
                             <QuestFormTemplate
                                 values={values}

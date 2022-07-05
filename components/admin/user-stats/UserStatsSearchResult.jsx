@@ -12,7 +12,7 @@ const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function UserStatsSearchResult({ formData }) {
     const { data, error } = useSWR([USER_STATS_SEARCH, formData], fetcher);
-
+    const [apiError, setApiError] = useState(null);
     const [tableData, setTableData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -29,26 +29,21 @@ export default function UserStatsSearchResult({ formData }) {
                         chainId: formData.chainId,
                     });
 
-                    if (res.data?.length < 1) {
+                    if (res.data?.isStale == true) {
                         let request;
                         do {
                             request = await axios.get(
                                 `/challenger/api/admin/user-stats/getJobState`
                             );
-                            console.log(request);
+                            // console.log(request); request.data.progress
                             await timer(3000);
                         } while (request.data.state !== "completed");
                     }
-                    // keep checking database for state change
-
-                    console.log("wait done");
 
                     res = await axios.get(
-                        `/challenger/api/admin/user-stats/getData?contractAddress=${formData.contract}`
+                        `/challenger/api/admin/user-stats/getMoralisData?contractAddress=${formData.contract}`
                     );
 
-                    console.log("2nd query done");
-                    console.log(res.data);
                     filtered = data.filter((d) => {
                         let index = res.data.contractData.findIndex(
                             (e) => e.toLowerCase() == d.wallet.toLowerCase()
@@ -63,13 +58,17 @@ export default function UserStatsSearchResult({ formData }) {
                 }
                 setTableData(data);
             } catch (error) {
+                setApiError(error?.message);
                 setIsLoading(false);
             }
         }
     }, [data]);
 
     if (error) {
-        return <div>{error}</div>;
+        return <div>Error: {error.message}</div>;
+    }
+    if (apiError) {
+        return <div>API Error: {apiError}</div>;
     }
     if (!tableData || isLoading) return <div>Loading...</div>;
 

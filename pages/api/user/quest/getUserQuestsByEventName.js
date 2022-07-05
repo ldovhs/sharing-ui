@@ -12,20 +12,42 @@ const questQueryAPI = async (req, res) => {
         case "GET":
             try {
                 // let wallet = utils.getAddress(whiteListUser.wallet);
-                const whiteListUser = req.whiteListUser;
 
-                const { questId, page } = req.query;
-                console.log(`** Get all user quests of id **`);
+                const { eventName, page } = req.query;
 
-                let allUserQuestsOfThisId = await prisma.userQuest.findMany({
+                let questType = await prisma.questType.findMany({});
+                let imageQuest = questType.find(q => q.name === Enums.IMAGE_UPLOAD_QUEST)
+                if (!imageQuest) {
+                    throw new Error("Cannot find any quest of type image upload")
+                }
+
+                let allImageQuests = await prisma.quest.findMany({
                     where: {
-                        questId,
+                        questTypeId: imageQuest.id,
+                    },
+                });
+
+                if (!allImageQuests) {
+                    throw new Error("Cannot find image quests")
+                }
+
+                console.log(`** Get all user quests of id **`);
+                let currentImageQuest = allImageQuests.find(q => q.extendedQuestData.eventName === eventName)
+
+                if (!currentImageQuest) {
+                    throw new Error(`Cannot find image quest of this event name ${eventName}`)
+                }
+
+
+                let allUserQuestsOfThisQuestId = await prisma.userQuest.findMany({
+                    where: {
+                        questId: currentImageQuest.questId,
                     },
                 });
 
                 let userQuests = await prisma.userQuest.findMany({
                     where: {
-                        questId,
+                        questId: currentImageQuest.questId,
                     },
                     skip: page * ITEM_PER_PAGE,
                     take: ITEM_PER_PAGE,
@@ -44,7 +66,7 @@ const questQueryAPI = async (req, res) => {
                 return res.status(200).json({
                     isError: false,
                     data: userQuests,
-                    count: allUserQuestsOfThisId.length,
+                    count: allUserQuestsOfThisQuestId.length,
                 });
             } catch (err) {
                 console.log(err);

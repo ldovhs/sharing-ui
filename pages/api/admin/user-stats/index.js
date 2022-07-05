@@ -1,59 +1,45 @@
 import { prisma } from "@context/PrismaContext";
-import adminMiddleware from "middlewares/adminMiddleware";
-import axios from "axios";
+import { adminMiddleware, withExceptionFilter } from "middlewares/";
+import { ApiError } from 'next/dist/server/api-utils';
 
-const ROUTE = "/api/admin/user-stats";
 
 const adminUserStatsAPI = async (req, res) => {
     const { method } = req;
 
-    switch (method) {
-        case "POST":
-            const { wallet, contract } = req.body;
+    if (method === "POST") {
+        const { wallet } = req.body;
+        let userCondition = {};
 
-            let userCondition = {},
-                rewardCondition = [];
+        if (wallet !== "") {
+            userCondition.wallet = { contains: wallet.trim() };
+        }
 
-            if (wallet !== "") {
-                userCondition.wallet = { contains: wallet.trim() };
-            }
+        let searchRes = await prisma.whiteList.findMany({
+            where: userCondition,
+            select: {
+                id: true,
+                userId: true,
+                wallet: true,
+                twitterId: true,
+                twitterUserName: true,
+                discordUserDiscriminator: true,
+                whiteListUserData: true
+            },
+        });
 
-            try {
-                let searchRes = await prisma.whiteList.findMany({
-                    where: userCondition,
-                    select: {
-                        id: true,
-                        userId: true,
-                        wallet: true,
-                        twitterId: true,
-                        twitterUserName: true,
-                        discordUserDiscriminator: true,
-                        whiteListUserData: true
-                    },
-                });
-
-                searchRes.map(res => {
-                    if (res.whiteListUserData === null) {
-                        res.whiteListUserData = {
-                            data: {
-                                followers_count: 0
-                            }
-                        };
+        searchRes.map(res => {
+            if (res.whiteListUserData === null) {
+                res.whiteListUserData = {
+                    data: {
+                        followers_count: 0
                     }
-                })
-
-                res.status(200).json(JSON.stringify(searchRes));
-
-            } catch (err) {
-                console.log(err.message);
-                res.status(500).json({ err: err.message });
+                };
             }
-            break;
-        default:
-            res.setHeader("Allow", ["POST"]);
-            res.status(405).end(`Method ${method} Not Allowed`);
+        })
+
+        return res.status(200).json(JSON.stringify(searchRes));
     }
+    throw new ApiError(400, `Method ${req.method} Not Allowed`)
 };
 
-export default adminMiddleware(adminUserStatsAPI);
-
+export default withExceptionFilter(adminMiddleware(adminUserStatsAPI));

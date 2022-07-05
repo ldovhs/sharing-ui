@@ -1,8 +1,6 @@
 import { prisma } from "@context/PrismaContext";
 import adminMiddleware from "middlewares/adminMiddleware";
 
-const ROUTE = "/api/admin/user-stats/getJobState";
-
 const adminGetJobStateAPI = async (req, res) => {
     const { method } = req;
 

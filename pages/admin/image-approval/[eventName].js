@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { AdminLayout, ImageUploadApproval } from "/components/admin";
 
 const AdminImageApproval = () => {
-    useEffect(async () => {}, []);
+    useEffect(async () => { }, []);
 
     return (
         <div className="row justify-content-center">

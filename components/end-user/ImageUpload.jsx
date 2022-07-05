@@ -9,13 +9,16 @@ import { BoardSmallDollarSign } from ".";
 import * as tf from "@tensorflow/tfjs";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
+const ANOMURA_DISCORD_SERVER = 851558628032905286;
+// 954167590677258241 test
+// 851558628032905286 production
+
 const UPLOADABLE = 0;
 const SUBMITTABLE = 1;
 const SUBMITTED = 2;
 const ERROR = 3;
 
 /*
-
     Weekly image upload contest, rely on environment NEXT_PUBLIC_CURRENT_IMAGE_EVENT
     to get into correct contest of that week
 */
@@ -35,9 +38,9 @@ const ImageUpload = ({
     const [currentView, setView] = useState(UPLOADABLE);
     const [imageSrc, setImageSrc] = useState();
     const [imageFile, setImageFile] = useState(null);
-
-    // const router = useRouter();
-    // const { event } = router.query;
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const { eventName } = router.query;
 
     const hiddenFileInput = useRef(null);
     const imageEl = useRef(null);
@@ -52,8 +55,8 @@ const ImageUpload = ({
             let findSubmissionQuest = userQuests.find(
                 (q) =>
                     q.type.name === Enums.IMAGE_UPLOAD_QUEST &&
-                    q.extendedQuestData.discordChannel ===
-                        process.env.NEXT_PUBLIC_CURRENT_IMAGE_EVENT
+                    q.extendedQuestData.eventName === eventName
+                //process.env.NEXT_PUBLIC_CURRENT_IMAGE_EVENT
             );
 
             if (!findSubmissionQuest) {
@@ -70,11 +73,9 @@ const ImageUpload = ({
                     if (submittedQuestBefore) {
                         setSubmittedQuest(submittedQuestBefore.data);
                     }
-
                     setView(SUBMITTED);
                 }
             }
-
             setCurrentQuest(findSubmissionQuest);
         }
     }, [userQuests]);
@@ -96,59 +97,61 @@ const ImageUpload = ({
         setImageFile(changeEvent.target.files[0]);
         setView(SUBMITTABLE);
     }
-    // console.log(submittedQuest);
 
     async function handleOnSubmit() {
-        const predictions = await nsfwModel.classify(imageEl.current);
-        console.log("Predictions: ", predictions);
+        try {
+            const predictions = await nsfwModel.classify(imageEl.current);
+            console.log("Predictions: ", predictions);
+            setIsLoading(true);
+            /** Checking for NSFW */
+            let toContinue = true;
+            let imageProcess = predictions.map((p) => {
+                if (p?.className === "Porn" && p.probability >= 0.6) {
+                    console.log(p.probability);
+                    toContinue = false;
+                }
+                if (p?.className === "Hentai" && p.probability >= 0.6) {
+                    console.log(p.probability);
+                    toContinue = false;
+                }
+            });
 
-        /** Checking for NSFW */
-        let toContinue = true;
-        let imageProcess = predictions.map((p) => {
-            if (p?.className === "Porn" && p.probability >= 0.6) {
-                console.log(p.probability);
-                toContinue = false;
+            await Promise.all(imageProcess);
+            if (!toContinue) {
+                setError("Image contains NSFW content. Please reupload new image.");
+                return;
             }
-            if (p?.className === "Hentai" && p.probability >= 0.6) {
-                console.log(p.probability);
-                toContinue = false;
+
+            const res = await axios.post("/challenger/api/user/image-upload", {
+                data: imageSrc,
+            });
+            // console.log(res);
+            if (!res?.data?.secure_url) {
+                console.error("Image is not cached");
+                return;
             }
-        });
+            /** Submit this quest */
+            const { questId, type, rewardTypeId, quantity, extendedQuestData } = currentQuest;
 
-        await Promise.all(imageProcess);
-        if (!toContinue) {
-            setError("Image contains NSFW content. Please reupload new image.");
-            return;
-        }
+            let submission = {
+                questId,
+                type,
+                rewardTypeId,
+                quantity,
+                imageUrl: res?.data?.secure_url,
+                extendedQuestData,
+            };
+            let questSubmit = await onSubmitImageQuest(submission, userQuests);
 
-        const res = await axios.post("/challenger/api/user/image-upload", {
-            data: imageSrc,
-        });
-        // console.log(res);
-        if (!res?.data?.secure_url) {
-            //set error here to prevent continueing
-            console.error("Image is not cached");
-            return;
-        }
-        /** Submit this quest */
-        const { questId, type, rewardTypeId, quantity, extendedQuestData } = currentQuest;
-
-        let submission = {
-            questId,
-            type,
-            rewardTypeId,
-            quantity,
-            imageUrl: res?.data?.secure_url,
-            extendedQuestData,
-        };
-        let questSubmit = await onSubmitImageQuest(submission, userQuests);
-        // console.log(submittedQuest);
-
-        if (!questSubmit.data.isError) {
-            setSubmittedQuest(questSubmit);
-            setView(SUBMITTED);
-        } else {
-            setError(questSubmit.data.message);
+            if (!questSubmit.data.isError) {
+                setSubmittedQuest(questSubmit);
+                setView(SUBMITTED);
+            } else {
+                setError(questSubmit.data.message);
+            }
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
         }
     }
 
@@ -158,7 +161,7 @@ const ImageUpload = ({
                 <BoardSmallDollarSign />
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
-                        {(isSubmitting || isFetchingUserQuests) && (
+                        {(isSubmitting || isFetchingUserQuests || isLoading) && (
                             <div className={s.board_loading}>
                                 <div className={s.board_loading_wrapper}>
                                     <img
@@ -298,7 +301,7 @@ const ImageUpload = ({
                                                 className={s.board_purpleBtn}
                                                 onClick={() => {
                                                     window.open(
-                                                        `https://discord.com/channels/${submittedQuest?.extendedUserQuestData?.discordServer}/${submittedQuest?.extendedUserQuestData?.discordChannel}/${submittedQuest?.extendedUserQuestData?.messageId}`,
+                                                        `https://discord.com/channels/${ANOMURA_DISCORD_SERVER}/${submittedQuest?.extendedUserQuestData?.discordChannel}/${submittedQuest?.extendedUserQuestData?.messageId}`,
                                                         "_blank"
                                                     );
                                                 }}

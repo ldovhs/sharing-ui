@@ -9,14 +9,33 @@ export default async function getQuestLeaderBoardAPI(req, res) {
     switch (method) {
         case "GET":
             try {
-                const { questId } = req.query;
-                if (!questId) {
+                const { eventName } = req.query;
+                if (!eventName) {
                     return res
                         .status(200)
-                        .json({ isError: true, message: "Missing questId query." });
+                        .json({ isError: true, message: "Missing eventName query." });
                 }
 
-                let questData = await getQuestById(questId);
+
+                let questType = await prisma.questType.findMany({});
+                let imageQuest = questType.find(q => q.name === Enums.IMAGE_UPLOAD_QUEST)
+                if (!imageQuest) {
+                    throw new Error("Cannot find any quest of type image upload")
+                }
+
+                let allImageQuests = await prisma.quest.findMany({
+                    where: {
+                        questTypeId: imageQuest.id,
+                    },
+                });
+
+                if (!allImageQuests) {
+                    throw new Error("Cannot find image quests")
+                }
+
+                let currentImageQuest = allImageQuests.find(q => q.extendedQuestData.eventName.toLowerCase() === eventName.toLowerCase());
+                let questData = await getQuestById(currentImageQuest.questId);
+
                 if (!questData) {
                     return res.status(200).json({ isError: true, message: "Not a valid quest." });
                 }

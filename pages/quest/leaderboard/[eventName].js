@@ -9,16 +9,16 @@ const util = require("util");
 
 function QuestLeaderBoard() {
     const router = useRouter();
-    const { questId } = router.query;
+    const { eventName } = router.query;
     const [questData, setQuestData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(async () => {
-        if (!router.isReady || !questId) return;
+        if (!router.isReady || !eventName) return;
         setIsLoading(true);
         const res = await axios
             .get(`${Enums.BASEPATH}/api/user/quest/leaderboard`, {
                 params: {
-                    questId,
+                    eventName,
                 },
             })
             .then((r) => r.data);

@@ -311,7 +311,7 @@ const imageUploadQuestCheck = (existingQuests, extendedQuestData, type) => {
     let existingCodeQuests = existingQuests.filter((q) => q.type.name === Enums.IMAGE_UPLOAD_QUEST);
 
     return existingCodeQuests.some(
-        (q) => q.extendedQuestData.eventName === extendedQuestData.eventName || q.extendedQuestData.discordChannel === extendedQuestData.discordChannel
+        (q) => q.extendedQuestData.eventName.toLowerCase() === extendedQuestData.eventName.toLowerCase() || q.extendedQuestData.discordChannel === extendedQuestData.discordChannel
     );
 };
 

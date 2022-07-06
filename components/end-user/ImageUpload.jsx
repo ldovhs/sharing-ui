@@ -55,7 +55,7 @@ const ImageUpload = ({
             let findSubmissionQuest = userQuests.find(
                 (q) =>
                     q.type.name === Enums.IMAGE_UPLOAD_QUEST &&
-                    q.extendedQuestData.eventName === eventName
+                    q.extendedQuestData.eventName.toLowerCase() === eventName.toLowerCase()
             );
 
             if (!findSubmissionQuest) {

@@ -32,7 +32,7 @@ const questQueryAPI = async (req, res) => {
                 }
 
                 console.log(`** Get all user quests of id **`);
-                let currentImageQuest = allImageQuests.find(q => q.extendedQuestData.eventName === eventName)
+                let currentImageQuest = allImageQuests.find(q => q.extendedQuestData.eventName.toLowerCase() === eventName.toLowerCase());
 
                 if (!currentImageQuest) {
                     throw new Error(`Cannot find image quest of this event name ${eventName}`)

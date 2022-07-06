@@ -22,13 +22,14 @@ function QuestLeaderBoard() {
                 },
             })
             .then((r) => r.data);
+        console.log(res)
         if (res && res.hasOwnProperty("userQuests")) {
             setQuestData(res);
             setIsLoading(false);
         }
     }, [router]);
 
-    // console.log(questData);
+    console.log(questData);
     return (
         <>
             <div className={s.app}>

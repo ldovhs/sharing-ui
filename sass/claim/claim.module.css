@@ -412,11 +412,11 @@
 }
 .board_pinkBtn > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_pinkBtn > div > span {
@@ -425,18 +425,18 @@
 }
 @media (min-width: 31.25em) {
   .board_pinkBtn > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_pinkBtn > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_pinkBtn > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -445,8 +445,8 @@
   }
 }
 .board_pinkBtn > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -456,12 +456,12 @@
 }
 @media (min-width: 50em) {
   .board_pinkBtn > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_pinkBtn > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_pinkBtn > div > img:nth-child(2) {
@@ -516,11 +516,11 @@
 }
 .board_orangeBtn > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_orangeBtn > div > span {
@@ -529,18 +529,18 @@
 }
 @media (min-width: 31.25em) {
   .board_orangeBtn > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_orangeBtn > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_orangeBtn > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -549,8 +549,8 @@
   }
 }
 .board_orangeBtn > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -560,12 +560,12 @@
 }
 @media (min-width: 50em) {
   .board_orangeBtn > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_orangeBtn > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_orangeBtn > div > img:nth-child(2) {
@@ -613,11 +613,11 @@
 }
 .board_tealBtn > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_tealBtn > div > span {
@@ -626,18 +626,18 @@
 }
 @media (min-width: 31.25em) {
   .board_tealBtn > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_tealBtn > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_tealBtn > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -646,8 +646,8 @@
   }
 }
 .board_tealBtn > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -657,12 +657,12 @@
 }
 @media (min-width: 50em) {
   .board_tealBtn > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_tealBtn > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_tealBtn > div > img:nth-child(2) {
@@ -710,11 +710,11 @@
 }
 .board_blackBtn > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_blackBtn > div > span {
@@ -723,18 +723,18 @@
 }
 @media (min-width: 31.25em) {
   .board_blackBtn > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_blackBtn > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_blackBtn > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -743,8 +743,8 @@
   }
 }
 .board_blackBtn > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -754,12 +754,12 @@
 }
 @media (min-width: 50em) {
   .board_blackBtn > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_blackBtn > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_blackBtn > div > img:nth-child(2) {
@@ -807,11 +807,11 @@
 }
 .board_purpleBtn > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_purpleBtn > div > span {
@@ -820,18 +820,18 @@
 }
 @media (min-width: 31.25em) {
   .board_purpleBtn > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_purpleBtn > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_purpleBtn > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -840,8 +840,8 @@
   }
 }
 .board_purpleBtn > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -851,12 +851,12 @@
 }
 @media (min-width: 50em) {
   .board_purpleBtn > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_purpleBtn > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_purpleBtn > div > img:nth-child(2) {
@@ -969,11 +969,11 @@
 }
 .board_imageUpload_chooseFileButton > div > span {
   width: 100%;
-  font-size: 1.35vh;
+  font-size: 1.2vh;
   font-family: Safety Goggles;
   font-weight: 400;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 1.05rem;
 }
 @media (min-width: 24em) {
   .board_imageUpload_chooseFileButton > div > span {
@@ -982,18 +982,18 @@
 }
 @media (min-width: 31.25em) {
   .board_imageUpload_chooseFileButton > div > span {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 39.8em) {
   .board_imageUpload_chooseFileButton > div > span {
-    font-size: 1.75rem;
-    line-height: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.35rem;
   }
 }
 @media (min-width: 50em) {
   .board_imageUpload_chooseFileButton > div > span {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 @media (min-width: 90em) {
@@ -1002,8 +1002,8 @@
   }
 }
 .board_imageUpload_chooseFileButton > div > img {
-  margin-left: 0.35rem;
-  max-height: 55%;
+  margin-left: 0.3rem;
+  max-height: 50%;
   width: auto !important;
 }
 @media (min-width: 39.8em) {
@@ -1013,12 +1013,12 @@
 }
 @media (min-width: 50em) {
   .board_imageUpload_chooseFileButton > div > img {
-    max-height: 80%;
+    max-height: 65%;
   }
 }
 @media (min-width: 75em) {
   .board_imageUpload_chooseFileButton > div > img {
-    max-height: 70%;
+    max-height: 65%;
   }
 }
 .board_imageUpload_chooseFileButton > div > img:nth-child(2) {

@@ -49,16 +49,16 @@ const ImageUpload = ({
         let model = await nsfwjs.load();
         setNSFWModel(model);
     }, []);
-    console.log(userQuests);
+
     useEffect(async () => {
         if (userQuests) {
             let findSubmissionQuest = userQuests.find(
                 (q) =>
-                    q.type.name === Enums.IMAGE_UPLOAD_QUEST &&
-                    q.extendedQuestData.eventName.toLowerCase() === eventName.toLowerCase()
+                    q.type?.name === Enums.IMAGE_UPLOAD_QUEST &&
+                    q.extendedQuestData?.eventName?.toLowerCase() === eventName.toLowerCase()
             );
 
-            if (!findSubmissionQuest) {
+            if (!findSubmissionQuest || findSubmissionQuest == undefined) {
                 setView(ERROR);
                 return setError("Cannot find this quest");
             }
@@ -100,17 +100,17 @@ const ImageUpload = ({
     async function handleOnSubmit() {
         try {
             const predictions = await nsfwModel.classify(imageEl.current);
-            console.log("Predictions: ", predictions);
+            // console.log("Predictions: ", predictions);
             setIsLoading(true);
             /** Checking for NSFW */
             let toContinue = true;
             let imageProcess = predictions.map((p) => {
                 if (p?.className === "Porn" && p.probability >= 0.6) {
-                    console.log(p.probability);
+                    // console.log(p.probability);
                     toContinue = false;
                 }
                 if (p?.className === "Hentai" && p.probability >= 0.6) {
-                    console.log(p.probability);
+                    // console.log(p.probability);
                     toContinue = false;
                 }
             });
@@ -153,7 +153,7 @@ const ImageUpload = ({
             setIsLoading(false);
         }
     }
-
+    console.log(error);
     return (
         <div className={s.board}>
             <div className={s.board_container}>
@@ -174,11 +174,13 @@ const ImageUpload = ({
                                 </div>
                             </div>
                         )}
+                        {currentView === ERROR && (
+                            <span className={`${s.board_imageUpload_imageName} text-black`}>
+                                {error}
+                            </span>
+                        )}
                         {currentQuest && !isSubmitting && !isFetchingUserQuests && !isLoading && (
                             <>
-                                {currentView === ERROR && (
-                                    <span className={s.board_imageUpload_imageName}>{error}</span>
-                                )}
                                 {currentView === UPLOADABLE && (
                                     <>
                                         <div className={s.board_title}>{currentQuest.text}</div>

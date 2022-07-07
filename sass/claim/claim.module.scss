@@ -176,43 +176,43 @@ $list-text-font-size-large: 1.25rem;
 		height: 90%;
 		& > span { 
             width: 100%;
-            font-size: 1.35vh;
+            font-size: 1.2vh;
 	        font-family: Safety Goggles;
             font-weight: 400;
 	        text-align: center;
 
-            line-height: 1.15rem;
+            line-height: 1.05rem;
             @media (min-width: $bp-small) {  
                 font-size: 1rem;
             }
             @media (min-width: $bp-small-2) {  
-                font-size: 1.3rem;
+                font-size: 1.15rem;
             }
 	        @media (min-width: $bp-small-3) {  
-                font-size: 1.75rem;
-                line-height: 1.5rem;
+                font-size: 1.55rem;
+                line-height: 1.35rem;
             }
             @media (min-width: $bp-med-2) {  
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
             @media (min-width: $bp-xl) {  
                 font-size: $heading-font-size-med;
             }
 		}
         & > img { 
-            margin-left: 0.35rem;
-            max-height: 55%;
+            margin-left: 0.3rem;
+            max-height: 50%;
             width: auto!important;
 
             @media (min-width: $bp-small-3) {  
                 max-height: 65%;
             }
             @media (min-width: $bp-med-2) {  
-                max-height: 80%;
+                max-height: 65%;
             }
 
             @media (min-width: $bp-large-2) {  
-                max-height: 70%;
+                max-height: 65%;
             }
 		}
         & > img:nth-child(2) { 

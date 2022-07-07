@@ -9,7 +9,7 @@ import { BoardSmallDollarSign } from ".";
 import * as tf from "@tensorflow/tfjs";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
-const ANOMURA_DISCORD_SERVER = 851558628032905286;
+const ANOMURA_DISCORD_SERVER = "851558628032905286";
 // 954167590677258241 test
 // 851558628032905286 production
 

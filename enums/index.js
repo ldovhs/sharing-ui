@@ -38,7 +38,7 @@ const Enums = {
     CODE_QUEST: "Code Quest",
 
     // Image approval
-    ITEM_PER_PAGE: 5,
+    ITEM_PER_PAGE: 100,
 };
 
 module.exports = Enums;

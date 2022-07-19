@@ -68,37 +68,34 @@ const AddPendingRewardAPI = async (req, res) => {
                     });
                 }
 
+                pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
+                pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;
 
-                if (postInBotChannel || postInGeneralChannel) {
-                    /* pending reward should be a chest for lore purpose*/
-                    pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
-                    pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;
-
-                    if (user.discordId != null && user.discordId.trim().length > 0) {
-                        pendingReward.receivingUser = `<@${user.discordId.trim()}>`;
-                    } else {
-                        pendingReward.receivingUser = pendingReward.user.wallet;
-                    }
-
-                    await axios
-                        .post(
-                            `${DISCORD_NODEJS}/api/v1/channels/pendingReward`,
-                            {
-                                pendingReward,
-                                postInDiscord: { postInBotChannel, postInGeneralChannel },
-                                user
-                            },
-                            {
-                                headers: {
-                                    Authorization: `Bot ${NODEJS_SECRET}`,
-                                    "Content-Type": "application/json",
-                                },
-                            }
-                        )
-                        .catch((err) => {
-                            console.log(err);
-                        });
+                if (user.discordId != null && user.discordId.trim().length > 0) {
+                    pendingReward.receivingUser = `<@${user.discordId.trim()}>`;
+                } else {
+                    pendingReward.receivingUser = pendingReward.user.wallet;
                 }
+
+                await axios
+                    .post(
+                        `${DISCORD_NODEJS}/api/v1/channels/pendingReward`,
+                        {
+                            pendingReward,
+                            postInDiscord: { postInBotChannel, postInGeneralChannel },
+                            user
+                        },
+                        {
+                            headers: {
+                                Authorization: `Bot ${NODEJS_SECRET}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
 
                 res.status(200).json(pendingReward);
             } catch (err) {

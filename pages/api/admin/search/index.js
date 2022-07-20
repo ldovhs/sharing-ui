@@ -7,10 +7,10 @@ const adminSearchAPI = async (req, res) => {
 
     switch (method) {
         case "POST":
-            const { wallet, userId, twitter, discord, rewards } = req.body;
+            const { wallet, userId, twitter, discord, rewards, listId } = req.body;
 
             let userCondition = {},
-                rewardCondition = [];
+                rewardCondition = [], mintAddress = [];
 
             if (wallet !== "") {
                 userCondition.wallet = { contains: wallet.trim() };
@@ -60,6 +60,15 @@ const adminSearchAPI = async (req, res) => {
                         },
                     },
                 });
+
+                if (listId !== "None") {
+                    let mintAddresses = await prisma.whiteListAddress.findMany();
+                    let mintAddressArray = mintAddresses.map(el => el['wallet'])
+                    console.log(mintAddressArray.length)
+                    console.log(searchRes.length)
+                    searchRes = searchRes.filter((r) => mintAddressArray.includes(r.wallet));
+                    console.log(searchRes.length)
+                }
 
                 if (rewardCondition.length > 0) {
                     const result = searchRes.filter((r) => r.rewards.length > 0);

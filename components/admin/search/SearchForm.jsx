@@ -10,7 +10,10 @@ const initialValues = {
     twitter: "",
     discord: "",
     rewards: [],
+    listId: "None",
 };
+
+const lists = ["None", "WhiteList"];
 
 const SearchInfoSchema = object().shape({
     rewards: array().of(
@@ -188,6 +191,20 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                         </>
                                     )}
                                 </FieldArray>
+
+                                {/* Type of List */}
+                                <div className="col-6 mb-3">
+                                    <label className="form-label">List</label>
+                                    <Field name="listId" as="select" className={"form-control"}>
+                                        {lists.map((type, index) => {
+                                            return (
+                                                <option key={index} value={type}>
+                                                    {type}
+                                                </option>
+                                            );
+                                        })}
+                                    </Field>
+                                </div>
                             </div>
 
                             <div className="mt-3">

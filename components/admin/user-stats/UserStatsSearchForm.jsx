@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ErrorMessage, Field, Form, Formik, FieldArray, getIn } from "formik";
 import { object, array, string, number, ref } from "yup";
-import axios from "axios";
 
 const initialValues = {
     contract: "",
@@ -14,16 +13,12 @@ const chains = ["eth", "polygon", "bsc", "avalance", "fantom"];
 const SearchInfoSchema = object().shape({});
 
 const UserStatsSearchForm = ({ onFormSubmit }) => {
-    useEffect(async () => {}, []);
-
     return (
         <>
             <Formik
                 initialValues={initialValues}
                 validationSchema={SearchInfoSchema}
                 onSubmit={async (fields) => {
-                    // console.log(fields);
-
                     onFormSubmit(fields);
                 }}
                 validateOnBlur={true}

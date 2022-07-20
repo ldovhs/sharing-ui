@@ -61,13 +61,17 @@ const adminSearchAPI = async (req, res) => {
                     },
                 });
 
-                if (listId !== "None") {
+                if (listId === "WhiteList") {
                     let mintAddresses = await prisma.whiteListAddress.findMany();
                     let mintAddressArray = mintAddresses.map(el => el['wallet'])
-                    console.log(mintAddressArray.length)
-                    console.log(searchRes.length)
-                    searchRes = searchRes.filter((r) => mintAddressArray.includes(r.wallet));
-                    console.log(searchRes.length)
+
+                    searchRes = searchRes.filter((r) => {
+                        if (mintAddressArray.includes(r.wallet))
+                            return true;
+                        else {
+                            return false;
+                        }
+                    });
                 }
 
                 if (rewardCondition.length > 0) {

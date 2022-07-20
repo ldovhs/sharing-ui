@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
+import useTable from "@hooks/useTable";
+import TableFooter from "../elements/Table/TableFooter";
 
 const fetcher = async (url, req) => await axios.post(url, req).then((res) => res.data);
 
@@ -8,12 +10,14 @@ const ADMIN_SEARCH = "/challenger/api/admin/search";
 
 export default function SearchResults({ formData }) {
     const { data, error } = useSWR([ADMIN_SEARCH, formData], fetcher);
+    const [tableData, setTableData] = useState(null);
     const [csvData, setCsvData] = useState(null);
 
     useEffect(async () => {
         if (data) {
             let csv = await BuildCsv(data);
             setCsvData(csv);
+            setTableData(data);
         }
     }, [data]);
 
@@ -38,80 +42,127 @@ export default function SearchResults({ formData }) {
                     )}
                     <a
                         href={`data:text/plain;charset=utf-8,${encodeURIComponent(
-                            JSON.stringify(data)
+                            JSON.stringify(tableData)
                         )}`}
                         download={`Search - ${new Date().toISOString()}.json`}
                         className="mr-2"
                     >
                         Export as Json
                     </a>
-                    <div className="text-green-600 font-bold">Search Results: {data?.length}</div>
-                </div>
-            </div>
-            {data?.length > 0 && (
-                <div className="card">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="table-responsive table-icon">
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th className="col-2">User</th>
-                                            <th className="col-4">Wallet</th>
-                                            <th className="col-1">Twitter</th>
-                                            <th className="col-2">Discord</th>
-                                            <th className="col-3">Rewards</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data &&
-                                            data.map((el, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td className="col-2">{el.userId}</td>
-                                                        <td className="col-4">{el.wallet}</td>
-                                                        <td className="col-2">
-                                                            {el.twitterUserName}
-                                                        </td>
-                                                        <td className="col-2">
-                                                            {el.discordUserDiscriminator}
-                                                        </td>
-                                                        <td className="col-2">
-                                                            {el.rewards.map((reward, rIndex) => {
-                                                                return (
-                                                                    <span
-                                                                        key={rIndex}
-                                                                        className="text-blue-500"
-                                                                    >
-                                                                        {rIndex === 0
-                                                                            ? `${reward.rewardType.reward} (${reward.quantity})`
-                                                                            : `, ${reward.rewardType.reward} (${reward.quantity})`}
-                                                                    </span>
-                                                                );
-                                                            })}
-                                                            {/* <span>
-                                                        <i className="ri-check-line text-success me-1"></i>
-                                                    </span>
-                                                    <span>
-                                                        <i className="ri-close-line text-danger"></i>
-                                                    </span> */}
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div className="text-green-600 font-bold">
+                        Search Results: {tableData?.length}
                     </div>
                 </div>
+            </div>
+            {tableData?.length > 0 && (
+                <Table data={tableData} rowsPerPage={10} setTableData={setTableData} />
+                // <div className="card">
+                //     <div className="card-body">
+                //         <div className="table-responsive table-icon">
+                //             <table className="table">
+                //                 <thead>
+                //                     <tr>
+                //                         <th className="col-2">User</th>
+                //                         <th className="col-4">Wallet</th>
+                //                         <th className="col-1">Twitter</th>
+                //                         <th className="col-2">Discord</th>
+                //                         <th className="col-3">Rewards</th>
+                //                     </tr>
+                //                 </thead>
+                //                 <tbody>
+                //                     {data &&
+                //                         data.map((el, index) => {
+                //                             return (
+                //                                 <tr key={index}>
+                //                                     <td className="col-2">{el.userId}</td>
+                //                                     <td className="col-4">{el.wallet}</td>
+                //                                     <td className="col-2">{el.twitterUserName}</td>
+                //                                     <td className="col-2">
+                //                                         {el.discordUserDiscriminator}
+                //                                     </td>
+                //                                     <td className="col-2">
+                //                                         {el.rewards.map((reward, rIndex) => {
+                //                                             return (
+                //                                                 <span
+                //                                                     key={rIndex}
+                //                                                     className="text-blue-500"
+                //                                                 >
+                //                                                     {rIndex === 0
+                //                                                         ? `${reward.rewardType.reward} (${reward.quantity})`
+                //                                                         : `, ${reward.rewardType.reward} (${reward.quantity})`}
+                //                                                 </span>
+                //                                             );
+                //                                         })}
+                //                                         {/* <span>
+                //                                         <i className="ri-check-line text-success me-1"></i>
+                //                                     </span>
+                //                                     <span>
+                //                                         <i className="ri-close-line text-danger"></i>
+                //                                     </span> */}
+                //                                     </td>
+                //                                 </tr>
+                //                             );
+                //                         })}
+                //                 </tbody>
+                //             </table>
+                //         </div>
+                //     </div>
+                // </div>
             )}
         </>
     );
 }
 
+const Table = ({ data, rowsPerPage, setTableData }) => {
+    const [page, setPage] = useState(1);
+    const { slice, range } = useTable(data, page, rowsPerPage);
+
+    return (
+        <div className="card">
+            <div className="card-body">
+                <div className="table-responsive table-icon">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th className="col-2">User</th>
+                                <th className="col-4">Wallet</th>
+                                <th className="col-1">Twitter</th>
+                                <th className="col-2">Discord</th>
+                                <th className="col-3">Rewards</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {slice.map((el, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td className="col-2">{el.userId}</td>
+                                        <td className="col-4">{el.wallet}</td>
+                                        <td className="col-2">{el.twitterUserName}</td>
+                                        <td className="col-2">{el.discordUserDiscriminator}</td>
+                                        <td className="col-2">
+                                            {el.rewards.map((reward, rIndex) => {
+                                                return (
+                                                    <span key={rIndex} className="text-blue-500">
+                                                        {rIndex === 0
+                                                            ? `${reward.rewardType.reward} (${reward.quantity})`
+                                                            : `, ${reward.rewardType.reward} (${reward.quantity})`}
+                                                    </span>
+                                                );
+                                            })}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                    <TableFooter range={range} slice={slice} setPage={setPage} page={page} />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const BuildCsv = async (data) => {
-    //console.log(data);
     const csvString = [
         [
             "UserID",
@@ -120,7 +171,6 @@ const BuildCsv = async (data) => {
             "TwitterUserName",
             "Discord User Discriminator",
             "Discord Id",
-
             "Rewards",
         ],
         ...data.map((item) => [

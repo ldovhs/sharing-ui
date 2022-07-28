@@ -105,7 +105,7 @@ export default function ConnectBoard() {
                             {currentPrompt === CONNECT_OPTIONS && !web3Error && (
                                 <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
-                                        <button
+                                        {/* <button
                                             className={s.board_orangeBtn}
                                             onClick={() => router.push(`/user/signup`)}
                                         >
@@ -116,7 +116,7 @@ export default function ConnectBoard() {
                                             <div>
                                                 <span>Sign Up</span>
                                             </div>
-                                        </button>
+                                        </button> */}
                                         <button
                                             className={s.board_tealBtn}
                                             onClick={() => changeView(SIGNIN_OPTIONS)}

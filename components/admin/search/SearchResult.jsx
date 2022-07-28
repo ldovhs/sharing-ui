@@ -11,12 +11,11 @@ const ADMIN_SEARCH = "/challenger/api/admin/search";
 export default function SearchResults({ formData }) {
     const { data, error } = useSWR([ADMIN_SEARCH, formData], fetcher);
     const [tableData, setTableData] = useState(null);
-    const [csvData, setCsvData] = useState(null);
 
     useEffect(async () => {
         if (data) {
-            let csv = await BuildCsv(data);
-            setCsvData(csv);
+            // let csv = await BuildCsv(data);
+            // setCsvData(csv);
             setTableData(data);
         }
     }, [data]);
@@ -24,22 +23,23 @@ export default function SearchResults({ formData }) {
     if (error) {
         return <div>{error}</div>;
     }
-    if (!data) return <div>loading...</div>;
+    if (!tableData) return <div>Loading...</div>;
 
     return (
         <>
             <div className="card-header px-0">
                 <h4 className=" mb-0">Result</h4>
                 <div className="d-flex ">
-                    {csvData && (
-                        <a
-                            href={`data:text/csv;charset=utf-8,${encodeURIComponent(csvData)}`}
-                            download={`Search - ${new Date().toISOString()}.csv`}
-                            className="mr-2"
-                        >
-                            Export as CSV
-                        </a>
-                    )}
+                    <a
+                        href={`data:text/csv;charset=utf-8,${encodeURIComponent(
+                            BuildCsv(tableData)
+                        )}`}
+                        download={`Search - ${new Date().toISOString()}.csv`}
+                        className="mr-2"
+                    >
+                        Export as CSV
+                    </a>
+
                     <a
                         href={`data:text/plain;charset=utf-8,${encodeURIComponent(
                             JSON.stringify(tableData)

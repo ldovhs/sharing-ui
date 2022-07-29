@@ -72,13 +72,11 @@ function SignUp() {
         }
     };
     const GoBack = () => {
-        if (currentPrompt === SIGNUP_OPTIONS) {
-            return router.push("/");
-        }
         if (currentPrompt === SIGNUP_ERROR) {
             setWeb3Error(null);
             return router.push("/");
         }
+        return router.push("/");
     };
 
     const onChange = (value) => {

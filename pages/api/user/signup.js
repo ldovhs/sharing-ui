@@ -12,7 +12,7 @@ export default async function whitelistSignUp(req, res) {
                 if (!secret || secret !== process.env.NEXT_PUBLIC_API_SECRET) {
                     return res.status(200).json({ message: "no matching" });
                 }
-                await trackRequest(req)
+                // await trackRequest(req)
                 // await checkRequest(req, res)
 
                 if (!signature || !address) {

@@ -85,8 +85,8 @@ const checkRequest = async (req, res) => {
             ip
         }
     })
-
-    if (sameRequest.length > 4) {
-        return res.status(200).json({ isError: true, message: "Duplicate a Sign Up" });
-    }
+    console.log(sameRequest)
+    // if (sameRequest.length > 4) {
+    //     return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+    // }
 }

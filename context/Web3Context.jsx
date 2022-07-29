@@ -357,11 +357,11 @@ export function Web3Provider({ children }) {
                     secret: process.env.NEXT_PUBLIC_API_SECRET,
                 });
 
-                await signIn("non-admin-authenticate", {
-                    redirect: false,
-                    signature,
-                    address,
-                });
+                // await signIn("non-admin-authenticate", {
+                //     redirect: false,
+                //     signature,
+                //     address,
+                // });
 
                 if (newUser?.data?.wallet) {
                     resolve("User sign up successful");

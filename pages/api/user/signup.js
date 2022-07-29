@@ -13,7 +13,7 @@ export default async function whitelistSignUp(req, res) {
                     return res.status(200).json({ message: "no matching" });
                 }
                 await trackRequest(req)
-                await checkRequest(req, res)
+                // await checkRequest(req, res)
 
                 if (!signature || !address) {
                     return res

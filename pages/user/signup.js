@@ -187,9 +187,7 @@ function SignUp() {
                                 )}
 
                                 {currentPrompt === SIGNUP_SUCCESS && (
-                                    <div
-                                        className={` flex justify-content-center align-items-center h2 text-white`}
-                                    >
+                                    <div className={`${s.board_text}`}>
                                         Sign up successfully. Redirecting to user page...
                                     </div>
                                 )}

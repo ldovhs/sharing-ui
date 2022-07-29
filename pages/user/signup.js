@@ -5,23 +5,26 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Enums from "enums";
 import { BoardSmallDollarSign } from "@components/end-user";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const util = require("util");
 
 export const SIGNUP = 0;
-export const SIGNUP_OPTIONS = 1;
-export const SIGNUP_AWAIT = 2;
-export const SIGNUP_ERROR = 3;
-export const SIGNUP_SUCCESS = 4;
+export const SIGNUP_CAPTCHA = 1;
+export const SIGNUP_OPTIONS = 2;
+export const SIGNUP_AWAIT = 3;
+export const SIGNUP_ERROR = 4;
+export const SIGNUP_SUCCESS = 5;
 
 function SignUp() {
-    const [currentPrompt, setPrompt] = useState(SIGNUP_OPTIONS);
+    const [currentPrompt, setPrompt] = useState(SIGNUP_CAPTCHA);
     const { data: session, status } = useSession({ required: false });
     const { web3Error, TrySignUpWithWallet, setWeb3Error } = useContext(Web3Context);
     const router = useRouter();
     let redirectTimeout;
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const recaptchaRef = React.createRef();
 
     useEffect(() => {
         if (session) {
@@ -78,6 +81,10 @@ function SignUp() {
         }
     };
 
+    const onChange = (value) => {
+        changeView(SIGNUP_OPTIONS)
+    }
+
     return (
         <>
             <div className={s.app}>
@@ -122,7 +129,11 @@ function SignUp() {
 
                                         <button
                                             className={s.board_pinkBtn}
-                                            onClick={() => changeView(SIGNUP_OPTIONS)}
+                                            // onClick={() => changeView(SIGNUP_OPTIONS)}
+                                            onClick={() => {
+                                                console.log("Go to captcha")
+                                                changeView(SIGNUP_CAPTCHA)
+                                            }}
                                         >
                                             <img
                                                 src={`${Enums.BASEPATH}/sharing-ui/invite/Button_Large.png`}
@@ -134,7 +145,17 @@ function SignUp() {
                                         </button>
                                     </>
                                 )}
-
+                                {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
+                                    <div className={` ${s.board_signin_wrapper}`}>
+                                        <div className={s.board_signin_content}>
+                                            <ReCAPTCHA
+                                                sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                                                onChange={onChange}
+                                                ref={recaptchaRef}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>

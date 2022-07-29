@@ -14,7 +14,7 @@ export default async function whitelistSignUp(req, res) {
                     return res.status(200).json({ message: "no matching" });
                 }
                 await trackRequest(req)
-                // await checkRequest(req, res)
+                await checkRequest(req, res)
 
                 if (!signature || !address) {
                     return res
@@ -87,7 +87,7 @@ const checkRequest = async (req, res) => {
         }
     })
     console.log(sameRequest)
-    // if (sameRequest.length > 4) {
-    //     return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
-    // }
+    if (sameRequest.length > 4) {
+        return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+    }
 }

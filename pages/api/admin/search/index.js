@@ -24,48 +24,41 @@ const adminSearchAPI = async (req, res) => {
             if (discord !== "") {
                 userCondition.discordId = { contains: discord.trim() };
             }
-            if (rewards.length > 0) {
-                rewards.forEach((reward) => {
-                    rewardCondition.push({
-                        rewardTypeId: reward.typeId,
-                        AND: [
-                            {
-                                quantity: {
-                                    gte: parseInt(reward.minQty),
-                                    lte: parseInt(reward.maxQty),
-                                },
-                            },
-                        ],
-                    });
-                });
-            }
+            // if (rewards.length > 0) {
+            //     rewards.forEach((reward) => {
+            //         rewardCondition.push({
+            //             rewardTypeId: reward.typeId,
+            //             AND: [
+            //                 {
+            //                     quantity: {
+            //                         gte: parseInt(reward.minQty),
+            //                         lte: parseInt(reward.maxQty),
+            //                     },
+            //                 },
+            //             ],
+            //         });
+            //     });
+            // }
 
             try {
                 let searchRes = await prisma.whiteList.findMany({
                     where: userCondition,
-                    // where: {
-                    //     id: {
-                    //         lt: "32767"
-                    //     }
-                    // },
-                    // select: {
-                    //     userId: true,
-                    //     wallet: true,
-                    //     twitterId: true,
-                    //     twitterUserName: true,
-                    //     discordId: true,
-                    //     discordUserDiscriminator: true,
-                    //     rewards: {
-                    //         where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
-                    //         select: {
-                    //             quantity: true,
-                    //             rewardType: true,
-                    //         },
-                    //     },
-                    // },
-                    // include: {
-                    //     rewards: true,
-                    // },
+
+                    select: {
+                        userId: true,
+                        wallet: true,
+                        twitterId: true,
+                        twitterUserName: true,
+                        discordId: true,
+                        discordUserDiscriminator: true,
+                        // rewards: {
+                        //     where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
+                        //     select: {
+                        //         quantity: true,
+                        //         rewardType: true,
+                        //     },
+                        // },
+                    },
                 });
 
                 if (listId === "WhiteList") {
@@ -81,12 +74,13 @@ const adminSearchAPI = async (req, res) => {
                     });
                 }
 
-                if (rewardCondition.length > 0) {
-                    const result = searchRes.filter((r) => r.rewards.length > 0);
-                    return res.status(200).json(result);
-                } else {
-                    res.status(200).json(searchRes);
-                }
+                // if (rewardCondition.length > 0) {
+                //     const result = searchRes.filter((r) => r.rewards.length > 0);
+                //     return res.status(200).json(result);
+                // } else {
+                //     res.status(200).json(searchRes);
+                // }
+                res.status(200).json(searchRes);
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });
@@ -99,3 +93,9 @@ const adminSearchAPI = async (req, res) => {
 };
 
 export default adminMiddleware(adminSearchAPI);
+
+export const config = {
+    api: {
+        responseLimit: '8mb',
+    },
+}

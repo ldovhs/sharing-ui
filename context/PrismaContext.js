@@ -7,7 +7,9 @@ import { PrismaClient, EquipmentType } from '@prisma/client'
 
 export const prisma =
     global.prisma ||
-    new PrismaClient({ log: ['query'] })
+    new PrismaClient({
+        // log: ['query']
+    })
 
 export const equipmentType = EquipmentType
 

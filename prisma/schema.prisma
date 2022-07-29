@@ -237,3 +237,13 @@ model BullJob {
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @default(now()) @updatedAt
 }
+
+model logRegister {
+    id                Int                 @id @default(autoincrement())
+    url               String
+    referer           String?
+    userAgent         String?
+    wallet            String?             
+    ip                String?
+    createdAt         DateTime            @default(now())
+}

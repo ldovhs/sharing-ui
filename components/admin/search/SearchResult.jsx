@@ -140,7 +140,7 @@ const Table = ({ data, rowsPerPage, setTableData }) => {
                                         <td className="col-2">{el.twitterUserName}</td>
                                         <td className="col-2">{el.discordUserDiscriminator}</td>
                                         <td className="col-2">
-                                            {el.rewards.map((reward, rIndex) => {
+                                            {el?.rewards?.map((reward, rIndex) => {
                                                 return (
                                                     <span key={rIndex} className="text-blue-500">
                                                         {rIndex === 0
@@ -192,7 +192,7 @@ const BuildCsv = async (data) => {
 
 const flattenRewards = (rewards) => {
     let res = "";
-    rewards.map((r) => {
+    rewards?.map((r) => {
         res = res + ` ${r.rewardType.reward}(${r.quantity}),`;
     });
     return res;

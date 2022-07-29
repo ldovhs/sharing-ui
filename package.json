@@ -3,12 +3,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prepare": "npx prisma generate",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "^3.13.0",
     "@metamask/eth-sig-util": "^4.0.1",
     "@nsfw-filter/nsfwjs": "^2.2.0",
-    "@qhuynhvhslab/anomura-prisma-package": "^1.0.55",
     "@tensorflow/tfjs": "^3.18.0",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
@@ -35,6 +37,7 @@
     "autoprefixer": "^10.4.1",
     "postcss": "^8.4.5",
     "swr": "^1.2.1",
-    "tailwindcss": "^3.0.10"
+    "tailwindcss": "^3.0.10",
+    "prisma": "^3.9.1"
   }
 }

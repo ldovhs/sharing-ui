@@ -354,6 +354,7 @@ export function Web3Provider({ children }) {
                 const newUser = await axios.post(API_SIGNUP, {
                     address,
                     signature,
+                    secret: process.env.NEXT_PUBLIC_API_SECRET,
                 });
 
                 await signIn("non-admin-authenticate", {

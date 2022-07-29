@@ -43,22 +43,29 @@ const adminSearchAPI = async (req, res) => {
             try {
                 let searchRes = await prisma.whiteList.findMany({
                     where: userCondition,
-                    select: {
-                        id: true,
-                        userId: true,
-                        wallet: true,
-                        twitterId: true,
-                        twitterUserName: true,
-                        discordId: true,
-                        discordUserDiscriminator: true,
-                        rewards: {
-                            where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
-                            select: {
-                                quantity: true,
-                                rewardType: true,
-                            },
-                        },
-                    },
+                    // where: {
+                    //     id: {
+                    //         lt: "32767"
+                    //     }
+                    // },
+                    // select: {
+                    //     userId: true,
+                    //     wallet: true,
+                    //     twitterId: true,
+                    //     twitterUserName: true,
+                    //     discordId: true,
+                    //     discordUserDiscriminator: true,
+                    //     rewards: {
+                    //         where: rewardCondition.length === 0 ? {} : { OR: rewardCondition },
+                    //         select: {
+                    //             quantity: true,
+                    //             rewardType: true,
+                    //         },
+                    //     },
+                    // },
+                    // include: {
+                    //     rewards: true,
+                    // },
                 });
 
                 if (listId === "WhiteList") {

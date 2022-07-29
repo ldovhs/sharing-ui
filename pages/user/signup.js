@@ -25,7 +25,6 @@ function SignUp() {
 
     useEffect(() => {
         if (session) {
-            //router.push("/user/quest");
             router.push("/");
         }
     }, [session]);
@@ -90,7 +89,7 @@ function SignUp() {
                                 {(currentPrompt === SIGNUP_ERROR || web3Error) && (
                                     <>
                                         <div className={`${s.board_text}`}>{web3Error}</div>
-                                        {/* <button
+                                        <button
                                             className={s.board_pinkBtn}
                                             onClick={() => {
                                                 setWeb3Error(null);
@@ -104,7 +103,7 @@ function SignUp() {
                                             <div>
                                                 <span>Go Back</span>
                                             </div>
-                                        </button> */}
+                                        </button>
                                     </>
                                 )}
 

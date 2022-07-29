@@ -95,7 +95,7 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                     <Field name="discord" type="text" className={"form-control"} />
                                 </div>
 
-                                <FieldArray name="rewards">
+                                {/* <FieldArray name="rewards">
                                     {(arrayHelpers) => (
                                         <>
                                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3 flex items-center">
@@ -190,7 +190,7 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                                 })}
                                         </>
                                     )}
-                                </FieldArray>
+                                </FieldArray> */}
 
                                 {/* Type of List */}
                                 <div className="col-6 mb-3">

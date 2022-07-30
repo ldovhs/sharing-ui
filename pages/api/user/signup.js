@@ -81,6 +81,12 @@ const trackRequest = async (req) => {
 
 const blockedUserAgentArr = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+]
+
+const blockIPArr = [
+    "103.152.220.44"
 ]
 
 const checkRequest = async (req, res) => {
@@ -95,6 +101,10 @@ const checkRequest = async (req, res) => {
     }
     const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
 
+    if (blockIPArr.includes(ip)) {
+        console.log("found blocked ip test")
+        return false
+    }
     let sameRequest = await prisma.logRegister.findMany({
         where: {
             ip

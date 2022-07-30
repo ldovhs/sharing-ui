@@ -6,6 +6,7 @@ import Enums from "enums";
 import { isWhiteListUser } from "repositories/session-auth";
 import { getQuestType, getQuestByTypeId } from "repositories/quest";
 import { updateTwitterUserAndAddRewardTransaction } from "repositories/transactions";
+import { prisma } from "@context/PrismaContext";
 
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";

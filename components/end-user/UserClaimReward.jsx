@@ -27,7 +27,7 @@ const UserClaimReward = ({
         }
         await onSubmitReward(reward.pendingReward);
     };
-    console.log(session);
+
     return (
         <div className={s.board}>
             <div className={s.board_container}>

@@ -22,6 +22,7 @@ export default async function twitterRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
+
                 let whiteListUser = await isWhiteListUser(session);
 
                 if (!session || !utils.isAddress(whiteListUser.wallet)) {
@@ -73,11 +74,11 @@ export default async function twitterRedirect(req, res) {
                     let error = "Twitter account is already authenticated.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
-
+                console.log(userInfo?.data?.data?.username)
                 // find user of this twitter handle
                 let existingTwitterUser = await prisma.whiteList.findFirst({
                     where: {
-                        twitterUserName: userInfo?.data?.data?.username,
+                        twitterId: userInfo?.data?.data?.id,
                     },
                 });
                 if (existingTwitterUser) {

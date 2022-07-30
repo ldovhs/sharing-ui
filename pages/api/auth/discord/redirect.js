@@ -14,8 +14,6 @@ const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
 const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } =
     process.env;
 
-const ROUTE = "/api/auth/dicord/redirect";
-
 // @dev this is used for discord auth quest only
 export default async function discordRedirect(req, res) {
     const { method } = req;
@@ -24,6 +22,7 @@ export default async function discordRedirect(req, res) {
         case "GET":
             try {
                 const session = await getSession({ req });
+
                 let whiteListUser = await isWhiteListUser(session);
 
                 if (!session || !whiteListUser || !utils.isAddress(whiteListUser.wallet)) {
@@ -80,7 +79,7 @@ export default async function discordRedirect(req, res) {
                 // find user of this discord discriminator
                 let existingDiscordUser = await prisma.whiteList.findFirst({
                     where: {
-                        discordUserDiscriminator: userInfo.data.discriminator,
+                        discordId: userInfo.data.id,
                     },
                 });
                 if (existingDiscordUser) {
@@ -96,10 +95,6 @@ export default async function discordRedirect(req, res) {
 
                 let discordQuest = await getQuestByTypeId(discordAuthQuestType.id);
                 if (!discordQuest) {
-                    // return res.status(200).json({
-                    //     isError: true,
-                    //     message: "Cannot find quest associated with discord auth",
-                    // });
 
                     let error = "Cannot find quest associated with discord auth";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
@@ -121,7 +116,7 @@ export default async function discordRedirect(req, res) {
 
                 res.status(200).redirect(`/challenger/quest-redirect`);
             } catch (err) {
-                // console.log(err);
+                console.log(err);
                 res.status(200).json({ error: err.message });
             }
             break;

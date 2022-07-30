@@ -74,6 +74,17 @@ export default async function twitterRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                // find user of this twitter handle
+                let existingTwitterUser = await prisma.whiteList.findFirst({
+                    where: {
+                        twitterUserName: userInfo?.data?.data?.username,
+                    },
+                });
+                if (existingTwitterUser) {
+                    let error = "Same twitter user authenticated";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
                 let twitterAuthQuestType = await getQuestType(Enums.TWITTER_AUTH);
                 if (!twitterAuthQuestType) {
                     let error =

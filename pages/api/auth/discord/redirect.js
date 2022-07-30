@@ -77,6 +77,17 @@ export default async function discordRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                // find user of this discord discriminator
+                let existingDiscordUser = await prisma.whiteList.findFirst({
+                    where: {
+                        discordUserDiscriminator: userInfo.data.discriminator,
+                    },
+                });
+                if (existingDiscordUser) {
+                    let error = "Same discord user authenticated";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
                 let discordAuthQuestType = await getQuestType(Enums.DISCORD_AUTH);
                 if (!discordAuthQuestType) {
                     let error = "Cannot find quest type discord auth";

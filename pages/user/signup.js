@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Enums from "enums";
 import { BoardSmallDollarSign } from "@components/end-user";
 import ReCAPTCHA from "react-google-recaptcha";
+// import Reaptcha from 'reaptcha';
 
 const util = require("util");
 
@@ -98,7 +99,8 @@ function SignUp() {
                                             className={s.board_pinkBtn}
                                             onClick={() => {
                                                 setWeb3Error(null);
-                                                changeView(SIGNUP_OPTIONS);
+                                                // changeView(SIGNUP_CAPTCHA);
+                                                return router.push("/");
                                             }}
                                         >
                                             <img
@@ -151,6 +153,7 @@ function SignUp() {
                                                 onChange={onChange}
                                                 ref={recaptchaRef}
                                             />
+
                                         </div>
                                     </div>
                                 )}

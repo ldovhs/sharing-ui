@@ -13,8 +13,12 @@ export default async function whitelistSignUp(req, res) {
                 if (!secret || secret !== process.env.NEXT_PUBLIC_API_SECRET) {
                     return res.status(200).json({ message: "no matching" });
                 }
+                let check = await checkRequest(req, res)
+                if (check === false) {
+                    return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+                }
+
                 await trackRequest(req)
-                await checkRequest(req, res)
 
                 if (!signature || !address) {
                     return res
@@ -75,10 +79,20 @@ const trackRequest = async (req) => {
     })
 }
 
+const blockedUserAgentArr = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+]
+
 const checkRequest = async (req, res) => {
     const { url, headers } = req;
 
     const forwarded = req.headers["x-forwarded-for"]
+    const userAgent = headers['user-agent'];
+
+    if (blockedUserAgentArr.includes(userAgent)) {
+        console.log("found blocked user agent test")
+        return false
+    }
     const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
 
     let sameRequest = await prisma.logRegister.findMany({
@@ -86,8 +100,9 @@ const checkRequest = async (req, res) => {
             ip
         }
     })
-    console.log(sameRequest)
-    if (sameRequest.length > 4) {
-        return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+
+    if (sameRequest.length > 2) {
+        return false
     }
+    else return true
 }

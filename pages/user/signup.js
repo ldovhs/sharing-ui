@@ -11,14 +11,14 @@ import ReCAPTCHA from "react-google-recaptcha";
 const util = require("util");
 
 export const SIGNUP = 0;
-export const SIGNUP_CAPTCHA = 1;
-export const SIGNUP_OPTIONS = 2;
+export const SIGNUP_OPTIONS = 1;
+export const SIGNUP_CAPTCHA = 2;
 export const SIGNUP_AWAIT = 3;
 export const SIGNUP_ERROR = 4;
 export const SIGNUP_SUCCESS = 5;
 
 function SignUp() {
-    const [currentPrompt, setPrompt] = useState(SIGNUP_CAPTCHA);
+    const [currentPrompt, setPrompt] = useState(SIGNUP);
     const { data: session, status } = useSession({ required: false });
     const { web3Error, TrySignUpWithWallet, setWeb3Error } = useContext(Web3Context);
     const router = useRouter();
@@ -128,15 +128,15 @@ function SignUp() {
                                         </div>
 
                                         <button
-                                            className={s.board_pinkBtn}
+                                            className={s.board_orangeBtn}
                                             // onClick={() => changeView(SIGNUP_OPTIONS)}
                                             onClick={() => {
-                                                console.log("Go to captcha")
+
                                                 changeView(SIGNUP_CAPTCHA)
                                             }}
                                         >
                                             <img
-                                                src={`${Enums.BASEPATH}/sharing-ui/invite/Button_Large.png`}
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>
@@ -144,18 +144,6 @@ function SignUp() {
                                             </div>
                                         </button>
                                     </>
-                                )}
-                                {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
-                                    <div className={` ${s.board_signin_wrapper}`}>
-                                        <div className={s.board_signin_content}>
-                                            <ReCAPTCHA
-                                                sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
-                                                onChange={onChange}
-                                                ref={recaptchaRef}
-                                            />
-
-                                        </div>
-                                    </div>
                                 )}
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
@@ -189,6 +177,19 @@ function SignUp() {
                                         </div>
                                     </div>
                                 )}
+                                {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
+                                    <div className={` ${s.board_signin_wrapper}`}>
+                                        <div className={s.board_signin_content}>
+                                            <ReCAPTCHA
+                                                sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                                                onChange={onChange}
+                                                ref={recaptchaRef}
+                                            />
+
+                                        </div>
+                                    </div>
+                                )}
+
                                 {currentPrompt === SIGNUP_AWAIT && !web3Error && (
                                     <div className={s.board_loading}>
                                         <div className={s.board_loading_wrapper}>

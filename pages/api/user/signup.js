@@ -52,7 +52,7 @@ export default async function whitelistSignUp(req, res) {
 
                 res.status(200).json(newUser);
             } catch (error) {
-                console.log(error);
+
                 return res.status(200).json({ isError: true, message: error.message });
             }
             break;

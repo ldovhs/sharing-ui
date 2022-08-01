@@ -126,7 +126,7 @@ export default function ConnectBoard() {
                                                 alt="connectToContinue"
                                             />
                                             <div>
-                                                <span>Sign In</span>
+                                                <span>Log In</span>
                                             </div>
                                         </button>
                                     </div>

@@ -275,10 +275,13 @@ export function Web3Provider({ children }) {
                 setWeb3Error(err);
                 return false;
             });
+
             if (signUpRes === "User sign up successful") {
                 return true;
+            } else {
+                setWeb3Error(signUpRes);
             }
-            setWeb3Error("Cannot sign up user, please contact administrator!");
+
             return false;
         } catch (error) {
             setWeb3Error(error.message);
@@ -350,7 +353,7 @@ export function Web3Provider({ children }) {
                     .catch((err) => {
                         reject(err.message);
                     });
-
+                console.log(2);
                 const newUser = await axios.post(API_SIGNUP, {
                     address,
                     signature,
@@ -362,14 +365,11 @@ export function Web3Provider({ children }) {
                 //     signature,
                 //     address,
                 // });
-
-                if (newUser?.data?.wallet) {
-                    resolve("User sign up successful");
-                }
-
                 if (newUser?.data?.isError) {
                     setWeb3Error(newUser?.data?.message);
-                    resolve("error");
+                    resolve(newUser?.data?.message);
+                } else {
+                    resolve("User sign up successful");
                 }
             }, 1000);
         });

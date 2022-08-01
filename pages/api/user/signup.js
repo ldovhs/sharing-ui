@@ -14,11 +14,10 @@ export default async function whitelistSignUp(req, res) {
                     return res.status(200).json({ message: "no matching" });
                 }
                 let check = await checkRequest(req, res)
-                if (check === false) {
-                    return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
-                }
-
-                await trackRequest(req)
+                // if (check === false) {
+                //     console.log(`**Duplicate Sign Up**`);
+                //     return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+                // }
 
                 if (!signature || !address) {
                     return res
@@ -34,8 +33,11 @@ export default async function whitelistSignUp(req, res) {
                         .json({ isError: true, message: "The wallet address is not valid" });
                 }
 
+                await trackRequest(req)
+
                 const existingUser = await getWhiteListUserByWallet(wallet);
                 if (existingUser) {
+                    console.log(`Found existing user`);
                     return res.status(200).json({ existingUser });
                 }
 
@@ -46,6 +48,7 @@ export default async function whitelistSignUp(req, res) {
                         message: "Cannot sign up new user. Please contact administrator!",
                     });
                 }
+
 
                 res.status(200).json(newUser);
             } catch (error) {
@@ -82,7 +85,6 @@ const trackRequest = async (req) => {
 const blockedUserAgentArr = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
     //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-    //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
 ]
 
 const blockIPArr = [
@@ -90,29 +92,38 @@ const blockIPArr = [
 ]
 
 const checkRequest = async (req, res) => {
+    console.log(`**Check Request**`);
     const { url, headers } = req;
 
     const forwarded = req.headers["x-forwarded-for"]
     const userAgent = headers['user-agent'];
 
     if (blockedUserAgentArr.includes(userAgent)) {
-        console.log("found blocked user agent test")
-        return false
+        // console.log("found blocked user agent test")
+
+        // return false
+        return res.status(200).json({ isError: true, message: "User Agent blacklist" });
     }
     const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
 
     if (blockIPArr.includes(ip)) {
         console.log("found blocked ip test")
-        return false
+        // return false
+        return res.status(200).json({ isError: true, message: "Ip black list" });
     }
     let sameRequest = await prisma.logRegister.findMany({
         where: {
             ip
         }
     })
-
+    console.log(sameRequest)
     if (sameRequest.length > 2) {
-        return false
+        console.log("found same request")
+        // return false
+        return res.status(200).json({ isError: true, message: "Repetitive sign up" });
     }
-    else return true
+
+    // else {
+    //     return true
+    // }
 }

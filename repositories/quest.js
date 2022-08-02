@@ -56,6 +56,7 @@ export const getAllEnableQuestsForUser = async () => {
     return await prisma.quest.findMany({
         where: {
             isEnabled: true,
+            isDeleted: false
         },
         include: {
             rewardType: true,

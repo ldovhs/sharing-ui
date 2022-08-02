@@ -64,14 +64,20 @@ const ImageUpload = ({
             }
 
             if (findSubmissionQuest) {
-                if (findSubmissionQuest.isDone) {
-                    let submittedQuestBefore = await axios.get(
-                        `${Enums.BASEPATH}/api/user/quest/${findSubmissionQuest.questId}`
-                    );
+                let submittedQuestBefore = await axios.get(
+                    `${Enums.BASEPATH}/api/user/quest/${findSubmissionQuest.questId}`
+                );
 
-                    if (submittedQuestBefore) {
-                        setSubmittedQuest(submittedQuestBefore.data);
-                    }
+                console.log(submittedQuestBefore);
+                if (submittedQuestBefore.data.isError) {
+                    setView(ERROR);
+                    return setError(submittedQuestBefore?.data?.message);
+                }
+
+                if (submittedQuestBefore) {
+                    setSubmittedQuest(submittedQuestBefore.data);
+                }
+                if (findSubmissionQuest.isDone) {
                     setView(SUBMITTED);
                 }
             }
@@ -100,17 +106,15 @@ const ImageUpload = ({
     async function handleOnSubmit() {
         try {
             const predictions = await nsfwModel.classify(imageEl.current);
-            // console.log("Predictions: ", predictions);
+
             setIsLoading(true);
             /** Checking for NSFW */
             let toContinue = true;
             let imageProcess = predictions.map((p) => {
                 if (p?.className === "Porn" && p.probability >= 0.6) {
-                    // console.log(p.probability);
                     toContinue = false;
                 }
                 if (p?.className === "Hentai" && p.probability >= 0.6) {
-                    // console.log(p.probability);
                     toContinue = false;
                 }
             });
@@ -153,7 +157,7 @@ const ImageUpload = ({
             setIsLoading(false);
         }
     }
-    console.log(error);
+
     return (
         <div className={s.board}>
             <div className={s.board_container}>

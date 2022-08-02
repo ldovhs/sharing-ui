@@ -13,7 +13,11 @@ export default async function whitelistSignUp(req, res) {
                 if (!secret || secret !== process.env.NEXT_PUBLIC_API_SECRET) {
                     return res.status(200).json({ message: "no matching" });
                 }
-                let check = await checkRequest(req, res)
+                let checkMessage = await checkRequest(req, res)
+                if (checkMessage !== "") {
+                    return res.status(200).json({ isError: true, message: checkMessage });
+                }
+
                 // if (check === false) {
                 //     console.log(`**Duplicate Sign Up**`);
                 //     return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
@@ -99,31 +103,28 @@ const checkRequest = async (req, res) => {
     const userAgent = headers['user-agent'];
 
     if (blockedUserAgentArr.includes(userAgent)) {
-        // console.log("found blocked user agent test")
-
-        // return false
-        return res.status(200).json({ isError: true, message: "User Agent blacklist" });
+        let message = "User Agent blacklist"
+        console.log(message)
+        return message
     }
     const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
 
     if (blockIPArr.includes(ip)) {
-        console.log("found blocked ip test")
-        // return false
-        return res.status(200).json({ isError: true, message: "Ip black list" });
+        let message = "Ip black list"
+        console.log(message)
+        return message
     }
     let sameRequest = await prisma.logRegister.findMany({
         where: {
             ip
         }
     })
-    console.log(sameRequest)
     if (sameRequest.length > 2) {
-        console.log("found same request")
-        // return false
-        return res.status(200).json({ isError: true, message: "Repetitive sign up" });
-    }
+        let message = "Found same request from same location"
+        console.log(message)
+        return message
 
-    // else {
-    //     return true
-    // }
+    }
+    return ""
+
 }

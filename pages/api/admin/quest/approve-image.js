@@ -1,12 +1,8 @@
 import { prisma } from "@context/PrismaContext";
-import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
+import adminMiddleware from "middlewares/adminMiddleware";
 import axios from "axios";
 
-import Enums from "enums";
-
 const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
-
-const ROUTE = "/api/user/quest/approve-image";
 
 const approveImageQuestAPI = async (req, res) => {
     const { method } = req;
@@ -99,7 +95,7 @@ const discordHelper = async (user, discordChannel, imageUrl) => {
     return discordPost;
 };
 
-export default whitelistUserMiddleware(approveImageQuestAPI);
+export default adminMiddleware(approveImageQuestAPI);
 
 export const submitNewUserImageQuestTransaction = async (
     questId,

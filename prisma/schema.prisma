@@ -87,6 +87,7 @@ model UserQuest {
   rewardType                RewardType?   @relation(fields: [rewardedTypeId], references: [id])
   user                      WhiteList     @relation(fields: [wallet], references: [wallet])
   updatedAt                 DateTime      @default(now()) @updatedAt
+  isHidden                  Boolean       @default(false)
   @@unique([wallet, questId])
 }
 

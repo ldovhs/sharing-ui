@@ -36,7 +36,6 @@ const handler = async (req, res) => {
                     },
 
                 });
-                console.log(userQuestData)
 
                 // user completed quest
                 if (userQuestData) {

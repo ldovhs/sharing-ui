@@ -1449,13 +1449,15 @@ $list-text-font-size-large: 1.25rem;
             margin-top: -10%;
         }
         @media (min-width: $bp-xl) {
-            width: 30%; 
+            margin-top: 0;
+            // width: min(36em, 30%);
+            width: 37em;
         }
         @media (min-width: $bp-xl-2) {
-            width: 31%; 
+            width: 37em;
         }
         @media (min-width: $bp-xl-3) {
-            width: 30%; 
+            width: 42em;
         }
     
         &_container {

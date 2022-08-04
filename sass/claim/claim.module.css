@@ -2307,17 +2307,18 @@
 }
 @media (min-width: 90em) {
   .redemption_machine {
-    width: 30%;
+    margin-top: 0;
+    width: 37em;
   }
 }
 @media (min-width: 123.75em) {
   .redemption_machine {
-    width: 31%;
+    width: 37em;
   }
 }
 @media (min-width: 160em) {
   .redemption_machine {
-    width: 30%;
+    width: 42em;
   }
 }
 .redemption_machine_container {

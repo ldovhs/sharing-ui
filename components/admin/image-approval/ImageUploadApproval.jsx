@@ -25,7 +25,7 @@ const ImageUploadApproval = () => {
                 setCount(data.count);
             }
             if (router.query) {
-                eventName = router.query.eventName.toLowerCase();
+                eventName = router.query?.eventName?.toLowerCase();
             }
         } catch (error) {
             console.log(error);

@@ -13,7 +13,7 @@ const PUNCH = 3;
 
 const ShellRedeem = ({ session }) => {
     const [machineState, setMachineState] = useState(IDLE);
-    const [showFooter, setShowFooter] = useState(true);
+    const [showFooter, setShowFooter] = useState(false);
     const [boxMessge, setBoxMessge] =
         useState(`Man, that old wreck keeps jamming every time! Didn't you put any
     money in it ?!\n Try to give it a few hits and see if it unlocks!`);

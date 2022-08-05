@@ -3,6 +3,8 @@ import Enums from "enums";
 import s from "/sass/claim/claim.module.css";
 import { BoardLargeDollarSign } from ".";
 
+const ANOMURA_DISCORD_SERVER = "851558628032905286";
+
 export default function Leaderboard({ questData, isLoading }) {
     const [questsRanking, setQuestRanking] = useState([]);
     const [scroll, setScroll] = useState({
@@ -159,7 +161,7 @@ export default function Leaderboard({ questData, isLoading }) {
                                                 </div>
                                                 <a
                                                     className={s.boardLarge_list_ranking_text}
-                                                    href={`https://discord.com/channels/${discordServer}/${discordChannel}/${messageId}`}
+                                                    href={`https://discord.com/channels/${ANOMURA_DISCORD_SERVER}/${discordChannel}/${messageId}`}
                                                     target="_blank"
                                                 >
                                                     <div>

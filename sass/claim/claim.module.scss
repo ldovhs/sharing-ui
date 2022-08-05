@@ -1,8 +1,8 @@
 @use "../mixins" as m;
 
-$bp-small: 24em;            // 384   24em
-$bp-small-2: 31.25em;       // 500   31.25em
-$bp-small-3: 39.8em;        // 636   39.8em
+$bp-small: 384px;            // 384   24em
+$bp-small-2: 500px;       // 500   31.25em
+$bp-small-3: 636px;        // 636   39.8em
 $bp-med: 748px;            // 748   46.8em
 $bp-med-2: 800px;            // 800   50em
 $bp-large: 872px;          // 872   54.5em
@@ -1454,7 +1454,7 @@ $list-text-font-size-large: 1.25rem;
             width: 32em;
         }
         @media (min-width: $bp-xl-2) {
-            width: 33em;
+            width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
             width: min(32em, 70%);

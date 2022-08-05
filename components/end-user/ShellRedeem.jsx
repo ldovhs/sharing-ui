@@ -143,7 +143,11 @@ const ShellRedeem = ({ session }) => {
                                 className={s.redemption_machine_rollAll}
                                 onClick={() => handleRollAll()}
                             />
-                            <div className={s.redemption_machine_bubble} />
+                            <div className={s.redemption_machine_bubble}>
+                                <div className={s.redemption_machine_bubble_wrapper}>
+                                    <img src="/challenger/img/redemption/machine_bubbles_x4.gif" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

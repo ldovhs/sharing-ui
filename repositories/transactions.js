@@ -22,6 +22,12 @@ export const updateTwitterUserAndAddRewardTransaction = async (quest, wallet, us
         },
     });
 
+    let currentQuest = await prisma.quest.findUnique({
+        where: {
+            questId
+        }
+    })
+
     console.log(`**Create / Update reward for user**`);
     claimedReward = prisma.reward.upsert({
         where: {
@@ -29,7 +35,7 @@ export const updateTwitterUserAndAddRewardTransaction = async (quest, wallet, us
         },
         update: {
             quantity: {
-                increment: quantity,
+                increment: currentQuest.quantity,
             },
         },
         create: {
@@ -77,6 +83,12 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
         },
     });
 
+    let currentQuest = await prisma.quest.findUnique({
+        where: {
+            questId
+        }
+    })
+
     console.log(`**Create / Update reward for user**`);
     claimedReward = prisma.reward.upsert({
         where: {
@@ -84,7 +96,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
         },
         update: {
             quantity: {
-                increment: quantity,
+                increment: currentQuest.quantity,
             },
         },
         create: {
@@ -121,6 +133,12 @@ export const submitNewUserQuestTransaction = async (quest, wallet) => {
 
     let claimedReward;
 
+    let currentQuest = await prisma.quest.findUnique({
+        where: {
+            questId
+        }
+    })
+
     console.log(`**Create / Update reward for user**`);
     claimedReward = prisma.reward.upsert({
         where: {
@@ -128,7 +146,7 @@ export const submitNewUserQuestTransaction = async (quest, wallet) => {
         },
         update: {
             quantity: {
-                increment: quantity,
+                increment: currentQuest.quantity,
             },
         },
         create: {

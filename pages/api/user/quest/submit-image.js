@@ -67,11 +67,19 @@ const submitImageQuestAPI = async (req, res) => {
                     imageUrl,
                 };
 
+                let currentQuest = await prisma.quest.findUnique({
+                    where: {
+                        questId
+                    }
+                })
+
+                console.log(currentQuest)
+
                 userQuest = await submitNewUserImageQuestTransaction(
                     questId,
                     type,
                     rewardTypeId,
-                    quantity,
+                    currentQuest.quantity,
                     extendedUserQuestData,
                     whiteListUser.wallet
                 );
@@ -122,7 +130,7 @@ const discordHelper = async (user, discordChannel, imageUrl) => {
 
 export default whitelistUserMiddleware(submitImageQuestAPI);
 
-export const submitNewUserImageQuestTransaction = async (
+const submitNewUserImageQuestTransaction = async (
     questId,
     type,
     rewardTypeId,

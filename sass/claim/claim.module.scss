@@ -1436,29 +1436,29 @@ $list-text-font-size-large: 1.25rem;
             width: 80%;
         }
         @media (min-width: $bp-small-2) {
-            width: min(36em, 80%);
+            width: min(32em, 80%);
        
         }
         @media (min-width: $bp-small-3) {
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med) {
-            width: min(36em, 80%);
+            width: min(32em, 80%);
         }
         @media (min-width: $bp-med-2) {
-            width: min(36em, 80%);
-            margin-top: -10%;
+            width: min(32em, 80%);
+            margin-top: 0;
         }
         @media (min-width: $bp-xl) {
             margin-top: 0;
             // width: min(36em, 30%);
-            width: 37em;
+            width: 32em;
         }
         @media (min-width: $bp-xl-2) {
-            width: 37em;
+            width: 33em;
         }
         @media (min-width: $bp-xl-3) {
-            width: 42em;
+            width: 33em;
         }
     
         &_container {
@@ -1524,9 +1524,8 @@ $list-text-font-size-large: 1.25rem;
             height: 7%;
             top: 62%;
             left:12%;
-            
             color: #11657e;
-            font-size: 2.5vh;
+            font-size: 2.85vh;
             font-family: Safety Goggles;
             opacity: 0.4;
 
@@ -1583,9 +1582,11 @@ $list-text-font-size-large: 1.25rem;
         &_bubble {
             position: absolute;
             width: 100vw;
-            height:100vh;
-            background: url("/challenger/img/redemption/machine_bubbles_x4.gif") no-repeat;
-            background-size: contain;
+            height: 50%;
+            bottom: 0;
+            @include m.flex-master(column, center, center);
+            // background: url("/challenger/img/redemption/machine_bubbles_x4.gif") no-repeat;
+            // background-size: contain;
     
             // @media (min-width: $bp-small-2) {
             //     width: 100%;
@@ -1597,6 +1598,10 @@ $list-text-font-size-large: 1.25rem;
             // }
             z-index: 11;
             opacity: 0.5;
+
+            &_wrapper {
+                width: 60%;
+            }
         }
 
        
@@ -1644,9 +1649,8 @@ $list-text-font-size-large: 1.25rem;
         }
         &_octopus {
             position: relative;
-            right: 0;
-            top: 0;
-            height: 75%;
+
+            height: 35%;
             @media (min-width: $bp-med) { 
                 position: absolute;
                 right: 0;
@@ -1655,7 +1659,8 @@ $list-text-font-size-large: 1.25rem;
             }
 
             & > img {
-                height: 75%;
+                height: 100%;
+                margin-left: -20%;
                 @media (min-width: $bp-med) { 
                     height: 100%;
                     margin-left: 100%;

@@ -19,6 +19,8 @@ const userClaimRewardAPI = async (req, res) => {
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
 
+
+
                 console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);
                 if (whiteListUser.wallet !== wallet) {
                     return res.status(200).json({
@@ -55,10 +57,12 @@ const userClaimRewardAPI = async (req, res) => {
                     });
                 }
 
+                console.log(pendingReward)
+
                 let claimReward = await UpdateClaimAndPendingRewardTransaction(
                     whiteListUser.wallet,
                     rewardTypeId,
-                    quantity,
+                    pendingReward.quantity,
                     generatedURL
                 );
 

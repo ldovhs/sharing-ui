@@ -102,13 +102,18 @@ const submitUserDailyQuestTransaction = async (
     let claimedReward;
 
     console.log(`**Create / Update reward for user**`);
+    let currentQuest = await prisma.quest.findUnique({
+        where: {
+            questId
+        }
+    })
     claimedReward = prisma.reward.upsert({
         where: {
             wallet_rewardTypeId: { wallet, rewardTypeId },
         },
         update: {
             quantity: {
-                increment: quantity,
+                increment: currentQuest.quantity,
             },
         },
         create: {

@@ -2288,7 +2288,7 @@
 }
 @media (min-width: 31.25em) {
   .redemption_machine {
-    width: min(36em, 80%);
+    width: min(32em, 80%);
   }
 }
 @media (min-width: 39.8em) {
@@ -2298,29 +2298,29 @@
 }
 @media (min-width: 46.8em) {
   .redemption_machine {
-    width: min(36em, 80%);
+    width: min(32em, 80%);
   }
 }
 @media (min-width: 50em) {
   .redemption_machine {
-    width: min(36em, 80%);
-    margin-top: -10%;
+    width: min(32em, 80%);
+    margin-top: 0;
   }
 }
 @media (min-width: 90em) {
   .redemption_machine {
     margin-top: 0;
-    width: 37em;
+    width: 32em;
   }
 }
 @media (min-width: 123.75em) {
   .redemption_machine {
-    width: 37em;
+    width: 33em;
   }
 }
 @media (min-width: 160em) {
   .redemption_machine {
-    width: 42em;
+    width: 33em;
   }
 }
 .redemption_machine_container {
@@ -2372,7 +2372,7 @@
   top: 62%;
   left: 12%;
   color: #11657e;
-  font-size: 2.5vh;
+  font-size: 2.85vh;
   font-family: Safety Goggles;
   opacity: 0.4;
 }
@@ -2429,11 +2429,17 @@
 .redemption_machine_bubble {
   position: absolute;
   width: 100vw;
-  height: 100vh;
-  background: url("/challenger/img/redemption/machine_bubbles_x4.gif") no-repeat;
-  background-size: contain;
+  height: 50%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 11;
   opacity: 0.5;
+}
+.redemption_machine_bubble_wrapper {
+  width: 60%;
 }
 .redemption_footer {
   display: flex;
@@ -2499,9 +2505,7 @@
 }
 .redemption_footer_octopus {
   position: relative;
-  right: 0;
-  top: 0;
-  height: 75%;
+  height: 35%;
 }
 @media (min-width: 46.8em) {
   .redemption_footer_octopus {
@@ -2512,7 +2516,8 @@
   }
 }
 .redemption_footer_octopus > img {
-  height: 75%;
+  height: 100%;
+  margin-left: -20%;
 }
 @media (min-width: 46.8em) {
   .redemption_footer_octopus > img {

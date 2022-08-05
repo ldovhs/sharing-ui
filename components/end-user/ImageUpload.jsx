@@ -18,10 +18,6 @@ const SUBMITTABLE = 1;
 const SUBMITTED = 2;
 const ERROR = 3;
 
-/*
-    Weekly image upload contest, rely on environment NEXT_PUBLIC_CURRENT_IMAGE_EVENT
-    to get into correct contest of that week
-*/
 const ImageUpload = ({
     session,
     onSubmitImageQuest,
@@ -128,9 +124,10 @@ const ImageUpload = ({
             const res = await axios.post("/challenger/api/user/image-upload", {
                 data: imageSrc,
             });
-            // console.log(res);
+
             if (!res?.data?.secure_url) {
                 console.error("Image is not cached");
+                console.error(res);
                 return;
             }
             /** Submit this quest */

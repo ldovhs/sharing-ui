@@ -48,11 +48,17 @@ const submitIndividualQuestAPI = async (req, res) => {
                         extendedUserQuestData.date = withTime;
                     }
 
+                    let currentQuest = await prisma.quest.findUnique({
+                        where: {
+                            questId
+                        }
+                    })
+
                     userQuest = await submitUserDailyQuestTransaction(
                         questId,
                         type,
                         rewardTypeId,
-                        quantity,
+                        currentQuest.quantity,
                         extendedUserQuestData,
                         whiteListUser.wallet
                     );

@@ -2276,7 +2276,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 80%;
+  width: 75%;
   margin-top: -10%;
   height: auto;
   color: #fff;
@@ -2448,9 +2448,15 @@
   align-items: center;
   position: absolute;
   width: 100%;
-  height: 25%;
-  bottom: 5%;
+  height: 22%;
+  bottom: 6%;
   z-index: 14;
+}
+@media (min-width: 24em) {
+  .redemption_footer {
+    height: 25%;
+    bottom: 5%;
+  }
 }
 @media (min-width: 75em) {
   .redemption_footer {
@@ -2505,7 +2511,7 @@
 }
 .redemption_footer_octopus {
   position: relative;
-  height: 35%;
+  height: 40%;
 }
 @media (min-width: 46.8em) {
   .redemption_footer_octopus {
@@ -2541,7 +2547,7 @@
   height: 95%;
   width: 100%;
   padding-left: 1rem;
-  padding-right: 1.5rem;
+  padding-right: 1rem;
   gap: 0.5rem;
 }
 @media (min-width: 46.8em) {
@@ -2570,7 +2576,7 @@
   flex-direction: column;
   justify-content: center;
   height: 75%;
-  font-size: 1.5vh;
+  font-size: 1.75vh;
   font-family: Safety Goggles;
   font-weight: 400;
   overflow-wrap: break-word;

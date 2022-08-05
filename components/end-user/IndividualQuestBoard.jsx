@@ -120,7 +120,7 @@ const IndividualQuestBoard = ({
      */
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
-        console.log(type.name);
+
         if (type.name === Enums.ZED_CLAIM) {
             return router.push("/zed");
         }

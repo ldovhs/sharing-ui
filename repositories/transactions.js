@@ -151,7 +151,7 @@ export const submitNewUserQuestTransaction = async (quest, wallet) => {
         },
         create: {
             wallet,
-            quantity,
+            quantity: currentQuest.quantity,
             rewardTypeId,
         },
 
@@ -170,7 +170,7 @@ export const submitNewUserQuestTransaction = async (quest, wallet) => {
             wallet,
             questId,
             rewardedTypeId: rewardTypeId,
-            rewardedQty: quantity,
+            rewardedQty: currentQuest.quantity,
         },
     });
 

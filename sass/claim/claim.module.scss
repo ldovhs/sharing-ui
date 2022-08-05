@@ -1427,7 +1427,7 @@ $list-text-font-size-large: 1.25rem;
     &_machine {
         @include m.flex-master(column, center, center);
         position: relative;
-        width: 80%;
+        width: 75%;
         margin-top: -10%;
         height: auto; //70vh
         color: #fff;  
@@ -1610,9 +1610,14 @@ $list-text-font-size-large: 1.25rem;
         @include m.flex-master(column, center, center);
         position: absolute;
         width: 100%;
-        height: 25%;
-        bottom: 5%;
+        height: 22%;
+        bottom: 6%;
         z-index: 14;
+
+        @media (min-width: $bp-small) {  
+            height: 25%;
+            bottom: 5%;
+        }
 
         @media (min-width: $bp-large-2) {  
             height: 11%;
@@ -1650,7 +1655,7 @@ $list-text-font-size-large: 1.25rem;
         &_octopus {
             position: relative;
 
-            height: 35%;
+            height: 40%;
             @media (min-width: $bp-med) { 
                 position: absolute;
                 right: 0;
@@ -1690,7 +1695,7 @@ $list-text-font-size-large: 1.25rem;
                 height: 95%;
                 width: 100%;
                 padding-left: 1rem;
-                padding-right: 1.5rem;
+                padding-right: 1rem;
                 gap: 0.5rem;
 
                 @media (min-width: $bp-med) { 
@@ -1711,7 +1716,7 @@ $list-text-font-size-large: 1.25rem;
                     max-width: 100%;
                     @include m.flex-master(column, center, null);
                     height:75%;
-                    font-size: 1.5vh;
+                    font-size: 1.75vh;
                     font-family: Safety Goggles;
                     font-weight: 400;
     

@@ -1,15 +1,15 @@
 @use "../mixins" as m;
 
-$bp-small: 24em;            // 384
-$bp-small-2: 31.25em;       // 500
-$bp-small-3: 39.8em;        // 636
-$bp-med: 46.8em;            // 748
-$bp-med-2: 50em;            // 800
-$bp-large: 54.5em;          // 872
-$bp-large-2: 75em;          // 1200
-$bp-xl: 90em;               // 1440
-$bp-xl-2: 123.75em;         // 1980
-$bp-xl-3: 160em;            // 2560
+$bp-small: 24em;            // 384   24em
+$bp-small-2: 31.25em;       // 500   31.25em
+$bp-small-3: 39.8em;        // 636   39.8em
+$bp-med: 748px;            // 748   46.8em
+$bp-med-2: 800px;            // 800   50em
+$bp-large: 872px;          // 872   54.5em
+$bp-large-2: 1200px;          // 1200  75em
+$bp-xl: 1440px;               // 1440  90em 
+$bp-xl-2: 1980px;         // 1980  123.75em
+$bp-xl-3: 2560px;            // 2560  160em
 
 $heading-font-size-small: 3.75vh;
 $heading-font-size-small-2: 1.65rem;
@@ -1436,8 +1436,7 @@ $list-text-font-size-large: 1.25rem;
             width: 80%;
         }
         @media (min-width: $bp-small-2) {
-            width: min(32em, 80%);
-       
+            width: min(30em, 72%);
         }
         @media (min-width: $bp-small-3) {
             width: min(32em, 80%);
@@ -1446,7 +1445,7 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med-2) {
-            width: min(32em, 80%);
+            width: min(25em, 30%);
             margin-top: 0;
         }
         @media (min-width: $bp-xl) {
@@ -1458,7 +1457,7 @@ $list-text-font-size-large: 1.25rem;
             width: 33em;
         }
         @media (min-width: $bp-xl-3) {
-            width: 33em;
+            width: min(32em, 70%);
         }
     
         &_container {
@@ -1533,7 +1532,7 @@ $list-text-font-size-large: 1.25rem;
                 font-size: 2.75vh;
             }
             @media (min-width: $bp-small-2) {  
-                font-size: 2vh;
+                font-size: min(3vh, 3rem);
             }
             @media (min-width: $bp-xl) {  
                 font-size: 4vh;
@@ -1631,13 +1630,13 @@ $list-text-font-size-large: 1.25rem;
             height: 100%;
 
             @media (min-width: $bp-small) {  
-                margin-left: -20%;
+           
             }
             @media (min-width: $bp-small-2) {  
-                margin-left: -20%;
+           
             }
             @media (min-width: $bp-small-3) {  
-                margin-left: -20%;
+                // margin-left: -20%;
             }
             @media (min-width: $bp-med) { 
                 @include m.flex-master(row, center, center); 

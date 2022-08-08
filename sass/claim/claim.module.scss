@@ -1451,7 +1451,7 @@ $list-text-font-size-large: 1.25rem;
         @media (min-width: $bp-xl) {
             margin-top: 0;
             // width: min(36em, 30%);
-            width: 32em;
+            width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-2) {
             width: min(32em, 70%);

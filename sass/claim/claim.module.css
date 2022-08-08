@@ -2310,7 +2310,7 @@
 @media (min-width: 1440px) {
   .redemption_machine {
     margin-top: 0;
-    width: 32em;
+    width: min(32em, 70%);
   }
 }
 @media (min-width: 1980px) {

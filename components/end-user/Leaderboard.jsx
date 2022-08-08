@@ -15,7 +15,9 @@ export default function Leaderboard({ questData, isLoading }) {
     useEffect(async () => {
         if (questData?.userQuests?.length > 0) {
             let questsNotRanked = [...questData.userQuests];
+            console.log(questsNotRanked);
             questsNotRanked.sort(sortOnReactionCountAndCreateDateFirst);
+            console.log(questsNotRanked);
             setQuestRanking(questsNotRanked);
         }
     }, [questData]);

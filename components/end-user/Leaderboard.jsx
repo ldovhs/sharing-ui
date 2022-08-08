@@ -15,12 +15,14 @@ export default function Leaderboard({ questData, isLoading }) {
     useEffect(async () => {
         if (questData?.userQuests?.length > 0) {
             let questsNotRanked = [...questData.userQuests];
-            console.log("not sorted");
-            console.log(questsNotRanked);
-            questsNotRanked.sort(sortOnReactionCountAndCreateDateFirst);
-            console.log("sorted");
-            // console.log(questsNotRanked);
-            setQuestRanking(questsNotRanked);
+            let questFilter = questsNotRanked.filter((q) => q.extendedUserQuestData.reaction !== 0);
+            console.log(questFilter);
+
+            questFilter.sort(sortOnReactionCountAndCreateDateFirst);
+
+            console.log("filter sorted");
+
+            setQuestRanking(questFilter);
         }
     }, [questData]);
 

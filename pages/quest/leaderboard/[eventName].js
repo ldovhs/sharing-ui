@@ -32,7 +32,6 @@ function QuestLeaderBoard() {
         }
     }, [router]);
 
-    console.log(questData);
     return (
         <>
             <div className={s.app}>

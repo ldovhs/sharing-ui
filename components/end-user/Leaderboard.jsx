@@ -15,15 +15,18 @@ export default function Leaderboard({ questData, isLoading }) {
     useEffect(async () => {
         if (questData?.userQuests?.length > 0) {
             let questsNotRanked = [...questData.userQuests];
+            console.log("not sorted");
             console.log(questsNotRanked);
             questsNotRanked.sort(sortOnReactionCountAndCreateDateFirst);
-            console.log(questsNotRanked);
+            console.log("sorted");
+            // console.log(questsNotRanked);
             setQuestRanking(questsNotRanked);
         }
     }, [questData]);
 
     const scrollRef = useRef();
 
+    console.log(questsRanking);
     const onScroll = (e) => {
         if (
             e.target.scrollTop >=

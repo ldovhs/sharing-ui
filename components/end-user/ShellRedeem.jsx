@@ -111,7 +111,7 @@ const ShellRedeem = ({ session }) => {
         }
         setCurrentViewReward((prev) => prev - 1);
     };
-
+    console.log(process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL);
     if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
         return (
             <div className={s.redemption_reward}>

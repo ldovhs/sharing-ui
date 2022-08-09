@@ -18,7 +18,7 @@ let rewardArray = [
 ];
 
 const ShellRedeem = ({ session }) => {
-    const [machineState, setMachineState] = useState(SHOWREWARD);
+    const [machineState, setMachineState] = useState(IDLE);
     const [showFooter, setShowFooter] = useState(false);
     const [currentViewReward, setCurrentViewReward] = useState(0);
     const [boxMessage, setBoxMessage] =

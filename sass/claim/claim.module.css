@@ -2668,7 +2668,12 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward {
-    width: min(55em, 70%);
+    width: min(46em, 30%);
+  }
+}
+@media (min-width: 3840px) {
+  .redemption_reward {
+    width: min(65em, 30%);
   }
 }
 .redemption_reward_container {

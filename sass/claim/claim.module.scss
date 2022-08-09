@@ -10,6 +10,7 @@ $bp-large-2: 1200px;          // 1200  75em
 $bp-xl: 1440px;               // 1440  90em 
 $bp-xl-2: 1980px;         // 1980  123.75em
 $bp-xl-3: 2560px;            // 2560  160em
+$bp-xl-4: 3840px;            // 2560  160em
 
 $heading-font-size-small: 3.75vh;
 $heading-font-size-small-2: 1.65rem;
@@ -1801,7 +1802,10 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(55em, 70%);
+            width: min(46em, 30%);
+        }
+        @media (min-width: $bp-xl-4) {
+            width: min(65em, 30%);
         }
     
         &_container {

@@ -4,6 +4,7 @@ import Enums from "enums";
 import { useDeviceDetect } from "lib/hooks";
 import { useRouter } from "next/router";
 import "/node_modules/nes.css/css/nes.css";
+import { useUserRewardQuery } from "@shared/HOC";
 
 const IDLE = 1;
 const STUCK = 2;
@@ -26,6 +27,23 @@ const ShellRedeem = ({ session }) => {
     money in it ?!\n Try to give it a few hits and see if it unlocks!`);
 
     const { isMobile } = useDeviceDetect();
+    const [userRewards, userRewardLoading] = useUserRewardQuery();
+    const [rewardAmount, setRewardAmount] = useState(null);
+
+    useEffect(async () => {}, [isMobile]);
+
+    useEffect(async () => {
+        if (userRewards && userRewards.length > 0) {
+            let shellReward = userRewards.find(
+                (r) =>
+                    r.rewardType.reward.match("hell") ||
+                    r.rewardType.reward.match("$Shell") ||
+                    r.rewardType.reward.match("$SHELL")
+            );
+            if (shellReward?.quantity && shellReward.quantity > 0)
+                setRewardAmount(shellReward.quantity);
+        }
+    }, [userRewards]);
 
     const handleStuckToPunch = () => {
         if (machineState !== STUCK || !showFooter) {
@@ -55,23 +73,7 @@ const ShellRedeem = ({ session }) => {
             clearTimeout(footerTimeout);
         }, 2500);
     };
-
     const handleRollAll = () => {};
-
-    useEffect(async () => {
-        // let arrImgs = [img1, img2, img3];
-        // const promises = await arrImgs.map((img) => {
-        //     return new Promise((resolve, reject) => {
-        //         const image = new Image();
-        //         image.src = img.src;
-        //         img.onload = resolve();
-        //         img.onerror = reject();
-        //     });
-        // });
-        // await Promise.all(promises);
-        // console.log("Loaded image");
-    }, [isMobile]);
-
     const getMachineBackground = () => {
         switch (machineState) {
             case IDLE:
@@ -111,7 +113,7 @@ const ShellRedeem = ({ session }) => {
         }
         setCurrentViewReward((prev) => prev - 1);
     };
-    console.log(process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL);
+
     if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
         return (
             <div className={s.redemption_reward}>
@@ -148,7 +150,7 @@ const ShellRedeem = ({ session }) => {
                                 >
                                     {machineState !== PUNCH && (
                                         <div className={s.redemption_machine_shell}>
-                                            $SHELL 33333
+                                            $SHELL {rewardAmount}
                                         </div>
                                     )}
                                     <button
@@ -161,11 +163,6 @@ const ShellRedeem = ({ session }) => {
                                         className={s.redemption_machine_rollAll}
                                         onClick={() => handleRollAll()}
                                     />
-                                    <div className={s.redemption_machine_bubble}>
-                                        <div className={s.redemption_machine_bubble_wrapper}>
-                                            <img src="/challenger/img/redemption/machine_bubbles_x4.gif" />
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -238,10 +235,18 @@ const ShellRedeem = ({ session }) => {
                         </div>
                     </div>
                 )}
+                <div className={s.redemption_bubble}>
+                    <div className={s.redemption_bubble_wrapper}>
+                        <img src="/challenger/img/redemption/machine_bubbles_x4.gif" />
+                    </div>
+                </div>
                 {showFooter && (
                     <div className={s.redemption_footer}>
                         <div className={s.redemption_footer_wrapper}>
-                            <div className={s.redemption_footer_boxes}>
+                            <div
+                                className={s.redemption_footer_boxes}
+                                onClick={() => handleStuckToPunch()}
+                            >
                                 {isMobile ? (
                                     <img
                                         src={`${Enums.BASEPATH}/img/redemption/dialogue_box_center_x4.png`}
@@ -266,11 +271,19 @@ const ShellRedeem = ({ session }) => {
                 )}
                 <img
                     style={{ display: "none" }}
-                    src="/challenger/img/redemption/machine_stuck_x4.gif"
+                    src={`${Enums.BASEPATH}/img/redemption/machine_stuck_x4.gif`}
                 />
                 <img
                     style={{ display: "none" }}
-                    src="/challenger/img/redemption/machine_punch_x4.gif"
+                    src={`${Enums.BASEPATH}/img/redemption/machine_punch_x4.gif`}
+                />
+                <img
+                    style={{ display: "none" }}
+                    src={`${Enums.BASEPATH}/img/redemption/teal_box.png`}
+                />
+                <img
+                    style={{ display: "none" }}
+                    src={`${Enums.BASEPATH}/img/redemption/dialogue_box_center_x4.png`}
                 />
             </>
         );

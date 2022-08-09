@@ -2303,7 +2303,7 @@
 }
 @media (min-width: 800px) {
   .redemption_machine {
-    width: min(25em, 30%);
+    width: 70%;
     margin-top: 0;
   }
 }
@@ -2315,7 +2315,7 @@
 }
 @media (min-width: 1200px) {
   .redemption_machine {
-    width: min(32em, 80%);
+    width: min(25em, 30%);
     margin-top: 0;
   }
 }
@@ -2332,12 +2332,12 @@
 }
 @media (min-width: 2560px) {
   .redemption_machine {
-    width: min(37em, 70%);
+    width: min(37em, 28%);
   }
 }
 @media (min-width: 3840px) {
   .redemption_machine {
-    width: min(60em, 27%);
+    width: min(55em, 26%);
   }
 }
 .redemption_machine_container {
@@ -2405,7 +2405,7 @@
 }
 @media (min-width: 1440px) {
   .redemption_machine_shell {
-    font-size: 4vh;
+    font-size: 3vh;
   }
 }
 .redemption_machine_roll1 {
@@ -2442,21 +2442,6 @@
 }
 .redemption_machine_rollAll:disabled:hover {
   cursor: not-allowed !important;
-}
-.redemption_machine_bubble {
-  position: absolute;
-  width: 100vw;
-  height: 50%;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 11;
-  opacity: 0.5;
-}
-.redemption_machine_bubble_wrapper {
-  width: 60%;
 }
 .redemption_footer {
   display: flex;
@@ -2611,6 +2596,33 @@
 .redemption_footer_boxes:disabled:hover {
   color: #A2B7B6;
 }
+.redemption_bubble {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 15%;
+  z-index: 11;
+  opacity: 0.5;
+  height: 60%;
+  pointer-events: none;
+}
+@media (min-width: 636px) {
+  .redemption_bubble {
+    height: 50%;
+    width: 100vw;
+  }
+}
+.redemption_bubble_wrapper {
+  width: 100%;
+}
+@media (min-width: 636px) {
+  .redemption_bubble_wrapper {
+    width: 60%;
+  }
+}
 .redemption_reward {
   display: flex;
   flex-direction: column;
@@ -2656,7 +2668,7 @@
 }
 @media (min-width: 1200px) {
   .redemption_reward {
-    width: min(25em, 30%);
+    width: min(25em, 32%);
     margin-top: 0;
   }
 }
@@ -2673,7 +2685,7 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward {
-    width: min(45em, 26%);
+    width: min(42em, 26%);
   }
 }
 @media (min-width: 3840px) {

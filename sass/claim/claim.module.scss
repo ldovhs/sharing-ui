@@ -1437,7 +1437,7 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med-2) {
-            width: min(25em, 30%);
+            width: 70%;
             margin-top: 0;
         }
         @media (min-width: $bp-large) {
@@ -1445,22 +1445,21 @@ $list-text-font-size-large: 1.25rem;
             margin-top: 0;
         }
         @media (min-width: $bp-large-2) {
-            width: min(32em, 80%);
+            width: min(25em, 30%);
             margin-top: 0;
         }
         @media (min-width: $bp-xl) {
             margin-top: 0;
-            // width: min(36em, 30%);
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-2) {
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(37em, 70%);
+            width: min(37em, 28%);
         }
         @media (min-width: $bp-xl-4) {
-            width: min(60em, 27%);
+            width: min(55em, 26%);
         }
     
         &_container {
@@ -1530,8 +1529,11 @@ $list-text-font-size-large: 1.25rem;
                 font-size: min(3vh, 3rem);
             }
             @media (min-width: $bp-xl) {  
-                font-size: 4vh;
+                font-size: 3vh;
             }
+            // @media (min-width: $bp-xl-3) {  
+            //     font-size: 4vh;
+            // }
         }
 
         &_roll1 {
@@ -1571,34 +1573,7 @@ $list-text-font-size-large: 1.25rem;
                 }
             }
             z-index: 12;
-        }
-
-        &_bubble {
-            position: absolute;
-            width: 100vw;
-            height: 50%;
-            bottom: 0;
-            @include m.flex-master(column, center, center);
-            // background: url("/challenger/img/redemption/machine_bubbles_x4.gif") no-repeat;
-            // background-size: contain;
-    
-            // @media (min-width: $bp-small-2) {
-            //     width: 100%;
-            //     height:0;
-            //     padding-top: 104.29%;
-    
-            //     background: url("/challenger/img/sharing-ui/invite/Board_medium.png") no-repeat;
-            //     background-size: cover;
-            // }
-            z-index: 11;
-            opacity: 0.5;
-
-            &_wrapper {
-                width: 60%;
-            }
-        }
-
-       
+        } 
     }
     &_footer {
         @include m.flex-master(column, center, center);
@@ -1765,6 +1740,29 @@ $list-text-font-size-large: 1.25rem;
             }
         }
     }
+    &_bubble {
+        @include m.flex-master(column, center, center);
+        position: absolute;
+        width: 100%;
+        bottom: 15%;
+        
+        z-index: 11;
+        opacity: 0.5;
+        height: 60%;
+
+        @media (min-width: $bp-small-3) {
+            height: 50%;
+            width: 100vw;
+        }
+
+        &_wrapper {
+            width: 100%;
+            @media (min-width: $bp-small-3) {
+                width: 60%;
+            }
+        }
+        pointer-events: none;
+    }
     &_reward {
         @include m.flex-master(column, center, center);
         position: relative;
@@ -1794,7 +1792,7 @@ $list-text-font-size-large: 1.25rem;
             margin-top: 0;
         }
         @media (min-width: $bp-large-2) {
-            width: min(25em, 30%);
+            width: min(25em, 32%);
             margin-top: 0;
         }
         @media (min-width: $bp-xl) {
@@ -1805,7 +1803,7 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(45em, 26%);
+            width: min(42em, 26%);
         }
         @media (min-width: $bp-xl-4) {
             width: min(55em, 26%);

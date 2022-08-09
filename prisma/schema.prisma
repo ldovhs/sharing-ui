@@ -248,3 +248,13 @@ model logRegister {
     ip                String?
     createdAt         DateTime            @default(now())
 }
+
+model shellRedeemed {
+    id                Int                 @id @default(autoincrement())
+    wallet            String?             @unique
+    rewards           String[] 
+    rewardPointer     Int                 @default(-1)
+    isRedeemed        Boolean             @default(false)
+    createdAt         DateTime            @default(now())
+    updatedAt         DateTime            @default(now()) @updatedAt
+}

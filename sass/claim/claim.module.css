@@ -2307,6 +2307,18 @@
     margin-top: 0;
   }
 }
+@media (min-width: 872px) {
+  .redemption_machine {
+    width: 600px;
+    margin-top: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_machine {
+    width: min(32em, 80%);
+    margin-top: 0;
+  }
+}
 @media (min-width: 1440px) {
   .redemption_machine {
     margin-top: 0;
@@ -2627,6 +2639,18 @@
 }
 @media (min-width: 800px) {
   .redemption_reward {
+    width: 70%;
+    margin-top: 0;
+  }
+}
+@media (min-width: 872px) {
+  .redemption_reward {
+    width: 600px;
+    margin-top: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward {
     width: min(25em, 30%);
     margin-top: 0;
   }
@@ -2644,7 +2668,7 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward {
-    width: min(37em, 70%);
+    width: min(55em, 70%);
   }
 }
 .redemption_reward_container {
@@ -2700,7 +2724,22 @@
   height: 35%;
   color: #AD6B34;
   font-family: PFRondaSeven;
-  font-size: 1.5vh;
+  font-size: min(0.65rem, 1.75vh);
+}
+@media (min-width: 384px) {
+  .redemption_reward_description {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 636px) {
+  .redemption_reward_description {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_description {
+    font-size: 1.5vh;
+  }
 }
 .redemption_reward_scroll {
   display: flex;
@@ -2751,17 +2790,33 @@
   align-items: center;
   width: 65%;
 }
+@media (min-width: 1980px) {
+  .redemption_reward_scroll_img_wrapper > img {
+    width: 100%;
+  }
+}
 .redemption_reward_text {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 20%;
   color: #2484B2;
   font-family: Safety Goggles;
-  font-size: 3vh;
+  font-size: 2.8vh;
   text-align: center;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
+}
+@media (min-width: 800px) {
+  .redemption_reward_text {
+    width: 80%;
+    line-height: 2.5rem;
+  }
+}
+@media (min-width: 1980px) {
+  .redemption_reward_text {
+    line-height: 3.5rem;
+  }
 }/*# sourceMappingURL=claim.module.css.map */

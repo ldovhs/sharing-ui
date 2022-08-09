@@ -1439,6 +1439,14 @@ $list-text-font-size-large: 1.25rem;
             width: min(25em, 30%);
             margin-top: 0;
         }
+        @media (min-width: $bp-large) {
+            width: 600px;
+            margin-top: 0;
+        }
+        @media (min-width: $bp-large-2) {
+            width: min(32em, 80%);
+            margin-top: 0;
+        }
         @media (min-width: $bp-xl) {
             margin-top: 0;
             // width: min(36em, 30%);
@@ -1774,6 +1782,14 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med-2) {
+            width: 70%;
+            margin-top: 0;
+        }
+        @media (min-width: $bp-large) {
+            width: 600px;
+            margin-top: 0;
+        }
+        @media (min-width: $bp-large-2) {
             width: min(25em, 30%);
             margin-top: 0;
         }
@@ -1785,7 +1801,7 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(37em, 70%);
+            width: min(55em, 70%);
         }
     
         &_container {
@@ -1845,7 +1861,17 @@ $list-text-font-size-large: 1.25rem;
             height: 35%;
             color: #AD6B34;
             font-family: PFRondaSeven;
-            font-size: 1.5vh;
+            font-size: min(0.65rem, 1.75vh); // 1.75vh
+
+            @media (min-width: $bp-small) {  
+                font-size: 0.75rem;
+            }
+            @media (min-width: $bp-small-3) {  
+                font-size: 1rem;
+            }
+            @media (min-width: $bp-med-2) {  
+                font-size: 1.5vh;
+            }
         }
         &_scroll {
             @include m.flex-master(row, center, center);
@@ -1893,6 +1919,13 @@ $list-text-font-size-large: 1.25rem;
                 &_wrapper {
                     @include m.flex-master(row, center, center);
                     width: 65%;
+
+                    @media (min-width: $bp-xl-2) { 
+                        // width: 85%;
+                        & > img {
+                            width: 100%;    
+                        }
+                    }
                 } 
             }
 
@@ -1900,13 +1933,21 @@ $list-text-font-size-large: 1.25rem;
         &_text {
             @include m.flex-master(row, center, center);
             position: relative;
-            width: 80%;
+            width: 100%;
             height: 20%;
             color: #2484B2;
             font-family: Safety Goggles;
-            font-size: 3vh;
+            font-size: 2.8vh;
             text-align: center;
-            line-height: 2.5rem;
+            line-height: 1.5rem;
+
+            @media (min-width: $bp-med-2) { 
+                width: 80%; 
+                line-height: 2.5rem;
+            }
+            @media (min-width: $bp-xl-2) { 
+                line-height: 3.5rem;
+            }
         }
     }
 }

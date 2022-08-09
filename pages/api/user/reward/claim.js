@@ -19,8 +19,7 @@ const userClaimRewardAPI = async (req, res) => {
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
 
-
-
+                // DO NOT USE THE QUANTITY SENT TO API, USE THE QUANTITY QUERIED FROM DB
                 console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);
                 if (whiteListUser.wallet !== wallet) {
                     return res.status(200).json({

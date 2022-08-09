@@ -32,6 +32,21 @@ const submitIndividualQuestAPI = async (req, res) => {
                 if (type.name === Enums.DAILY_SHELL) {
                     console.log(`**In daily shell**`);
 
+                    let entry = await prisma.UserQuest.findUnique({
+                        where: {
+                            wallet_questId: { wallet: whiteListUser.wallet, questId },
+                        },
+                    });
+                    if (entry) {
+                        let oldDate = entry.extendedUserQuestData?.date || entry.updatedAt;
+                        let [today] = new Date().toISOString().split("T");
+                        if (today <= oldDate) {
+                            return res
+                                .status(200)
+                                .json({ isError: true, message: "This quest already submitted before!" });
+                        }
+                    }
+
                     let extendedUserQuestData = { ...extendedQuestData };
                     if (
                         extendedUserQuestData.frequently &&
@@ -40,13 +55,13 @@ const submitIndividualQuestAPI = async (req, res) => {
                         const [withoutTime] = new Date().toISOString().split("T");
                         extendedUserQuestData.date = withoutTime;
                     }
-                    if (
-                        extendedUserQuestData.frequently &&
-                        extendedUserQuestData.frequently === "hourly"
-                    ) {
-                        const withTime = new Date().toISOString();
-                        extendedUserQuestData.date = withTime;
-                    }
+                    // if (
+                    //     extendedUserQuestData.frequently &&
+                    //     extendedUserQuestData.frequently === "hourly"
+                    // ) {
+                    //     const withTime = new Date().toISOString();
+                    //     extendedUserQuestData.date = withTime;
+                    // }
 
                     let currentQuest = await prisma.quest.findUnique({
                         where: {

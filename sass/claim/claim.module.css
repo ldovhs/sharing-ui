@@ -169,14 +169,14 @@
   color: #A2B7B6;
 }
 .board_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   width: 100%;
   height: 54%;
   top: 32%;
   left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 0 19%;
 }
 @media (min-width: 384px) {
@@ -2320,7 +2320,7 @@
 }
 @media (min-width: 2560px) {
   .redemption_machine {
-    width: min(32em, 70%);
+    width: min(37em, 70%);
   }
 }
 .redemption_machine_container {
@@ -2593,4 +2593,175 @@
 }
 .redemption_footer_boxes:disabled:hover {
   color: #A2B7B6;
+}
+.redemption_reward {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 75%;
+  margin-top: -10%;
+  height: auto;
+  color: #fff;
+}
+@media (min-width: 384px) {
+  .redemption_reward {
+    width: 80%;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward {
+    width: min(30em, 72%);
+  }
+}
+@media (min-width: 636px) {
+  .redemption_reward {
+    width: min(32em, 80%);
+  }
+}
+@media (min-width: 748px) {
+  .redemption_reward {
+    width: min(32em, 80%);
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward {
+    width: min(25em, 30%);
+    margin-top: 0;
+  }
+}
+@media (min-width: 1440px) {
+  .redemption_reward {
+    margin-top: 0;
+    width: min(32em, 70%);
+  }
+}
+@media (min-width: 1980px) {
+  .redemption_reward {
+    width: min(32em, 70%);
+  }
+}
+@media (min-width: 2560px) {
+  .redemption_reward {
+    width: min(37em, 70%);
+  }
+}
+.redemption_reward_container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 140.27%;
+  background: url("/challenger/img/redemption/Reward Background_3x.png") no-repeat;
+  background-size: contain;
+}
+.redemption_reward_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  top: 13%;
+  left: 0;
+  font-family: Safety Goggles;
+  font-size: 3vh;
+}
+.redemption_reward_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  top: 28%;
+  left: 0;
+}
+.redemption_reward_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 92%;
+  height: 100%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.redemption_reward_description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 35%;
+  color: #AD6B34;
+  font-family: PFRondaSeven;
+  font-size: 1.5vh;
+}
+.redemption_reward_scroll {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+.redemption_reward_scroll_left {
+  width: 15%;
+}
+.redemption_reward_scroll_left_wrapper {
+  margin-left: auto;
+  width: 50%;
+}
+.redemption_reward_scroll_left_enable:hover {
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+}
+.redemption_reward_scroll_left_disable:hover {
+  cursor: not-allowed;
+}
+.redemption_reward_scroll_right {
+  width: 15%;
+}
+.redemption_reward_scroll_right_wrapper {
+  margin-right: auto;
+  width: 50%;
+}
+.redemption_reward_scroll_right_enable:hover {
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+}
+.redemption_reward_scroll_right_disable:hover {
+  cursor: not-allowed;
+}
+.redemption_reward_scroll_img {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.redemption_reward_scroll_img_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+}
+.redemption_reward_text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 20%;
+  color: #2484B2;
+  font-family: Safety Goggles;
+  font-size: 3vh;
+  text-align: center;
+  line-height: 2.5rem;
 }/*# sourceMappingURL=claim.module.css.map */

@@ -59,7 +59,7 @@ export const updateTwitterUserAndAddRewardTransaction = async (quest, wallet, us
             wallet,
             questId,
             rewardedTypeId: rewardTypeId,
-            rewardedQty: quantity,
+            rewardedQty: currentQuest.quantity,
         },
     });
 
@@ -120,7 +120,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
             wallet,
             questId,
             rewardedTypeId: rewardTypeId,
-            rewardedQty: quantity,
+            rewardedQty: currentQuest.quantity,
         },
     });
 

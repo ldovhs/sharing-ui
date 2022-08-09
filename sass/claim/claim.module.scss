@@ -275,17 +275,6 @@ $list-text-font-size-large: 1.25rem;
 }
 
 .board {
-    // margin-top:60%;
-    // z-index: 3;
-    // @include m.flex-master(column, null, center);
-    // width: clamp(700px,40vw,100vh);
-    // min-width: fit-content;
- 
-    // background: center/contain no-repeat url("/challenger/img/sharing-ui/invite/board_small.png");
-    // position: relative;
- 
-    // gap: 2vh;
-    // padding: 3vh;
     @include m.flex-master(column, center, center);
     width: 85%;
     height:100%;
@@ -383,15 +372,14 @@ $list-text-font-size-large: 1.25rem;
         @include disconnect_button();
     }
     &_wrapper {
+        @include m.flex-master(column, null, center);
         position: absolute;
         width: 100%;
         height: 54%;
         top:32%;
         left:0;
-        
-        @include m.flex-master(column, null, center);
-  
         padding: 0 19%;
+
         @media (min-width: $bp-small) {  
             padding: 0 19%;
         }
@@ -1416,6 +1404,9 @@ $list-text-font-size-large: 1.25rem;
 @mixin pointer(){
 	cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
 }
+@mixin pointerDisabled(){
+	cursor: not-allowed;
+}
 
 .redemption {
     @include m.flex-master(null, center, center);
@@ -1457,7 +1448,7 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(32em, 70%);
+            width: min(37em, 70%);
         }
     
         &_container {
@@ -1502,15 +1493,7 @@ $list-text-font-size-large: 1.25rem;
             position: relative;
             width: 100%;
             height: 100%;
-            // gap: 0.35rem;
-            // margin-left: 0.5rem;
-    
-            // @media (min-width: $bp-small-2) {  
-            //     gap: 1rem;
-            // }
-            // @media (min-width: $bp-med-2) {  
-            //     gap: 1.5rem;
-            // }
+
             // @media (min-width: $bp-xl) {  
             //     gap: 1.75rem;
             // }
@@ -1768,6 +1751,162 @@ $list-text-font-size-large: 1.25rem;
                     color: #A2B7B6;
                 }
             }
+        }
+    }
+    &_reward {
+        @include m.flex-master(column, center, center);
+        position: relative;
+        width: 75%;
+        margin-top: -10%;
+        height: auto; //70vh
+        color: #fff;  
+    
+        @media (min-width: $bp-small) {
+            width: 80%;
+        }
+        @media (min-width: $bp-small-2) {
+            width: min(30em, 72%);
+        }
+        @media (min-width: $bp-small-3) {
+            width: min(32em, 80%);
+        }
+        @media (min-width: $bp-med) {
+            width: min(32em, 80%);
+        }
+        @media (min-width: $bp-med-2) {
+            width: min(25em, 30%);
+            margin-top: 0;
+        }
+        @media (min-width: $bp-xl) {
+            margin-top: 0;
+            width: min(32em, 70%);
+        }
+        @media (min-width: $bp-xl-2) {
+            width: min(32em, 70%);
+        }
+        @media (min-width: $bp-xl-3) {
+            width: min(37em, 70%);
+        }
+    
+        &_container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 140.27%;
+            
+            background: url("/challenger/img/redemption/Reward Background_3x.png") no-repeat;
+            background-size: contain;
+        }
+        &_title {
+            @include m.flex-master(row, center, center);
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            top: 13%;
+            left: 0; 
+
+            font-family: Safety Goggles;
+            font-size: 3vh;
+        }
+        &_wrapper {
+            @include m.flex-master(column, center, center);
+            position: absolute;
+            width: 100%;
+            height: 70%;
+            top: 28%;
+            left: 0; 
+        }
+
+        &_content {
+            @include m.flex-master(column, space-between, center);
+            position: relative;
+            width: 92%;
+            height: 100%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            // gap: 0.35rem;
+            // margin-left: 0.5rem;
+    
+            // @media (min-width: $bp-small-2) {  
+            //     gap: 1rem;
+            // }
+            // @media (min-width: $bp-med-2) {  
+            //     gap: 1.5rem;
+            // }
+            // @media (min-width: $bp-xl) {  
+            //     gap: 1.75rem;
+            // }
+        }
+
+        &_description {
+            @include m.flex-master(column, center, center);
+            position: relative;
+            width: 80%;
+            height: 35%;
+            color: #AD6B34;
+            font-family: PFRondaSeven;
+            font-size: 1.5vh;
+        }
+        &_scroll {
+            @include m.flex-master(row, center, center);
+            position: relative;
+            width: 100%;
+            flex: 1;
+
+            &_left {
+                width: 15%;
+                &_wrapper {
+                    margin-left: auto;
+                    width: 50%;
+                }  
+                &_enable {
+                    &:hover {
+                        @include pointer()
+                    }
+                }   
+                &_disable {
+                    &:hover {
+                        @include pointerDisabled()
+                    }
+                }          
+            }
+            &_right {
+                width: 15%;  
+                &_wrapper {
+                    margin-right: auto;
+                    width: 50%;
+                }   
+                &_enable {
+                    &:hover {
+                        @include pointer()
+                    }
+                }   
+                &_disable {
+                    &:hover {
+                        @include pointerDisabled()
+                    }
+                }         
+            }
+            &_img {
+                flex: 1;  
+                @include m.flex-master(row, center, center);
+                &_wrapper {
+                    @include m.flex-master(row, center, center);
+                    width: 65%;
+                } 
+            }
+
+        }
+        &_text {
+            @include m.flex-master(row, center, center);
+            position: relative;
+            width: 80%;
+            height: 20%;
+            color: #2484B2;
+            font-family: Safety Goggles;
+            font-size: 3vh;
+            text-align: center;
+            line-height: 2.5rem;
         }
     }
 }

@@ -2335,6 +2335,11 @@
     width: min(37em, 70%);
   }
 }
+@media (min-width: 3840px) {
+  .redemption_machine {
+    width: min(60em, 27%);
+  }
+}
 .redemption_machine_container {
   position: relative;
   width: 100%;
@@ -2668,12 +2673,12 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward {
-    width: min(46em, 30%);
+    width: min(46em, 27%);
   }
 }
 @media (min-width: 3840px) {
   .redemption_reward {
-    width: min(65em, 30%);
+    width: min(60em, 27%);
   }
 }
 .redemption_reward_container {

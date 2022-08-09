@@ -1459,6 +1459,9 @@ $list-text-font-size-large: 1.25rem;
         @media (min-width: $bp-xl-3) {
             width: min(37em, 70%);
         }
+        @media (min-width: $bp-xl-4) {
+            width: min(60em, 27%);
+        }
     
         &_container {
             position: relative;
@@ -1802,10 +1805,10 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(46em, 30%);
+            width: min(46em, 27%);
         }
         @media (min-width: $bp-xl-4) {
-            width: min(65em, 30%);
+            width: min(60em, 27%);
         }
     
         &_container {

@@ -12,7 +12,7 @@ const getClaimedRewardForUserAPI = async (req, res) => {
                 const whiteListUser = req.whiteListUser;
                 const rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
                 console.log("/api/user/reward/getClaimed is hit")
-                res.setHeader('Cache-Control', 'max-age=0, s-maxage=3600, stale-while-revalidate');
+                res.setHeader('Cache-Control', 'max-age=0, s-maxage=300, stale-while-revalidate');
                 res.status(200).json(rewarded);
             } catch (error) {
                 res.status(500).json({ error: error.message });

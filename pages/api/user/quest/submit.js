@@ -1,21 +1,23 @@
 import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
-import axios from "axios";
-
 import Enums from "enums";
 import { submitNewUserQuestTransaction } from "repositories/transactions";
-import { updateUserQuest } from "repositories/userQuest";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET } = process.env;
-
-const ROUTE = "/api/user/submit";
+function sleep(ms = 500) {
+    return new Promise((res) => setTimeout(res, ms))
+}
 
 const submitIndividualQuestAPI = async (req, res) => {
     const { method } = req;
 
+    if (process.env.NODE_ENV === 'production') {
+        await sleep()
+    }
+
     switch (method) {
         case "POST":
             try {
+
                 const whiteListUser = req.whiteListUser;
                 const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
                 let userQuest;
@@ -55,13 +57,6 @@ const submitIndividualQuestAPI = async (req, res) => {
                         const [withoutTime] = new Date().toISOString().split("T");
                         extendedUserQuestData.date = withoutTime;
                     }
-                    // if (
-                    //     extendedUserQuestData.frequently &&
-                    //     extendedUserQuestData.frequently === "hourly"
-                    // ) {
-                    //     const withTime = new Date().toISOString();
-                    //     extendedUserQuestData.date = withTime;
-                    // }
 
                     let currentQuest = await prisma.quest.findUnique({
                         where: {

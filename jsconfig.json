@@ -14,7 +14,8 @@
             "@shared/*": ["shared/*"],
             "@middlewares/*": ["middlewares/*"],
             "@hooks/*": ["hooks/*"],
-            "@sass/*": ["sass/*"]
+            "@sass/*": ["sass/*"],
+            "@enums/*": ["enums/*"]
           }
     },
      "include": [

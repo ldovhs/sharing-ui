@@ -4,7 +4,7 @@ import axios from "axios";
 
 import Enums from "enums";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
+const { NODEJS_SECRET, DISCORD_NODEJS } = process.env;
 
 const ROUTE = "/api/user/quest/submit-image";
 
@@ -36,30 +36,6 @@ const submitImageQuestAPI = async (req, res) => {
                         .status(200)
                         .json({ isError: true, message: "This quest already submitted before!" });
                 }
-
-                /**
-                 * 1. Post a message to discord channel
-                 * 2. Add new UserQuest with discord message id
-                 */
-                // let discordMsg = await discordHelper(
-                //     whiteListUser,
-                //     extendedQuestData.discordChannel,
-                //     imageUrl
-                // );
-
-                // if (!discordMsg) {
-                //     return res.status(200).json({
-                //         isError: true,
-                //         message: "Image cannot be uploaded. Pls contact administrator!",
-                //     });
-                // }
-                // if (!discordMsg?.data?.response?.id) {
-                //     return res.status(200).json({
-                //         isError: true,
-                //         message:
-                //             "Cannot get discord message id after uploaded. Pls contact administrator!",
-                //     });
-                // }
 
                 let extendedUserQuestData = {
                     ...extendedQuestData,

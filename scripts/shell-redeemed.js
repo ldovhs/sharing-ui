@@ -1,31 +1,6 @@
 const { PrismaClient, EquipmentType } = require("@prisma/client");
+const Enums = require("../enums");
 const prisma = new PrismaClient();
-
-const OCTOHEDZ_VX_NFT = "OctoHedz: VX NFT"
-const OCTOHEDZ_RELOADED = "OctoHedz: Reloaded"
-const COLORMONSTER_NFT = "ColorMonsters NFT"
-const MIRAKAI_SCROLLS_NFT = "Mirakai Scrolls NFT"
-const ALLSTARZ_NFT = "Allstarz NFT"
-const ETHER_JUMP_NFT = "Etherjump NFT"
-const META_HERO_NFT = "MetaHero NFT"
-const EX_8102_NFT = "8102 NFT"
-
-const NAME_INGAME = "Name a character in-game"
-const ADOPT_ANIMAL = "Adopt an animal"
-
-const FREE_MINT = "Free mint!"
-
-const EARLY_ACCESS = "Early access to game concept"
-const ONE_TO_ONE = "1:1 time with Anomura/ZED Run/HP team member"
-const ANOMURA_STICKER = "Anomura sticker pack or merch"
-
-const ANOMURA_PFP = "Anomura PFP"
-
-const ANOMURA_DOWNLOADABLE_STUFFS = "Anomura downloadable desktop/mobile wallpaper/Twitter banner"
-
-const GIFT_MINT_LIST_SPOT = "Gift a mintlist spot to a fren"
-
-const MINT_LIST_SPOT = "Mintlist spot"
 
 
 const testingWallets = [
@@ -62,43 +37,90 @@ async function main() {
 
     //     console.log(whiteListUserReward)
 
+    await assignSingleReward(Enums.OCTOHEDZ_VX_NFT);
+    await assignSingleReward(Enums.OCTOHEDZ_RELOADED);
+    await assignSingleReward(Enums.COLORMONSTER_NFT);
+    await assignSingleReward(Enums.MIRAKAI_SCROLLS_NFT);
+    await assignSingleReward(Enums.ALLSTARZ_NFT);
+    await assignSingleReward(Enums.ETHER_JUMP_NFT);
+    await assignSingleReward(Enums.META_HERO_NFT);
+    await assignSingleReward(Enums.EX_8102_NFT);
+    await assignSingleReward(Enums.NAME_INGAME);
 
-    assignOctohedzVxNft();
-    // assignOctohedzReloaded();
-    // assignColorMonsterNft();
-    // assignMirakaiNft();
-    // assignAllStarzNft();
-    // assignEtherJumpNft();
-    // assignMetaHeroNft();
-    // assign8102Nft();
+    await assignMultipleRewards(Enums.FREE_MINT, 10);
+    await assignMultipleRewards(Enums.ANOMURA_DOWNLOADABLE_STUFFS, 200);
+    await assignMultipleRewards(Enums.MINT_LIST_SPOT, 7000);// 7000
+    await assignMultipleRewards(Enums.GIFT_MINT_LIST_SPOT, 3000)
 }
 
-const assignOctohedzVxNft = () => {
-    let walletToReward, walletRedeem
-    do {
-        walletToReward = testingWallets[Math.floor(Math.random() * testingWallets.length)];
-        walletRedeem = await prisma.shellRedeemed.findUnique({
-            where: { wallet: walletToReward }
-        })
-
-    } while (walletRedeem?.rewards?.length > 0)
-
+const assignSingleReward = async (rewardName) => {
+    const whiteListUserRedeemed = await prisma.$queryRaw`
+        SELECT  wl."wallet", srd."rewards"    
+           from public."WhiteList" wl 
+           left join public."shellRedeemed" srd on wl."wallet" = srd."wallet"
+           where 1=1
+               and wl."wallet" in (
+                   '0xe90344F1526B04a59294d578e85a8a08D4fD6e0b',
+                   '0xd77aB381e769D330E50d9F32ecdd216474F4e386',
+                   '0x2C3B79b4FB76B2BDE07D457ecE647f1c63885418',
+                   '0xb61193014Fc983b3475d6bF365B7647c2E52b713',
+                   '0xBFF9B8D0aF518cb3d4b733FCa0627D7f3BbeEc42',
+                   '0xF9132814b9CAc452d5FE9792e102E7Dde41807e3',
+                   '0x6b2210bEd7E8f2d946C4258Cc3C0c19B7e4f397c',
+                   '0xfb11EAFa478C6D65E7c001a6f40a79A7Ac0E663e',
+                   '0x2E9ef3698E6CbDd14Ee73518407B2909952e0f50',
+                   '0x102f6CED956fe9C9f7f499B61A2d38c0029e80d8',
+                   '0xc08f1F50B7d926d0c60888220176c27CE55dA926',
+                   '0x2fe1d1B26401a922D19E1E74bed2bA799c64E040')
+                   and srd.rewards is null
+            `
+    let walletToReward = whiteListUserRedeemed[Math.floor(Math.random() * whiteListUserRedeemed.length)].wallet;
 
     // create reward in shell redeemed
     await prisma.shellRedeemed.upsert({
         where: { wallet: walletToReward },
         update: {
             rewards: {
-                push: OCTOHEDZ_VX_NFT
+                push: rewardName
             }
         },
         create: {
             wallet: walletToReward,
-            rewards: {
-                push: OCTOHEDZ_VX_NFT
-            }
+            rewards:
+                [rewardName]
+
         }
     })
+}
+
+const assignMultipleRewards = async (rewardType, numberOfReward) => {
+    const walletList = [...testingWallets]
+
+    for (let i = 0; i < numberOfReward; i++) {
+        let walletIndexToReward, walletToReward
+        walletIndexToReward = Math.floor(Math.random() * walletList.length);
+        walletToReward = walletList[walletIndexToReward]
+
+        await prisma.shellRedeemed.upsert({
+            where: { wallet: walletToReward },
+            update: {
+                rewards: {
+                    push: rewardType
+                }
+            },
+            create: {
+                wallet: walletToReward,
+                rewards:
+                    [rewardType]
+
+            }
+        })
+
+        walletList.splice(walletIndexToReward, 1)
+        if (walletList.length === 0) {
+            break;
+        }
+    }
 }
 
 main()

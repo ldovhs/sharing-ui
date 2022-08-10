@@ -39,6 +39,26 @@ const Enums = {
 
     // Image approval
     ITEM_PER_PAGE: 100,
+
+    // SHELL REDEEM
+    OCTOHEDZ_VX_NFT: "OctoHedz: VX NFT"
+    , OCTOHEDZ_RELOADED: "OctoHedz: Reloaded"
+    , COLORMONSTER_NFT: "ColorMonsters NFT"
+    , MIRAKAI_SCROLLS_NFT: "Mirakai Scrolls NFT"
+    , ALLSTARZ_NFT: "Allstarz NFT"
+    , ETHER_JUMP_NFT: "Etherjump NFT"
+    , META_HERO_NFT: "MetaHero NFT"
+    , EX_8102_NFT: "8102 NFT"
+    , NAME_INGAME: "Name a character in-game"
+    , ADOPT_ANIMAL: "Adopt an animal"
+    , FREE_MINT: "Free mint!"
+    , EARLY_ACCESS: "Early access to game concept"
+    , ONE_TO_ONE: "1:1 time with Anomura/ZED Run/HP team member"
+    , ANOMURA_STICKER: "Anomura sticker pack or merch"
+    , ANOMURA_PFP: "Anomura PFP"
+    , ANOMURA_DOWNLOADABLE_STUFFS: "Anomura downloadable desktop/mobile wallpaper/Twitter banner"
+    , GIFT_MINT_LIST_SPOT: "Gift a mintlist spot to a fren"
+    , MINT_LIST_SPOT: "Mintlist spot"
 };
 
 module.exports = Enums;

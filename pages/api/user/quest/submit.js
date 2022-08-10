@@ -3,7 +3,7 @@ import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 import { submitNewUserQuestTransaction } from "repositories/transactions";
 
-function sleep(ms = 500) {
+function sleep(ms = 2000) {
     return new Promise((res) => setTimeout(res, ms))
 }
 
@@ -11,6 +11,7 @@ const submitIndividualQuestAPI = async (req, res) => {
     const { method } = req;
 
     if (process.env.NODE_ENV === 'production') {
+        console.log("In production, throttle the request")
         await sleep()
     }
 

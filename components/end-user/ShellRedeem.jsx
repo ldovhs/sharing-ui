@@ -282,7 +282,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                         </div>
                                         <div className={s.redemption_reward_scroll_img}>
                                             <div className={s.redemption_reward_scroll_img_wrapper}>
-                                                <img src={`${getRewardPicture()} `} />
+                                                <img
+                                                    className={s.redemption_reward_scroll_img_star}
+                                                    src={`${Enums.BASEPATH}/img/redemption/Star Background_3x.gif`}
+                                                />
+                                                <img
+                                                    className={s.redemption_reward_scroll_img_asset}
+                                                    src={`${getRewardPicture()} `}
+                                                />
                                             </div>
                                         </div>
                                         <div className={s.redemption_reward_scroll_right}>

@@ -2806,11 +2806,27 @@
   align-items: center;
 }
 .redemption_reward_scroll_img_wrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 65%;
+  width: 75%;
+}
+.redemption_reward_scroll_img_asset {
+  position: absolute;
+  top: 10%;
+  z-index: 1;
+  width: 70%;
+}
+.redemption_reward_scroll_img_star {
+  width: 100%;
+}
+@media (min-width: 1980px) {
+  .redemption_reward_scroll_img_star {
+    width: 100%;
+    z-index: 2;
+  }
 }
 .redemption_reward_text {
   display: flex;

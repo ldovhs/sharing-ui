@@ -9,15 +9,9 @@ import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from 
 const IDLE = 1;
 const STUCK = 2;
 const PUNCH = 3;
-const SHOWREWARD = 4;
+const SHOW_REMAINING = 4;
+const SHOW_REWARD = 5;
 const MACHINE_ERROR = 10;
-
-// let rewardArray = [
-//     "Gift a Mintlist Spot to a fren",
-//     "Free mint",
-//     "Nothing!",
-//     "Anomura downloadable wallpaper",
-// ];
 
 const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
     const [machineState, setMachineState] = useState(IDLE);
@@ -42,7 +36,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             // if redeemed is false
             if (shellRedeemed.isRedeemed) {
                 setRewardRedeemed([...shellRedeemed.rewards]);
-                setMachineState(SHOWREWARD);
+                setMachineState(SHOW_REWARD);
                 setCurrentViewReward(0);
             } else {
                 // if is true
@@ -78,13 +72,21 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             // submit roll here
             let submitRoll = await onRollSubmit();
             console.log(submitRoll);
-            setRewardRedeemed([...submitRoll.data.rewards]);
 
-            let rewardTimeout = setTimeout(() => {
-                setCurrentViewReward(0);
-                setMachineState(SHOWREWARD);
-                clearTimeout(rewardTimeout);
-            }, 2200);
+            if (submitRoll?.data.rewards) {
+                setRewardRedeemed([...submitRoll.data.rewards]);
+
+                let showRemainingTimeOut = setTimeout(() => {
+                    setMachineState(SHOW_REMAINING);
+                    clearTimeout(showRemainingTimeOut);
+
+                    let rewardTimeout = setTimeout(() => {
+                        setCurrentViewReward(0);
+                        setMachineState(SHOW_REWARD);
+                        clearTimeout(rewardTimeout);
+                    }, 2200);
+                }, 2000);
+            }
         }, 100);
     };
     const handleRollOne = () => {
@@ -216,7 +218,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     } else {
         return (
             <>
-                {machineState !== SHOWREWARD && (
+                {machineState !== SHOW_REWARD && (
                     <div className={s.redemption_machine}>
                         <div
                             className={`${
@@ -228,10 +230,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                     className={s.redemption_machine_content}
                                     onClick={() => handleStuckToPunch()}
                                 >
-                                    {machineState !== PUNCH && (
+                                    {machineState !== PUNCH && machineState !== SHOW_REMAINING && (
                                         <div className={s.redemption_machine_shell}>
                                             $SHELL {rewardAmount}
                                         </div>
+                                    )}
+                                    {machineState === SHOW_REMAINING && (
+                                        <div className={s.redemption_machine_shell}>$SHELL 0</div>
                                     )}
                                     <button
                                         disabled={machineState !== IDLE}
@@ -248,7 +253,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                         </div>
                     </div>
                 )}
-                {machineState === SHOWREWARD && (
+                {machineState === SHOW_REWARD && (
                     <div className={s.redemption_reward}>
                         <div className={s.redemption_reward_container}>
                             <div className={s.redemption_reward_title}>YOU WON!</div>

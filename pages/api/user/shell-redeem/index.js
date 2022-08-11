@@ -10,16 +10,16 @@ export const config = {
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;
 
-    if (process.env.NODE_ENV === 'production') {
-        console.log("In production, throttle the request")
-        const checkLimit = await ipRateLimit(req)
+    // if (process.env.NODE_ENV === 'production') {
+    //     console.log("In production, throttle the request")
+    //     const checkLimit = await ipRateLimit(req)
 
-        // If the status is not 200 then it has been rate limited.
-        if (checkLimit?.status !== 200) {
-            return res.status(500).json({ error: checkLimit.statusText })
-        }
-        await sleep()
-    }
+    //     // If the status is not 200 then it has been rate limited.
+    //     if (checkLimit?.status !== 200) {
+    //         return res.status(500).json({ error: checkLimit.statusText })
+    //     }
+    //     await sleep()
+    // }
 
     if (method !== 'GET') {
         res.setHeader("Allow", ["POST"]);

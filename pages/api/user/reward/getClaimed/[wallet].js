@@ -1,17 +1,19 @@
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import { getClaimedRewardsOfUser } from "repositories/reward";
 
-const ROUTE = "/api/user/reward/getClaimed";
-
 const getClaimedRewardForUserAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
         case "GET":
             try {
-                const whiteListUser = req.whiteListUser;
-                const rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
-                console.log("/api/user/reward/getClaimed is hit")
+                const { wallet } = req.query;
+                // const whiteListUser = req.whiteListUser;
+                // console.log(wallet)
+                //onst rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
+                const rewarded = await getClaimedRewardsOfUser(wallet);
+                console.log("getClaimed is hit")
+
                 res.setHeader('Cache-Control', 'max-age=0, s-maxage=300, stale-while-revalidate');
                 res.status(200).json(rewarded);
             } catch (error) {

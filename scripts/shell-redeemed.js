@@ -74,6 +74,7 @@ const assignSingleReward = async (rewardName) => {
                    '0x2fe1d1B26401a922D19E1E74bed2bA799c64E040')
                    and srd.rewards is null
             `
+    console.log(whiteListUserRedeemed)
     let walletToReward = whiteListUserRedeemed[Math.floor(Math.random() * whiteListUserRedeemed.length)].wallet;
 
     // create reward in shell redeemed

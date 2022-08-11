@@ -6,6 +6,8 @@ import Enums from "enums";
 const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
     process.env;
 
+const SHELL_PRICE = Enums.SHELL_PRICE;
+
 const shellRedeemRollAllAPI = async (req, res) => {
     const { method } = req;
 
@@ -24,18 +26,51 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     5. Calculate how many rewards user can get based on shell
                     
                     6.
-                        a. if it is <= 4
+                        a. if claimableRewards <= userShellRedeem.rewardArray
 
-                        b. if it is >= 5
+                        b. if claimableRewards > userShellRedeem.rewardArray
                 */
-                console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);
-
+                let wallet = whiteListUser.wallet
                 console.log(`** Assure this reward exists and not redeemed **`);
+                let userShellRedeem = await prisma.shellRedeemed.findUnique({
+                    where: {
+                        wallet
+                    }
+                })
+                if (userShellRedeem?.isRedeemed) {
+                    res.status(200).json({ message: "Already redeemed", isError: true });
+                }
 
+                //query shell amount
+                let shellReward = await prisma.rewardType.findFirst({
+                    where: {
+                        reward: "$Shell"
+                    }
+                })
+                let rewardTypeId = shellReward.id
 
+                let userReward = await prisma.reward.findUnique({
+                    where: {
+                        wallet_rewardTypeId: { wallet, rewardTypeId },
+                    },
+                })
+                if (!userReward || userReward.quantity < SHELL_PRICE) {
+                    res.status(200).json({ message: "Cannot redeem", isError: true });
+                }
 
-                res.status(200).json({ message: "ok" });
+                let claimableRewards = Math.floor(userReward.quantity / SHELL_PRICE)
+                let reduceShellQty = claimableRewards * SHELL_PRICE;
+
+                let updateShellRedeemed;
+                if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0 || userShellRedeem.rewards?.length < claimableRewards) {
+                    // new user or hacked account with too much shell
+                } else {
+                    updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
+                }
+
+                res.status(200).json({ message: "Shell redeemed succeeded" });
             } catch (err) {
+                console.log(err)
                 res.status(500).json({ error: err.message });
             }
             break;
@@ -46,3 +81,42 @@ const shellRedeemRollAllAPI = async (req, res) => {
 };
 
 export default whitelistUserMiddleware(shellRedeemRollAllAPI);
+
+
+const redeemReward = async (
+    claimableRewards,
+    reduceShellQty,
+    wallet,
+    rewardTypeId
+) => {
+
+    try {
+        console.log(`**Update Reward for User Redeem**`);
+        let updateUserReward = prisma.reward.update({
+            where: {
+                wallet_rewardTypeId: { wallet, rewardTypeId },
+            },
+            data: {
+                quantity: {
+                    decrement: reduceShellQty,
+                },
+            },
+        });
+
+        console.log(`**Update ShellRedeem table**`);
+        let updateShellRedeemed = prisma.shellRedeemed.update({
+            where: {
+                wallet,
+            },
+            data: {
+                isRedeemed: true,
+                rewardPointer: claimableRewards - 1
+            },
+        });
+
+        await prisma.$transaction([updateUserReward, updateShellRedeemed]);
+        return updateShellRedeemed;
+    } catch (error) {
+        console.log(error);
+    }
+};

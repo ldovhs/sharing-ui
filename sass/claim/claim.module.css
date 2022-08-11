@@ -2309,7 +2309,7 @@
 }
 @media (min-width: 872px) {
   .redemption_machine {
-    width: 600px;
+    width: min(25em, 27%);
     margin-top: 0;
   }
 }
@@ -2743,7 +2743,7 @@
   align-items: center;
   position: relative;
   width: 80%;
-  height: 35%;
+  height: 20%;
   color: #AD6B34;
   font-family: PFRondaSeven;
   font-size: min(0.65rem, 1.75vh);
@@ -2812,11 +2812,6 @@
   align-items: center;
   width: 65%;
 }
-@media (min-width: 1980px) {
-  .redemption_reward_scroll_img_wrapper > img {
-    width: 100%;
-  }
-}
 .redemption_reward_text {
   display: flex;
   flex-direction: row;
@@ -2834,11 +2829,223 @@
 @media (min-width: 800px) {
   .redemption_reward_text {
     width: 80%;
-    line-height: 2.5rem;
+    line-height: 2.25rem;
   }
 }
 @media (min-width: 1980px) {
   .redemption_reward_text {
-    line-height: 3.5rem;
+    line-height: 2.5rem;
   }
+}
+@media (min-width: 2560px) {
+  .redemption_reward_text {
+    line-height: 2.75rem;
+  }
+}
+.redemption_reward_pinkText {
+  color: #FF5FB7;
+}
+.redemption_reward_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 20%;
+  gap: 2rem;
+}
+.redemption_reward_buttons_claim {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+@media (min-width: 384px) {
+  .redemption_reward_buttons_claim {
+    width: 55%;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward_buttons_claim {
+    width: 50%;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_claim {
+    width: 60%;
+  }
+}
+.redemption_reward_buttons_claim > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.redemption_reward_buttons_claim > div > span {
+  width: 100%;
+  font-size: 1.2vh;
+  font-family: Safety Goggles;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.05rem;
+}
+@media (min-width: 384px) {
+  .redemption_reward_buttons_claim > div > span {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward_buttons_claim > div > span {
+    font-size: 1.15rem;
+  }
+}
+@media (min-width: 636px) {
+  .redemption_reward_buttons_claim > div > span {
+    font-size: 1.55rem;
+    line-height: 1.35rem;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_claim > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 1440px) {
+  .redemption_reward_buttons_claim > div > span {
+    font-size: 2.25rem;
+  }
+}
+.redemption_reward_buttons_claim > div > img {
+  margin-left: 0.3rem;
+  max-height: 50%;
+  width: auto !important;
+}
+@media (min-width: 636px) {
+  .redemption_reward_buttons_claim > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_claim > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward_buttons_claim > div > img {
+    max-height: 65%;
+  }
+}
+.redemption_reward_buttons_claim > div > img:nth-child(2) {
+  margin-left: 0.25rem;
+}
+.redemption_reward_buttons_claim:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
+}
+.redemption_reward_buttons_claim:disabled:hover {
+  color: #A2B7B6;
+}
+.redemption_reward_buttons_claim:hover {
+  color: #881C64 !important;
+}
+.redemption_reward_buttons_share {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+@media (min-width: 384px) {
+  .redemption_reward_buttons_share {
+    width: 55%;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward_buttons_share {
+    width: 50%;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_share {
+    width: 60%;
+  }
+}
+.redemption_reward_buttons_share > div {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  height: 90%;
+}
+.redemption_reward_buttons_share > div > span {
+  width: 100%;
+  font-size: 1.2vh;
+  font-family: Safety Goggles;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.05rem;
+}
+@media (min-width: 384px) {
+  .redemption_reward_buttons_share > div > span {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward_buttons_share > div > span {
+    font-size: 1.15rem;
+  }
+}
+@media (min-width: 636px) {
+  .redemption_reward_buttons_share > div > span {
+    font-size: 1.55rem;
+    line-height: 1.35rem;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_share > div > span {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 1440px) {
+  .redemption_reward_buttons_share > div > span {
+    font-size: 2.25rem;
+  }
+}
+.redemption_reward_buttons_share > div > img {
+  margin-left: 0.3rem;
+  max-height: 50%;
+  width: auto !important;
+}
+@media (min-width: 636px) {
+  .redemption_reward_buttons_share > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_buttons_share > div > img {
+    max-height: 65%;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward_buttons_share > div > img {
+    max-height: 65%;
+  }
+}
+.redemption_reward_buttons_share > div > img:nth-child(2) {
+  margin-left: 0.25rem;
+}
+.redemption_reward_buttons_share:disabled {
+  cursor: not-allowed !important;
+  color: #A2B7B6;
+}
+.redemption_reward_buttons_share:disabled:hover {
+  color: #A2B7B6;
+}
+.redemption_reward_buttons_share:hover {
+  color: #0E5B91 !important;
 }/*# sourceMappingURL=claim.module.css.map */

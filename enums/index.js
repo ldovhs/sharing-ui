@@ -41,6 +41,7 @@ const Enums = {
     ITEM_PER_PAGE: 100,
 
     // SHELL REDEEM
+    SHELL_PRICE: 2000,
     OCTOHEDZ_VX_NFT: "OctoHedz: VX NFT"
     , OCTOHEDZ_RELOADED: "OctoHedz: Reloaded"
     , COLORMONSTER_NFT: "ColorMonsters NFT"
@@ -53,10 +54,10 @@ const Enums = {
     , ADOPT_ANIMAL: "Adopt an animal"
     , FREE_MINT: "Free mint!"
     , EARLY_ACCESS: "Early access to game concept"
-    , ONE_TO_ONE: "1:1 time with Anomura/ZED Run/HP team member"
+    , ONE_TO_ONE: "1:1 with Anomura team member"
     , ANOMURA_STICKER: "Anomura sticker pack or merch"
     , ANOMURA_PFP: "Anomura PFP"
-    , ANOMURA_DOWNLOADABLE_STUFFS: "Anomura downloadable desktop/mobile wallpaper/Twitter banner"
+    , ANOMURA_DOWNLOADABLE_STUFFS: "Anomura downloadable wallpaper"
     , GIFT_MINT_LIST_SPOT: "Gift a mintlist spot to a fren"
     , MINT_LIST_SPOT: "Mintlist spot"
 };

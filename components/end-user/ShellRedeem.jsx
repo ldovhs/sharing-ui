@@ -4,24 +4,25 @@ import Enums from "enums";
 import { useDeviceDetect } from "lib/hooks";
 import { useRouter } from "next/router";
 import "/node_modules/nes.css/css/nes.css";
-import { useUserRewardQuery } from "@shared/HOC";
+import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from "@shared/HOC";
 
 const IDLE = 1;
 const STUCK = 2;
 const PUNCH = 3;
 const SHOWREWARD = 4;
+const MACHINE_ERROR = 10;
 
-let rewardArray = [
-    "Gift a Mintlist Spot to a fren",
-    "Free mint",
-    "Nothing!",
-    "Anomura downloadable wallpaper",
-];
+// let rewardArray = [
+//     "Gift a Mintlist Spot to a fren",
+//     "Free mint",
+//     "Nothing!",
+//     "Anomura downloadable wallpaper",
+// ];
 
-const ShellRedeem = ({ session }) => {
+const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
     const [machineState, setMachineState] = useState(IDLE);
     const [showFooter, setShowFooter] = useState(false);
-    const [currentViewReward, setCurrentViewReward] = useState(0);
+
     const [boxMessage, setBoxMessage] =
         useState(`Man, that old wreck keeps jamming every time! Didn't you put any
     money in it ?!\n Try to give it a few hits and see if it unlocks!`);
@@ -29,8 +30,25 @@ const ShellRedeem = ({ session }) => {
     const { isMobile } = useDeviceDetect();
     const [userRewards, userRewardLoading] = useUserRewardQuery();
     const [rewardAmount, setRewardAmount] = useState(null);
+    const [shellRedeemed, shellRedeemedLoading] = useShellRedeemQuery();
+    const [currentViewReward, setCurrentViewReward] = useState(-1);
+    const [rewardRedeemed, setRewardRedeemed] = useState(null);
+    console.log(shellRedeemed);
 
     useEffect(async () => {}, [isMobile]);
+    useEffect(async () => {
+        if (!shellRedeemed) {
+        } else {
+            // if redeemed is false
+            if (shellRedeemed.isRedeemed) {
+                setRewardRedeemed([...shellRedeemed.rewards]);
+                setMachineState(SHOWREWARD);
+                setCurrentViewReward(0);
+            } else {
+                // if is true
+            }
+        }
+    }, [shellRedeemed]);
 
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
@@ -52,10 +70,14 @@ const ShellRedeem = ({ session }) => {
         }
         setShowFooter(false);
 
-        let punchTimeout = setTimeout(() => {
+        let punchTimeout = setTimeout(async () => {
             console.log("Stuck to Punch");
             setMachineState(PUNCH);
             clearTimeout(punchTimeout);
+
+            // submit roll here
+            let submitRoll = await onRollSubmit();
+            console.log(submitRoll);
 
             let rewardTimeout = setTimeout(() => {
                 setCurrentViewReward(0);
@@ -65,6 +87,16 @@ const ShellRedeem = ({ session }) => {
         }, 100);
     };
     const handleRollOne = () => {
+        console.log("Rolling one");
+    };
+    const handleRollAll = () => {
+        if (rewardAmount < Enums.SHELL_PRICE) {
+            console.log("Shell amount less than shell price");
+            return;
+        }
+
+        // pop up confirm here
+
         // get machine to stuck
         setMachineState(STUCK);
 
@@ -73,7 +105,6 @@ const ShellRedeem = ({ session }) => {
             clearTimeout(footerTimeout);
         }, 2500);
     };
-    const handleRollAll = () => {};
     const getMachineBackground = () => {
         switch (machineState) {
             case IDLE:
@@ -86,23 +117,71 @@ const ShellRedeem = ({ session }) => {
                 return s.redemption_machine_idle;
         }
     };
-
     const getRewardPicture = () => {
-        switch (rewardArray[currentViewReward]) {
-            case "Gift a Mintlist Spot to a fren":
-                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
-            case "Free mint":
-                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
-            case "Nothing!":
-                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
-            case "Anomura downloadable wallpaper":
-                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
+        switch (rewardRedeemed[currentViewReward]) {
+            case Enums.ONE_TO_ONE:
+                return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
+            case Enums.ADOPT_ANIMAL:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
+            case Enums.MINT_LIST_SPOT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
+            case Enums.EARLY_ACCESS:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
+            case Enums.FREE_MINT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
+            case Enums.GIFT_MINT_LIST_SPOT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
+            case Enums.NAME_INGAME:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
+            case Enums.ANOMURA_PFP:
+                return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
+            case Enums.ANOMURA_STICKER:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
+            case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.OCTOHEDZ_VX_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.OCTOHEDZ_RELOADED:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.COLORMONSTER_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.MIRAKAI_SCROLLS_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.ALLSTARZ_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.ETHER_JUMP_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.META_HERO_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            case Enums.EX_8102_NFT:
+                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
             default:
-                return "";
+                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
+        }
+    };
+
+    const getRewardText = () => {
+        switch (rewardRedeemed[currentViewReward]) {
+            case Enums.MINT_LIST_SPOT:
+                return (
+                    <div className={`${s.redemption_reward_text} ${s.redemption_reward_pinkText}`}>
+                        {rewardRedeemed &&
+                            rewardRedeemed.length > 0 &&
+                            rewardRedeemed[currentViewReward].toString().toUpperCase()}
+                    </div>
+                );
+            default:
+                return (
+                    <div className={s.redemption_reward_text}>
+                        {rewardRedeemed &&
+                            rewardRedeemed.length > 0 &&
+                            rewardRedeemed[currentViewReward]}
+                    </div>
+                );
         }
     };
     const viewNextReward = () => {
-        if (currentViewReward === rewardArray.length - 1) {
+        if (currentViewReward === rewardRedeemed?.length - 1) {
             return;
         }
         setCurrentViewReward((prev) => prev + 1);
@@ -177,8 +256,7 @@ const ShellRedeem = ({ session }) => {
                                     <div className={s.redemption_reward_description}>
                                         Placeholder TextLorem ipsum dolor sit amet, consectetur
                                         adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostru.
+                                        et dolore magna aliqua.
                                     </div>
                                     <div className={s.redemption_reward_scroll}>
                                         <div className={s.redemption_reward_scroll_left}>
@@ -212,14 +290,16 @@ const ShellRedeem = ({ session }) => {
                                             >
                                                 <img
                                                     src={
-                                                        currentViewReward === rewardArray.length - 1
+                                                        currentViewReward ===
+                                                        rewardRedeemed?.length - 1
                                                             ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
                                                             : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
                                                     }
                                                     onClick={() => viewNextReward()}
                                                     alt="right arrow"
                                                     className={
-                                                        currentViewReward === rewardArray.length - 1
+                                                        currentViewReward ===
+                                                        rewardRedeemed?.length - 1
                                                             ? s.redemption_reward_scroll_left_disable
                                                             : s.redemption_reward_scroll_left_enable
                                                     }
@@ -227,8 +307,26 @@ const ShellRedeem = ({ session }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={s.redemption_reward_text}>
-                                        {rewardArray[currentViewReward]}
+                                    {getRewardText()}
+                                    <div className={s.redemption_reward_buttons}>
+                                        <button className={s.redemption_reward_buttons_claim}>
+                                            <img
+                                                src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`}
+                                                alt="Claim"
+                                            />
+                                            <div>
+                                                <span>Claim</span>
+                                            </div>
+                                        </button>
+                                        <button className={s.redemption_reward_buttons_share}>
+                                            <img
+                                                src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`}
+                                                alt="Share"
+                                            />
+                                            <div>
+                                                <span>Share</span>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -290,4 +388,4 @@ const ShellRedeem = ({ session }) => {
     }
 };
 
-export default ShellRedeem;
+export default withShellRedeemRollAll(ShellRedeem);

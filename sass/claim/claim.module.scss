@@ -1931,7 +1931,7 @@ $list-text-font-size-large: 1.25rem;
                 &_asset {
                     position: absolute;
                     top: 10%;
-                    z-index: 1;
+                    z-index: 2;
                     width: 70%;
                     // @media (min-width: $bp-xl-2) { 
                     //     // width: 85%;
@@ -1950,8 +1950,7 @@ $list-text-font-size-large: 1.25rem;
                         // width: 85%;
                        
                         width: 100%;    
-                        z-index: 2;
-                      
+                        z-index: 1;
                     }
                 }
             }

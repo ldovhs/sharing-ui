@@ -140,7 +140,7 @@ const options = {
     debug: false,
     session: {
         jwt: true,
-        maxAge: 60 * 60 * 24 * 5, //  30 * 24 * 60 * 60
+        maxAge: 60 * 60 * 24 * 30, //  30 * 24 * 60 * 60
     },
     jwt: {
         signingKey: NEXT_PUBLIC_NEXTAUTH_SECRET,

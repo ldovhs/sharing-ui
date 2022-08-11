@@ -1,8 +1,5 @@
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 
-const ROUTE = "/api/user/current";
-
-// get current user from session
 const handler = async (req, res) => {
     const { method } = req;
 

@@ -102,11 +102,11 @@ const checkRequest = async (req, res) => {
     const forwarded = req.headers["x-forwarded-for"]
     const userAgent = headers['user-agent'];
 
-    if (blockedUserAgentArr.includes(userAgent)) {
-        let message = "User Agent blacklist"
-        console.log(message)
-        return message
-    }
+    // if (blockedUserAgentArr.includes(userAgent)) {
+    //     let message = "User Agent blacklist"
+    //     console.log(message)
+    //     return message
+    // }
     const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
 
     if (blockIPArr.includes(ip)) {

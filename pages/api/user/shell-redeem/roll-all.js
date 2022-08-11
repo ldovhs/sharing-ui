@@ -68,7 +68,7 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
                 }
 
-                res.status(200).json({ message: "Shell redeemed succeeded" });
+                res.status(200).json(updateShellRedeemed);
             } catch (err) {
                 console.log(err)
                 res.status(500).json({ error: err.message });

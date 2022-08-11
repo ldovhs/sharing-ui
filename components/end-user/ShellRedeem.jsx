@@ -78,6 +78,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             // submit roll here
             let submitRoll = await onRollSubmit();
             console.log(submitRoll);
+            setRewardRedeemed([...submitRoll.data.rewards]);
 
             let rewardTimeout = setTimeout(() => {
                 setCurrentViewReward(0);

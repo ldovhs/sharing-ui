@@ -294,11 +294,71 @@ const walletsToFix = [
     "0xa9398d774FC1b637A84ecF2fBc626dDCEce2cA3c"
 ]
 async function main() {
+    const DAY_UNIT_IN_MILLISECONDS = 24 * 3600 * 1000
 
-    const wallet = '0x32118F02fB9Fc6A3Fb47C70De1945b39cFAed519'
+    const quantityQuery = await prisma.$queryRaw`
+        select uq."wallet", 
+	        --distinct uq."wallet" 
+	        SUM(uq."rewardedQty") as hackedQty,
+	        SUM(q."quantity") as correctQty
+	    from public."UserQuest" uq 
+	    join public."Quest" q on uq."questId" = q."questId"
+	        where uq."rewardedQty" != q."quantity"
+                group by uq."wallet"
+                order by 3 desc
+            `
 
+    //query shell amount
+    let shellReward = await prisma.rewardType.findFirst({
+        where: {
+            reward: "$Shell"
+        }
+    })
+    let rewardTypeId = shellReward.id
+    for (let i = 0; i < walletsToFix.length; i++) {
+        // query how many days
+        let wallet = walletsToFix[i]
+
+        let userRewards = await prisma.reward.findFirst({
+            where: {
+                wallet
+            }
+        })
+
+        const updatedAt = userRewards?.updatedAt
+        const createdAt = userRewards?.createdAt
+        const diffInMiliSeconds = new Date(updatedAt).getTime() - new Date(createdAt).getTime()
+        const diffInDays = Math.floor(diffInMiliSeconds / DAY_UNIT_IN_MILLISECONDS)
+
+        let walletIndex = quantityQuery.findIndex(i => i.wallet == wallet)
+        let amountToFix
+        if (diffInDays !== 0) {
+
+            // console.log(quantityQuery[walletIndex])
+            //  amountToFix = quantityQuery[walletIndex].correctqty - 10 + (diffInDays * 10)
+        }
+        else {
+            //amountToFix = quantityQuery[walletIndex].correctqty
+        }
+        amountToFix = quantityQuery[walletIndex].correctqty
+        if (quantityQuery[walletIndex].correctqty !== amountToFix) {
+            console.log(wallet + " " + quantityQuery[walletIndex].correctqty + " " + diffInDays + " " + amountToFix + " " + quantityQuery[walletIndex].hackedqty)
+            //  console.log(amountToFix)
+        }
+
+        console.log(wallet + " " + quantityQuery[walletIndex].correctqty + " " + amountToFix + " " + quantityQuery[walletIndex].hackedqty)
+
+
+        await prisma.reward.update({
+            where: {
+                wallet_rewardTypeId: { wallet, rewardTypeId }
+            },
+            data: {
+                quantity: amountToFix
+            }
+        })
+    }
 }
-
 
 main()
     .catch((e) => {

@@ -177,7 +177,7 @@ $list-text-font-size-large: 1.25rem;
 		height: 90%;
 		& > span { 
             width: 100%;
-            font-size: 1.2vh;
+            font-size: 0.9rem;
 	        font-family: Safety Goggles;
             font-weight: 400;
 	        text-align: center;
@@ -1538,16 +1538,15 @@ $list-text-font-size-large: 1.25rem;
                 font-size: 4rem;
             }
         }
-
-        &_roll1 {
+        &_roll {
             position: absolute;
             width: 27%;
-            height: 8%;
+            height: 18%;
             left: 12%;
             top: 72%;
-            padding:0;
+            padding: 0;
             z-index: 12;
-
+          
             &:hover {
                 @include pointer()
             }
@@ -1558,24 +1557,6 @@ $list-text-font-size-large: 1.25rem;
                     cursor: not-allowed!important;
                 }
             }
-        }
-        &_rollAll {
-            position: absolute;
-            width: 27%;
-            height: 8%;
-            left: 12%;
-            top: 82%;
-            &:hover {
-                @include pointer()
-            }
-            &:disabled {
-                cursor: not-allowed!important;
-               
-                &:hover {
-                    cursor: not-allowed!important;
-                }
-            }
-            z-index: 12;
         } 
     }
     &_footer {
@@ -1583,10 +1564,15 @@ $list-text-font-size-large: 1.25rem;
         position: absolute;
         width: 100%;
         height: 22%;
-        bottom: 6%;
+        max-height: 5.75rem;
+        bottom: 5%;
         z-index: 14;
 
         @media (min-width: $bp-small) {  
+            height: 25%;
+            bottom: 5%;
+        }
+        @media (min-width: $bp-small-3) {  
             height: 25%;
             bottom: 5%;
         }
@@ -1594,12 +1580,14 @@ $list-text-font-size-large: 1.25rem;
         @media (min-width: $bp-large-2) {  
             height: 11%;
             bottom: 7%;
+            max-height: none;
         }
 
         &_wrapper {
             @include m.flex-master(column, center, center);
             position: relative;
             width: 80%;
+ 
             height: 100%;
 
             @media (min-width: $bp-small) {  
@@ -1609,17 +1597,18 @@ $list-text-font-size-large: 1.25rem;
            
             }
             @media (min-width: $bp-small-3) {  
-                // margin-left: -20%;
+                width: 75%; 
             }
             @media (min-width: $bp-med) { 
                 @include m.flex-master(row, center, center); 
                 margin-left: -15%;
                 height: 100%;
             }
-            @media (min-width: $bp-large) {  
+            @media (min-width: $bp-large) { 
                 margin-left: -10%;
             }
             @media (min-width: $bp-large-2) {  
+
                 margin-left: 0;
                 width: 40%;
             }
@@ -1648,6 +1637,7 @@ $list-text-font-size-large: 1.25rem;
             @include m.flex-master(column, center, null);
             position:relative;
             height: 100%;
+            width: 100%;
             padding: 0;
             color: #FFFFFF;
         
@@ -1674,7 +1664,9 @@ $list-text-font-size-large: 1.25rem;
                     @include m.flex-master(column, center, null); 
                     padding-bottom:0;
                 }
-
+                @media (min-width: $bp-med) { 
+                    width: 95%;
+                }
                 @media (min-width: $bp-xl) {  
                     padding-left: 1.5rem;
                     padding-right: 1.5rem;
@@ -1688,15 +1680,15 @@ $list-text-font-size-large: 1.25rem;
                     max-width: 100%;
                     @include m.flex-master(column, center, null);
                     height:75%;
-                    font-size: 1.75vh;
-                    font-family: Safety Goggles;
+                    font-size: 0.45rem;
+                    font-family: PFRondaSeven;
                     font-weight: 400;
-    
                     overflow-wrap: break-word;
                     line-height: 1rem;
-                    // @media (min-width: $bp-small) {  
-                    //     font-size: 1rem;
-                    // }
+
+                    @media (min-width: $bp-small) {  
+                        font-size: 0.525rem;
+                    }
                     // @media (min-width: $bp-small-2) {  
                     //     font-size: 1.15rem;
                     // }
@@ -1704,18 +1696,21 @@ $list-text-font-size-large: 1.25rem;
                     //     font-size: 1.55rem;
                     //     line-height: 1.35rem;
                     // }
-                    // @media (min-width: $bp-med-2) {  
-                    //     font-size: 1.75rem;
-                    // }
-                     @media (min-width: $bp-med) {  
-                        font-size: 1.75vh;
+                    @media (min-width: $bp-med) {  
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
                     }
                     @media (min-width: $bp-xl) {  
-                        font-size: 2vh;
+                        font-size: 1.65vh;
                         line-height: 1.75rem;
                     }
                     @media (min-width: $bp-xl-3) {  
-                        line-height: 2.5rem;
+                        font-size: 1.55rem;
+                        line-height: 2.75rem;
+                    }
+                    @media (min-width: $bp-xl-4) {  
+                        font-size: 2.25rem;
+                        line-height: 3.25rem;
                     }
                 }
             }
@@ -1806,10 +1801,10 @@ $list-text-font-size-large: 1.25rem;
             width: min(36em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(42em, 26%);
+            width: min(45em, 28%);
         }
         @media (min-width: $bp-xl-4) {
-            width: min(62em, 26%);
+            width: min(62em, 27%);
         }
     
         &_container {
@@ -1826,17 +1821,81 @@ $list-text-font-size-large: 1.25rem;
             position: absolute;
             width: 100%;
             height: 10%;
-            top: 13%;
+            top: 13.25%;
             left: 0; 
 
             font-family: Safety Goggles;
-            font-size: 3vh;
+            font-size: 1.5rem;
+
+            & > :nth-child(1) {
+                transform: translate(0px, 5%) rotate(-4deg);
+            }
+            & > :nth-child(2) {
+                transform: translate(0px, 2.5%) rotate(-3deg);
+            }
+            & > :nth-child(3) {
+                transform: translate(0px, 1.5%) rotate(-2deg);
+            }
+            & > :nth-child(4) {
+                transform: translate(0px, 0.7%) rotate(-1deg);
+            }
+            & > :nth-child(5) {
+                transform: translate(0px, 0) rotate(0deg);
+            }
+            & > :nth-child(6) {
+                transform: translate(0px, 0.7%) rotate(3deg);
+            }
+            & > :nth-child(7) {
+                transform: translate(0px, 1.5%) rotate(4deg);
+            }
+            & > :nth-child(8) {
+                transform: translate(0px, 2.5%) rotate(6deg);
+            }
+            & > :nth-child(9) {
+                transform: translate(0.3px, 5%) rotate(8deg);
+            }
+
+            @media (min-width: $bp-small-2) {  
+                font-size: 1.75rem;
+                
+            }
+            @media (min-width: $bp-med-2) {  
+                font-size: 3.5vh;
+                & > :nth-child(1) {
+                    transform: translate(0px, 10px) rotate(-4deg);
+                }
+                & > :nth-child(2) {
+                    transform: translate(0px, 8px) rotate(-3deg);
+                }
+                & > :nth-child(3) {
+                    transform: translate(0px, 4px) rotate(-2deg);
+                }
+                & > :nth-child(4) {
+                    transform: translate(0px, 3px) rotate(-1deg);
+                }
+                & > :nth-child(5) {
+                    transform: translate(0px, 1px) rotate(0deg);
+                }
+                & > :nth-child(6) {
+                    transform: translate(0px, 4px) rotate(3deg);
+                }
+                & > :nth-child(7) {
+                    transform: translate(0px, 6px) rotate(4deg);
+                }
+                & > :nth-child(8) {
+                    transform: translate(0px, 10px) rotate(6deg);
+                }
+                & > :nth-child(9) {
+                    transform: translate(2px, 14px) rotate(8deg);
+                }
+            }
+            
         }
         &_wrapper {
             @include m.flex-master(column, center, center);
             position: absolute;
             width: 100%;
-            height: 70%;
+            height: 69%;
             top: 28%;
             left: 0; 
         }
@@ -1844,22 +1903,12 @@ $list-text-font-size-large: 1.25rem;
         &_content {
             @include m.flex-master(column, space-between, center);
             position: relative;
-            width: 92%;
+            width: 88%;
             height: 100%;
             padding-top: 5%;
             padding-bottom: 5%;
             // gap: 0.35rem;
-            // margin-left: 0.5rem;
-    
-            // @media (min-width: $bp-small-2) {  
-            //     gap: 1rem;
-            // }
-            // @media (min-width: $bp-med-2) {  
-            //     gap: 1.5rem;
-            // }
-            // @media (min-width: $bp-xl) {  
-            //     gap: 1.75rem;
-            // }
+
         }
 
         &_description {
@@ -1869,7 +1918,7 @@ $list-text-font-size-large: 1.25rem;
             height: 20%;
             color: #AD6B34;
             font-family: PFRondaSeven;
-            font-size: min(0.65rem, 1.75vh); // 1.75vh
+            font-size: min(0.55rem, 1.75vh); // 1.75vh
 
             @media (min-width: $bp-small) {  
                 font-size: 0.75rem;
@@ -1879,6 +1928,9 @@ $list-text-font-size-large: 1.25rem;
             }
             @media (min-width: $bp-med-2) {  
                 font-size: 1.5vh;
+            }
+            @media (min-width: $bp-xl-3) {  
+                font-size: 1.35vh;
             }
         }
         &_scroll {
@@ -1933,13 +1985,11 @@ $list-text-font-size-large: 1.25rem;
                     position: absolute;
                     top: 10%;
                     z-index: 2;
-                    width: 70%;
+                    width: 65%;
                 }
                 &_star {
                     width: 100%;    
-                    @media (min-width: $bp-xl-2) { 
-                        // width: 85%;
-                       
+                    @media (min-width: $bp-xl-2) {            
                         width: 100%;    
                         z-index: 1;
                     }
@@ -1954,24 +2004,52 @@ $list-text-font-size-large: 1.25rem;
             height: 20%;
             color: #2484B2;
             font-family: Safety Goggles;
-            font-size: 2.8vh;
+            font-size: 1.1rem;
             text-align: center;
-            line-height: 1.5rem;
+            line-height: 1.15rem;
 
+            @media (min-width: $bp-small-2) { 
+                font-size: 1.25rem;
+            }
+            @media (min-width: $bp-small-2) { 
+                font-size: 1.5rem;
+            }
+            @media (min-width: $bp-med) { 
+                width: 80%; 
+                line-height: 1.75rem;
+                font-size: 1.75rem;
+            }
             @media (min-width: $bp-med-2) { 
                 width: 80%; 
-                line-height: 2.25rem;
+                line-height: 1.75rem;
+            }
+            @media (min-width: $bp-large-2) { 
+                width: 80%; 
+                line-height: 2rem;
             }
             @media (min-width: $bp-xl-2) { 
-                line-height: 2.5rem;
+                font-size: 2rem;
+                line-height: 2.25rem;
             } 
             @media (min-width: $bp-xl-3) { 
-                line-height: 2.75rem;
+                line-height: 2.5rem;
+                font-size: 3rem;
             }
 
         }
         &_pinkText {
             color: #FF5FB7;
+            font-size: 2.8vh;
+
+            @media (min-width: $bp-large-2) { 
+               
+            }
+            @media (min-width: $bp-xl-2) { 
+                font-size: 2.85rem;
+            } 
+            @media (min-width: $bp-xl-3) { 
+                font-size: 3.5rem;
+            }
         }
         &_buttons {
             @include m.flex-master(row, center, center);

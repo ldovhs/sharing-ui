@@ -5,21 +5,24 @@ import { useDeviceDetect } from "lib/hooks";
 import { useRouter } from "next/router";
 import "/node_modules/nes.css/css/nes.css";
 import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from "@shared/HOC";
+import useShellRedeemSound from "lib/hooks/useShellRedeemSound";
 
-const IDLE = 1;
-const STUCK = 2;
-const PUNCH = 3;
-const SHOW_REMAINING = 4;
-const SHOW_REWARD = 5;
+const INITIAL_1 = 1;
+const INITIAL_2 = 2;
+const IDLE = 3;
+const STUCK = 4;
+const PUNCH = 5;
+const SHOW_REMAINING = 6;
+const SHOW_REWARD = 7;
 const MACHINE_ERROR = 10;
 
 const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
-    const [machineState, setMachineState] = useState(IDLE);
-    const [showFooter, setShowFooter] = useState(false);
+    const [machineState, setMachineState] = useState(INITIAL_1);
+    const [showFooter, setShowFooter] = useState(true);
 
-    const [boxMessage, setBoxMessage] =
-        useState(`Man, that old wreck keeps jamming every time! Didn't you put any
-    money in it ?!\n Try to give it a few hits and see if it unlocks!`);
+    const [boxMessage, setBoxMessage] = useState(
+        `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
+    );
 
     const { isMobile } = useDeviceDetect();
     const [userRewards, userRewardLoading] = useUserRewardQuery();
@@ -27,23 +30,35 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const [shellRedeemed, shellRedeemedLoading] = useShellRedeemQuery();
     const [currentViewReward, setCurrentViewReward] = useState(-1);
     const [rewardRedeemed, setRewardRedeemed] = useState(null);
-    console.log(shellRedeemed);
+    const [audioControl, PlayIdleVendingMachine] = useShellRedeemSound();
+
+    const handlePlayAudio = () => {
+        if ((machineState === INITIAL_1 || machineState === SHOW_REWARD) && audioControl) {
+            // console.log(123);
+            audioControl.idle.playRepeat(0.45);
+            window.removeEventListener("click", handlePlayAudio);
+        }
+    };
 
     useEffect(async () => {}, [isMobile]);
     useEffect(async () => {
-        if (!shellRedeemed) {
-        } else {
-            // if redeemed is false
-            if (shellRedeemed.isRedeemed) {
-                setRewardRedeemed([...shellRedeemed.rewards]);
-                setMachineState(SHOW_REWARD);
-                setCurrentViewReward(0);
-            } else {
-                // if is true
-            }
+        // if redeemed is true
+        if (shellRedeemed && shellRedeemed.isRedeemed) {
+            setShowFooter(false);
+            setRewardRedeemed([...shellRedeemed.rewards]);
+            setMachineState(SHOW_REWARD);
+            setCurrentViewReward(0);
         }
     }, [shellRedeemed]);
-
+    useEffect(async () => {
+        if (
+            (machineState === INITIAL_1 || machineState === SHOW_REWARD) &&
+            audioControl &&
+            audioControl.idle
+        ) {
+            window.addEventListener("click", handlePlayAudio);
+        }
+    }, [audioControl]);
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(
@@ -56,112 +71,6 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                 setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
-
-    const handleStuckToPunch = () => {
-        if (machineState !== STUCK || !showFooter) {
-            console.log("Not In Stuck");
-            return;
-        }
-        setShowFooter(false);
-
-        let punchTimeout = setTimeout(async () => {
-            console.log("Stuck to Punch");
-            setMachineState(PUNCH);
-            clearTimeout(punchTimeout);
-
-            // submit roll here
-            let submitRoll = await onRollSubmit();
-            console.log(submitRoll);
-
-            if (submitRoll?.data.rewards) {
-                setRewardRedeemed([...submitRoll.data.rewards]);
-
-                let showRemainingTimeOut = setTimeout(() => {
-                    setMachineState(SHOW_REMAINING);
-                    clearTimeout(showRemainingTimeOut);
-
-                    let rewardTimeout = setTimeout(() => {
-                        setCurrentViewReward(0);
-                        setMachineState(SHOW_REWARD);
-                        clearTimeout(rewardTimeout);
-                    }, 2200);
-                }, 2000);
-            }
-        }, 100);
-    };
-    const handleRollOne = () => {
-        console.log("Rolling one");
-    };
-    const handleRollAll = () => {
-        if (rewardAmount < Enums.SHELL_PRICE) {
-            console.log("Shell amount less than shell price");
-            return;
-        }
-
-        // pop up confirm here
-
-        // get machine to stuck
-        setMachineState(STUCK);
-
-        let footerTimeout = setTimeout(() => {
-            setShowFooter(true);
-            clearTimeout(footerTimeout);
-        }, 2500);
-    };
-    const getMachineBackground = () => {
-        switch (machineState) {
-            case IDLE:
-                return s.redemption_machine_idle;
-            case PUNCH:
-                return s.redemption_machine_punch;
-            case STUCK:
-                return s.redemption_machine_stuck;
-            default:
-                return s.redemption_machine_idle;
-        }
-    };
-    const getRewardPicture = () => {
-        switch (rewardRedeemed[currentViewReward]) {
-            case Enums.ONE_TO_ONE:
-                return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
-            case Enums.ADOPT_ANIMAL:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
-            case Enums.MINT_LIST_SPOT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
-            case Enums.EARLY_ACCESS:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
-            case Enums.FREE_MINT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
-            case Enums.GIFT_MINT_LIST_SPOT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
-            case Enums.NAME_INGAME:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
-            case Enums.ANOMURA_PFP:
-                return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
-            case Enums.ANOMURA_STICKER:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
-            case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.OCTOHEDZ_VX_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.OCTOHEDZ_RELOADED:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.COLORMONSTER_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.MIRAKAI_SCROLLS_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.ALLSTARZ_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.ETHER_JUMP_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.META_HERO_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            case Enums.EX_8102_NFT:
-                return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-            default:
-                return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
-        }
-    };
 
     const getRewardText = () => {
         switch (rewardRedeemed[currentViewReward]) {
@@ -195,6 +104,85 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         }
         setCurrentViewReward((prev) => prev - 1);
     };
+    const handleOnInteraction = () => {
+        if (machineState === INITIAL_1) {
+            setBoxMessage(
+                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.`
+            );
+            setMachineState(INITIAL_2);
+        }
+        if (machineState === INITIAL_2) {
+            setBoxMessage(
+                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.`
+            );
+            setShowFooter(false);
+            setMachineState(IDLE);
+        }
+        if (machineState === MACHINE_ERROR) {
+            setShowFooter(false);
+            setMachineState(IDLE);
+        }
+        if (machineState === STUCK) {
+            handleStuckToPunch();
+        }
+    };
+
+    const handleStuckToPunch = () => {
+        if (machineState !== STUCK || !showFooter) {
+            console.log("Not In Stuck");
+            return;
+        }
+        setShowFooter(false);
+
+        let punchTimeout = setTimeout(async () => {
+            console.log("Stuck to Punch");
+            setMachineState(PUNCH);
+            audioControl.punch.play(0.15);
+            clearTimeout(punchTimeout);
+
+            // submit roll here
+            let submitRoll = await onRollSubmit();
+            // console.log(submitRoll);
+
+            if (submitRoll?.data.rewards) {
+                setRewardRedeemed([...submitRoll.data.rewards]);
+
+                let showRemainingTimeOut = setTimeout(() => {
+                    setMachineState(SHOW_REMAINING);
+                    clearTimeout(showRemainingTimeOut);
+
+                    let rewardTimeout = setTimeout(() => {
+                        setCurrentViewReward(0);
+                        setMachineState(SHOW_REWARD);
+                        audioControl.reward.play(0.25);
+                        clearTimeout(rewardTimeout);
+                    }, 2200);
+                }, 2000);
+            }
+        }, 100);
+    };
+    const handleRollAll = () => {
+        if (rewardAmount < Enums.SHELL_PRICE) {
+            setMachineState(MACHINE_ERROR);
+            console.log("Shell amount less than shell price");
+            setShowFooter(true);
+            setBoxMessage("Uhhh .... Oh.... You need more shell to feed meeeeeeeeeeeee!!!!!");
+            return;
+        }
+        // pop up confirm here
+
+        // get machine to stuck
+        audioControl.stuck.play(0.25);
+        setMachineState(STUCK);
+
+        let footerTimeout = setTimeout(() => {
+            setBoxMessage(
+                "Oh man! It still gets jammed now and again - Try hitting it a couple of times to see if that works!"
+            );
+            setShowFooter(true);
+            clearTimeout(footerTimeout);
+        }, 2500);
+    };
 
     if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
         return (
@@ -218,17 +206,20 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     } else {
         return (
             <>
+                {shellRedeemedLoading && <div>Loading</div>}
                 {machineState !== SHOW_REWARD && (
                     <div className={s.redemption_machine}>
                         <div
-                            className={`${
+                            className={`${getMachineBackground(machineState)} ${
                                 s.redemption_machine_container
-                            } ${getMachineBackground()} `}
+                            }  `}
                         >
                             <div className={s.redemption_machine_wrapper}>
                                 <div
                                     className={s.redemption_machine_content}
-                                    onClick={() => handleStuckToPunch()}
+                                    onClick={() => {
+                                        handleOnInteraction();
+                                    }}
                                 >
                                     {machineState !== PUNCH && machineState !== SHOW_REMAINING && (
                                         <div className={s.redemption_machine_shell}>
@@ -240,12 +231,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                     )}
                                     <button
                                         disabled={machineState !== IDLE}
-                                        className={s.redemption_machine_roll1}
-                                        onClick={() => handleRollOne()}
-                                    />
-                                    <button
-                                        disabled={machineState !== IDLE}
-                                        className={s.redemption_machine_rollAll}
+                                        className={s.redemption_machine_roll}
                                         onClick={() => handleRollAll()}
                                     />
                                 </div>
@@ -256,7 +242,18 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                 {machineState === SHOW_REWARD && (
                     <div className={s.redemption_reward}>
                         <div className={s.redemption_reward_container}>
-                            <div className={s.redemption_reward_title}>YOU WON!</div>
+                            <div className={s.redemption_reward_title}>
+                                {/* TREASURE! */}
+                                <span>T</span>
+                                <span>r</span>
+                                <span>e</span>
+                                <span>a</span>
+                                <span>s</span>
+                                <span>u</span>
+                                <span>r</span>
+                                <span>e</span>
+                                <span>!</span>
+                            </div>
                             <div className={s.redemption_reward_wrapper}>
                                 <div className={s.redemption_reward_content}>
                                     <div className={s.redemption_reward_description}>
@@ -293,7 +290,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                 />
                                                 <img
                                                     className={s.redemption_reward_scroll_img_asset}
-                                                    src={`${getRewardPicture()} `}
+                                                    src={`${getRewardPicture(
+                                                        rewardRedeemed[currentViewReward]
+                                                    )} `}
                                                 />
                                             </div>
                                         </div>
@@ -356,7 +355,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                         <div className={s.redemption_footer_wrapper}>
                             <div
                                 className={s.redemption_footer_boxes}
-                                onClick={() => handleStuckToPunch()}
+                                onClick={() => {
+                                    handleOnInteraction();
+                                }}
                             >
                                 {isMobile ? (
                                     <img
@@ -369,6 +370,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                         alt="box"
                                     />
                                 )}
+                                {/* <img
+                                    src={`${Enums.BASEPATH}/img/redemption/teal_box.png`}
+                                    alt="box"
+                                /> */}
                                 <div>{boxMessage && <span>{boxMessage}</span>}</div>
                             </div>
                             <div className={s.redemption_footer_octopus}>
@@ -402,3 +407,58 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
 };
 
 export default withShellRedeemRollAll(ShellRedeem);
+
+const getRewardPicture = (reward) => {
+    switch (reward) {
+        case Enums.ONE_TO_ONE:
+            return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
+        case Enums.ADOPT_ANIMAL:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
+        case Enums.MINT_LIST_SPOT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
+        case Enums.EARLY_ACCESS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
+        case Enums.FREE_MINT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
+        case Enums.GIFT_MINT_LIST_SPOT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
+        case Enums.NAME_INGAME:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
+        case Enums.ANOMURA_PFP:
+            return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
+        case Enums.ANOMURA_STICKER:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
+        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.OCTOHEDZ_VX_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.OCTOHEDZ_RELOADED:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.COLORMONSTER_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.MIRAKAI_SCROLLS_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.ALLSTARZ_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.ETHER_JUMP_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.META_HERO_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.EX_8102_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        default:
+            return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
+    }
+};
+const getMachineBackground = (state) => {
+    switch (state) {
+        case IDLE:
+            return s.redemption_machine_idle;
+        case PUNCH:
+            return s.redemption_machine_punch;
+        case STUCK:
+            return s.redemption_machine_stuck;
+        default:
+            return s.redemption_machine_idle;
+    }
+};

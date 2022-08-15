@@ -48,8 +48,8 @@ function Home() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.redemption}>
-                {!session ? <ConnectBoard /> : <ShellRedeem session={session} />}
-                {/* <ShellRedeem session={session} /> */}
+                {/* {!session ? <ConnectBoard /> : <ShellRedeem session={session} />} */}
+                <ShellRedeem session={session} />
             </div>
         </>
     );

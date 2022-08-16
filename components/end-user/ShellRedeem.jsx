@@ -74,6 +74,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const getRewardText = () => {
         switch (rewardRedeemed[currentViewReward]) {
             case Enums.MINT_LIST_SPOT:
+            case Enums.FREE_MINT:
                 return (
                     <div className={`${s.redemption_reward_text} ${s.redemption_reward_pinkText}`}>
                         {rewardRedeemed &&

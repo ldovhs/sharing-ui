@@ -1529,12 +1529,15 @@ $list-text-font-size-large: 1.25rem;
                 font-size: min(3vh, 3rem);
             }
             @media (min-width: $bp-xl) {  
-                font-size: 3vh;
+                font-size: 2.35rem;
             }
             @media (min-width: $bp-xl-2) {  
                 font-size: 2.35rem;
             }
             @media (min-width: $bp-xl-3) {  
+                font-size: 3rem;
+            }
+            @media (min-width: $bp-xl-4) {  
                 font-size: 4rem;
             }
         }
@@ -2004,20 +2007,20 @@ $list-text-font-size-large: 1.25rem;
             height: 20%;
             color: #2484B2;
             font-family: Safety Goggles;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
             line-height: 1.15rem;
 
             @media (min-width: $bp-small-2) { 
-                font-size: 1.25rem;
+                font-size: 1.15rem;
             }
             @media (min-width: $bp-small-2) { 
-                font-size: 1.5rem;
+                font-size: 1.35rem;
             }
             @media (min-width: $bp-med) { 
                 width: 80%; 
                 line-height: 1.75rem;
-                font-size: 1.75rem;
+                font-size: 1.5rem;
             }
             @media (min-width: $bp-med-2) { 
                 width: 80%; 
@@ -2026,14 +2029,15 @@ $list-text-font-size-large: 1.25rem;
             @media (min-width: $bp-large-2) { 
                 width: 80%; 
                 line-height: 2rem;
+                font-size: 1.75rem;
             }
             @media (min-width: $bp-xl-2) { 
-                font-size: 2rem;
+                font-size: 1.85rem;
                 line-height: 2.25rem;
             } 
             @media (min-width: $bp-xl-3) { 
                 line-height: 2.5rem;
-                font-size: 3rem;
+                font-size: 2.35rem;
             }
 
         }

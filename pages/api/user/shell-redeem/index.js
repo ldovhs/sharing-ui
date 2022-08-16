@@ -37,10 +37,7 @@ const shellRedeemQueryAPI = async (req, res) => {
 
         //return nothing if not found any, shell not created yet
         if (!userShellRedeem) {
-            // return new Response(JSON.stringify({ success: true }), {
-            //     status: 200,
-            //     headers: res.headers,
-            // })
+
             return res.status(200).json(userShellRedeem);
         } else {
             // if is Redeemed then return rewards array
@@ -66,19 +63,12 @@ const shellRedeemQueryAPI = async (req, res) => {
             // else not redeemed,
             else {
                 return res.status(200).json({ isRedeemed: false });
-                // return new Response(JSON.stringify({ success: true }), {
-                //     status: 200,
-                //     headers: res.headers,
-                // })
+
             }
         }
-        // res.status(200).json({ message: "ok" });
+
     } catch (err) {
         // console.log(err);
-        // return new Response(JSON.stringify({ error: true }), {
-        //     status: 500,
-        //     headers: res.headers,
-        // })
         res.status(500).json({ error: err.message });
     }
 

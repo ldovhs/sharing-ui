@@ -55,15 +55,23 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     },
                 })
                 if (!userReward || userReward.quantity < SHELL_PRICE) {
+                    console.log("Cannot redeem")
                     res.status(200).json({ message: "Cannot redeem", isError: true });
                 }
 
                 let claimableRewards = Math.floor(userReward.quantity / SHELL_PRICE)
+
+                // hacked account too much shell
+                if (userShellRedeem.rewards.length < claimableRewards) {
+                    // too use a max roll reward CONSTANT
+                    claimableRewards = userShellRedeem.rewards.length;
+                }
                 let reduceShellQty = claimableRewards * SHELL_PRICE;
 
                 let updateShellRedeemed;
-                if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0 || userShellRedeem.rewards?.length < claimableRewards) {
-                    // new user or hacked account with too much shell
+                // if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0 || userShellRedeem.rewards?.length < claimableRewards) {
+                if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0) {
+                    // new user 
                 } else {
                     updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
                 }

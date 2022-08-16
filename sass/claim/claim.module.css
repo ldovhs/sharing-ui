@@ -2469,6 +2469,12 @@
     max-height: 21%;
   }
 }
+@media (min-width: 748px) {
+  .redemption_footer {
+    bottom: 4%;
+    max-height: 9%;
+  }
+}
 @media (min-width: 1200px) {
   .redemption_footer {
     height: 11%;

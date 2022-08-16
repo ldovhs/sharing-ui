@@ -1579,15 +1579,16 @@ $list-text-font-size-large: 1.25rem;
         z-index: 14;
 
         @media (min-width: $bp-small) {  
-            // height: 30%;
             height: 13rem;
-    
             max-height: 22%;
         }
         @media (min-width: $bp-small-3) {  
             max-height: 21%;
         }
-
+        @media (min-width: $bp-med) { 
+            bottom: 4%; 
+            max-height: 9%;
+        }
         @media (min-width: $bp-large-2) {  
             height: 11%;
             bottom: 7%;

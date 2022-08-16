@@ -260,24 +260,12 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                     !userRewardLoading && (
                         <div className={s.redemption_reward}>
                             <div className={s.redemption_reward_container}>
-                                <div className={s.redemption_reward_title}>
-                                    {/* TREASURE! */}
-                                    <span>T</span>
-                                    <span>r</span>
-                                    <span>e</span>
-                                    <span>a</span>
-                                    <span>s</span>
-                                    <span>u</span>
-                                    <span>r</span>
-                                    <span>e</span>
-                                    <span>!</span>
-                                </div>
                                 <div className={s.redemption_reward_wrapper}>
                                     <div className={s.redemption_reward_content}>
                                         <div className={s.redemption_reward_description}>
-                                            Placeholder TextLorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit, sed do eiusmod tempor incididunt ut
-                                            labore et dolore magna aliqua.
+                                            Your hard work has paid off, noble Anomura. Now go
+                                            forth! claim your treasures, spread the word, and return
+                                            when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
                                             <div className={s.redemption_reward_scroll_left}>
@@ -314,14 +302,17 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                         }
                                                         src={`${Enums.BASEPATH}/img/redemption/Star Background_3x.gif`}
                                                     />
-                                                    <img
+                                                    <div
                                                         className={
                                                             s.redemption_reward_scroll_img_asset
                                                         }
-                                                        src={`${getRewardPicture(
-                                                            rewardRedeemed[currentViewReward]
-                                                        )} `}
-                                                    />
+                                                    >
+                                                        <img
+                                                            src={`${getRewardPicture(
+                                                                rewardRedeemed[currentViewReward]
+                                                            )} `}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className={s.redemption_reward_scroll_right}>

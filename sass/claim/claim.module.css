@@ -2306,12 +2306,12 @@
 }
 @media (min-width: 748px) {
   .redemption_machine {
-    width: min(32em, 80%);
+    width: min(25em, 65%);
   }
 }
 @media (min-width: 800px) {
   .redemption_machine {
-    width: 70%;
+    width: 60%;
     margin-top: 0;
   }
 }
@@ -2456,21 +2456,14 @@
   align-items: center;
   position: absolute;
   width: 100%;
-  height: 22%;
-  max-height: 5.75rem;
-  bottom: 5%;
+  height: 8rem;
+  max-height: 25%;
+  bottom: 4%;
   z-index: 14;
 }
 @media (min-width: 384px) {
   .redemption_footer {
-    height: 25%;
-    bottom: 5%;
-  }
-}
-@media (min-width: 636px) {
-  .redemption_footer {
-    height: 25%;
-    bottom: 5%;
+    height: 13rem;
   }
 }
 @media (min-width: 1200px) {
@@ -2588,7 +2581,7 @@
   flex-direction: column;
   justify-content: center;
   height: 75%;
-  font-size: 0.45rem;
+  font-size: 0.5rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   overflow-wrap: break-word;
@@ -2596,7 +2589,12 @@
 }
 @media (min-width: 384px) {
   .redemption_footer_boxes > div > span {
-    font-size: 0.525rem;
+    font-size: 0.575rem;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_footer_boxes > div > span {
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 748px) {
@@ -2736,85 +2734,8 @@
   width: 100%;
   height: 0;
   padding-top: 140.27%;
-  background: url("/challenger/img/redemption/Reward Bg_animated_3x.gif") no-repeat;
+  background: url("/challenger/img/redemption/Reward bg with text_animated_3x.gif") no-repeat;
   background-size: contain;
-}
-.redemption_reward_title {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 10%;
-  top: 13.25%;
-  left: 0;
-  font-family: Safety Goggles;
-  font-size: 1.5rem;
-}
-.redemption_reward_title > :nth-child(1) {
-  transform: translate(0px, 5%) rotate(-4deg);
-}
-.redemption_reward_title > :nth-child(2) {
-  transform: translate(0px, 2.5%) rotate(-3deg);
-}
-.redemption_reward_title > :nth-child(3) {
-  transform: translate(0px, 1.5%) rotate(-2deg);
-}
-.redemption_reward_title > :nth-child(4) {
-  transform: translate(0px, 0.7%) rotate(-1deg);
-}
-.redemption_reward_title > :nth-child(5) {
-  transform: translate(0px, 0) rotate(0deg);
-}
-.redemption_reward_title > :nth-child(6) {
-  transform: translate(0px, 0.7%) rotate(3deg);
-}
-.redemption_reward_title > :nth-child(7) {
-  transform: translate(0px, 1.5%) rotate(4deg);
-}
-.redemption_reward_title > :nth-child(8) {
-  transform: translate(0px, 2.5%) rotate(6deg);
-}
-.redemption_reward_title > :nth-child(9) {
-  transform: translate(0.3px, 5%) rotate(8deg);
-}
-@media (min-width: 500px) {
-  .redemption_reward_title {
-    font-size: 1.75rem;
-  }
-}
-@media (min-width: 800px) {
-  .redemption_reward_title {
-    font-size: 3.5vh;
-  }
-  .redemption_reward_title > :nth-child(1) {
-    transform: translate(0px, 10px) rotate(-4deg);
-  }
-  .redemption_reward_title > :nth-child(2) {
-    transform: translate(0px, 8px) rotate(-3deg);
-  }
-  .redemption_reward_title > :nth-child(3) {
-    transform: translate(0px, 4px) rotate(-2deg);
-  }
-  .redemption_reward_title > :nth-child(4) {
-    transform: translate(0px, 3px) rotate(-1deg);
-  }
-  .redemption_reward_title > :nth-child(5) {
-    transform: translate(0px, 1px) rotate(0deg);
-  }
-  .redemption_reward_title > :nth-child(6) {
-    transform: translate(0px, 4px) rotate(3deg);
-  }
-  .redemption_reward_title > :nth-child(7) {
-    transform: translate(0px, 6px) rotate(4deg);
-  }
-  .redemption_reward_title > :nth-child(8) {
-    transform: translate(0px, 10px) rotate(6deg);
-  }
-  .redemption_reward_title > :nth-child(9) {
-    transform: translate(2px, 14px) rotate(8deg);
-  }
 }
 .redemption_reward_wrapper {
   display: flex;
@@ -2922,9 +2843,18 @@
 }
 .redemption_reward_scroll_img_asset {
   position: absolute;
-  top: 10%;
+  top: 0;
   z-index: 2;
-  width: 65%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.redemption_reward_scroll_img_asset > img {
+  height: auto;
+  width: 67%;
 }
 .redemption_reward_scroll_img_star {
   width: 100%;
@@ -2942,7 +2872,7 @@
   align-items: center;
   position: relative;
   width: 100%;
-  height: 20%;
+  height: 16%;
   color: #2484B2;
   font-family: Safety Goggles;
   font-size: 1rem;
@@ -2951,19 +2881,19 @@
 }
 @media (min-width: 500px) {
   .redemption_reward_text {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 500px) {
   .redemption_reward_text {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 }
 @media (min-width: 748px) {
   .redemption_reward_text {
     width: 80%;
     line-height: 1.75rem;
-    font-size: 1.5rem;
+    font-size: 1.45rem;
   }
 }
 @media (min-width: 800px) {
@@ -2993,16 +2923,41 @@
 }
 .redemption_reward_pinkText {
   color: #FF5FB7;
-  font-size: 2.8vh;
+  font-size: 2.9vh;
+}
+@media (min-width: 500px) {
+  .redemption_reward_pinkText {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 500px) {
+  .redemption_reward_pinkText {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 748px) {
+  .redemption_reward_pinkText {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 800px) {
+  .redemption_reward_pinkText {
+    font-size: 2.25rem;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward_pinkText {
+    font-size: 2.5rem;
+  }
 }
 @media (min-width: 1980px) {
   .redemption_reward_pinkText {
-    font-size: 2.85rem;
+    font-size: 3rem;
   }
 }
 @media (min-width: 2560px) {
   .redemption_reward_pinkText {
-    font-size: 3.5rem;
+    font-size: 3.75rem;
   }
 }
 .redemption_reward_buttons {

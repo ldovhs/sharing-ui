@@ -1443,10 +1443,11 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med) {
-            width: min(32em, 80%);
+            width: min(25em, 65%);
+           
         }
         @media (min-width: $bp-med-2) {
-            width: 70%;
+            width: 60%;
             margin-top: 0;
         }
         @media (min-width: $bp-large) {
@@ -1575,19 +1576,21 @@ $list-text-font-size-large: 1.25rem;
         @include m.flex-master(column, center, center);
         position: absolute;
         width: 100%;
-        height: 22%;
-        max-height: 5.75rem;
-        bottom: 5%;
+        height: 8rem;
+        max-height: 25%;
+        bottom: 4%;
         z-index: 14;
 
         @media (min-width: $bp-small) {  
-            height: 25%;
-            bottom: 5%;
+            // height: 30%;
+            height: 13rem;
+    
+           
         }
-        @media (min-width: $bp-small-3) {  
-            height: 25%;
-            bottom: 5%;
-        }
+        // @media (min-width: $bp-small-3) {  
+        //     height: 25%;
+        //     bottom: 5%;
+        // }
 
         @media (min-width: $bp-large-2) {  
             height: 11%;
@@ -1692,18 +1695,18 @@ $list-text-font-size-large: 1.25rem;
                     max-width: 100%;
                     @include m.flex-master(column, center, null);
                     height:75%;
-                    font-size: 0.45rem;
+                    font-size: 0.5rem;
                     font-family: PFRondaSeven;
                     font-weight: 400;
                     overflow-wrap: break-word;
                     line-height: 1rem;
 
                     @media (min-width: $bp-small) {  
-                        font-size: 0.525rem;
+                        font-size: 0.575rem;
                     }
-                    // @media (min-width: $bp-small-2) {  
-                    //     font-size: 1.15rem;
-                    // }
+                    @media (min-width: $bp-small-2) {  
+                        font-size: 0.6rem;
+                    }
                     // @media (min-width: $bp-small-3) {  
                     //     font-size: 1.55rem;
                     //     line-height: 1.35rem;
@@ -1825,84 +1828,10 @@ $list-text-font-size-large: 1.25rem;
             height: 0;
             padding-top: 140.27%;
             
-            background: url("/challenger/img/redemption/Reward Bg_animated_3x.gif") no-repeat;
+            background: url("/challenger/img/redemption/Reward bg with text_animated_3x.gif") no-repeat;
             background-size: contain;
         }
-        &_title {
-            @include m.flex-master(row, center, center);
-            position: absolute;
-            width: 100%;
-            height: 10%;
-            top: 13.25%;
-            left: 0; 
-
-            font-family: Safety Goggles;
-            font-size: 1.5rem;
-
-            & > :nth-child(1) {
-                transform: translate(0px, 5%) rotate(-4deg);
-            }
-            & > :nth-child(2) {
-                transform: translate(0px, 2.5%) rotate(-3deg);
-            }
-            & > :nth-child(3) {
-                transform: translate(0px, 1.5%) rotate(-2deg);
-            }
-            & > :nth-child(4) {
-                transform: translate(0px, 0.7%) rotate(-1deg);
-            }
-            & > :nth-child(5) {
-                transform: translate(0px, 0) rotate(0deg);
-            }
-            & > :nth-child(6) {
-                transform: translate(0px, 0.7%) rotate(3deg);
-            }
-            & > :nth-child(7) {
-                transform: translate(0px, 1.5%) rotate(4deg);
-            }
-            & > :nth-child(8) {
-                transform: translate(0px, 2.5%) rotate(6deg);
-            }
-            & > :nth-child(9) {
-                transform: translate(0.3px, 5%) rotate(8deg);
-            }
-
-            @media (min-width: $bp-small-2) {  
-                font-size: 1.75rem;
-                
-            }
-            @media (min-width: $bp-med-2) {  
-                font-size: 3.5vh;
-                & > :nth-child(1) {
-                    transform: translate(0px, 10px) rotate(-4deg);
-                }
-                & > :nth-child(2) {
-                    transform: translate(0px, 8px) rotate(-3deg);
-                }
-                & > :nth-child(3) {
-                    transform: translate(0px, 4px) rotate(-2deg);
-                }
-                & > :nth-child(4) {
-                    transform: translate(0px, 3px) rotate(-1deg);
-                }
-                & > :nth-child(5) {
-                    transform: translate(0px, 1px) rotate(0deg);
-                }
-                & > :nth-child(6) {
-                    transform: translate(0px, 4px) rotate(3deg);
-                }
-                & > :nth-child(7) {
-                    transform: translate(0px, 6px) rotate(4deg);
-                }
-                & > :nth-child(8) {
-                    transform: translate(0px, 10px) rotate(6deg);
-                }
-                & > :nth-child(9) {
-                    transform: translate(2px, 14px) rotate(8deg);
-                }
-            }
-            
-        }
+        
         &_wrapper {
             @include m.flex-master(column, center, center);
             position: absolute;
@@ -1919,8 +1848,6 @@ $list-text-font-size-large: 1.25rem;
             height: 100%;
             padding-top: 5%;
             padding-bottom: 5%;
-            // gap: 0.35rem;
-
         }
 
         &_description {
@@ -1995,9 +1922,18 @@ $list-text-font-size-large: 1.25rem;
                 } 
                 &_asset {
                     position: absolute;
-                    top: 10%;
+                    top: 0;
                     z-index: 2;
-                    width: 65%;
+                    width: 100%;
+                    height:100%;
+
+                    @include m.flex-master(row, center, center);
+
+                    & > img { 
+                        height: auto;
+                        width: 67%;    
+                    }
+                    
                 }
                 &_star {
                     width: 100%;    
@@ -2013,7 +1949,7 @@ $list-text-font-size-large: 1.25rem;
             @include m.flex-master(row, center, center);
             position: relative;
             width: 100%;
-            height: 20%;
+            height: 16%;
             color: #2484B2;
             font-family: Safety Goggles;
             font-size: 1rem;
@@ -2021,15 +1957,15 @@ $list-text-font-size-large: 1.25rem;
             line-height: 1.15rem;
 
             @media (min-width: $bp-small-2) { 
-                font-size: 1.15rem;
+                font-size: 1rem;
             }
             @media (min-width: $bp-small-2) { 
-                font-size: 1.35rem;
+                font-size: 1.25rem;
             }
             @media (min-width: $bp-med) { 
                 width: 80%; 
                 line-height: 1.75rem;
-                font-size: 1.5rem;
+                font-size: 1.45rem;
             }
             @media (min-width: $bp-med-2) { 
                 width: 80%; 
@@ -2052,16 +1988,28 @@ $list-text-font-size-large: 1.25rem;
         }
         &_pinkText {
             color: #FF5FB7;
-            font-size: 2.8vh;
+            font-size: 2.9vh;
 
+            @media (min-width: $bp-small-2) { 
+                font-size: 1.5rem;
+            }
+            @media (min-width: $bp-small-2) { 
+                font-size: 1.75rem;
+            }
+            @media (min-width: $bp-med) { 
+                font-size: 2rem;
+            }
+            @media (min-width: $bp-med-2) { 
+                font-size: 2.25rem;
+            }
             @media (min-width: $bp-large-2) { 
-               
+                font-size: 2.5rem;
             }
             @media (min-width: $bp-xl-2) { 
-                font-size: 2.85rem;
+                font-size: 3rem;
             } 
             @media (min-width: $bp-xl-3) { 
-                font-size: 3.5rem;
+                font-size: 3.75rem;
             }
         }
         &_buttons {

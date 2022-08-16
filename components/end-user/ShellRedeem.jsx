@@ -49,8 +49,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             setMachineState(SHOW_REWARD);
             setCurrentViewReward(0);
         } else {
-            setShowFooter(true);
-            setMachineState(INITIAL_1);
+            if (!shellRedeemedLoading && !userRewardLoading) {
+                setShowFooter(true);
+                setMachineState(INITIAL_1);
+            }
         }
     }, [shellRedeemed]);
     useEffect(async () => {

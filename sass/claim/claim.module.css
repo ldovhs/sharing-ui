@@ -2311,7 +2311,7 @@
 }
 @media (min-width: 800px) {
   .redemption_machine {
-    width: 35%;
+    width: min(26em, 50%);
     margin-top: 0;
   }
 }
@@ -2405,7 +2405,7 @@
 }
 @media (min-width: 500px) {
   .redemption_machine_shell {
-    font-size: min(3vh, 3rem);
+    font-size: min(3.2vh, 2.75rem);
   }
 }
 @media (min-width: 1440px) {

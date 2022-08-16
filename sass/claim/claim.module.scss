@@ -1446,7 +1446,8 @@ $list-text-font-size-large: 1.25rem;
             width: min(25em, 60%);
         }
         @media (min-width: $bp-med-2) {
-            width: 35%;
+            // width: 35%;
+            width: min(26em, 50%);
             margin-top: 0;
         }
         @media (min-width: $bp-large) {
@@ -1532,7 +1533,7 @@ $list-text-font-size-large: 1.25rem;
                 font-size: 2.75vh;
             }
             @media (min-width: $bp-small-2) {  
-                font-size: min(3vh, 3rem);
+                font-size: min(3.2vh, 2.75rem);
             }
             @media (min-width: $bp-xl) {  
                 font-size: 2.35rem;

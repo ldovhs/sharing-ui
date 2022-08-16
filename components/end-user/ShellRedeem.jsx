@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { useDeviceDetect } from "lib/hooks";
-import { useRouter } from "next/router";
 import "/node_modules/nes.css/css/nes.css";
 import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from "@shared/HOC";
 import useShellRedeemSound from "lib/hooks/useShellRedeemSound";
@@ -431,21 +430,21 @@ const getRewardPicture = (reward) => {
         case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
             return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
         case Enums.OCTOHEDZ_VX_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
         case Enums.OCTOHEDZ_RELOADED:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
         case Enums.COLORMONSTER_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/ColorMonsters_7x.png`;
         case Enums.MIRAKAI_SCROLLS_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/Miraikai Scrolls_7x.png`;
         case Enums.ALLSTARZ_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/AllStarz_7x.png`;
         case Enums.ETHER_JUMP_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/Etherjump_7x.png`;
         case Enums.META_HERO_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
         case Enums.EX_8102_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
         default:
             return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
     }

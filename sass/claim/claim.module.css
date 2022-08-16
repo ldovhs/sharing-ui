@@ -2306,12 +2306,12 @@
 }
 @media (min-width: 748px) {
   .redemption_machine {
-    width: min(25em, 65%);
+    width: min(25em, 60%);
   }
 }
 @media (min-width: 800px) {
   .redemption_machine {
-    width: 60%;
+    width: 55%;
     margin-top: 0;
   }
 }

@@ -1443,10 +1443,10 @@ $list-text-font-size-large: 1.25rem;
             width: min(32em, 80%);
         }
         @media (min-width: $bp-med) {
-            width: min(25em, 65%);
+            width: min(25em, 60%);
         }
         @media (min-width: $bp-med-2) {
-            width: 60%;
+            width: 55%;
             margin-top: 0;
         }
         @media (min-width: $bp-large) {

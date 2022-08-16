@@ -6,6 +6,7 @@ import "/node_modules/nes.css/css/nes.css";
 import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from "@shared/HOC";
 import useShellRedeemSound from "lib/hooks/useShellRedeemSound";
 
+const INITIAL_0 = 0;
 const INITIAL_1 = 1;
 const INITIAL_2 = 2;
 const IDLE = 3;
@@ -16,8 +17,8 @@ const SHOW_REWARD = 7;
 const MACHINE_ERROR = 10;
 
 const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
-    const [machineState, setMachineState] = useState(INITIAL_1);
-    const [showFooter, setShowFooter] = useState(true);
+    const [machineState, setMachineState] = useState(INITIAL_0);
+    const [showFooter, setShowFooter] = useState(false);
 
     const [boxMessage, setBoxMessage] = useState(
         `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
@@ -47,6 +48,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             setRewardRedeemed([...shellRedeemed.rewards]);
             setMachineState(SHOW_REWARD);
             setCurrentViewReward(0);
+        } else {
+            setShowFooter(true);
+            setMachineState(INITIAL_1);
         }
     }, [shellRedeemed]);
     useEffect(async () => {
@@ -58,6 +62,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             window.addEventListener("click", handlePlayAudio);
         }
     }, [audioControl]);
+
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(
@@ -206,145 +211,168 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     } else {
         return (
             <>
-                {shellRedeemedLoading && <div>Loading</div>}
-                {machineState !== SHOW_REWARD && (
-                    <div className={s.redemption_machine}>
-                        <div
-                            className={`${getMachineBackground(machineState)} ${
-                                s.redemption_machine_container
-                            }  `}
-                        >
-                            <div className={s.redemption_machine_wrapper}>
-                                <div
-                                    className={s.redemption_machine_content}
-                                    onClick={() => {
-                                        handleOnInteraction();
-                                    }}
-                                >
-                                    {machineState !== PUNCH && machineState !== SHOW_REMAINING && (
-                                        <div className={s.redemption_machine_shell}>
-                                            $SHELL {rewardAmount}
-                                        </div>
-                                    )}
-                                    {machineState === SHOW_REMAINING && (
-                                        <div className={s.redemption_machine_shell}>$SHELL 0</div>
-                                    )}
-                                    <button
-                                        disabled={machineState !== IDLE}
-                                        className={s.redemption_machine_roll}
-                                        onClick={() => handleRollAll()}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {(machineState === INITIAL_0 || shellRedeemedLoading || userRewardLoading) && (
+                    <div className={s.redemption_loading}>Loading</div>
                 )}
-                {machineState === SHOW_REWARD && (
-                    <div className={s.redemption_reward}>
-                        <div className={s.redemption_reward_container}>
-                            <div className={s.redemption_reward_title}>
-                                {/* TREASURE! */}
-                                <span>T</span>
-                                <span>r</span>
-                                <span>e</span>
-                                <span>a</span>
-                                <span>s</span>
-                                <span>u</span>
-                                <span>r</span>
-                                <span>e</span>
-                                <span>!</span>
-                            </div>
-                            <div className={s.redemption_reward_wrapper}>
-                                <div className={s.redemption_reward_content}>
-                                    <div className={s.redemption_reward_description}>
-                                        Placeholder TextLorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua.
-                                    </div>
-                                    <div className={s.redemption_reward_scroll}>
-                                        <div className={s.redemption_reward_scroll_left}>
-                                            <div
-                                                className={s.redemption_reward_scroll_left_wrapper}
-                                            >
-                                                <img
-                                                    src={
-                                                        currentViewReward === 0
-                                                            ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
-                                                            : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
-                                                    }
-                                                    alt="left arrow"
-                                                    onClick={() => viewPreviousReward()}
-                                                    className={
-                                                        currentViewReward === 0
-                                                            ? s.redemption_reward_scroll_left_disable
-                                                            : s.redemption_reward_scroll_left_enable
-                                                    }
-                                                />
+                {machineState !== INITIAL_0 &&
+                    machineState !== SHOW_REWARD &&
+                    !shellRedeemedLoading &&
+                    !userRewardLoading && (
+                        <div className={s.redemption_machine}>
+                            <div
+                                className={`${getMachineBackground(machineState)} ${
+                                    s.redemption_machine_container
+                                }  `}
+                            >
+                                <div className={s.redemption_machine_wrapper}>
+                                    <div
+                                        className={s.redemption_machine_content}
+                                        onClick={() => {
+                                            handleOnInteraction();
+                                        }}
+                                    >
+                                        {machineState !== PUNCH &&
+                                            machineState !== SHOW_REMAINING && (
+                                                <div className={s.redemption_machine_shell}>
+                                                    $SHELL {rewardAmount}
+                                                </div>
+                                            )}
+                                        {machineState === SHOW_REMAINING && (
+                                            <div className={s.redemption_machine_shell}>
+                                                $SHELL 0
                                             </div>
-                                        </div>
-                                        <div className={s.redemption_reward_scroll_img}>
-                                            <div className={s.redemption_reward_scroll_img_wrapper}>
-                                                <img
-                                                    className={s.redemption_reward_scroll_img_star}
-                                                    src={`${Enums.BASEPATH}/img/redemption/Star Background_3x.gif`}
-                                                />
-                                                <img
-                                                    className={s.redemption_reward_scroll_img_asset}
-                                                    src={`${getRewardPicture(
-                                                        rewardRedeemed[currentViewReward]
-                                                    )} `}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className={s.redemption_reward_scroll_right}>
-                                            <div
-                                                className={s.redemption_reward_scroll_right_wrapper}
-                                            >
-                                                <img
-                                                    src={
-                                                        currentViewReward ===
-                                                        rewardRedeemed?.length - 1
-                                                            ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
-                                                            : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
-                                                    }
-                                                    onClick={() => viewNextReward()}
-                                                    alt="right arrow"
-                                                    className={
-                                                        currentViewReward ===
-                                                        rewardRedeemed?.length - 1
-                                                            ? s.redemption_reward_scroll_left_disable
-                                                            : s.redemption_reward_scroll_left_enable
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {getRewardText()}
-                                    <div className={s.redemption_reward_buttons}>
-                                        <button className={s.redemption_reward_buttons_claim}>
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`}
-                                                alt="Claim"
-                                            />
-                                            <div>
-                                                <span>Claim</span>
-                                            </div>
-                                        </button>
-                                        <button className={s.redemption_reward_buttons_share}>
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`}
-                                                alt="Share"
-                                            />
-                                            <div>
-                                                <span>Share</span>
-                                            </div>
-                                        </button>
+                                        )}
+                                        <button
+                                            disabled={machineState !== IDLE}
+                                            className={s.redemption_machine_roll}
+                                            onClick={() => handleRollAll()}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                {machineState !== INITIAL_0 &&
+                    machineState === SHOW_REWARD &&
+                    !shellRedeemedLoading &&
+                    !userRewardLoading && (
+                        <div className={s.redemption_reward}>
+                            <div className={s.redemption_reward_container}>
+                                <div className={s.redemption_reward_title}>
+                                    {/* TREASURE! */}
+                                    <span>T</span>
+                                    <span>r</span>
+                                    <span>e</span>
+                                    <span>a</span>
+                                    <span>s</span>
+                                    <span>u</span>
+                                    <span>r</span>
+                                    <span>e</span>
+                                    <span>!</span>
+                                </div>
+                                <div className={s.redemption_reward_wrapper}>
+                                    <div className={s.redemption_reward_content}>
+                                        <div className={s.redemption_reward_description}>
+                                            Placeholder TextLorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit, sed do eiusmod tempor incididunt ut
+                                            labore et dolore magna aliqua.
+                                        </div>
+                                        <div className={s.redemption_reward_scroll}>
+                                            <div className={s.redemption_reward_scroll_left}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_left_wrapper
+                                                    }
+                                                >
+                                                    <img
+                                                        src={
+                                                            currentViewReward === 0
+                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
+                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
+                                                        }
+                                                        alt="left arrow"
+                                                        onClick={() => viewPreviousReward()}
+                                                        className={
+                                                            currentViewReward === 0
+                                                                ? s.redemption_reward_scroll_left_disable
+                                                                : s.redemption_reward_scroll_left_enable
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className={s.redemption_reward_scroll_img}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_img_wrapper
+                                                    }
+                                                >
+                                                    <img
+                                                        className={
+                                                            s.redemption_reward_scroll_img_star
+                                                        }
+                                                        src={`${Enums.BASEPATH}/img/redemption/Star Background_3x.gif`}
+                                                    />
+                                                    <img
+                                                        className={
+                                                            s.redemption_reward_scroll_img_asset
+                                                        }
+                                                        src={`${getRewardPicture(
+                                                            rewardRedeemed[currentViewReward]
+                                                        )} `}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className={s.redemption_reward_scroll_right}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_right_wrapper
+                                                    }
+                                                >
+                                                    <img
+                                                        src={
+                                                            currentViewReward ===
+                                                            rewardRedeemed?.length - 1
+                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
+                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
+                                                        }
+                                                        onClick={() => viewNextReward()}
+                                                        alt="right arrow"
+                                                        className={
+                                                            currentViewReward ===
+                                                            rewardRedeemed?.length - 1
+                                                                ? s.redemption_reward_scroll_left_disable
+                                                                : s.redemption_reward_scroll_left_enable
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {getRewardText()}
+                                        <div className={s.redemption_reward_buttons}>
+                                            <button className={s.redemption_reward_buttons_claim}>
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`}
+                                                    alt="Claim"
+                                                />
+                                                <div>
+                                                    <span>Claim</span>
+                                                </div>
+                                            </button>
+                                            <button className={s.redemption_reward_buttons_share}>
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`}
+                                                    alt="Share"
+                                                />
+                                                <div>
+                                                    <span>Share</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 <div className={s.redemption_bubble}>
                     <div className={s.redemption_bubble_wrapper}>
                         <img src="/challenger/img/redemption/machine_bubbles_x4.gif" />

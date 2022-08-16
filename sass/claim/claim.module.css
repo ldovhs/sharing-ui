@@ -2270,6 +2270,14 @@
   background: 50% 30%/cover url("/challenger/img/redemption/machine_bg_x4.png");
   position: relative;
 }
+.redemption_loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  font-size: 3vh;
+  font-family: Safety Goggles;
+}
 .redemption_machine {
   display: flex;
   flex-direction: column;

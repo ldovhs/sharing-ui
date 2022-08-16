@@ -2318,18 +2318,15 @@
 @media (min-width: 872px) {
   .redemption_machine {
     width: min(25em, 27%);
-    margin-top: 0;
   }
 }
 @media (min-width: 1200px) {
   .redemption_machine {
     width: min(25em, 30%);
-    margin-top: 0;
   }
 }
 @media (min-width: 1440px) {
   .redemption_machine {
-    margin-top: 0;
     width: min(32em, 70%);
   }
 }
@@ -2769,21 +2766,22 @@
   height: 20%;
   color: #AD6B34;
   font-family: PFRondaSeven;
-  font-size: min(0.55rem, 1.75vh);
+  font-size: 0.45rem;
+  text-align: center;
 }
 @media (min-width: 384px) {
   .redemption_reward_description {
-    font-size: 0.75rem;
+    font-size: 0.575rem;
   }
 }
 @media (min-width: 636px) {
   .redemption_reward_description {
-    font-size: 1rem;
+    font-size: 0.775rem;
   }
 }
 @media (min-width: 800px) {
   .redemption_reward_description {
-    font-size: 1.5vh;
+    font-size: 1.35vh;
   }
 }
 @media (min-width: 2560px) {

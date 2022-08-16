@@ -1444,7 +1444,6 @@ $list-text-font-size-large: 1.25rem;
         }
         @media (min-width: $bp-med) {
             width: min(25em, 65%);
-           
         }
         @media (min-width: $bp-med-2) {
             width: 60%;
@@ -1452,14 +1451,11 @@ $list-text-font-size-large: 1.25rem;
         }
         @media (min-width: $bp-large) {
             width: min(25em, 27%);
-            margin-top: 0;
         }
         @media (min-width: $bp-large-2) {
             width: min(25em, 30%);
-            margin-top: 0;
         }
         @media (min-width: $bp-xl) {
-            margin-top: 0;
             width: min(32em, 70%);
         }
         @media (min-width: $bp-xl-2) {
@@ -1857,16 +1853,18 @@ $list-text-font-size-large: 1.25rem;
             height: 20%;
             color: #AD6B34;
             font-family: PFRondaSeven;
-            font-size: min(0.55rem, 1.75vh); // 1.75vh
+            // font-size: min(0.45rem, 1.75vh); // 1.75vh
+            font-size: 0.45rem; 
+            text-align: center;
 
             @media (min-width: $bp-small) {  
-                font-size: 0.75rem;
+                font-size: 0.575rem;
             }
             @media (min-width: $bp-small-3) {  
-                font-size: 1rem;
+                font-size: 0.775rem;
             }
             @media (min-width: $bp-med-2) {  
-                font-size: 1.5vh;
+                font-size: 1.35vh;
             }
             @media (min-width: $bp-xl-3) {  
                 font-size: 1.35vh;

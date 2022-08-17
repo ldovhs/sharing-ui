@@ -15,7 +15,8 @@
             "@middlewares/*": ["middlewares/*"],
             "@hooks/*": ["hooks/*"],
             "@sass/*": ["sass/*"],
-            "@enums/*": ["enums/*"]
+            "@enums/*": ["enums/*"],
+            "@pages/*": ["pages/*"]
           }
     },
      "include": [

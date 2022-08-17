@@ -18,7 +18,6 @@ const questQueryAPI = async (req, res) => {
                 console.log(`** Get quests done by this user **`);
                 let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.wallet);
 
-                //  console.log(finishedQuest);
                 await Promise.all(
                     availableQuests.map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);

@@ -18,7 +18,7 @@ const {
     TWITTER_CLIENT_SECRET,
 } = process.env;
 
-const options = {
+export const authOptions = {
     providers: [
         /*   
             Update new nonce for next time authentication
@@ -211,7 +211,7 @@ const options = {
                 });
             }
 
-            session.profile = token.profile;
+            session.profile = token.profile || null;
             session.user = token.user;
             session.provider = token.provider;
             if (socialMediaUser) {
@@ -229,5 +229,5 @@ export default (req, res) => {
         req.headers["x-forwarded-host"] =
             process.env.NEXTAUTH_URL || req.headers["x-forwarded-host"];
     }
-    return NextAuth(req, res, options);
+    return NextAuth(req, res, authOptions);
 };

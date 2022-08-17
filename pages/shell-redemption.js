@@ -2,15 +2,14 @@ import Head from "next/head";
 import React, { useEffect, useState, useContext } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
-import { useSession } from "next-auth/react";
-import { ConnectBoard, IndividualQuestBoard, ShellRedeem } from "@components/end-user";
+import { useSession, getSession } from "next-auth/react";
+// import { unstable_getServerSession } from "next-auth/next"
+// import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { ConnectBoard, ShellRedeem } from "@components/end-user";
 
-const util = require("util");
-
-// Home page for user
-function Home() {
+function ShellRedemtion() {
     const [error, setError] = useState(null);
-    const { data: session, status } = useSession({ required: false });
+    const { data: session, status } = useSession();
     const { web3Error } = useContext(Web3Context);
 
     useEffect(() => {
@@ -19,7 +18,9 @@ function Home() {
         }
     }, [web3Error]);
 
-    useEffect(async () => { }, [session]);
+    useEffect(async () => {
+
+    }, [session]);
     return (
         <>
             <Head>
@@ -55,4 +56,22 @@ function Home() {
     );
 }
 
-export default Home;
+export default ShellRedemtion
+
+export async function getServerSideProps(context) {
+    // const session = await unstable_getServerSession(
+    //     context.req,
+    //     context.res,
+    //     authOptions
+    // );
+
+    const session = await getSession(
+        context
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

@@ -35,7 +35,7 @@ export default function UserStatsSearchResult({ formData }) {
                             request = await axios.get(
                                 `/challenger/api/admin/user-stats/getJobState`
                             );
-                            // console.log(request); request.data.progress
+
                             await timer(3000);
                         } while (request.data.state !== "completed");
                     }
@@ -124,8 +124,6 @@ const Table = ({ data, rowsPerPage, setTableData }) => {
     const handleSorting = (sortField, sortOrder) => {
         try {
             if (sortField) {
-                console.log("trying to sort");
-
                 const sortedData = [...data].sort((a, b) => {
                     if (
                         a.whiteListUserData === null ||
@@ -158,9 +156,7 @@ const Table = ({ data, rowsPerPage, setTableData }) => {
                 });
                 setTableData(sortedData);
             }
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
 
     return (

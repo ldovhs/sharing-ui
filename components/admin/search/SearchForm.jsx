@@ -47,7 +47,7 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
         if (parseInt(rewards[index].minQty) > parseInt(rewards[index].maxQty)) {
             error = `Min token cannot be larger than max token for ${rewards[index].type}`;
         }
-        console.log(error);
+
         return error;
     };
 

@@ -44,9 +44,7 @@ const InstagramFollowQuest = ({
             } else {
                 closeModal();
             }
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
 
     return (

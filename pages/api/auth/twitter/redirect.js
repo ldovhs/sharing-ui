@@ -75,7 +75,7 @@ export default async function twitterRedirect(req, res) {
                     let error = "Twitter account is already authenticated.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
-                console.log(userInfo?.data?.data?.username)
+
                 // find user of this twitter handle
                 let existingTwitterUser = await prisma.whiteList.findFirst({
                     where: {

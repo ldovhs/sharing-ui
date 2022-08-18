@@ -31,7 +31,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             }
 
             setSubmissionQuest(codeQuestOfThisEvent);
-            console.log(codeQuestOfThisEvent);
+
             if (
                 codeQuestOfThisEvent?.extendedQuestData.hasOwnProperty("endDate") &&
                 codeQuestOfThisEvent?.extendedQuestData?.endDate !== null &&

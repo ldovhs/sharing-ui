@@ -85,8 +85,6 @@ const ClaimShellForOwningNFT = ({
                 }
             );
 
-            // console.log(allNFTsOwned);
-
             if (allNFTsOwned?.data?.result?.length > 0) {
                 let nftsToProcess = allNFTsOwned?.data?.result;
                 let promiseCheck = nftsToProcess.map((nft) => {
@@ -119,7 +117,7 @@ const ClaimShellForOwningNFT = ({
             setIsValidating(false);
         } catch (e) {
             setIsValidating(false);
-            console.log(e.message);
+
             return;
         }
     };

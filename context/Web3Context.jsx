@@ -81,19 +81,14 @@ export function Web3Provider({ children }) {
 
             provider.on("chainChanged", async (chainId) => {
                 SignOut();
-                console.log(chainId);
             });
 
             provider.on("connect", (info) => {});
 
             provider.on("disconnect", async (error) => {
-                console.log("disconnect");
-                console.log(error);
                 SignOut();
             });
-        } catch (error) {
-            console.log(111);
-        }
+        } catch (error) {}
     };
 
     const TryConnectAsAdmin = async (walletType) => {
@@ -154,15 +149,12 @@ export function Web3Provider({ children }) {
                     if (ok) {
                         return true;
                     } else {
-                        console.log(error);
                         setWeb3Error("Authentication failed");
                         return false;
                     }
                 });
             }, 1000);
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
 
     const TryConnectAsUser = async (walletType) => {
@@ -229,12 +221,9 @@ export function Web3Provider({ children }) {
                             return false;
                         }
                     })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                    .catch((err) => {});
             }, 1000);
         } catch (error) {
-            console.log(error);
             setWeb3Error(error.message);
         }
     };
@@ -285,7 +274,6 @@ export function Web3Provider({ children }) {
             return false;
         } catch (error) {
             setWeb3Error(error.message);
-            //console.log(error);
         }
     };
 
@@ -334,7 +322,6 @@ export function Web3Provider({ children }) {
                 }, 1000);
             });
         } catch (error) {
-            // console.log(error);
             setWeb3Error(error.message);
         }
     };
@@ -353,7 +340,7 @@ export function Web3Provider({ children }) {
                     .catch((err) => {
                         reject(err.message);
                     });
-                console.log(2);
+
                 const newUser = await axios.post(API_SIGNUP, {
                     address,
                     signature,

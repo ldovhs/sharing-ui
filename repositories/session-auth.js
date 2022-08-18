@@ -12,7 +12,6 @@ export const isWhiteListUser = async (session) => {
                 discordId: session.user.id,
             },
         });
-        console.log(user);
     }
 
     if (session?.provider === "twitter") {

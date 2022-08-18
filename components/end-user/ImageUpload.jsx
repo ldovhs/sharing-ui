@@ -64,7 +64,6 @@ const ImageUpload = ({
                     `${Enums.BASEPATH}/api/user/quest/${findSubmissionQuest.questId}`
                 );
 
-                console.log(submittedQuestBefore);
                 if (submittedQuestBefore.data.isError) {
                     setView(ERROR);
                     return setError(submittedQuestBefore?.data?.message);

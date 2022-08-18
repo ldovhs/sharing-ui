@@ -47,9 +47,7 @@ const AddNewUser = ({ isLoading, mutationError, onUpsert, data }) => {
                 // toast later
                 resetForm();
             }
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
     return (
         <Formik

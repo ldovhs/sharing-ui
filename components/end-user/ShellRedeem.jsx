@@ -5,6 +5,7 @@ import { useDeviceDetect } from "lib/hooks";
 import "/node_modules/nes.css/css/nes.css";
 import { useUserRewardQuery, useShellRedeemQuery, withShellRedeemRollAll } from "@shared/HOC";
 import useShellRedeemSound from "lib/hooks/useShellRedeemSound";
+import Typed from "typed.js";
 
 const INITIAL_0 = 0;
 const INITIAL_1 = 1;
@@ -14,15 +15,14 @@ const STUCK = 4;
 const PUNCH = 5;
 const SHOW_REMAINING = 6;
 const SHOW_REWARD = 7;
+const NOT_ENOUGH_SHELL = 10;
 const MACHINE_ERROR = 10;
 
 const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
     const [machineState, setMachineState] = useState(INITIAL_0);
     const [showFooter, setShowFooter] = useState(false);
 
-    const [boxMessage, setBoxMessage] = useState(
-        `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
-    );
+    const [boxMessage, setBoxMessage] = useState("");
 
     const { isMobile } = useDeviceDetect();
     const [userRewards, userRewardLoading] = useUserRewardQuery();
@@ -30,11 +30,19 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const [shellRedeemed, shellRedeemedLoading] = useShellRedeemQuery();
     const [currentViewReward, setCurrentViewReward] = useState(-1);
     const [rewardRedeemed, setRewardRedeemed] = useState(null);
-    const [audioControl, PlayIdleVendingMachine] = useShellRedeemSound();
+    const [audioControl] = useShellRedeemSound();
+
+    // Create reference to store the DOM element containing the animation
+    const el = React.useRef(null);
+    // Create reference to store the Typed instance itself
+    const typed = React.useRef(null);
+    let options = {
+        typeSpeed: 3,
+        showCursor: false,
+    };
 
     const handlePlayAudio = () => {
         if ((machineState === INITIAL_1 || machineState === SHOW_REWARD) && audioControl) {
-            // console.log(123);
             audioControl.idle.playRepeat(0.45);
             window.removeEventListener("click", handlePlayAudio);
         }
@@ -52,6 +60,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             if (!shellRedeemedLoading && !userRewardLoading) {
                 setShowFooter(true);
                 setMachineState(INITIAL_1);
+                setBoxMessage(
+                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
+                );
             }
         }
     }, [shellRedeemed]);
@@ -64,6 +75,31 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             window.addEventListener("click", handlePlayAudio);
         }
     }, [audioControl]);
+
+    useEffect(async () => {
+        return () => {
+            // to prevent memory leaks
+            typed.current.destroy();
+        };
+    }, []);
+
+    useEffect(async () => {
+        // if (machineState === INITIAL_1) {
+        //     options.strings = [boxMessage];
+        // }
+        // if (machineState === INITIAL_2) {
+        //     options.strings = [boxMessage];
+        // }
+        // if (machineState === NOT_ENOUGH_SHELL) {
+        //     options.strings = [boxMessage];
+        // }
+        options.strings = [boxMessage];
+        typed.current?.destroy();
+        if (el && el.current) {
+            typed.current = new Typed(el.current, options);
+        }
+        typed.current?.start();
+    }, [boxMessage, showFooter]);
 
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
@@ -119,13 +155,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             setMachineState(INITIAL_2);
         }
         if (machineState === INITIAL_2) {
-            setBoxMessage(
-                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.`
-            );
             setShowFooter(false);
             setMachineState(IDLE);
         }
         if (machineState === MACHINE_ERROR) {
+            setShowFooter(false);
+            setMachineState(IDLE);
+        }
+        if (machineState === NOT_ENOUGH_SHELL) {
             setShowFooter(false);
             setMachineState(IDLE);
         }
@@ -136,20 +173,19 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
 
     const handleStuckToPunch = () => {
         if (machineState !== STUCK || !showFooter) {
-            console.log("Not In Stuck");
+            // console.log("Not In Stuck");
             return;
         }
         setShowFooter(false);
 
         let punchTimeout = setTimeout(async () => {
-            console.log("Stuck to Punch");
+            // console.log("Stuck to Punch");
             setMachineState(PUNCH);
             audioControl.punch.play(0.15);
             clearTimeout(punchTimeout);
 
             // submit roll here
             let submitRoll = await onRollSubmit();
-            // console.log(submitRoll);
 
             if (submitRoll?.data.rewards) {
                 setRewardRedeemed([...submitRoll.data.rewards]);
@@ -170,8 +206,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     };
     const handleRollAll = () => {
         if (rewardAmount < Enums.SHELL_PRICE) {
-            setMachineState(MACHINE_ERROR);
-            console.log("Shell amount less than shell price");
+            setMachineState(NOT_ENOUGH_SHELL);
             setShowFooter(true);
             setBoxMessage("Uhhh .... Oh.... You need more shell to feed meeeeeeeeeeeee!!!!!");
             return;
@@ -395,7 +430,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                     src={`${Enums.BASEPATH}/img/redemption/teal_box.png`}
                                     alt="box"
                                 /> */}
-                                <div>{boxMessage && <span>{boxMessage}</span>}</div>
+                                {/* <div>{boxMessage && <span >{boxMessage}</span>}</div> */}
+                                <div>
+                                    <span ref={el} />
+                                </div>
                             </div>
                             <div className={s.redemption_footer_octopus}>
                                 <img

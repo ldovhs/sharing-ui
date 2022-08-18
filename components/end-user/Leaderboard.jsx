@@ -16,11 +16,8 @@ export default function Leaderboard({ questData, isLoading }) {
         if (questData?.userQuests?.length > 0) {
             let questsNotRanked = [...questData.userQuests];
             let questFilter = questsNotRanked.filter((q) => q.extendedUserQuestData.reaction !== 0);
-            console.log(questFilter);
 
             questFilter.sort(sortOnReactionCountAndCreateDateFirst);
-
-            console.log("filter sorted");
 
             setQuestRanking(questFilter);
         }
@@ -28,7 +25,6 @@ export default function Leaderboard({ questData, isLoading }) {
 
     const scrollRef = useRef();
 
-    console.log(questsRanking);
     const onScroll = (e) => {
         if (
             e.target.scrollTop >=

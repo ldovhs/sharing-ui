@@ -28,7 +28,6 @@ export function SiteProvider({ children }) {
                 console.log("No accounts found");
             }
         } catch (error) {
-            console.log(error);
             throw new error("No ethereum object from Metamask");
         }
     };

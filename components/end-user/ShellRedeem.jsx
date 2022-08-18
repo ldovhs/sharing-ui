@@ -42,7 +42,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     };
 
     const handlePlayAudio = () => {
-        if ((machineState === INITIAL_1 || machineState === SHOW_REWARD) && audioControl) {
+        if (
+            (machineState === INITIAL_0 ||
+                machineState === INITIAL_1 ||
+                machineState === SHOW_REWARD) &&
+            audioControl
+        ) {
+            console.log("trying to play auidio");
             audioControl.idle.playRepeat(0.45);
             window.removeEventListener("click", handlePlayAudio);
         }
@@ -68,7 +74,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     }, [shellRedeemed]);
     useEffect(async () => {
         if (
-            (machineState === INITIAL_1 || machineState === SHOW_REWARD) &&
+            (machineState === INITIAL_0 ||
+                machineState === INITIAL_1 ||
+                machineState === SHOW_REWARD) &&
             audioControl &&
             audioControl.idle
         ) {
@@ -84,15 +92,6 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     }, []);
 
     useEffect(async () => {
-        // if (machineState === INITIAL_1) {
-        //     options.strings = [boxMessage];
-        // }
-        // if (machineState === INITIAL_2) {
-        //     options.strings = [boxMessage];
-        // }
-        // if (machineState === NOT_ENOUGH_SHELL) {
-        //     options.strings = [boxMessage];
-        // }
         options.strings = [boxMessage];
         typed.current?.destroy();
         if (el && el.current) {

@@ -192,15 +192,15 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
 
                 let showRemainingTimeOut = setTimeout(() => {
                     setMachineState(SHOW_REMAINING);
-                    clearTimeout(showRemainingTimeOut);
                     audioControl.reward.play(0.25);
+                    clearTimeout(showRemainingTimeOut);
 
                     let rewardTimeout = setTimeout(() => {
                         setCurrentViewReward(0);
                         setMachineState(SHOW_REWARD);
 
                         clearTimeout(rewardTimeout);
-                    }, 2200);
+                    }, 1500);
                 }, 1200);
             }
         }, 100);

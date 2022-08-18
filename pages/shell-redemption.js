@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useEffect, useState, useContext } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
-import { useSession, getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 // import { unstable_getServerSession } from "next-auth/next"
 // import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { ConnectBoard, ShellRedeem } from "@components/end-user";
@@ -58,20 +58,20 @@ function ShellRedemtion() {
 
 export default ShellRedemtion
 
-export async function getServerSideProps(context) {
-    // const session = await unstable_getServerSession(
-    //     context.req,
-    //     context.res,
-    //     authOptions
-    // );
+// export async function getServerSideProps(context) {
+//     // const session = await unstable_getServerSession(
+//     //     context.req,
+//     //     context.res,
+//     //     authOptions
+//     // );
 
-    const session = await getSession(
-        context
-    );
+//     const session = await getSession(
+//         context
+//     );
 
-    return {
-        props: {
-            session,
-        },
-    }
-}
+//     return {
+//         props: {
+//             session,
+//         },
+//     }
+// }

@@ -50,6 +50,12 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         ) {
             console.log("trying to play auidio");
             audioControl.idle.playRepeat(0.45);
+            audioControl.underwater.playRepeat(0.45);
+            window.removeEventListener("click", handlePlayAudio);
+        }
+        if (machineState === SHOW_REWARD && audioControl) {
+            audioControl.idle.stop();
+            audioControl.underwater.playRepeat(0.45);
             window.removeEventListener("click", handlePlayAudio);
         }
     };
@@ -197,9 +203,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                     let rewardTimeout = setTimeout(() => {
                         setCurrentViewReward(0);
                         setMachineState(SHOW_REWARD);
-
+                        audioControl.idle.stop();
                         clearTimeout(rewardTimeout);
-                    }, 1500);
+                    }, 2200);
                 }, 1200);
             }
         }, 100);

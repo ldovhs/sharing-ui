@@ -20,11 +20,21 @@ const submitIndividualQuestAPI = async (req, res) => {
             try {
 
                 const whiteListUser = req.whiteListUser;
-                const { questId, type, rewardTypeId, quantity, extendedQuestData } = req.body;
+                const { questId, rewardTypeId, quantity, extendedQuestData } = req.body;
                 let userQuest;
 
+                // query the type based on questId
+                let currentQuest = await prisma.quest.findUnique({
+                    where: {
+                        questId
+                    },
+                    include: {
+                        type: true
+                    }
+                })
+
                 /** This route is not for image upload quest */
-                if (type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                if (currentQuest.type.name === Enums.IMAGE_UPLOAD_QUEST) {
                     return res.status(200).json({
                         isError: true,
                         message: "This route is not for image upload quest!",
@@ -32,7 +42,7 @@ const submitIndividualQuestAPI = async (req, res) => {
                 }
 
                 // Handling daily quest
-                if (type.name === Enums.DAILY_SHELL) {
+                if (currentQuest.type.name === Enums.DAILY_SHELL) {
                     console.log(`**In daily shell**`);
 
                     let entry = await prisma.UserQuest.findUnique({
@@ -67,7 +77,7 @@ const submitIndividualQuestAPI = async (req, res) => {
 
                     userQuest = await submitUserDailyQuestTransaction(
                         questId,
-                        type,
+                        currentQuest.type,
                         rewardTypeId,
                         currentQuest.quantity,
                         extendedUserQuestData,

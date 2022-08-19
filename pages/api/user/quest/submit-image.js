@@ -1,12 +1,9 @@
 import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import axios from "axios";
-
 import Enums from "enums";
 
 const { NODEJS_SECRET, DISCORD_NODEJS } = process.env;
-
-const ROUTE = "/api/user/quest/submit-image";
 
 const submitImageQuestAPI = async (req, res) => {
     const { method } = req;
@@ -15,11 +12,20 @@ const submitImageQuestAPI = async (req, res) => {
         case "POST":
             try {
                 const whiteListUser = req.whiteListUser;
-                const { questId, type, rewardTypeId, quantity, extendedQuestData, imageUrl } =
+                const { questId, rewardTypeId, extendedQuestData, imageUrl } =
                     req.body;
                 let userQuest;
 
-                if (type.name !== Enums.IMAGE_UPLOAD_QUEST) {
+                let currentQuest = await prisma.quest.findUnique({
+                    where: {
+                        questId
+                    },
+                    include: {
+                        type: true
+                    }
+                })
+
+                if (currentQuest.type.name !== Enums.IMAGE_UPLOAD_QUEST) {
                     return res.status(200).json({
                         isError: true,
                         message: "This route is only for image-upload quest!",
@@ -43,17 +49,8 @@ const submitImageQuestAPI = async (req, res) => {
                     imageUrl,
                 };
 
-                let currentQuest = await prisma.quest.findUnique({
-                    where: {
-                        questId
-                    }
-                })
-
-                console.log(currentQuest)
-
                 userQuest = await submitNewUserImageQuestTransaction(
                     questId,
-                    type,
                     rewardTypeId,
                     currentQuest.quantity,
                     extendedUserQuestData,
@@ -108,7 +105,6 @@ export default whitelistUserMiddleware(submitImageQuestAPI);
 
 const submitNewUserImageQuestTransaction = async (
     questId,
-    type,
     rewardTypeId,
     quantity,
     extendedUserQuestData,

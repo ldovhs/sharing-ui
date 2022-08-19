@@ -37,13 +37,13 @@ async function main() {
     // PHASE_1 GIFT_MINT_LIST_SPOT
     // await assignGiftMintListSpotPhase1(Enums.GIFT_MINT_LIST_SPOT);
 
-    // await assignMintListSpot(Enums.MINT_LIST_SPOT, 7000);// 7000
+    // let assignedWalletList = await assignMintListSpot(Enums.MINT_LIST_SPOT, 7000);// 7000
 
     // PHASE_2 GIFT_MINT_LIST_SPOT
     // await assignGiftMintListSpotPhase2(Enums.GIFT_MINT_LIST_SPOT);
 
     // assign everyone BOOTS
-    await assignBOOTS(Enums.BOOTS)
+    // await assignBOOTS(Enums.BOOTS)
 }
 
 const assignSingleReward = async (rewardName) => {
@@ -169,6 +169,7 @@ const assignGiftMintListSpotPhase1 = async (rewardType) => {
     // console.log(walletList.length)
 };
 
+// not in guild
 const assignMintListSpot = async (rewardType, numberOfReward) => {
     // do not assign to existing mint list address
     let whiteListUserRedeemed = await prisma.$queryRaw`
@@ -206,6 +207,7 @@ const assignMintListSpot = async (rewardType, numberOfReward) => {
         }
     }
     console.log(walletList.length)
+    return walletList;
 };
 
 const assignBOOTS = async (rewardType) => {
@@ -235,6 +237,33 @@ const assignBOOTS = async (rewardType) => {
         })
     }
     console.log(walletList.length)
+};
+
+const assignGiftMintListSpotPhase2 = async (rewardType) => {
+
+    let whiteListAddress = await prisma.whiteListAddress.findMany();
+    let walletList = whiteListAddress.map((el) => el["wallet"]);
+
+    // console.log(walletList.length);
+    for (let i = 0; i < walletList.length; i++) {
+        walletToReward = walletList[i]
+
+        await prisma.shellRedeemed.upsert({
+            where: { wallet: walletToReward },
+            update: {
+                rewards: {
+                    push: rewardType
+                }
+            },
+            create: {
+                wallet: walletToReward,
+                rewards:
+                    [rewardType]
+
+            }
+        })
+    }
+    // console.log(walletList.length)
 };
 
 main()

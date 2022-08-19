@@ -8,7 +8,10 @@ const getClaimedRewardForUserAPI = async (req, res) => {
         case "GET":
             try {
                 const { wallet } = req.query;
-                // const whiteListUser = req.whiteListUser;
+                const whiteListUser = req.whiteListUser;
+                if (whiteListUser.wallet !== wallet) {
+                    return res.status(200).json({ isError: true, message: "Not allowed to see shell" });
+                }
                 // console.log(wallet)
                 // const rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
                 const rewarded = await getClaimedRewardsOfUser(wallet);

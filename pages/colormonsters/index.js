@@ -33,12 +33,11 @@ function ColorMonster() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.app}>
-                {!session ? (
-                    <ConnectBoard />
-                ) : (
-                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
-                        <NotEnabledChallenger /> : <CollaborationQuestBoard session={session} collaboration={"colormonsters"} />
-                )}
+
+                {!session && <ConnectBoard />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false" && <NotEnabledChallenger />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true" && <CollaborationQuestBoard session={session} collaboration={"colormonsters"} />}
+
             </div>
         </>
     );

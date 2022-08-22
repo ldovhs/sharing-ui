@@ -33,12 +33,9 @@ function VoidRunners() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.app}>
-                {!session ? (
-                    <ConnectBoard />
-                ) : (
-                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
-                        <NotEnabledChallenger /> : <CollaborationQuestBoard session={session} collaboration={"voidrunners"} />
-                )}
+                {!session && <ConnectBoard />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false" && <NotEnabledChallenger />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true" && <CollaborationQuestBoard session={session} collaboration={"voidrunners"} />}
             </div>
         </>
     );

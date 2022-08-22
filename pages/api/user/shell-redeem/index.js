@@ -10,7 +10,7 @@ export const config = {
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;
 
-    if (!process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL) {
+    if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
         return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
     }
 

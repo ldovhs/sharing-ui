@@ -16,7 +16,7 @@ const shellRedeemRollAllAPI = async (req, res) => {
             try {
                 const whiteListUser = req.whiteListUser;
 
-                if (!process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL) {
+                if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
                     return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
                 }
 

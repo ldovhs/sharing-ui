@@ -18,7 +18,7 @@ const submitIndividualQuestAPI = async (req, res) => {
     switch (method) {
         case "POST":
             try {
-                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
                     return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
                 }
                 const whiteListUser = req.whiteListUser;

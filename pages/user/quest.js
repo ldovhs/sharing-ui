@@ -22,8 +22,11 @@ function DoQuest() {
     return (
         <>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
-                    <NotEnabledChallenger /> : <IndividualQuestBoard session={session} />}
+
+                {!session && <ConnectBoard />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false" && <NotEnabledChallenger />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true" && <IndividualQuestBoard session={session} />}
+
             </div>
         </>
     );

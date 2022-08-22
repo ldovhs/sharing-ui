@@ -33,13 +33,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const [audioControl] = useShellRedeemSound();
 
     // Create reference to store the DOM element containing the animation
-    const el = React.useRef(null);
+    // const el = React.useRef(null);
     // Create reference to store the Typed instance itself
-    const typed = React.useRef(null);
-    let options = {
-        typeSpeed: 3,
-        showCursor: false,
-    };
+    // const typed = React.useRef(null);
+    // let options = {
+    //     typeSpeed: 3,
+    //     showCursor: false,
+    // };
     const [showButtonFooter, setShowButtonFooter] = useState(false);
 
     const handlePlayAudio = () => {
@@ -74,11 +74,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                 setShowFooter(true);
                 setMachineState(INITIAL_1);
                 setBoxMessage(
-                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!      
-                        <img
-                            src="./img/redemption/dialogue_arrow.gif"
-                        />
-                    `
+                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
                 );
             }
         }
@@ -96,20 +92,20 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     }, [audioControl]);
 
     useEffect(async () => {
-        return () => {
-            // to prevent memory leaks
-            typed.current.destroy();
-        };
+        // return () => {
+        //     // to prevent memory leaks
+        //     typed.current.destroy();
+        // };
     }, []);
 
-    useEffect(async () => {
-        options.strings = [boxMessage];
-        typed.current?.destroy();
-        if (el && el.current) {
-            typed.current = new Typed(el.current, options);
-        }
-        typed.current?.start();
-    }, [boxMessage, showFooter]);
+    // useEffect(async () => {
+    //     options.strings = [boxMessage];
+    //     typed.current?.destroy();
+    //     if (el && el.current) {
+    //         typed.current = new Typed(el.current, options);
+    //     }
+    //     typed.current?.start();
+    // }, [boxMessage, showFooter]);
 
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
@@ -171,10 +167,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const handleOnInteraction = () => {
         if (machineState === INITIAL_1) {
             setBoxMessage(
-                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.
-                <img
-                    src="./img/redemption/dialogue_arrow.gif"
-                />`
+                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.`
             );
             setMachineState(INITIAL_2);
         }
@@ -245,9 +238,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         let footerTimeout = setTimeout(() => {
             setBoxMessage(
                 `Oh man! It still gets jammed now and again - Try hitting it a couple of times to see if that works!
-                <img
-                    src="./img/redemption/dialogue_arrow.gif"
-                />`
+              `
             );
             setShowFooter(true);
             clearTimeout(footerTimeout);
@@ -457,7 +448,11 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                 /> */}
                                 {/* <div>{boxMessage && <span >{boxMessage}</span>}</div> */}
                                 <div>
-                                    <span ref={el} />
+                                    <span>
+                                        {boxMessage}
+                                        <img src="./img/redemption/dialogue_arrow.gif" />
+                                    </span>
+                                    {/* <span ref={el} /> */}
                                     {/* <span>
                                         <img
                                             src={`${Enums.BASEPATH}/img/redemption/dialogue_arrow.gif`}

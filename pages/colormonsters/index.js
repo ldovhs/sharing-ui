@@ -36,7 +36,8 @@ function ColorMonster() {
                 {!session ? (
                     <ConnectBoard />
                 ) : (
-                    <CollaborationQuestBoard session={session} collaboration={"colormonsters"} />
+                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                        <NotEnabledChallenger /> : <CollaborationQuestBoard session={session} collaboration={"colormonsters"} />
                 )}
             </div>
         </>

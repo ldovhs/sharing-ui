@@ -5,8 +5,9 @@ import { useUserRewardQuery } from "@shared/HOC";
 
 export default function BoardSmallDollarSign() {
     const [userRewards, userRewardLoading] = useUserRewardQuery();
+    console.log(userRewards);
     const [rewardAmount, setRewardAmount] = useState(null);
-
+    console.log(rewardAmount);
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(
@@ -15,14 +16,13 @@ export default function BoardSmallDollarSign() {
                     r.rewardType.reward.match("$Shell") ||
                     r.rewardType.reward.match("$SHELL")
             );
-            if (shellReward?.quantity && shellReward.quantity > 0)
-                setRewardAmount(shellReward.quantity);
+            setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
     return (
         <div className={s.board_dollar}>
             <div className={s.board_dollar_content}>
-                {rewardAmount !== null && rewardAmount !== 0 ? (
+                {rewardAmount !== null && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
@@ -30,7 +30,9 @@ export default function BoardSmallDollarSign() {
                         />
                         {rewardAmount}
                     </>
-                ) : (
+                )}
+
+                {rewardAmount == null && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}

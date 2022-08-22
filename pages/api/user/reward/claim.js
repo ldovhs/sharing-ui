@@ -15,9 +15,13 @@ const userClaimRewardAPI = async (req, res) => {
     switch (method) {
         case "POST":
             try {
+                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
+                }
                 const whiteListUser = req.whiteListUser;
                 const { generatedURL, isClaimed, rewardTypeId, quantity, userId, wallet } =
                     req.body;
+
 
                 // DO NOT USE THE QUANTITY SENT TO API, USE THE QUANTITY QUERIED FROM DB
                 console.log(`** Checking if proper wallet ${wallet} is claiming the reward **`);

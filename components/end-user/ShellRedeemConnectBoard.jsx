@@ -14,9 +14,8 @@ export const SIGNIN_OPTIONS = 2;
 export const WALLET_AUTH = 3;
 export const SOCIAL_AUTH = 4;
 export const AUTHENTICATING = 5;
-export const GONE_FISHING = 10;
 
-export default function ConnectBoard() {
+export default function ShellRedeemConnectBoard() {
     let router = useRouter();
     const { web3Error, TryConnectAsUser, setWeb3Error } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
@@ -38,12 +37,6 @@ export default function ConnectBoard() {
         }
         const ethereum = window.ethereum;
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
-
-        if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
-            setPrompt(WELCOME);
-        } else {
-            setPrompt(GONE_FISHING);
-        }
     }, []);
 
     const changeView = async (viewState) => {
@@ -91,7 +84,7 @@ export default function ConnectBoard() {
                                         src={`${Enums.BASEPATH}/img/sharing-ui/invite/starfish.gif`}
                                     />
                                     <div className={s.board_title}>
-                                        Welcome to the Cove’s DeepSea Challenger!
+                                        Welcome to the Cove’s DeepSea Shell Redemption!
                                     </div>
                                     <div className={s.board_text}>Connect to continue</div>
                                     <button
@@ -108,51 +101,21 @@ export default function ConnectBoard() {
                                     </button>
                                 </>
                             )}
-                            {currentPrompt === GONE_FISHING && !web3Error && (
-                                <>
-                                    <div className={s.board_goneFishTitle}>
-                                        CLOSED! GONE FISHIN'!
-                                    </div>
-                                    <div className={s.board_goneFishText}>
-                                        The DeepSea Challenger has been paused. You can still
-                                        connect to view your $SHELL balance.
-                                    </div>
-                                    <div className={s.board_goneFishText}>
-                                        Check back on <span>August 29</span> for a chance to spend
-                                        your $SHELL for shiny treasures!
-                                    </div>
-                                    <button
-                                        className={s.board_pinkBtn}
-                                        onClick={() => changeView(CONNECT_OPTIONS)}
-                                    >
-                                        <img
-                                            src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                            alt="connectToContinue"
-                                        />
-                                        <div>
-                                            <span>Connect</span>
-                                        </div>
-                                    </button>
-                                </>
-                            )}
-
                             {currentPrompt === CONNECT_OPTIONS && !web3Error && (
                                 <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
-                                        {process.env.NEXT_PUBLIC_ENABLE_CHALLENGER && (
-                                            <button
-                                                className={s.board_orangeBtn}
-                                                onClick={() => router.push(`/user/signup`)}
-                                            >
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                    alt="connectToContinue"
-                                                />
-                                                <div>
-                                                    <span>Sign Up</span>
-                                                </div>
-                                            </button>
-                                        )}
+                                        <button
+                                            className={s.board_orangeBtn}
+                                            onClick={() => router.push(`/user/signup`)}
+                                        >
+                                            <img
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                alt="connectToContinue"
+                                            />
+                                            <div>
+                                                <span>Sign Up</span>
+                                            </div>
+                                        </button>
                                         <button
                                             className={s.board_tealBtn}
                                             onClick={() => changeView(SIGNIN_OPTIONS)}
@@ -293,7 +256,6 @@ export default function ConnectBoard() {
                 </div>
             </div>
             {((currentPrompt !== WELCOME &&
-                currentPrompt !== GONE_FISHING &&
                 currentPrompt !== CONNECT_OPTIONS &&
                 currentPrompt !== AUTHENTICATING) ||
                 web3Error) && (

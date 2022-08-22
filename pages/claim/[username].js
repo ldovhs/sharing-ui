@@ -14,17 +14,17 @@ function claimReward() {
 
     useEffect(() => {
         if (web3Error) {
-            // console.log(web3Error);
             setError(web3Error);
         }
     }, [web3Error]);
 
-    useEffect(async () => {}, [session]);
+    useEffect(async () => { }, [session]);
 
     return (
         <>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : <UserClaimReward session={session} />}
+                {!session ? <ConnectBoard /> : !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                    <NotEnabledChallenger /> : <UserClaimReward session={session} />}
             </div>
         </>
     );

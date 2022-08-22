@@ -82,7 +82,7 @@ $list-text-font-size-large: 1.25rem;
 }
 
 @mixin goneFishHeading(){
-	font-size: 1.75vh;
+	font-size: 1rem;
 	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 500;
 	text-align: center;
@@ -101,12 +101,18 @@ $list-text-font-size-large: 1.25rem;
         font-size: $heading-font-size-small-2;
         line-height: 1.5rem;
     }
+    @media (min-width: $bp-med) {  
+        font-size: 2.25rem;
+    }
     @media (min-width: $bp-med-2) {  
-        font-size: 1.75rem;
+        font-size: 2.35rem;
         line-height: 2rem;
     }
-    @media (min-width: $bp-large-2) {  
-        font-size: 2.25rem;
+    @media (min-width: $bp-large) {  
+        font-size: 2.35rem;
+    }
+    @media (min-width: $bp-xl) {  
+        font-size: 2.5rem;
     }
     @media (min-width: $bp-xl-2) {  
         font-size: 2.75rem;
@@ -117,21 +123,24 @@ $list-text-font-size-large: 1.25rem;
 }
 
 @mixin goneFishText(){
-	font-size: $text-font-size-small;
+	font-size: 0.45rem;
 	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 400;
 	text-align: center;
     color:#35464F;
-    line-height: 1.55rem;
+    line-height: 1rem;
+    width: 88%;
+
 	@media (min-width: $bp-small-2) {  
-        font-size: $text-font-size-small-2;
+        font-size: 0.5rem;
+        line-height: 1.25rem;
     }
-    @media (min-width: $bp-med-2) {  
-        font-size: $text-font-size-med;
+    @media (min-width: $bp-med) {  
+        font-size: 0.95rem;
         line-height: 1.85rem;
     }
     @media (min-width: $bp-xl) {  
-        font-size: $text-font-size-large;
+        font-size: 1rem;
     }
     @media (min-width: $bp-xl-2) {  
         font-size: 1.15rem;
@@ -268,7 +277,6 @@ $list-text-font-size-large: 1.25rem;
             @media (min-width: $bp-med-2) {  
                 max-height: 65%;
             }
-
             @media (min-width: $bp-large-2) {  
                 max-height: 65%;
             }
@@ -334,13 +342,14 @@ $list-text-font-size-large: 1.25rem;
 
 .board {
     @include m.flex-master(column, center, center);
-    width: 85%;
+    width: 92%;
     height:100%;
     position: relative;
     color: #fff;
 
     @media (min-width: $bp-large) { width: 45em; }
-    @media (min-width: $bp-xl) { width: 45em; }
+    @media (min-width: $bp-xl) { width: 50em; }
+    @media (min-width: $bp-xl-2) { width: 52em; }
     @media (min-width: $bp-xl-3) { width: 65em; }
 
     &_dollar {
@@ -553,6 +562,10 @@ $list-text-font-size-large: 1.25rem;
     }
     &_goneFishText {
         @include goneFishText();
+
+        & > span {
+            color: #2484B2;
+        }
     }
     &_text { 
         @include boardText();

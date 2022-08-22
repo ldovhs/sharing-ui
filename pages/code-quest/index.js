@@ -10,7 +10,8 @@ function TwitterSpaceComponent() {
     return (
         <>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : <CodeQuestSubmit session={session} />}
+                {!session ? <ConnectBoard /> : !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                    <NotEnabledChallenger /> : <CodeQuestSubmit session={session} />}
             </div>
         </>
     );

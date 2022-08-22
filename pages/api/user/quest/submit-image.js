@@ -11,6 +11,9 @@ const submitImageQuestAPI = async (req, res) => {
     switch (method) {
         case "POST":
             try {
+                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
+                }
                 const whiteListUser = req.whiteListUser;
                 const { questId, rewardTypeId, extendedQuestData, imageUrl } =
                     req.body;

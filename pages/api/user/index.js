@@ -1,7 +1,6 @@
 import { utils } from "ethers";
 import { getWhiteListUserByWallet } from "repositories/user";
 
-const ROUTE = "/api/user";
 export default async function whitelistSignIn(req, res) {
     const { method } = req;
 

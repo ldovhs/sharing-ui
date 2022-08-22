@@ -8,6 +8,9 @@ export default async function whitelistSignUp(req, res) {
     switch (method) {
         case "POST":
             try {
+                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                    return res.status(200).json({ isError: true, message: "challenger is not enabled." });
+                }
                 console.log(`**Sign up new user**`);
                 const { address, signature, secret } = req.body;
                 if (!secret || secret !== process.env.NEXT_PUBLIC_API_SECRET) {

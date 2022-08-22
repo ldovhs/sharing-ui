@@ -18,10 +18,13 @@ const submitIndividualQuestAPI = async (req, res) => {
     switch (method) {
         case "POST":
             try {
-
+                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
+                }
                 const whiteListUser = req.whiteListUser;
                 const { questId, rewardTypeId, quantity, extendedQuestData } = req.body;
                 let userQuest;
+
 
                 // query the type based on questId
                 let currentQuest = await prisma.quest.findUnique({

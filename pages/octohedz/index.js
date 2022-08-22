@@ -35,7 +35,8 @@ function OctoHedz() {
                 {!session ? (
                     <ConnectBoard />
                 ) : (
-                    <CollaborationQuestBoard session={session} collaboration={"octohedz"} />
+                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                        <NotEnabledChallenger /> : <CollaborationQuestBoard session={session} collaboration={"octohedz"} />
                 )}
             </div>
         </>

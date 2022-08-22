@@ -3,8 +3,9 @@ import React, { useEffect, useState, useContext } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
-import { ConnectBoard, IndividualQuestBoard } from "@components/end-user";
-
+import { BoardSmallDollarSign, ConnectBoard, IndividualQuestBoard } from "@components/end-user";
+import Enums from "enums";
+import NotEnabledChallenger from "@components/end-user/NotEnabledChallenger";
 const util = require("util");
 
 // Home page for user
@@ -19,7 +20,7 @@ function Home() {
         }
     }, [web3Error]);
 
-    useEffect(async () => {}, [session]);
+    useEffect(async () => { }, [session]);
     return (
         <>
             <Head>
@@ -48,7 +49,10 @@ function Home() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : <IndividualQuestBoard session={session} />}
+                {!session ? <ConnectBoard /> :
+                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                        <NotEnabledChallenger /> : <IndividualQuestBoard session={session} />}
+
             </div>
         </>
     );

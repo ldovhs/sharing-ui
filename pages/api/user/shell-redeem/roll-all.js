@@ -16,6 +16,10 @@ const shellRedeemRollAllAPI = async (req, res) => {
             try {
                 const whiteListUser = req.whiteListUser;
 
+                if (!process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL) {
+                    return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
+                }
+
                 // DO NOT USE THE QUANTITY SENT TO API, USE THE QUANTITY QUERIED FROM DB
 
                 /* 

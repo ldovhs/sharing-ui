@@ -22,6 +22,9 @@ const ImageUploadAPI = async (req, res) => {
         case "POST":
             try {
                 // let wallet = utils.getAddress(whiteListUser.wallet);
+                if (!process.env.NEXT_PUBLIC_ENABLE_CHALLENGER) {
+                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
+                }
                 console.log(`** Uploading image to cloudinary **`);
                 const whiteListUser = req.whiteListUser;
                 const { data } = req.body;

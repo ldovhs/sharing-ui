@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 // import { unstable_getServerSession } from "next-auth/next"
 // import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { ConnectBoard, ShellRedeem } from "@components/end-user";
+import ShellRedeemConnectBoard from "@components/end-user/ShellRedeemConnectBoard";
 
 function ShellRedemtion() {
     const [error, setError] = useState(null);
@@ -49,7 +50,7 @@ function ShellRedemtion() {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.redemption}>
-                {!session ? <ConnectBoard /> : <ShellRedeem session={session} />}
+                {!session ? <ShellRedeemConnectBoard /> : <ShellRedeem session={session} />}
                 {/* <ShellRedeem session={session} /> */}
             </div>
         </>

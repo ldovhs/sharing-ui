@@ -15,7 +15,7 @@ const handler = async (req, res) => {
                 if (!userquestId) {
                     return res
                         .status(200)
-                        .json({ isError: true, message: "Missing userquestId query." });
+                        .json({ isError: true, message: "Missing query." });
                 }
 
                 // querying current user if same discord or twitter finish this quest before

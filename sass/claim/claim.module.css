@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 85%;
+  width: 92%;
   height: 100%;
   position: relative;
   color: #fff;
@@ -25,7 +25,12 @@
 }
 @media (min-width: 1440px) {
   .board {
-    width: 45em;
+    width: 50em;
+  }
+}
+@media (min-width: 1980px) {
+  .board {
+    width: 52em;
   }
 }
 @media (min-width: 2560px) {
@@ -349,7 +354,7 @@
   }
 }
 .board_goneFishTitle {
-  font-size: 1.75vh;
+  font-size: 1rem;
   font-family: Safety Goggles;
   font-weight: 500;
   text-align: center;
@@ -374,15 +379,25 @@
     line-height: 1.5rem;
   }
 }
+@media (min-width: 748px) {
+  .board_goneFishTitle {
+    font-size: 2.25rem;
+  }
+}
 @media (min-width: 800px) {
   .board_goneFishTitle {
-    font-size: 1.75rem;
+    font-size: 2.35rem;
     line-height: 2rem;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 872px) {
   .board_goneFishTitle {
-    font-size: 2.25rem;
+    font-size: 2.35rem;
+  }
+}
+@media (min-width: 1440px) {
+  .board_goneFishTitle {
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 1980px) {
@@ -396,33 +411,38 @@
   }
 }
 .board_goneFishText {
-  font-size: 0.6rem;
+  font-size: 0.45rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   text-align: center;
   color: #35464F;
-  line-height: 1.55rem;
+  line-height: 1rem;
+  width: 88%;
 }
 @media (min-width: 500px) {
   .board_goneFishText {
-    font-size: 1.125rem;
+    font-size: 0.5rem;
+    line-height: 1.25rem;
   }
 }
-@media (min-width: 800px) {
+@media (min-width: 748px) {
   .board_goneFishText {
-    font-size: 1.35rem;
+    font-size: 0.95rem;
     line-height: 1.85rem;
   }
 }
 @media (min-width: 1440px) {
   .board_goneFishText {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 1980px) {
   .board_goneFishText {
     font-size: 1.15rem;
   }
+}
+.board_goneFishText > span {
+  color: #2484B2;
 }
 .board_text {
   font-size: 0.6rem;

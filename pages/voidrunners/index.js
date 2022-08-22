@@ -36,7 +36,8 @@ function VoidRunners() {
                 {!session ? (
                     <ConnectBoard />
                 ) : (
-                    <CollaborationQuestBoard session={session} collaboration={"voidrunners"} />
+                    !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                        <NotEnabledChallenger /> : <CollaborationQuestBoard session={session} collaboration={"voidrunners"} />
                 )}
             </div>
         </>

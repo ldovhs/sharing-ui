@@ -10,6 +10,10 @@ export const config = {
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;
 
+    if (!process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL) {
+        return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
+    }
+
     // if (process.env.NODE_ENV === 'production') {
     //     console.log("In production, throttle the request")
     //     const checkLimit = await ipRateLimit(req)

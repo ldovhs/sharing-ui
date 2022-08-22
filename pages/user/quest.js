@@ -17,12 +17,13 @@ function DoQuest() {
         }
     }, [web3Error]);
 
-    useEffect(async () => {}, [session]);
+    useEffect(async () => { }, [session]);
 
     return (
         <>
             <div className={s.app}>
-                {!session ? <ConnectBoard /> : <IndividualQuestBoard session={session} />}
+                {!session ? <ConnectBoard /> : !process.env.NEXT_PUBLIC_ENABLE_CHALLENGER ?
+                    <NotEnabledChallenger /> : <IndividualQuestBoard session={session} />}
             </div>
         </>
     );

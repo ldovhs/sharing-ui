@@ -50,6 +50,8 @@ const Enums = {
     , ETHER_JUMP_NFT: "Etherjump NFT"
     , META_HERO_NFT: "MetaHero NFT"
     , EX_8102_NFT: "8102 NFT"
+    , VOID_RUNNERS_NFT: "Void Runners NFT"
+    , ZEN_ACADEMY_NFT: "ZenAcademy NFT"
     , NAME_INGAME: "Name a character!"
     , ADOPT_ANIMAL: "Adopt an Animal"
     , FREE_MINT: "Free Mint"

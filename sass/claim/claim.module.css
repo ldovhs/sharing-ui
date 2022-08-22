@@ -2691,6 +2691,7 @@
   font-weight: 400;
   overflow-wrap: break-word;
   line-height: 1rem;
+  margin-top: 1%;
 }
 @media (min-width: 384px) {
   .redemption_footer_boxes > div > span {

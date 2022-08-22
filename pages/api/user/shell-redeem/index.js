@@ -41,7 +41,6 @@ const shellRedeemQueryAPI = async (req, res) => {
 
         //return nothing if not found any, shell not created yet
         if (!userShellRedeem) {
-
             return res.status(200).json(userShellRedeem);
         } else {
             // if is Redeemed then return rewards array

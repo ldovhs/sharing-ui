@@ -532,6 +532,10 @@ const getRewardPicture = (reward) => {
             return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
         case Enums.EX_8102_NFT:
             return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
+        case Enums.VOID_RUNNERS_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Void Runner_7x.png`;
+        case Enums.ZEN_ACADEMY_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/ZenAcademy_7x.png`;
         default:
             return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
     }

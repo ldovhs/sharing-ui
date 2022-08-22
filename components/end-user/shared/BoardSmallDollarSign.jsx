@@ -5,9 +5,8 @@ import { useUserRewardQuery } from "@shared/HOC";
 
 export default function BoardSmallDollarSign() {
     const [userRewards, userRewardLoading] = useUserRewardQuery();
-    console.log(userRewards);
     const [rewardAmount, setRewardAmount] = useState(null);
-    console.log(rewardAmount);
+
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(

@@ -21,6 +21,9 @@ function Home() {
     }, [web3Error]);
 
     useEffect(async () => { }, [session]);
+
+    console.log(process.env.NEXT_PUBLIC_ENABLE_CHALLENGER)
+    console.log(process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL)
     return (
         <>
             <Head>

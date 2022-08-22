@@ -7,10 +7,10 @@ import ClaimShellForOwningNFT from "@components/end-user/ClaimShellForOwningNFT"
 
 function noodClaimShell() {
     const { data: session, status } = useSession({ required: false });
-
+    // currently disable
     return (
         <>
-            <div className={s.app}>
+            {/* <div className={s.app}>
                 {!session ? (
                     <ConnectBoard />
                 ) : (
@@ -21,7 +21,7 @@ function noodClaimShell() {
                         NftSymbol={"NOODS"}
                     />
                 )}
-            </div>
+            </div> */}
         </>
     );
 }

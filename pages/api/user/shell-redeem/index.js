@@ -60,7 +60,7 @@ const shellRedeemQueryAPI = async (req, res) => {
                 //     headers: res.headers,
                 // })
             }
-            // else not redeemed,
+            // not redeemed yet,
             else {
                 return res.status(200).json({ isRedeemed: false });
 

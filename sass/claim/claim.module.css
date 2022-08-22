@@ -348,6 +348,48 @@
     line-height: 2.5rem;
   }
 }
+.board_goneFishTitle {
+  font-size: 1.75vh;
+  font-family: Safety Goggles;
+  font-weight: 500;
+  text-align: center;
+  color: #35464F;
+  line-height: 1rem;
+}
+@media (min-width: 384px) {
+  .board_goneFishTitle {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+  }
+}
+@media (min-width: 500px) {
+  .board_goneFishTitle {
+    line-height: 1.35rem;
+    font-size: 1.55rem;
+  }
+}
+@media (min-width: 636px) {
+  .board_goneFishTitle {
+    font-size: 1.65rem;
+    line-height: 1.5rem;
+  }
+}
+@media (min-width: 800px) {
+  .board_goneFishTitle {
+    font-size: 2.25rem;
+    line-height: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .board_goneFishTitle {
+    font-size: 2.25rem;
+  }
+}
+@media (min-width: 1980px) {
+  .board_goneFishTitle {
+    font-size: 2.75rem;
+  }
+}
 .board_text {
   font-size: 0.6rem;
   font-family: PFRondaSeven;
@@ -2488,7 +2530,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 80%;
+  width: 85%;
   height: 100%;
 }
 @media (min-width: 636px) {
@@ -2552,7 +2594,7 @@
 .redemption_footer_boxes > div {
   position: absolute;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 95%;
   width: 100%;
   padding-left: 1rem;
@@ -2562,8 +2604,9 @@
 @media (min-width: 748px) {
   .redemption_footer_boxes > div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     padding-bottom: 0;
   }
 }
@@ -2587,10 +2630,11 @@
 .redemption_footer_boxes > div > span {
   max-width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  height: 75%;
-  font-size: 0.5rem;
+  align-items: center;
+  height: 70%;
+  font-size: 0.525rem;
   font-family: PFRondaSeven;
   font-weight: 400;
   overflow-wrap: break-word;
@@ -2598,7 +2642,7 @@
 }
 @media (min-width: 384px) {
   .redemption_footer_boxes > div > span {
-    font-size: 0.575rem;
+    font-size: 0.6rem;
   }
 }
 @media (min-width: 500px) {
@@ -2628,6 +2672,25 @@
   .redemption_footer_boxes > div > span {
     font-size: 2.25rem;
     line-height: 3.25rem;
+  }
+}
+.redemption_footer_boxes > div > span > img {
+  height: 0.5rem;
+  margin-top: auto;
+}
+@media (min-width: 384px) {
+  .redemption_footer_boxes > div > span > img {
+    height: 0.675rem;
+  }
+}
+@media (min-width: 1440px) {
+  .redemption_footer_boxes > div > span > img {
+    height: 1rem;
+  }
+}
+@media (min-width: 2560px) {
+  .redemption_footer_boxes > div > span > img {
+    height: 1.25rem;
   }
 }
 .redemption_footer_boxes > img {
@@ -2877,7 +2940,7 @@
 }
 .redemption_reward_text {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -2891,10 +2954,10 @@
 }
 @media (min-width: 500px) {
   .redemption_reward_text {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 }
-@media (min-width: 500px) {
+@media (min-width: 636px) {
   .redemption_reward_text {
     font-size: 1.25rem;
   }
@@ -2928,6 +2991,41 @@
 @media (min-width: 2560px) {
   .redemption_reward_text {
     line-height: 2.5rem;
+    font-size: 2.35rem;
+  }
+}
+.redemption_reward_text > span {
+  font-size: 0.5rem;
+  width: 80%;
+  font-family: PFRondaSeven;
+  color: #AD6B34;
+}
+@media (min-width: 636px) {
+  .redemption_reward_text > span {
+    font-size: 0.6rem;
+  }
+}
+@media (min-width: 748px) {
+  .redemption_reward_text > span {
+    line-height: 0.75rem;
+    font-size: 1.35rem;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward_text > span {
+    line-height: 0.85rem;
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 1980px) {
+  .redemption_reward_text > span {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+@media (min-width: 2560px) {
+  .redemption_reward_text > span {
+    line-height: 1.25rem;
     font-size: 2.35rem;
   }
 }
@@ -2972,13 +3070,19 @@
 }
 .redemption_reward_buttons {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 80%;
   height: 20%;
-  gap: 2rem;
+}
+.redemption_reward_buttons_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
 }
 .redemption_reward_buttons_claim {
   position: relative;
@@ -3173,4 +3277,7 @@
 }
 .redemption_reward_buttons_share:hover {
   color: #0E5B91 !important;
+}
+.redemption_reward_buttons_footer {
+  color: #AD6B34;
 }/*# sourceMappingURL=claim.module.css.map */

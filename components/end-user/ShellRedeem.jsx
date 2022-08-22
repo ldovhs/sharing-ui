@@ -40,6 +40,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         typeSpeed: 3,
         showCursor: false,
     };
+    const [showButtonFooter, setShowButtonFooter] = useState(false);
 
     const handlePlayAudio = () => {
         if (
@@ -73,7 +74,11 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                 setShowFooter(true);
                 setMachineState(INITIAL_1);
                 setBoxMessage(
-                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
+                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!      
+                        <img
+                            src="./img/redemption/dialogue_arrow.gif"
+                        />
+                    `
                 );
             }
         }
@@ -130,6 +135,17 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                             rewardRedeemed[currentViewReward].toString().toUpperCase()}
                     </div>
                 );
+            case Enums.BOOTS:
+                return (
+                    <>
+                        <div className={`${s.redemption_reward_text}`}>
+                            {rewardRedeemed &&
+                                rewardRedeemed.length > 0 &&
+                                rewardRedeemed[currentViewReward].toString().toUpperCase()}
+                            <span>This boot is legendary because of how useless it is</span>
+                        </div>
+                    </>
+                );
             default:
                 return (
                     <div className={s.redemption_reward_text}>
@@ -155,7 +171,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const handleOnInteraction = () => {
         if (machineState === INITIAL_1) {
             setBoxMessage(
-                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.`
+                `I got a bunch’a loot…but I had to use all of my $SHELL at once - that’s the only way it worked for me.
+                <img
+                    src="./img/redemption/dialogue_arrow.gif"
+                />`
             );
             setMachineState(INITIAL_2);
         }
@@ -211,12 +230,12 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         }, 100);
     };
     const handleRollAll = () => {
-        if (rewardAmount < Enums.SHELL_PRICE) {
-            setMachineState(NOT_ENOUGH_SHELL);
-            setShowFooter(true);
-            setBoxMessage("Uhhh .... Oh.... You need more shell to feed meeeeeeeeeeeee!!!!!");
-            return;
-        }
+        // if (rewardAmount < Enums.SHELL_PRICE) {
+        //     setMachineState(NOT_ENOUGH_SHELL);
+        //     setShowFooter(true);
+        //     setBoxMessage("Uhhh .... Oh.... You need more shell to feed meeeeeeeeeeeee!!!!!");
+        //     return;
+        // }
         // pop up confirm here
 
         // get machine to stuck
@@ -225,7 +244,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
 
         let footerTimeout = setTimeout(() => {
             setBoxMessage(
-                "Oh man! It still gets jammed now and again - Try hitting it a couple of times to see if that works!"
+                `Oh man! It still gets jammed now and again - Try hitting it a couple of times to see if that works!
+                <img
+                    src="./img/redemption/dialogue_arrow.gif"
+                />`
             );
             setShowFooter(true);
             clearTimeout(footerTimeout);
@@ -383,24 +405,21 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                         </div>
                                         {getRewardText()}
                                         <div className={s.redemption_reward_buttons}>
-                                            <button className={s.redemption_reward_buttons_claim}>
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`}
-                                                    alt="Claim"
-                                                />
-                                                <div>
-                                                    <span>Claim</span>
-                                                </div>
-                                            </button>
-                                            <button className={s.redemption_reward_buttons_share}>
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`}
-                                                    alt="Share"
-                                                />
-                                                <div>
-                                                    <span>Share</span>
-                                                </div>
-                                            </button>
+                                            <div className={s.redemption_reward_buttons_wrapper}>
+                                                {getClaimButton(
+                                                    rewardRedeemed[currentViewReward],
+                                                    setShowButtonFooter
+                                                )}
+                                                {getShareButton(rewardRedeemed[currentViewReward])}
+                                            </div>
+                                            {showButtonFooter && (
+                                                <span
+                                                    className={s.redemption_reward_buttons_footer}
+                                                >
+                                                    This reward is Direct to Contact. No action
+                                                    needed.
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -439,6 +458,11 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                 {/* <div>{boxMessage && <span >{boxMessage}</span>}</div> */}
                                 <div>
                                     <span ref={el} />
+                                    {/* <span>
+                                        <img
+                                            src={`${Enums.BASEPATH}/img/redemption/dialogue_arrow.gif`}
+                                        />
+                                    </span> */}
                                 </div>
                             </div>
                             <div className={s.redemption_footer_octopus}>
@@ -475,6 +499,8 @@ export default withShellRedeemRollAll(ShellRedeem);
 
 const getRewardPicture = (reward) => {
     switch (reward) {
+        case Enums.BOOTS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Boot_7x.png`;
         case Enums.ONE_TO_ONE:
             return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
         case Enums.ADOPT_ANIMAL:
@@ -512,7 +538,7 @@ const getRewardPicture = (reward) => {
         case Enums.EX_8102_NFT:
             return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
         default:
-            return `${Enums.BASEPATH}/img/redemption/Bowl new colors.gif`;
+            return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
     }
 };
 const getMachineBackground = (state) => {
@@ -525,5 +551,173 @@ const getMachineBackground = (state) => {
             return s.redemption_machine_stuck;
         default:
             return s.redemption_machine_idle;
+    }
+};
+
+const getClaimButton = (reward, setShowButtonFooter) => {
+    if (reward === Enums.BOOTS) {
+        return "";
+    }
+
+    switch (reward) {
+        /*  type form */
+        case Enums.ONE_TO_ONE:
+        case Enums.ADOPT_ANIMAL:
+        case Enums.EARLY_ACCESS:
+        case Enums.GIFT_MINT_LIST_SPOT:
+        case Enums.NAME_INGAME:
+        case Enums.ANOMURA_STICKER:
+        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+            return (
+                <button
+                    className={s.redemption_reward_buttons_claim}
+                    onClick={() => {
+                        console.log(reward);
+                        if (reward === Enums.GIFT_MINT_LIST_SPOT) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/CKtN9ACV`, "_blank");
+                        }
+                        if (reward === Enums.ONE_TO_ONE) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/zbK5ysWc`, "_blank");
+                        }
+                    }}
+                >
+                    <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
+                    <div>
+                        <span>Claim</span>
+                    </div>
+                </button>
+            );
+
+        /*  downloadable link */
+        case Enums.ANOMURA_PFP:
+        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+            return (
+                <button className={s.redemption_reward_buttons_claim}>
+                    <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
+                    <div>
+                        <span>Claim</span>
+                    </div>
+                </button>
+            );
+        /*  DTC */
+        case Enums.OCTOHEDZ_VX_NFT:
+        case Enums.OCTOHEDZ_RELOADED:
+        case Enums.COLORMONSTER_NFT:
+        case Enums.MIRAKAI_SCROLLS_NFT:
+        case Enums.ALLSTARZ_NFT:
+        case Enums.ETHER_JUMP_NFT:
+        case Enums.META_HERO_NFT:
+        case Enums.EX_8102_NFT:
+        case Enums.MINT_LIST_SPOT:
+        case Enums.FREE_MINT:
+            return (
+                <button
+                    className={s.redemption_reward_buttons_claim}
+                    onClick={() => setShowButtonFooter(true)}
+                >
+                    <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
+                    <div>
+                        <span>DTC</span>
+                    </div>
+                </button>
+            );
+
+        default:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
+    }
+
+    // switch (reward) {
+    //     case Enums.BOOTS:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Boot_7x.png`;
+    //     case Enums.ONE_TO_ONE:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
+    //     case Enums.ADOPT_ANIMAL:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
+    //     case Enums.MINT_LIST_SPOT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
+    //     case Enums.EARLY_ACCESS:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
+    //     case Enums.FREE_MINT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
+    //     case Enums.GIFT_MINT_LIST_SPOT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
+    //     case Enums.NAME_INGAME:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
+    //     case Enums.ANOMURA_PFP:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
+    //     case Enums.ANOMURA_STICKER:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
+    //     case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+    //     case Enums.OCTOHEDZ_VX_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
+    //     case Enums.OCTOHEDZ_RELOADED:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
+    //     case Enums.COLORMONSTER_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/ColorMonsters_7x.png`;
+    //     case Enums.MIRAKAI_SCROLLS_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Miraikai Scrolls_7x.png`;
+    //     case Enums.ALLSTARZ_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/AllStarz_7x.png`;
+    //     case Enums.ETHER_JUMP_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Etherjump_7x.png`;
+    //     case Enums.META_HERO_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
+    //     case Enums.EX_8102_NFT:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
+    //     default:
+    //         return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
+    // }
+};
+const getShareButton = (reward) => {
+    return (
+        <button className={s.redemption_reward_buttons_share}>
+            <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`} alt="Share" />
+            <div>
+                <span>Share</span>
+            </div>
+        </button>
+    );
+    switch (reward) {
+        case Enums.BOOTS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Boot_7x.png`;
+        case Enums.ONE_TO_ONE:
+            return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
+        case Enums.ADOPT_ANIMAL:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
+        case Enums.MINT_LIST_SPOT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
+        case Enums.EARLY_ACCESS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
+        case Enums.FREE_MINT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
+        case Enums.GIFT_MINT_LIST_SPOT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
+        case Enums.NAME_INGAME:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
+        case Enums.ANOMURA_PFP:
+            return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
+        case Enums.ANOMURA_STICKER:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
+        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
+        case Enums.OCTOHEDZ_VX_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
+        case Enums.OCTOHEDZ_RELOADED:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
+        case Enums.COLORMONSTER_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/ColorMonsters_7x.png`;
+        case Enums.MIRAKAI_SCROLLS_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Miraikai Scrolls_7x.png`;
+        case Enums.ALLSTARZ_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/AllStarz_7x.png`;
+        case Enums.ETHER_JUMP_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Etherjump_7x.png`;
+        case Enums.META_HERO_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
+        case Enums.EX_8102_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
+        default:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
     }
 };

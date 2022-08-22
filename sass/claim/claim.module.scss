@@ -57,10 +57,10 @@ $list-text-font-size-large: 1.25rem;
     color:#35464F;
     line-height: 1rem;
 
-     @media (min-width: $bp-small) {  
+    @media (min-width: $bp-small) {  
          font-size: 1.25rem;
          line-height: 1.25rem;
-     }
+    }
     @media (min-width: $bp-small-2) {  
         line-height: 1.35rem;
         font-size: 1.55rem;
@@ -78,6 +78,38 @@ $list-text-font-size-large: 1.25rem;
     }
     @media (min-width: $bp-xl-2) {  
         line-height: 2.5rem;
+    }
+}
+
+@mixin goneFishHeading(){
+	font-size: 1.75vh;
+	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
+    font-weight: 500;
+	text-align: center;
+    color:#35464F;
+    line-height: 1rem;
+
+    @media (min-width: $bp-small) {  
+         font-size: 1.25rem;
+         line-height: 1.25rem;
+    }
+    @media (min-width: $bp-small-2) {  
+        line-height: 1.35rem;
+        font-size: 1.55rem;
+    }
+	@media (min-width: $bp-small-3) {  
+        font-size: $heading-font-size-small-2;
+        line-height: 1.5rem;
+    }
+    @media (min-width: $bp-med-2) {  
+        font-size: $heading-font-size-med;
+        line-height: 2rem;
+    }
+    @media (min-width: $bp-large-2) {  
+        font-size: $heading-font-size-med;
+    }
+    @media (min-width: $bp-xl-2) {  
+        font-size: 2.75rem;
     }
 }
 
@@ -490,6 +522,9 @@ $list-text-font-size-large: 1.25rem;
     }
     &_title { 
         @include boardHeading();
+    }
+    &_goneFishTitle {
+        @include goneFishHeading();
     }
     &_text { 
         @include boardText();
@@ -1598,8 +1633,7 @@ $list-text-font-size-large: 1.25rem;
         &_wrapper {
             @include m.flex-master(column, center, center);
             position: relative;
-            width: 80%;
- 
+            width: 85%;
             height: 100%;
 
             @media (min-width: $bp-small) {  
@@ -1665,7 +1699,7 @@ $list-text-font-size-large: 1.25rem;
         
             & > div {
                 position:absolute;
-                @include m.flex-master(column, null, null);
+                @include m.flex-master(row, null, null);
                 height: 95%;
                 width: 100%;
                 padding-left: 1rem;
@@ -1673,7 +1707,7 @@ $list-text-font-size-large: 1.25rem;
                 gap: 0.5rem;
 
                 @media (min-width: $bp-med) { 
-                    @include m.flex-master(column, center, null); 
+                    @include m.flex-master(row, center, center); 
                     padding-bottom:0;
                 }
                 @media (min-width: $bp-med) { 
@@ -1690,24 +1724,20 @@ $list-text-font-size-large: 1.25rem;
 
                 & > span { 
                     max-width: 100%;
-                    @include m.flex-master(column, center, null);
-                    height:75%;
-                    font-size: 0.5rem;
+                    @include m.flex-master(row, center, center);
+                    height: 70%;
+                    font-size: 0.525rem;
                     font-family: PFRondaSeven;
                     font-weight: 400;
                     overflow-wrap: break-word;
                     line-height: 1rem;
 
                     @media (min-width: $bp-small) {  
-                        font-size: 0.575rem;
+                        font-size: 0.6rem;
                     }
                     @media (min-width: $bp-small-2) {  
                         font-size: 0.6rem;
                     }
-                    // @media (min-width: $bp-small-3) {  
-                    //     font-size: 1.55rem;
-                    //     line-height: 1.35rem;
-                    // }
                     @media (min-width: $bp-med) {  
                         font-size: 0.875rem;
                         line-height: 1.25rem;
@@ -1724,6 +1754,25 @@ $list-text-font-size-large: 1.25rem;
                         font-size: 2.25rem;
                         line-height: 3.25rem;
                     }
+                    & > img {
+                        height: 0.5rem;
+                        margin-top: auto;
+                        @media (min-width: $bp-small) {  
+                            height: 0.675rem;
+                        }
+                        @media (min-width: $bp-xl) {  
+                            height: 1rem;
+                        }
+                        @media (min-width: $bp-xl-3) {  
+                            height: 1.25rem;
+                        }
+                    }
+                    // & > span {
+                    //     @include m.flex-master(row, center, flex-end);
+                    //     & > img {
+                    //         height: 1.5rem;
+                    //     }
+                    // }
                 }
             }
             & > img { 
@@ -1945,7 +1994,7 @@ $list-text-font-size-large: 1.25rem;
 
         }
         &_text {
-            @include m.flex-master(row, center, center);
+            @include m.flex-master(column, center, center);
             position: relative;
             width: 100%;
             height: 16%;
@@ -1956,9 +2005,9 @@ $list-text-font-size-large: 1.25rem;
             line-height: 1.15rem;
 
             @media (min-width: $bp-small-2) { 
-                font-size: 1rem;
+                font-size: 1.15rem;
             }
-            @media (min-width: $bp-small-2) { 
+            @media (min-width: $bp-small-3) { 
                 font-size: 1.25rem;
             }
             @media (min-width: $bp-med) { 
@@ -1983,7 +2032,32 @@ $list-text-font-size-large: 1.25rem;
                 line-height: 2.5rem;
                 font-size: 2.35rem;
             }
+            & > span {
+                font-size: 0.5rem;
+                width:80%;
+                font-family: PFRondaSeven;
+                color: #AD6B34;
 
+                @media (min-width: $bp-small-3) { 
+                    font-size: 0.6rem;
+                }
+                @media (min-width: $bp-med) { 
+                    line-height: 0.75rem;
+                    font-size: 1.35rem;
+                }
+                @media (min-width: $bp-large-2) { 
+                    line-height: 0.85rem;
+                    font-size: 1.75rem;
+                }
+                @media (min-width: $bp-xl-2) { 
+                    font-size: 1rem;
+                    line-height: 1.5rem;
+                } 
+                @media (min-width: $bp-xl-3) { 
+                    line-height: 1.25rem;
+                    font-size: 2.35rem;
+                }
+            }
         }
         &_pinkText {
             color: #FF5FB7;
@@ -2012,11 +2086,15 @@ $list-text-font-size-large: 1.25rem;
             }
         }
         &_buttons {
-            @include m.flex-master(row, center, center);
+            @include m.flex-master(column, center, center);
             position: relative;
             width: 80%;
             height: 20%;
-            gap: 2rem;
+         
+            &_wrapper {
+                @include m.flex-master(row, center, center);
+                gap: 1.5rem;
+            }
 
             &_claim {
                 @include large_button();
@@ -2029,6 +2107,9 @@ $list-text-font-size-large: 1.25rem;
                 &:hover {
                     color: #0E5B91!important;
 		        }
+            }
+            &_footer{
+                color: #AD6B34;
             }
         }
     }

@@ -1867,25 +1867,25 @@ $list-text-font-size-large: 1.25rem;
     &_reward {
         @include m.flex-master(column, center, center);
         position: relative;
-        width: 75%;
+        width: 85%;
         margin-top: -10%;
         height: auto; //70vh
         color: #fff;  
     
         @media (min-width: $bp-small) {
-            width: 80%;
+            width: 85%;
         }
         @media (min-width: $bp-small-2) {
-            width: min(30em, 72%);
+            width: min(34em, 72%);
         }
         @media (min-width: $bp-small-3) {
-            width: min(32em, 80%);
+            width: min(36em, 80%);
         }
         @media (min-width: $bp-med) {
-            width: min(32em, 80%);
+            width: min(36em, 80%);
         }
         @media (min-width: $bp-med-2) {
-            width: 70%;
+            width: 72%;
             margin-top: 0;
         }
         @media (min-width: $bp-large) {
@@ -1898,7 +1898,7 @@ $list-text-font-size-large: 1.25rem;
         }
         @media (min-width: $bp-xl) {
             margin-top: 0;
-            width: min(32em, 70%);
+            width: min(34em, 70%);
         }
         @media (min-width: $bp-xl-2) {
             width: min(36em, 70%);
@@ -1937,26 +1937,25 @@ $list-text-font-size-large: 1.25rem;
             padding-top: 5%;
             padding-bottom: 5%;
         }
-
         &_description {
             @include m.flex-master(column, center, center);
             position: relative;
-            width: 80%;
+            width: 90%;
             height: 20%;
             color: #AD6B34;
             font-family: PFRondaSeven;
-            // font-size: min(0.45rem, 1.75vh); // 1.75vh
             font-size: 0.45rem; 
             text-align: center;
 
             @media (min-width: $bp-small) {  
                 font-size: 0.575rem;
             }
-            @media (min-width: $bp-small-3) {  
-                font-size: 0.775rem;
+            @media (min-width: $bp-small-3) { 
+                width: 80%; 
+                font-size: 0.8rem;
             }
             @media (min-width: $bp-med-2) {  
-                font-size: 1.35vh;
+                font-size: 1.2vh;
             }
             @media (min-width: $bp-xl-3) {  
                 font-size: 1.35vh;
@@ -2054,8 +2053,8 @@ $list-text-font-size-large: 1.25rem;
             }
             @media (min-width: $bp-med) { 
                 width: 80%; 
-                line-height: 1.75rem;
-                font-size: 1.45rem;
+                line-height: 1.5rem;
+                font-size: 1.5rem;
             }
             @media (min-width: $bp-med-2) { 
                 width: 80%; 
@@ -2084,12 +2083,11 @@ $list-text-font-size-large: 1.25rem;
                     font-size: 0.6rem;
                 }
                 @media (min-width: $bp-med) { 
-                    line-height: 0.75rem;
-                    font-size: 1.35rem;
+                    line-height: 1.35rem;
+                    font-size: 1rem;
                 }
                 @media (min-width: $bp-large-2) { 
-                    line-height: 0.85rem;
-                    font-size: 1.75rem;
+                    font-size: 1rem;
                 }
                 @media (min-width: $bp-xl-2) { 
                     font-size: 1rem;
@@ -2132,7 +2130,9 @@ $list-text-font-size-large: 1.25rem;
             position: relative;
             width: 80%;
             height: 20%;
-         
+            @media (min-width: $bp-med) { 
+                height: 15%;
+            }
             &_wrapper {
                 @include m.flex-master(row, center, center);
                 gap: 1.5rem;
@@ -2146,12 +2146,46 @@ $list-text-font-size-large: 1.25rem;
             }
             &_share {
                 @include large_button();
+                
+                & > div {
+                    width:100%;
+                    @include m.flex-master(row, space-evenly, center);
+                    
+                    & > span {
+                        width: auto;
+                    }
+                }
                 &:hover {
                     color: #0E5B91!important;
 		        }
             }
             &_footer{
+                font-family: PFRondaSeven;
                 color: #AD6B34;
+                font-size: 0.65rem;
+                text-align: center;
+
+                @media (min-width: $bp-small-2) { 
+                    // font-size: 1.5rem;
+                }
+                @media (min-width: $bp-small-2) { 
+                    // font-size: 1.75rem;
+                }
+                @media (min-width: $bp-med) { 
+                    font-size: 0.9rem;
+                }
+                @media (min-width: $bp-med-2) { 
+                    // font-size: 1rem;
+                }
+                @media (min-width: $bp-large-2) { 
+                    font-size: 1rem;
+                }
+                @media (min-width: $bp-xl-2) { 
+                    // font-size: 3rem;
+                } 
+                @media (min-width: $bp-xl-3) { 
+                    // font-size: 3.75rem;
+                }
             }
         }
     }

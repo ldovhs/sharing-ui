@@ -66,4 +66,3 @@ const Enums = {
 };
 
 module.exports = Enums;
-//export default Enums;

@@ -118,8 +118,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                     r.rewardType.reward.match("$Shell") ||
                     r.rewardType.reward.match("$SHELL")
             );
-            if (shellReward?.quantity && shellReward.quantity > 0)
-                setRewardAmount(shellReward.quantity);
+            setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
 
@@ -159,12 +158,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         if (currentViewReward === rewardRedeemed?.length - 1) {
             return;
         }
+        setShowButtonFooter(false);
         setCurrentViewReward((prev) => prev + 1);
     };
     const viewPreviousReward = () => {
         if (currentViewReward === 0) {
             return;
         }
+        setShowButtonFooter(false);
         setCurrentViewReward((prev) => prev - 1);
     };
     const handleOnInteraction = () => {
@@ -221,7 +222,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                         audioControl.idle.stop();
                         clearTimeout(rewardTimeout);
                     }, 2200);
-                }, 1200);
+                }, 1100);
             }
         }, 100);
     };
@@ -569,7 +570,6 @@ const getClaimButton = (reward, setShowButtonFooter) => {
         case Enums.GIFT_MINT_LIST_SPOT:
         case Enums.NAME_INGAME:
         case Enums.ANOMURA_STICKER:
-        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
             return (
                 <button
                     className={s.redemption_reward_buttons_claim}
@@ -580,6 +580,18 @@ const getClaimButton = (reward, setShowButtonFooter) => {
                         }
                         if (reward === Enums.ONE_TO_ONE) {
                             window.open(`https://d2sdt6y1io4.typeform.com/to/zbK5ysWc`, "_blank");
+                        }
+                        if (reward === Enums.NAME_INGAME) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/U3esvAO9`, "_blank");
+                        }
+                        if (reward === Enums.ANOMURA_STICKER) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/NJ9Zl1RM`, "_blank");
+                        }
+                        if (reward === Enums.EARLY_ACCESS) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/EWdbc5JU`, "_blank");
+                        }
+                        if (reward === Enums.ADOPT_ANIMAL) {
+                            window.open(`https://d2sdt6y1io4.typeform.com/to/PpveRMuN`, "_blank");
                         }
                     }}
                 >
@@ -610,6 +622,9 @@ const getClaimButton = (reward, setShowButtonFooter) => {
         case Enums.ETHER_JUMP_NFT:
         case Enums.META_HERO_NFT:
         case Enums.EX_8102_NFT:
+        case Enums.VOID_RUNNERS_NFT:
+        case Enums.ZEN_ACADEMY_NFT:
+        case Enums.MINT_LIST_SPOT:
         case Enums.MINT_LIST_SPOT:
         case Enums.FREE_MINT:
             return (
@@ -625,7 +640,14 @@ const getClaimButton = (reward, setShowButtonFooter) => {
             );
 
         default:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
+            return (
+                <button className={s.redemption_reward_buttons_claim}>
+                    <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
+                    <div>
+                        <span>Claim</span>
+                    </div>
+                </button>
+            );
     }
 
     // switch (reward) {
@@ -673,9 +695,34 @@ const getClaimButton = (reward, setShowButtonFooter) => {
 };
 const getShareButton = (reward) => {
     return (
-        <button className={s.redemption_reward_buttons_share}>
+        <button
+            className={s.redemption_reward_buttons_share}
+            onClick={() => {
+                let link = `https://twitter.com/intent/tweet?text=Hello%20world`;
+                if (reward === Enums.OCTOHEDZ_VX_NFT) {
+                    link = `https://twitter.com/intent/tweet?text=Hello%20world`;
+                }
+                // if (reward === Enums.ONE_TO_ONE) {
+                //     window.open(`https://d2sdt6y1io4.typeform.com/to/zbK5ysWc`, "_blank");
+                // }
+                // if (reward === Enums.NAME_INGAME) {
+                //     window.open(`https://d2sdt6y1io4.typeform.com/to/U3esvAO9`, "_blank");
+                // }
+                // if (reward === Enums.ANOMURA_STICKER) {
+                //     window.open(`https://d2sdt6y1io4.typeform.com/to/NJ9Zl1RM`, "_blank");
+                // }
+                // if (reward === Enums.EARLY_ACCESS) {
+                //     window.open(`https://d2sdt6y1io4.typeform.com/to/EWdbc5JU`, "_blank");
+                // }
+                // if (reward === Enums.ADOPT_ANIMAL) {
+                //     window.open(`https://d2sdt6y1io4.typeform.com/to/PpveRMuN`, "_blank");
+                // }
+                window.open(link, "_blank");
+            }}
+        >
             <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Blue.png`} alt="Share" />
             <div>
+                <img src={`${Enums.BASEPATH}/img/redemption/Icon_Twitter.png`} alt="twitter icon" />
                 <span>Share</span>
             </div>
         </button>

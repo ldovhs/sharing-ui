@@ -2790,34 +2790,34 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 75%;
+  width: 85%;
   margin-top: -10%;
   height: auto;
   color: #fff;
 }
 @media (min-width: 384px) {
   .redemption_reward {
-    width: 80%;
+    width: 85%;
   }
 }
 @media (min-width: 500px) {
   .redemption_reward {
-    width: min(30em, 72%);
+    width: min(34em, 72%);
   }
 }
 @media (min-width: 636px) {
   .redemption_reward {
-    width: min(32em, 80%);
+    width: min(36em, 80%);
   }
 }
 @media (min-width: 748px) {
   .redemption_reward {
-    width: min(32em, 80%);
+    width: min(36em, 80%);
   }
 }
 @media (min-width: 800px) {
   .redemption_reward {
-    width: 70%;
+    width: 72%;
     margin-top: 0;
   }
 }
@@ -2836,7 +2836,7 @@
 @media (min-width: 1440px) {
   .redemption_reward {
     margin-top: 0;
-    width: min(32em, 70%);
+    width: min(34em, 70%);
   }
 }
 @media (min-width: 1980px) {
@@ -2890,7 +2890,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 80%;
+  width: 90%;
   height: 20%;
   color: #AD6B34;
   font-family: PFRondaSeven;
@@ -2904,12 +2904,13 @@
 }
 @media (min-width: 636px) {
   .redemption_reward_description {
-    font-size: 0.775rem;
+    width: 80%;
+    font-size: 0.8rem;
   }
 }
 @media (min-width: 800px) {
   .redemption_reward_description {
-    font-size: 1.35vh;
+    font-size: 1.2vh;
   }
 }
 @media (min-width: 2560px) {
@@ -3018,8 +3019,8 @@
 @media (min-width: 748px) {
   .redemption_reward_text {
     width: 80%;
-    line-height: 1.75rem;
-    font-size: 1.45rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 800px) {
@@ -3060,14 +3061,13 @@
 }
 @media (min-width: 748px) {
   .redemption_reward_text > span {
-    line-height: 0.75rem;
-    font-size: 1.35rem;
+    line-height: 1.35rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 1200px) {
   .redemption_reward_text > span {
-    line-height: 0.85rem;
-    font-size: 1.75rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 1980px) {
@@ -3129,6 +3129,11 @@
   position: relative;
   width: 80%;
   height: 20%;
+}
+@media (min-width: 748px) {
+  .redemption_reward_buttons {
+    height: 15%;
+  }
 }
 .redemption_reward_buttons_wrapper {
   display: flex;
@@ -3328,9 +3333,32 @@
 .redemption_reward_buttons_share:disabled:hover {
   color: #A2B7B6;
 }
+.redemption_reward_buttons_share > div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.redemption_reward_buttons_share > div > span {
+  width: auto;
+}
 .redemption_reward_buttons_share:hover {
   color: #0E5B91 !important;
 }
 .redemption_reward_buttons_footer {
+  font-family: PFRondaSeven;
   color: #AD6B34;
+  font-size: 0.65rem;
+  text-align: center;
+}
+@media (min-width: 748px) {
+  .redemption_reward_buttons_footer {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1200px) {
+  .redemption_reward_buttons_footer {
+    font-size: 1rem;
+  }
 }/*# sourceMappingURL=claim.module.css.map */

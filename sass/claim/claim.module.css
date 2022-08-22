@@ -376,7 +376,7 @@
 }
 @media (min-width: 800px) {
   .board_goneFishTitle {
-    font-size: 2.25rem;
+    font-size: 1.75rem;
     line-height: 2rem;
   }
 }
@@ -388,6 +388,40 @@
 @media (min-width: 1980px) {
   .board_goneFishTitle {
     font-size: 2.75rem;
+  }
+}
+@media (min-width: 2560px) {
+  .board_goneFishTitle {
+    font-size: 3rem;
+  }
+}
+.board_goneFishText {
+  font-size: 0.6rem;
+  font-family: PFRondaSeven;
+  font-weight: 400;
+  text-align: center;
+  color: #35464F;
+  line-height: 1.55rem;
+}
+@media (min-width: 500px) {
+  .board_goneFishText {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 800px) {
+  .board_goneFishText {
+    font-size: 1.35rem;
+    line-height: 1.85rem;
+  }
+}
+@media (min-width: 1440px) {
+  .board_goneFishText {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1980px) {
+  .board_goneFishText {
+    font-size: 1.15rem;
   }
 }
 .board_text {
@@ -2606,7 +2640,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
     padding-bottom: 0;
   }
 }
@@ -2632,7 +2665,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   height: 70%;
   font-size: 0.525rem;
   font-family: PFRondaSeven;

@@ -104,18 +104,20 @@ export default function ShellRedeemConnectBoard() {
                             {currentPrompt === CONNECT_OPTIONS && !web3Error && (
                                 <div className={` ${s.board_signin_wrapper}`}>
                                     <div className={s.board_signin_content}>
-                                        <button
-                                            className={s.board_orangeBtn}
-                                            onClick={() => router.push(`/user/signup`)}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                alt="connectToContinue"
-                                            />
-                                            <div>
-                                                <span>Sign Up</span>
-                                            </div>
-                                        </button>
+                                        {process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true" && (
+                                            <button
+                                                className={s.board_orangeBtn}
+                                                onClick={() => router.push(`/user/signup`)}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span>Sign Up</span>
+                                                </div>
+                                            </button>
+                                        )}
                                         <button
                                             className={s.board_tealBtn}
                                             onClick={() => changeView(SIGNIN_OPTIONS)}

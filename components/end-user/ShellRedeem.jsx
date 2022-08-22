@@ -71,11 +71,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
             setCurrentViewReward(0);
         } else {
             if (!shellRedeemedLoading && !userRewardLoading) {
-                setShowFooter(true);
                 setMachineState(INITIAL_1);
-                setBoxMessage(
-                    `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
-                );
+                let timeout = setTimeout(() => {
+                    setShowFooter(true);
+                    setBoxMessage(
+                        `Look at this! It looks old and broken, but it still works…sort of. You can’t choose which treasure you’ll get, so it’s a surprise!`
+                    );
+                    clearTimeout(timeout);
+                }, 500);
             }
         }
     }, [shellRedeemed]);

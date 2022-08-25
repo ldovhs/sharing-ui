@@ -45,6 +45,17 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     res.status(200).json({ message: "Already redeemed", isError: true });
                 }
 
+                if (!userShellRedeem) {
+                    let rewards = [Enums.BOOTS, Enums.ANOMURA_DOWNLOADABLE_STUFFS, Enums.ANOMURA_PFP]
+                    await prisma.shellRedeemed.create({
+
+                        data: {
+                            isRedeemed: false,
+                            rewardPointer: -1,
+                            rewards
+                        },
+                    });
+                }
 
                 let shellReward = await prisma.rewardType.findFirst({
                     where: {
@@ -52,7 +63,6 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     }
                 })
                 let rewardTypeId = shellReward.id
-                //query shell amount
                 let userReward = await prisma.reward.findUnique({
                     where: {
                         wallet_rewardTypeId: { wallet, rewardTypeId },

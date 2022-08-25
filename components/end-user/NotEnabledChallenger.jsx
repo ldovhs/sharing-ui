@@ -19,7 +19,7 @@ const NotEnabledChallenger = () => {
                                 view your $SHELL balance.
                             </div>
                             <div className={s.board_goneFishText}>
-                                Check back on <span>August 30-31</span> for a chance to spend your
+                                Check back on <span>August 29-30</span> for a chance to spend your
                                 $SHELL for shiny treasures!
                             </div>
                         </>

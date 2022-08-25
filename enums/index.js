@@ -41,7 +41,8 @@ const Enums = {
     ITEM_PER_PAGE: 100,
 
     // SHELL REDEEM
-    SHELL_PRICE: 2000,
+    SHELL_PRICE: 1300,
+    MAX_ROLL_REDEEM: 3,
     OCTOHEDZ_VX_NFT: "OctoHedz: VX NFT" //done
     , OCTOHEDZ_RELOADED: "OctoHedz: Reloaded" //done
     , COLORMONSTER_NFT: "ColorMonsters NFT" // done

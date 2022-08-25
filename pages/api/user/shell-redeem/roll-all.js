@@ -7,7 +7,7 @@ const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORI
     process.env;
 
 const SHELL_PRICE = Enums.SHELL_PRICE;
-
+const MAX_ROLL_REDEEM = Enums.MAX_ROLL_REDEEM;
 const shellRedeemRollAllAPI = async (req, res) => {
     const { method } = req;
 
@@ -68,20 +68,26 @@ const shellRedeemRollAllAPI = async (req, res) => {
                 else {
                     let claimableRewards = Math.floor(userReward.quantity / SHELL_PRICE)
 
-                    // hacked account too much shell
-                    if (userShellRedeem.rewards.length < claimableRewards) {
-                        // too use a max roll reward CONSTANT
-                        claimableRewards = userShellRedeem.rewards.length;
+                    // maximum rollable to be less than config number
+                    if (claimableRewards > MAX_ROLL_REDEEM) {
+                        claimableRewards = MAX_ROLL_REDEEM
                     }
+                    // hacked account too much shell
+                    // if (userShellRedeem.rewards.length < claimableRewards) {
+                    //     // too use a max roll reward CONSTANT
+                    //     claimableRewards = userShellRedeem.rewards.length;
+                    // }
                     let reduceShellQty = claimableRewards * SHELL_PRICE;
 
                     let updateShellRedeemed;
                     // if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0 || userShellRedeem.rewards?.length < claimableRewards) {
-                    if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0) {
-                        // new user 
-                    } else {
-                        updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
-                    }
+                    // if (userShellRedeem.rewards === null || userShellRedeem.rewards?.length === 0) {
+                    //     // new user 
+                    // } else {
+                    //     updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
+                    // }
+
+                    updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
 
                     res.status(200).json(updateShellRedeemed);
                 }
@@ -110,16 +116,16 @@ const redeemReward = async (
 
     try {
         console.log(`**Update Reward for User Redeem**`);
-        let updateUserReward = prisma.reward.update({
-            where: {
-                wallet_rewardTypeId: { wallet, rewardTypeId },
-            },
-            data: {
-                quantity: {
-                    decrement: reduceShellQty,
-                },
-            },
-        });
+        // let updateUserReward = prisma.reward.update({
+        //     where: {
+        //         wallet_rewardTypeId: { wallet, rewardTypeId },
+        //     },
+        //     data: {
+        //         quantity: {
+        //             decrement: reduceShellQty,
+        //         },
+        //     },
+        // });
 
         console.log(`**Update ShellRedeem table**`);
         let updateShellRedeemed = prisma.shellRedeemed.update({
@@ -132,7 +138,8 @@ const redeemReward = async (
             },
         });
 
-        await prisma.$transaction([updateUserReward, updateShellRedeemed]);
+        // await prisma.$transaction([updateUserReward, updateShellRedeemed]);
+        await prisma.$transaction([updateShellRedeemed]);
         return updateShellRedeemed;
     } catch (error) {
         console.log(error);
@@ -147,34 +154,38 @@ const redeemRewardForAccountLessThanMinimumRollPrice = async (
     try {
         console.log(`**Update Reward for User Redeem**`);
         // update shell to 0
-        let updateUserReward = prisma.reward.update({
-            where: {
-                wallet_rewardTypeId: { wallet, rewardTypeId },
-            },
-            data: {
-                quantity: 0,
-            },
-        });
+        // let updateUserReward = prisma.reward.update({
+        //     where: {
+        //         wallet_rewardTypeId: { wallet, rewardTypeId },
+        //     },
+        //     data: {
+        //         quantity: 0,
+        //     },
+        // });
 
         console.log(`**Update ShellRedeem table**`);
 
+        let oneOrZero = (Math.random() > 0.5) ? 1 : 0
+
+        let reward = oneOrZero === 1 ? Enums.BOOTS : Enums.ANOMURA_DOWNLOADABLE_STUFFS
         let updateShellRedeemed = prisma.shellRedeemed.upsert({
             where: {
                 wallet,
             },
             create: {
-                rewards: [Enums.BOOTS],
+                rewards: [reward],
                 isRedeemed: true,
                 rewardPointer: 0
             },
             update: {
-                rewards: [Enums.BOOTS],
+                rewards: [reward],
                 isRedeemed: true,
                 rewardPointer: 0
             }
         });
 
-        await prisma.$transaction([updateUserReward, updateShellRedeemed]);
+        // await prisma.$transaction([updateUserReward, updateShellRedeemed]);
+        await prisma.$transaction([updateShellRedeemed]);
         return updateShellRedeemed;
     } catch (error) {
         console.log(error);

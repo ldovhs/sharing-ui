@@ -3078,8 +3078,8 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward_text > span {
-    line-height: 1.25rem;
-    font-size: 2.35rem;
+    line-height: 1.5rem;
+    font-size: 1.15rem;
   }
 }
 .redemption_reward_pinkText {

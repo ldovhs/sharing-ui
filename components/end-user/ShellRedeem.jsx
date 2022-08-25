@@ -144,6 +144,17 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                         </div>
                     </>
                 );
+            case Enums.ADOPT_ANIMAL:
+                return (
+                    <>
+                        <div className={`${s.redemption_reward_text}`}>
+                            {rewardRedeemed &&
+                                rewardRedeemed.length > 0 &&
+                                rewardRedeemed[currentViewReward].toString().toUpperCase()}
+                            <span>In partnership with Zeneca</span>
+                        </div>
+                    </>
+                );
             default:
                 return (
                     <div className={s.redemption_reward_text}>
@@ -411,7 +422,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                 <span
                                                     className={s.redemption_reward_buttons_footer}
                                                 >
-                                                    This reward is Direct to Contact. No action
+                                                    This reward is Direct to Contract. No action
                                                     needed.
                                                 </span>
                                             )}
@@ -556,7 +567,6 @@ const getMachineBackground = (state) => {
             return s.redemption_machine_idle;
     }
 };
-
 const getClaimButton = (reward, setShowButtonFooter) => {
     if (reward === Enums.BOOTS) {
         return "";
@@ -570,11 +580,12 @@ const getClaimButton = (reward, setShowButtonFooter) => {
         case Enums.GIFT_MINT_LIST_SPOT:
         case Enums.NAME_INGAME:
         case Enums.ANOMURA_STICKER:
+        case Enums.ANOMURA_PFP:
+        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
             return (
                 <button
                     className={s.redemption_reward_buttons_claim}
                     onClick={() => {
-                        console.log(reward);
                         if (reward === Enums.GIFT_MINT_LIST_SPOT) {
                             window.open(`https://d2sdt6y1io4.typeform.com/to/CKtN9ACV`, "_blank");
                         }
@@ -592,6 +603,18 @@ const getClaimButton = (reward, setShowButtonFooter) => {
                         }
                         if (reward === Enums.ADOPT_ANIMAL) {
                             window.open(`https://d2sdt6y1io4.typeform.com/to/PpveRMuN`, "_blank");
+                        }
+                        if (reward === Enums.ANOMURA_PFP) {
+                            window.open(
+                                `https://www.notion.so/Congrats-Anomuran-e6202369f1714499b57cd76c72ed7f2b`,
+                                "_blank"
+                            );
+                        }
+                        if (reward === Enums.ANOMURA_DOWNLOADABLE_STUFFS) {
+                            window.open(
+                                `https://www.notion.so/Congrats-Anomuran-ee0d2984fad6418ba1dba606438983fd`,
+                                "_blank"
+                            );
                         }
                     }}
                 >
@@ -649,74 +672,123 @@ const getClaimButton = (reward, setShowButtonFooter) => {
                 </button>
             );
     }
-
-    // switch (reward) {
-    //     case Enums.BOOTS:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Boot_7x.png`;
-    //     case Enums.ONE_TO_ONE:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
-    //     case Enums.ADOPT_ANIMAL:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
-    //     case Enums.MINT_LIST_SPOT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
-    //     case Enums.EARLY_ACCESS:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
-    //     case Enums.FREE_MINT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
-    //     case Enums.GIFT_MINT_LIST_SPOT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
-    //     case Enums.NAME_INGAME:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
-    //     case Enums.ANOMURA_PFP:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
-    //     case Enums.ANOMURA_STICKER:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
-    //     case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-    //     case Enums.OCTOHEDZ_VX_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
-    //     case Enums.OCTOHEDZ_RELOADED:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
-    //     case Enums.COLORMONSTER_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/ColorMonsters_7x.png`;
-    //     case Enums.MIRAKAI_SCROLLS_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Miraikai Scrolls_7x.png`;
-    //     case Enums.ALLSTARZ_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/AllStarz_7x.png`;
-    //     case Enums.ETHER_JUMP_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Etherjump_7x.png`;
-    //     case Enums.META_HERO_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
-    //     case Enums.EX_8102_NFT:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
-    //     default:
-    //         return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
-    // }
 };
 const getShareButton = (reward) => {
     return (
         <button
             className={s.redemption_reward_buttons_share}
             onClick={() => {
-                let link = `https://twitter.com/intent/tweet?text=Hello%20world`;
-                if (reward === Enums.OCTOHEDZ_VX_NFT) {
-                    link = `https://twitter.com/intent/tweet?text=Hello%20world`;
+                let link = `https://twitter.com/intent/tweet?text=Hello%20world`,
+                    url = "",
+                    text = "",
+                    hashtags = "Anomura%2CRedemptionEvent%2CEnterTheCove";
+
+                if (reward === Enums.BOOTS) {
+                    url = "https://t.co/951NZRwOVS";
+                    text =
+                        "I%20just%20won%20this%20beautiful%20boot%20from%20@AnomuraGame.%20It%27s%20useless%2C%20but%20at%20least%20it%27s%20cute.\n";
                 }
-                // if (reward === Enums.ONE_TO_ONE) {
-                //     window.open(`https://d2sdt6y1io4.typeform.com/to/zbK5ysWc`, "_blank");
-                // }
-                // if (reward === Enums.NAME_INGAME) {
-                //     window.open(`https://d2sdt6y1io4.typeform.com/to/U3esvAO9`, "_blank");
-                // }
-                // if (reward === Enums.ANOMURA_STICKER) {
-                //     window.open(`https://d2sdt6y1io4.typeform.com/to/NJ9Zl1RM`, "_blank");
-                // }
-                // if (reward === Enums.EARLY_ACCESS) {
-                //     window.open(`https://d2sdt6y1io4.typeform.com/to/EWdbc5JU`, "_blank");
-                // }
-                // if (reward === Enums.ADOPT_ANIMAL) {
-                //     window.open(`https://d2sdt6y1io4.typeform.com/to/PpveRMuN`, "_blank");
-                // }
+                if (reward === Enums.MINT_LIST_SPOT) {
+                    url = "https://t.co/RHjmQH1UOM";
+                    text =
+                        "I%20won%20a%20mintlist%20spot%20thanks%20to%20@AnomuraGame.%20Can%27t%20wait%20to%20mint%20a%20Mystery%20Bowl%20on%20Sept%206.";
+                }
+                if (reward === Enums.GIFT_MINT_LIST_SPOT) {
+                    url = "https://t.co/s36FTU96aZ";
+                    text =
+                        "Hi%20frens%21%20I%20won%20an%20extra%20mintlist%20spot%20from%20@AnomuraGame%21%20%20Who%20wants%20it%3F";
+                }
+                if (reward === Enums.FREE_MINT) {
+                    url = "https://t.co/7okk3uBv4d";
+                    text =
+                        "I%20won%20a%20FREE%20mint%20from%20@AnomuraGame%21%21%20Can%27t%20wait%20for%20their%20Mint%20Day%20on%20Sept%206";
+                }
+                if (reward === Enums.ANOMURA_DOWNLOADABLE_STUFFS) {
+                    url = "https://t.co/yXN7JZ0xyi";
+                    text = "I%20just%20won%20some%20Anomur-ART%20from%20@AnomuraGame%21";
+                }
+                if (reward === Enums.ANOMURA_STICKER) {
+                    url = "https://t.co/uDqJhdNPki";
+                    text =
+                        "Can%27t%20wait%20to%20receive%20the%20Crab%20Swag%20that%20I%20won%20from%20@AnomuraGame%21%20Love%20the%20prize%20options%21";
+                }
+                if (reward === Enums.ANOMURA_PFP) {
+                    url = "https://t.co/Uz9BJuTh4p";
+                    text =
+                        "Loving%20the%20new%20Anomura%20avatar%20that%20I%20won%20from%20@AnomuraGame%21";
+                }
+                if (reward === Enums.ONE_TO_ONE) {
+                    url = "https://t.co/uPkCBLZmfg";
+                    text =
+                        "Excited%20to%20meet%20a%20C.R.A.B%20team%20member%20from%20@AnomuraGame%20I%20can%27t%20wait%20to%20learn%20more%20from%20the%20team.";
+                }
+                if (reward === Enums.NAME_INGAME) {
+                    url = "https://t.co/wzjQcjV78R";
+                    text =
+                        "Wow%2C%20I%20won%20a%20chance%20to%20name%20a%20character%20in%20@AnomuraGame%21%20What%20should%20I%20name%20it%3F.";
+                }
+                if (reward === Enums.EARLY_ACCESS) {
+                    url = "https://t.co/6Z3avzvJTs";
+                    text =
+                        "Excited%20to%20be%20part%20of%20a%20private%20viewing%20of%20@AnomuraGame%u2019s%20concept%20demo%21";
+                }
+                if (reward === Enums.ADOPT_ANIMAL) {
+                    url = "https://t.co/sMmWLCxHxg";
+                    text =
+                        "Amazing%21%20@AnomuraGame%20@Zeneca_33%20and%20@ZenAcademy%20will%20be%20adopting%20an%20animal%20for%20me%20from%20@TheTorontoZoo%21%20I%20love%20being%20able%20to%20give%20back";
+                }
+                if (reward === Enums.OCTOHEDZ_VX_NFT || reward === Enums.OCTOHEDZ_RELOADED) {
+                    url = "https://t.co/26kndeZ3rQ";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@OctoHedz%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.COLORMONSTER_NFT) {
+                    url = "https://t.co/ii0cOHWwwI";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@colormonsterNFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.HUMAN_PARK_NFT) {
+                    url = "https://t.co/hLP8MorM3X";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@FreeHumanPark%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.EX_8102_NFT) {
+                    url = "https://t.co/jJjhGUoUDU";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@the8102game%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.VOID_RUNNERS_NFT) {
+                    url = "https://t.co/CgP5k6oiL4";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@void__runners%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.ETHER_JUMP_NFT) {
+                    url = "https://t.co/LQqbyVODGg";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@etherjump%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.MIRAKAI_SCROLLS_NFT) {
+                    url = "https://t.co/FxmDaCNqIp";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@OfficialMirakai%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.ALLSTARZ_NFT) {
+                    url = "https://t.co/NGBNw9C9Gs";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@allstarz_nft%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.META_HERO_NFT) {
+                    url = "https://t.co/8q1lOlX180";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@Metahero_io%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+                if (reward === Enums.ZEN_ACADEMY_NFT) {
+                    // url = "https://t.co/8q1lOlX180";
+                    text =
+                        "Wow%21%20I%20just%20won%20a%20@ZenAcademy_%20NFT%20from%20@AnomuraGame%u2019s%20%24SHELL%20Redemption%20event.";
+                }
+
+                link = `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtags}`;
                 window.open(link, "_blank");
             }}
         >

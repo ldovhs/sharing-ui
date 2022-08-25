@@ -42,27 +42,28 @@ const Enums = {
 
     // SHELL REDEEM
     SHELL_PRICE: 2000,
-    OCTOHEDZ_VX_NFT: "OctoHedz: VX NFT"
-    , OCTOHEDZ_RELOADED: "OctoHedz: Reloaded"
-    , COLORMONSTER_NFT: "ColorMonsters NFT"
-    , MIRAKAI_SCROLLS_NFT: "Mirakai Scrolls NFT"
-    , ALLSTARZ_NFT: "Allstarz NFT"
-    , ETHER_JUMP_NFT: "Etherjump NFT"
-    , META_HERO_NFT: "MetaHero NFT"
-    , EX_8102_NFT: "8102 NFT"
-    , VOID_RUNNERS_NFT: "Void Runners NFT"
-    , ZEN_ACADEMY_NFT: "ZenAcademy NFT"
-    , NAME_INGAME: "Name a character!"
-    , ADOPT_ANIMAL: "Adopt an Animal"
-    , FREE_MINT: "Free Mint"
-    , EARLY_ACCESS: "Game Concept Demo Private Viewing"
-    , ONE_TO_ONE: "Anomura Team Meet"
-    , ANOMURA_STICKER: "Crab Swag"
+    OCTOHEDZ_VX_NFT: "OctoHedz: VX NFT" //done
+    , OCTOHEDZ_RELOADED: "OctoHedz: Reloaded" //done
+    , COLORMONSTER_NFT: "ColorMonsters NFT" // done
+    , MIRAKAI_SCROLLS_NFT: "Mirakai Scrolls NFT" // done
+    , ALLSTARZ_NFT: "Allstarz NFT" // done
+    , ETHER_JUMP_NFT: "Etherjump NFT" // done
+    , META_HERO_NFT: "MetaHero NFT" // done
+    , EX_8102_NFT: "8102 NFT" // done
+    , VOID_RUNNERS_NFT: "Void Runners NFT" // done
+    , ZEN_ACADEMY_NFT: "ZenAcademy NFT" // done
+    , HUMAN_PARK_NFT: "Human Park NFT" // done
+    , NAME_INGAME: "Name a character!" // done
+    , ADOPT_ANIMAL: "Adopt an Animal" // done
+    , FREE_MINT: "Free Mint" // done
+    , EARLY_ACCESS: "Game Concept Demo Private Viewing" //done
+    , ONE_TO_ONE: "Anomura Team Meet" //done
+    , ANOMURA_STICKER: "Crab Swag" //done
     , ANOMURA_PFP: "Anomura Avatar"
-    , ANOMURA_DOWNLOADABLE_STUFFS: "Downloadable Anomur-ART"
-    , GIFT_MINT_LIST_SPOT: "Gift Mintlist to a fren"
-    , MINT_LIST_SPOT: "Mintlist Spot"
-    , BOOTS: "A Beautiful Boot"
+    , ANOMURA_DOWNLOADABLE_STUFFS: "Downloadable Anomur-ART" // done
+    , GIFT_MINT_LIST_SPOT: "Gift Mintlist to a fren" //done
+    , MINT_LIST_SPOT: "Mintlist Spot" // done
+    , BOOTS: "A Beautiful Boot"  //done
 };
 
 module.exports = Enums;

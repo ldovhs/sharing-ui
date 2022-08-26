@@ -1955,13 +1955,19 @@ $list-text-font-size-large: 1.25rem;
                 font-size: 0.8rem;
             }
             @media (min-width: $bp-med-2) {  
-                font-size: 1.2vh;
+                font-size: 1rem;
+            }
+            @media (min-width: $bp-large) {  
+                font-size: 1.05rem;
             }
             @media (min-width: $bp-xl) {  
-                font-size: 1.35vh;
+                font-size: 1.15rem;
             }
             @media (min-width: $bp-xl-3) {  
-                font-size: 1.35vh;
+                font-size: 1.35rem;
+            }
+            @media (min-width: $bp-xl-4) {  
+                font-size: 1.75rem;
             }
         }
         &_scroll {
@@ -2188,6 +2194,9 @@ $list-text-font-size-large: 1.25rem;
                     font-size: 0.9rem;
                 } 
                 @media (min-width: $bp-xl-3) { 
+                    font-size: 1.05rem;
+                }
+                @media (min-width: $bp-xl-4) { 
                     font-size: 1.25rem;
                 }
             }

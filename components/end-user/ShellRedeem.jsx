@@ -780,7 +780,7 @@ const getClaimButton = (reward, setShowButtonFooter, setFooterMessage) => {
                 >
                     <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
                     <div>
-                        <span>CLAIM</span>
+                        <span>Claim</span>
                     </div>
                 </button>
             );
@@ -796,7 +796,7 @@ const getClaimButton = (reward, setShowButtonFooter, setFooterMessage) => {
                 >
                     <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
                     <div>
-                        <span>CLAIM</span>
+                        <span>Claim</span>
                     </div>
                 </button>
             );

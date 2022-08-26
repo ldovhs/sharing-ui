@@ -2910,17 +2910,27 @@
 }
 @media (min-width: 800px) {
   .redemption_reward_description {
-    font-size: 1.2vh;
+    font-size: 1rem;
+  }
+}
+@media (min-width: 872px) {
+  .redemption_reward_description {
+    font-size: 1.05rem;
   }
 }
 @media (min-width: 1440px) {
   .redemption_reward_description {
-    font-size: 1.35vh;
+    font-size: 1.15rem;
   }
 }
 @media (min-width: 2560px) {
   .redemption_reward_description {
-    font-size: 1.35vh;
+    font-size: 1.35rem;
+  }
+}
+@media (min-width: 3840px) {
+  .redemption_reward_description {
+    font-size: 1.75rem;
   }
 }
 .redemption_reward_scroll {
@@ -3373,6 +3383,11 @@
   }
 }
 @media (min-width: 2560px) {
+  .redemption_reward_buttons_footer {
+    font-size: 1.05rem;
+  }
+}
+@media (min-width: 3840px) {
   .redemption_reward_buttons_footer {
     font-size: 1.25rem;
   }

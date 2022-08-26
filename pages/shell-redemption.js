@@ -34,7 +34,7 @@ function ShellRedemtion() {
                 />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png.png"
+                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png"
                 />
                 <meta
                     property="og:site_name"
@@ -45,7 +45,7 @@ function ShellRedemtion() {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png.png"
+                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

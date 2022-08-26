@@ -22,9 +22,6 @@ function Home() {
 
     useEffect(async () => { }, [session]);
 
-    console.log(process.env.NEXT_PUBLIC_ENABLE_CHALLENGER)
-
-
     return (
         <>
             <Head>

@@ -104,14 +104,18 @@ export const withClaimRewardSubmit =
             );
         };
 
-
-
 export const useUserRewardQuery = () => {
     const { data: session, status } = useSession({ required: false });
     let wallet = session?.user?.address
 
-    const { data, isLoading } = useQuery(["userRewardQuery", wallet], () =>
-        axios.get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`).then((r) => r.data)
+    const { data, isLoading } = useQuery(["userRewardQuery", wallet], () => {
+        try {
+            axios.get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`).then((r) => r.data)
+        } catch (error) {
+            // to not throw an error when wallet is null initially
+        }
+
+    }
     );
 
     return [data, isLoading];

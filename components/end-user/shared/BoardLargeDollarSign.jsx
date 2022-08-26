@@ -22,7 +22,7 @@ export default function BoardLargeDollarSign() {
     return (
         <div className={s.boardLarge_dollar}>
             <div className={s.boardLarge_dollar_content}>
-                {rewardAmount !== null && rewardAmount !== 0 ? (
+                {rewardAmount !== null && process.env.NEXT_PUBLIC_CAN_SEE_SHELL === "true" && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
@@ -30,7 +30,8 @@ export default function BoardLargeDollarSign() {
                         />
                         {rewardAmount}
                     </>
-                ) : (
+                )}
+                {(rewardAmount === null || process.env.NEXT_PUBLIC_CAN_SEE_SHELL === "false") && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}

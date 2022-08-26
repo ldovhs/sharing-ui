@@ -24,7 +24,7 @@ function Home() {
 
     console.log(process.env.NEXT_PUBLIC_ENABLE_CHALLENGER)
 
-    // console.log(process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL)
+
     return (
         <>
             <Head>

@@ -21,7 +21,7 @@ export default function BoardSmallDollarSign() {
     return (
         <div className={s.board_dollar}>
             <div className={s.board_dollar_content}>
-                {rewardAmount !== null && (
+                {rewardAmount !== null && process.env.NEXT_PUBLIC_CAN_SEE_SHELL === "true" && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
@@ -31,7 +31,7 @@ export default function BoardSmallDollarSign() {
                     </>
                 )}
 
-                {rewardAmount == null && (
+                {(rewardAmount === null || process.env.NEXT_PUBLIC_CAN_SEE_SHELL === "false") && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}

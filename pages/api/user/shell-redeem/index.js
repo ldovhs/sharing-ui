@@ -10,9 +10,7 @@ export const config = {
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;
 
-    if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
-        return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
-    }
+
 
     // if (process.env.NODE_ENV === 'production') {
     //     console.log("In production, throttle the request")
@@ -41,34 +39,30 @@ const shellRedeemQueryAPI = async (req, res) => {
 
         //return nothing if not found any, shell not created yet
         if (!userShellRedeem) {
-            return res.status(200).json(userShellRedeem);
-        } else {
-            // if is Redeemed then return rewards array
-            if (userShellRedeem.isRedeemed) {
-                // let correctRewards = []
-                // for (let i = 0; i <= userShellRedeem.rewardPointer; i++) {
-                //     let currentReward = userShellRedeem.rewards[i]
-
-                //     correctRewards.push[currentReward];
-                // }
-
-                // userShellRedeem.rewards = []
-                userShellRedeem.rewards = userShellRedeem.rewards.splice(0, userShellRedeem.rewardPointer + 1)
-
-                // console.log(correctRewards)
-                console.log(userShellRedeem)
-                return res.status(200).json(userShellRedeem);
-                // return new Response(JSON.stringify({ success: true }), {
-                //     status: 200,
-                //     headers: res.headers,
-                // })
-            }
-            // not redeemed yet,
-            else {
-                return res.status(200).json({ isRedeemed: false });
-
-            }
+            return res.status(200).json({ message: "Nothing here" });
         }
+
+        // if (process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "false") {
+        //     return res.status(200).json({ isError: true, message: "shell redeem is not enabled." });
+        // }
+
+        // if is Redeemed then return rewards array
+        if (userShellRedeem.isRedeemed) {
+
+            // userShellRedeem.rewards = []
+            userShellRedeem.rewards = userShellRedeem.rewards.splice(0, userShellRedeem.rewardPointer + 1)
+
+            // console.log(correctRewards)
+
+            return res.status(200).json(userShellRedeem);
+
+        }
+        // not redeemed yet,
+        else {
+            return res.status(200).json({ isRedeemed: false });
+
+        }
+
 
     } catch (err) {
         // console.log(err);

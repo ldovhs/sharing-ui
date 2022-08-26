@@ -800,106 +800,106 @@ const getShareButton = (reward) => {
                 if (reward === Enums.BOOTS) {
                     url = "https://t.co/951NZRwOVS";
                     text =
-                        "I%20just%20won%20this%20beautiful%20boot%20from%20@AnomuraGame.%20It%27s%20useless%2C%20but%20at%20least%20it%27s%20cute.\n";
+                        "I%20just%20won%20this%20beautiful%20boot%20from%20@AnomuraGame.%20It%27s%20useless%2C%20but%20at%20least%20it%27s%20cute.%0a%0a";
                 }
                 if (reward === Enums.MINT_LIST_SPOT) {
                     url = "https://t.co/RHjmQH1UOM";
                     text =
-                        "I%20won%20a%20mintlist%20spot%20thanks%20to%20@AnomuraGame.%20Can%27t%20wait%20to%20mint%20a%20Mystery%20Bowl%20on%20Sept%206.";
+                        "I%20won%20a%20mintlist%20spot%20thanks%20to%20@AnomuraGame.%20Can%27t%20wait%20to%20mint%20a%20Mystery%20Bowl%20on%20Sept%206.%0a%0a";
                 }
                 if (reward === Enums.GIFT_MINT_LIST_SPOT) {
                     url = "https://t.co/s36FTU96aZ";
                     text =
-                        "Hi%20frens%21%20I%20won%20an%20extra%20mintlist%20spot%20from%20@AnomuraGame%21%20%20Who%20wants%20it%3F";
+                        "Hi%20frens%21%20I%20won%20an%20extra%20mintlist%20spot%20from%20@AnomuraGame%21%20%20Who%20wants%20it%3F%0a%0a";
                 }
                 if (reward === Enums.FREE_MINT) {
                     url = "https://t.co/7okk3uBv4d";
                     text =
-                        "I%20won%20a%20FREE%20mint%20from%20@AnomuraGame%21%21%20Can%27t%20wait%20for%20their%20Mint%20Day%20on%20Sept%206";
+                        "I%20won%20a%20FREE%20mint%20from%20@AnomuraGame%21%21%20Can%27t%20wait%20for%20their%20Mint%20Day%20on%20Sept%206%0a%0a";
                 }
                 if (reward === Enums.ANOMURA_DOWNLOADABLE_STUFFS) {
                     url = "https://t.co/yXN7JZ0xyi";
-                    text = "I%20just%20won%20some%20Anomur-ART%20from%20@AnomuraGame%21";
+                    text = "I%20just%20won%20some%20Anomur-ART%20from%20@AnomuraGame%21%0a%0a";
                 }
                 if (reward === Enums.ANOMURA_STICKER) {
                     url = "https://t.co/uDqJhdNPki";
                     text =
-                        "Can%27t%20wait%20to%20receive%20the%20Crab%20Swag%20that%20I%20won%20from%20@AnomuraGame%21%20Love%20the%20prize%20options%21";
+                        "Can%27t%20wait%20to%20receive%20the%20Crab%20Swag%20that%20I%20won%20from%20@AnomuraGame%21%20Love%20the%20prize%20options%21%0a%0a";
                 }
                 if (reward === Enums.ANOMURA_PFP) {
                     url = "https://t.co/Uz9BJuTh4p";
                     text =
-                        "Loving%20the%20new%20Anomura%20avatar%20that%20I%20won%20from%20@AnomuraGame%21";
+                        "Loving%20the%20new%20Anomura%20avatar%20that%20I%20won%20from%20@AnomuraGame%21%0a%0a";
                 }
                 if (reward === Enums.ONE_TO_ONE) {
                     url = "https://t.co/uPkCBLZmfg";
                     text =
-                        "Excited%20to%20meet%20a%20C.R.A.B%20team%20member%20from%20@AnomuraGame%20I%20can%27t%20wait%20to%20learn%20more%20from%20the%20team.";
+                        "Excited%20to%20meet%20a%20C.R.A.B%20team%20member%20from%20@AnomuraGame%20I%20can%27t%20wait%20to%20learn%20more%20from%20the%20team.%0a%0a";
                 }
                 if (reward === Enums.NAME_INGAME) {
                     url = "https://t.co/wzjQcjV78R";
                     text =
-                        "Wow%2C%20I%20won%20a%20chance%20to%20name%20a%20character%20in%20@AnomuraGame%21%20What%20should%20I%20name%20it%3F.";
+                        "Wow%2C%20I%20won%20a%20chance%20to%20name%20a%20character%20in%20@AnomuraGame%21%20What%20should%20I%20name%20it%3F%0a%0a";
                 }
                 if (reward === Enums.EARLY_ACCESS) {
                     url = "https://t.co/6Z3avzvJTs";
                     text =
-                        "Excited%20to%20be%20part%20of%20a%20private%20viewing%20of%20@AnomuraGame%27%20concept%20demo%21";
+                        "Excited%20to%20be%20part%20of%20a%20private%20viewing%20of%20@AnomuraGame%27%20concept%20demo%21%0a%0a";
                 }
                 if (reward === Enums.ADOPT_ANIMAL) {
                     url = "https://t.co/sMmWLCxHxg";
                     text =
-                        "Amazing%21%20@AnomuraGame%20@Zeneca_33%20and%20@ZenAcademy%20will%20be%20adopting%20an%20animal%20for%20me%20from%20@TheTorontoZoo%21%20I%20love%20being%20able%20to%20give%20back";
+                        "Amazing%21%20@AnomuraGame%20@Zeneca_33%20and%20@ZenAcademy%20will%20be%20adopting%20an%20animal%20for%20me%20from%20@TheTorontoZoo%21%20I%20love%20being%20able%20to%20give%20back.%0a%0a";
                 }
                 if (reward === Enums.OCTOHEDZ_VX_NFT || reward === Enums.OCTOHEDZ_RELOADED) {
                     url = "https://t.co/26kndeZ3rQ";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@OctoHedz%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@OctoHedz%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.COLORMONSTER_NFT) {
                     url = "https://t.co/ii0cOHWwwI";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@colormonsterNFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@colormonsterNFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.HUMAN_PARK_NFT) {
                     url = "https://t.co/hLP8MorM3X";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@FreeHumanPark%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@FreeHumanPark%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.EX_8102_NFT) {
                     url = "https://t.co/jJjhGUoUDU";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@the8102game%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@the8102game%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.VOID_RUNNERS_NFT) {
                     url = "https://t.co/CgP5k6oiL4";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@void__runners%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@void__runners%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.ETHER_JUMP_NFT) {
                     url = "https://t.co/LQqbyVODGg";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@etherjump%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@etherjump%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.MIRAKAI_SCROLLS_NFT) {
                     url = "https://t.co/FxmDaCNqIp";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@OfficialMirakai%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@OfficialMirakai%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.ALLSTARZ_NFT) {
                     url = "https://t.co/NGBNw9C9Gs";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@allstarz_nft%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@allstarz_nft%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.META_HERO_NFT) {
                     url = "https://t.co/8q1lOlX180";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@Metahero_io%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@Metahero_io%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
                 if (reward === Enums.ZEN_ACADEMY_NFT) {
                     // url = "https://t.co/8q1lOlX180";
                     text =
-                        "Wow%21%20I%20just%20won%20a%20@ZenAcademy_%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.";
+                        "Wow%21%20I%20just%20won%20a%20@ZenAcademy_%20NFT%20from%20@AnomuraGame%27s%20%24SHELL%20Redemption%20event.%0a%0a";
                 }
 
                 link = `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtags}`;

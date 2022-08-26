@@ -14,8 +14,8 @@ export default function BoardLargeDollarSign() {
                     r.rewardType.reward.match("$Shell") ||
                     r.rewardType.reward.match("$SHELL")
             );
-            if (shellReward?.quantity && shellReward.quantity > 0)
-                setRewardAmount(shellReward.quantity);
+
+            setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
 
@@ -23,6 +23,7 @@ export default function BoardLargeDollarSign() {
         <div className={s.boardLarge_dollar}>
             <div className={s.boardLarge_dollar_content}>
                 {rewardAmount !== null && process.env.NEXT_PUBLIC_CAN_SEE_SHELL === "true" && (
+                    // {rewardAmount !== null  && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}

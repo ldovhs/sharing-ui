@@ -110,9 +110,9 @@ export const useUserRewardQuery = () => {
 
     const { data, isLoading } = useQuery(["userRewardQuery", wallet], () => {
         try {
-            axios.get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`).then((r) => r.data)
+            return axios.get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`).then((r) => r.data)
         } catch (error) {
-            // to not throw an error when wallet is null initially
+            //to not throw an error when wallet is null initially
         }
 
     }

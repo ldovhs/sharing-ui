@@ -7,6 +7,7 @@ export default function BoardLargeDollarSign() {
     const [userRewards, userRewardLoading] = useUserRewardQuery();
     const [rewardAmount, setRewardAmount] = useState(null);
     useEffect(async () => {
+        console.log(userRewards);
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(
                 (r) =>
@@ -18,12 +19,12 @@ export default function BoardLargeDollarSign() {
             setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
-
+    // console.log(rewardAmount);
+    console.log(process.env.NEXT_PUBLIC_CAN_SEE_SHELL);
     return (
         <div className={s.boardLarge_dollar}>
             <div className={s.boardLarge_dollar_content}>
-                {/* {rewardAmount !== null && process.env.NEXT_PUBLIC_CAN_SEE_SHELL == "true" && ( */}
-                {rewardAmount !== null && (
+                {rewardAmount !== null && process.env.NEXT_PUBLIC_CAN_SEE_SHELL == "true" && (
                     <>
                         <img
                             src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}

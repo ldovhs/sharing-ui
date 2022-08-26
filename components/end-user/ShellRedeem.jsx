@@ -21,7 +21,7 @@ const MACHINE_ERROR = 10;
 const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }) => {
     const [machineState, setMachineState] = useState(INITIAL_0);
     const [showFooter, setShowFooter] = useState(false);
-
+    const [footerMessage, setFooterMessage] = useState("");
     const [boxMessage, setBoxMessage] = useState("");
 
     const { isMobile } = useDeviceDetect();
@@ -153,6 +153,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                         </div>
                     </>
                 );
+            case Enums.OCTOHEDZ_RELOADED:
+            case Enums.OCTOHEDZ_VX_NFT:
+                return (
+                    <div className={s.redemption_reward_text}>
+                        {rewardRedeemed && rewardRedeemed.length > 0 && "OctoHedz NFT"}
+                    </div>
+                );
             default:
                 return (
                     <div className={s.redemption_reward_text}>
@@ -274,7 +281,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                     <div className={s.redemption_reward_content}>
                                         <div className={s.redemption_reward_description}>
                                             Your hard work has paid off, noble Anomura. Now go
-                                            forth! claim your treasures, spread the word, and return
+                                            forth! Claim your treasures, spread the word, and return
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
@@ -355,7 +362,8 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             <div className={s.redemption_reward_buttons_wrapper}>
                                                 {getClaimButton(
                                                     rewardRedeemed[currentViewReward],
-                                                    setShowButtonFooter
+                                                    setShowButtonFooter,
+                                                    setFooterMessage
                                                 )}
                                                 {getShareButton(rewardRedeemed[currentViewReward])}
                                             </div>
@@ -363,8 +371,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                 <span
                                                     className={s.redemption_reward_buttons_footer}
                                                 >
-                                                    This reward is Direct to Contract. No action
-                                                    needed.
+                                                    {footerMessage}
                                                 </span>
                                             )}
                                         </div>
@@ -447,7 +454,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                     <div className={s.redemption_reward_content}>
                                         <div className={s.redemption_reward_description}>
                                             Your hard work has paid off, noble Anomura. Now go
-                                            forth! claim your treasures, spread the word, and return
+                                            forth! Claim your treasures, spread the word, and return
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
@@ -528,7 +535,8 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             <div className={s.redemption_reward_buttons_wrapper}>
                                                 {getClaimButton(
                                                     rewardRedeemed[currentViewReward],
-                                                    setShowButtonFooter
+                                                    setShowButtonFooter,
+                                                    setFooterMessage
                                                 )}
                                                 {getShareButton(rewardRedeemed[currentViewReward])}
                                             </div>
@@ -536,8 +544,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                 <span
                                                     className={s.redemption_reward_buttons_footer}
                                                 >
-                                                    This reward is Direct to Contract. No action
-                                                    needed.
+                                                    {footerMessage}
                                                 </span>
                                             )}
                                         </div>
@@ -665,6 +672,8 @@ const getRewardPicture = (reward) => {
             return `${Enums.BASEPATH}/img/redemption/rewards/Void Runner_7x.png`;
         case Enums.ZEN_ACADEMY_NFT:
             return `${Enums.BASEPATH}/img/redemption/rewards/ZenAcademy_7x.png`;
+        case Enums.HUMAN_PARK_NFT:
+            return `${Enums.BASEPATH}/img/redemption/rewards/Human Park_7x.png`;
         default:
             return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
     }
@@ -681,7 +690,7 @@ const getMachineBackground = (state) => {
             return s.redemption_machine_idle;
     }
 };
-const getClaimButton = (reward, setShowButtonFooter) => {
+const getClaimButton = (reward, setShowButtonFooter, setFooterMessage) => {
     if (reward === Enums.BOOTS) {
         return "";
     }
@@ -761,21 +770,36 @@ const getClaimButton = (reward, setShowButtonFooter) => {
         case Enums.EX_8102_NFT:
         case Enums.VOID_RUNNERS_NFT:
         case Enums.ZEN_ACADEMY_NFT:
-        case Enums.MINT_LIST_SPOT:
+            return (
+                <button
+                    className={s.redemption_reward_buttons_claim}
+                    onClick={() => {
+                        setShowButtonFooter(true);
+                        setFooterMessage("Open a help ticket in our Discord to claim your reward.");
+                    }}
+                >
+                    <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
+                    <div>
+                        <span>CLAIM</span>
+                    </div>
+                </button>
+            );
         case Enums.MINT_LIST_SPOT:
         case Enums.FREE_MINT:
             return (
                 <button
                     className={s.redemption_reward_buttons_claim}
-                    onClick={() => setShowButtonFooter(true)}
+                    onClick={() => {
+                        setShowButtonFooter(true);
+                        setFooterMessage("This reward is Direct to Contract. No action needed.");
+                    }}
                 >
                     <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
                     <div>
-                        <span>DTC</span>
+                        <span>CLAIM</span>
                     </div>
                 </button>
             );
-
         default:
             return (
                 <button className={s.redemption_reward_buttons_claim}>
@@ -810,7 +834,7 @@ const getShareButton = (reward) => {
                 if (reward === Enums.GIFT_MINT_LIST_SPOT) {
                     url = "https://t.co/s36FTU96aZ";
                     text =
-                        "Hi%20frens%21%20I%20won%20an%20extra%20mintlist%20spot%20from%20@AnomuraGame%21%20%20Who%20wants%20it%3F%0a%0a";
+                        "Hi%20frens%21%20I%20won%20an%20extra%20mintlist%20spot%20from%20@AnomuraGame%21%20Who%20wants%20it%3F%0a%0a";
                 }
                 if (reward === Enums.FREE_MINT) {
                     url = "https://t.co/7okk3uBv4d";
@@ -844,7 +868,7 @@ const getShareButton = (reward) => {
                 if (reward === Enums.EARLY_ACCESS) {
                     url = "https://t.co/6Z3avzvJTs";
                     text =
-                        "Excited%20to%20be%20part%20of%20a%20private%20viewing%20of%20@AnomuraGame%27%20concept%20demo%21%0a%0a";
+                        "Excited%20to%20be%20part%20of%20a%20private%20viewing%20of%20@AnomuraGame%27s%20concept%20demo%21%0a%0a";
                 }
                 if (reward === Enums.ADOPT_ANIMAL) {
                     url = "https://t.co/sMmWLCxHxg";
@@ -913,46 +937,4 @@ const getShareButton = (reward) => {
             </div>
         </button>
     );
-    switch (reward) {
-        case Enums.BOOTS:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Boot_7x.png`;
-        case Enums.ONE_TO_ONE:
-            return `${Enums.BASEPATH}/img/redemption/rewards/one_to_one Call_7x.png`;
-        case Enums.ADOPT_ANIMAL:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Adopt Animal_7x.png`;
-        case Enums.MINT_LIST_SPOT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Mint List_7x.gif`;
-        case Enums.EARLY_ACCESS:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Early Access V1_7x.png`;
-        case Enums.FREE_MINT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Free Mint v2_7x.gif`;
-        case Enums.GIFT_MINT_LIST_SPOT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Gift to Fren_7x.png`;
-        case Enums.NAME_INGAME:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Name character_7x.png`;
-        case Enums.ANOMURA_PFP:
-            return `${Enums.BASEPATH}/img/redemption/rewards/PFP_7x.png`;
-        case Enums.ANOMURA_STICKER:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Stickers_7x.png`;
-        case Enums.ANOMURA_DOWNLOADABLE_STUFFS:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Wallpaper_7x.png`;
-        case Enums.OCTOHEDZ_VX_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
-        case Enums.OCTOHEDZ_RELOADED:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Octohead_7x.png`;
-        case Enums.COLORMONSTER_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/ColorMonsters_7x.png`;
-        case Enums.MIRAKAI_SCROLLS_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Miraikai Scrolls_7x.png`;
-        case Enums.ALLSTARZ_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/AllStarz_7x.png`;
-        case Enums.ETHER_JUMP_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Etherjump_7x.png`;
-        case Enums.META_HERO_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/MetaHero_7x.png`;
-        case Enums.EX_8102_NFT:
-            return `${Enums.BASEPATH}/img/redemption/rewards/8102_7x.png`;
-        default:
-            return `${Enums.BASEPATH}/img/redemption/rewards/Bowl new colors.gif`;
-    }
 };

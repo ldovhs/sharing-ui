@@ -2846,12 +2846,12 @@
 }
 @media (min-width: 2560px) {
   .redemption_reward {
-    width: min(45em, 28%);
+    width: min(48em, 28%);
   }
 }
 @media (min-width: 3840px) {
   .redemption_reward {
-    width: min(62em, 27%);
+    width: min(65em, 30%);
   }
 }
 .redemption_reward_container {
@@ -2911,6 +2911,11 @@
 @media (min-width: 800px) {
   .redemption_reward_description {
     font-size: 1.2vh;
+  }
+}
+@media (min-width: 1440px) {
+  .redemption_reward_description {
+    font-size: 1.35vh;
   }
 }
 @media (min-width: 2560px) {
@@ -3354,11 +3359,21 @@
 }
 @media (min-width: 748px) {
   .redemption_reward_buttons_footer {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 }
 @media (min-width: 1200px) {
   .redemption_reward_buttons_footer {
-    font-size: 1rem;
+    font-size: 0.85rem;
+  }
+}
+@media (min-width: 1980px) {
+  .redemption_reward_buttons_footer {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 2560px) {
+  .redemption_reward_buttons_footer {
+    font-size: 1.25rem;
   }
 }/*# sourceMappingURL=claim.module.css.map */

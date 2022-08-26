@@ -114,15 +114,15 @@ export default function ConnectBoard() {
                             {currentPrompt === GONE_FISHING && !web3Error && (
                                 <>
                                     <div className={s.board_goneFishTitle}>
-                                        CLOSED! GONE FISHIN'!
+                                        CLOSED - GONE FISHIN'
                                     </div>
-                                    <div className={s.board_goneFishText}>
+                                    {/* <div className={s.board_goneFishText}>
                                         The DeepSea Challenger has been paused. You can still
                                         connect to view your $SHELL balance.
-                                    </div>
+                                    </div> */}
                                     <div className={s.board_goneFishText}>
                                         Check back on <span>August 29-30</span> for a chance to
-                                        spend your $SHELL for shiny treasures!
+                                        spend your $SHELL on a chance to win shiny treasures!
                                     </div>
                                     <button
                                         className={s.board_pinkBtn}

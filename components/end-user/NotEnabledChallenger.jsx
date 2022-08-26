@@ -13,14 +13,14 @@ const NotEnabledChallenger = () => {
                 <div className={s.board_wrapper}>
                     <div className={s.board_content}>
                         <>
-                            <div className={s.board_goneFishTitle}>CLOSED! GONE FISHIN'!</div>
-                            <div className={s.board_goneFishText}>
+                            <div className={s.board_goneFishTitle}>CLOSED - GONE FISHIN</div>
+                            {/* <div className={s.board_goneFishText}>
                                 The DeepSea Challenger has been paused. You can still connect to
                                 view your $SHELL balance.
-                            </div>
+                            </div> */}
                             <div className={s.board_goneFishText}>
                                 Check back on <span>August 29-30</span> for a chance to spend your
-                                $SHELL for shiny treasures!
+                                $SHELL on a chance to win shiny treasures!
                             </div>
                         </>
                     </div>

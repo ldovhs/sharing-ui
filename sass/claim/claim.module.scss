@@ -1904,10 +1904,10 @@ $list-text-font-size-large: 1.25rem;
             width: min(36em, 70%);
         }
         @media (min-width: $bp-xl-3) {
-            width: min(45em, 28%);
+            width: min(48em, 28%);
         }
         @media (min-width: $bp-xl-4) {
-            width: min(62em, 27%);
+            width: min(65em, 30%);
         }
     
         &_container {
@@ -1956,6 +1956,9 @@ $list-text-font-size-large: 1.25rem;
             }
             @media (min-width: $bp-med-2) {  
                 font-size: 1.2vh;
+            }
+            @media (min-width: $bp-xl) {  
+                font-size: 1.35vh;
             }
             @media (min-width: $bp-xl-3) {  
                 font-size: 1.35vh;
@@ -2133,6 +2136,7 @@ $list-text-font-size-large: 1.25rem;
             @media (min-width: $bp-med) { 
                 height: 15%;
             }
+            
             &_wrapper {
                 @include m.flex-master(row, center, center);
                 gap: 1.5rem;
@@ -2159,7 +2163,7 @@ $list-text-font-size-large: 1.25rem;
                     color: #0E5B91!important;
 		        }
             }
-            &_footer{
+            &_footer {
                 font-family: PFRondaSeven;
                 color: #AD6B34;
                 font-size: 0.65rem;
@@ -2172,19 +2176,19 @@ $list-text-font-size-large: 1.25rem;
                     // font-size: 1.75rem;
                 }
                 @media (min-width: $bp-med) { 
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                 }
                 @media (min-width: $bp-med-2) { 
                     // font-size: 1rem;
                 }
                 @media (min-width: $bp-large-2) { 
-                    font-size: 1rem;
+                    font-size: 0.85rem;
                 }
                 @media (min-width: $bp-xl-2) { 
-                    // font-size: 3rem;
+                    font-size: 0.9rem;
                 } 
                 @media (min-width: $bp-xl-3) { 
-                    // font-size: 3.75rem;
+                    font-size: 1.25rem;
                 }
             }
         }

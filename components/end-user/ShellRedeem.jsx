@@ -154,10 +154,15 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                     </>
                 );
             case Enums.OCTOHEDZ_RELOADED:
+                return (
+                    <div className={s.redemption_reward_text}>
+                        {rewardRedeemed && rewardRedeemed.length > 0 && "OctoHedz Reloaded NFT"}
+                    </div>
+                );
             case Enums.OCTOHEDZ_VX_NFT:
                 return (
                     <div className={s.redemption_reward_text}>
-                        {rewardRedeemed && rewardRedeemed.length > 0 && "OctoHedz NFT"}
+                        {rewardRedeemed && rewardRedeemed.length > 0 && "OctoHedz VX NFT"}
                     </div>
                 );
             default:

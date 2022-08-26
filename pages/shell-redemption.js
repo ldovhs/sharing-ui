@@ -25,27 +25,27 @@ function ShellRedemtion() {
     return (
         <>
             <Head>
-                <title>DeepSea Challenger Shell Redemption</title>
+                <title>Anomura | $SHELL Redemption Event</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="DeepSea Challenger" />
+                <meta property="og:title" content="Anomura | $SHELL Redemption Event" />
                 <meta
                     property="og:description"
-                    content="Complete quests, earn $SHELL, unlock prizes"
+                    content="Spend your $SHELL on a chance to win shiny treasures like a mintlist spot, crab swag and NFTs!"
                 />
                 <meta
                     property="og:image"
-                    content="https://anomuragame.com/challenger/DeepSeaChallengerThumbnail_2.png"
+                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png.png"
                 />
                 <meta
                     property="og:site_name"
-                    content="Anomura: The Cove's DeepSea Challenger"
+                    content="Anomura | $SHELL Redemption Event"
                 ></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     property="twitter:image"
-                    content="https://anomuragame.com/challenger/DeepSeaChallengerThumbnail_2.png"
+                    content="https://anomuragame.com/challenger/Shell_Redemption_Preview.png.png"
                 />
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>

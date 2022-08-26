@@ -7,7 +7,6 @@ export default function BoardLargeDollarSign() {
     const [userRewards, userRewardLoading] = useUserRewardQuery();
     const [rewardAmount, setRewardAmount] = useState(null);
     useEffect(async () => {
-        console.log(userRewards);
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(
                 (r) =>

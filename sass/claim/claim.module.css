@@ -2920,17 +2920,17 @@
 }
 @media (min-width: 1440px) {
   .redemption_reward_description {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 }
 @media (min-width: 2560px) {
   .redemption_reward_description {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 }
 @media (min-width: 3840px) {
   .redemption_reward_description {
-    font-size: 1.75rem;
+    font-size: 1.55rem;
   }
 }
 .redemption_reward_scroll {

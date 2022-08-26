@@ -47,6 +47,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
         if (
             (machineState === INITIAL_0 || machineState === INITIAL_1) &&
             process.env.NEXT_PUBLIC_CAN_REDEEM_SHELL === "true" &&
+            machineState !== SHOW_REWARD &&
             audioControl
         ) {
             audioControl.idle.playRepeat(0.45);

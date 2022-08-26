@@ -48,11 +48,11 @@ const shellRedeemRollAllAPI = async (req, res) => {
                 if (!userShellRedeem) {
                     let rewards = [Enums.BOOTS, Enums.ANOMURA_DOWNLOADABLE_STUFFS, Enums.ANOMURA_PFP]
                     await prisma.shellRedeemed.create({
-
                         data: {
                             isRedeemed: false,
                             rewardPointer: -1,
-                            rewards
+                            rewards,
+                            wallet
                         },
                     });
                 }

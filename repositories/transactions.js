@@ -129,54 +129,60 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, wallet, us
 };
 
 export const submitNewUserQuestTransaction = async (quest, wallet) => {
-    let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
 
-    let claimedReward;
+    try {
+        let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
 
-    let currentQuest = await prisma.quest.findUnique({
-        where: {
-            questId
-        }
-    })
+        let claimedReward;
 
-    console.log(`**Create / Update reward for user**`);
-    claimedReward = prisma.reward.upsert({
-        where: {
-            wallet_rewardTypeId: { wallet, rewardTypeId },
-        },
-        update: {
-            quantity: {
-                increment: currentQuest.quantity,
+        let currentQuest = await prisma.quest.findUnique({
+            where: {
+                questId
+            }
+        })
+
+        console.log(`**Create / Update reward for user**`);
+        claimedReward = prisma.reward.upsert({
+            where: {
+                wallet_rewardTypeId: { wallet, rewardTypeId },
             },
-        },
-        create: {
-            wallet,
-            quantity: currentQuest.quantity,
-            rewardTypeId,
-        },
+            update: {
+                quantity: {
+                    increment: currentQuest.quantity,
+                },
+            },
+            create: {
+                wallet,
+                quantity: currentQuest.quantity,
+                rewardTypeId,
+            },
 
-        select: {
-            wallet: true,
-            quantity: true,
-            user: true,
-            rewardTypeId: true,
-            rewardType: true,
-        },
-    });
+            select: {
+                wallet: true,
+                quantity: true,
+                user: true,
+                rewardTypeId: true,
+                rewardType: true,
+            },
+        });
 
-    console.log(`**Save to UserQuest, to keep track that its done**`);
-    let userQuest = prisma.userQuest.create({
-        data: {
-            wallet,
-            questId,
-            rewardedTypeId: rewardTypeId,
-            rewardedQty: currentQuest.quantity,
-        },
-    });
+        console.log(`**Save to UserQuest, to keep track that its done**`);
+        let userQuest = prisma.userQuest.create({
+            data: {
+                wallet,
+                questId,
+                rewardedTypeId: rewardTypeId,
+                rewardedQty: currentQuest.quantity,
+            },
+        });
 
-    await prisma.$transaction([claimedReward, userQuest]);
+        await prisma.$transaction([claimedReward, userQuest]);
 
-    return userQuest;
+        return userQuest;
+    } catch (error) {
+        console.log(error)
+    }
+
 };
 
 export const UpdateClaimAndPendingRewardTransaction = async (

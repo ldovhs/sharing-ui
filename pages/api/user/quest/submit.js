@@ -102,12 +102,15 @@ const submitIndividualQuestAPI = async (req, res) => {
                         wallet_questId: { wallet: whiteListUser.wallet, questId },
                     },
                 });
+
                 if (entry) {
+                    console.log("This quest has been submitted before")
                     return res
                         .status(200)
                         .json({ isError: true, message: "This quest already submitted before!" });
                 } else {
                     userQuest = await submitNewUserQuestTransaction(req.body, whiteListUser.wallet);
+                    console.log(userQuest)
                     if (!userQuest) {
                         return res
                             .status(200)
@@ -164,7 +167,7 @@ const submitUserDailyQuestTransaction = async (
             },
         });
 
-        console.log(`**Save to UserQuest, to keep track that its done**`);
+        console.log(`**Save to UserQuest for Daily, to keep track that its done**`);
         let userQuest = prisma.userQuest.upsert({
             where: {
                 wallet_questId: { wallet, questId },

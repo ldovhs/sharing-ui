@@ -19,8 +19,7 @@ export default function BoardLargeDollarSign() {
             setRewardAmount(shellReward.quantity);
         }
     }, [userRewards]);
-    // console.log(rewardAmount);
-    console.log(process.env.NEXT_PUBLIC_CAN_SEE_SHELL);
+
     return (
         <div className={s.boardLarge_dollar}>
             <div className={s.boardLarge_dollar_content}>

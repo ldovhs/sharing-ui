@@ -10,8 +10,6 @@ export const config = {
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;
 
-
-
     // if (process.env.NODE_ENV === 'production') {
     //     console.log("In production, throttle the request")
     //     const checkLimit = await ipRateLimit(req)
@@ -71,4 +69,3 @@ const shellRedeemQueryAPI = async (req, res) => {
 
 };
 export default whitelistUserMiddleware(shellRedeemQueryAPI);
-//export default (shellRedeemQueryAPI);

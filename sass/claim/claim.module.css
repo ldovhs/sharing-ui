@@ -438,7 +438,12 @@
 }
 @media (min-width: 1980px) {
   .board_goneFishText {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+  }
+}
+@media (min-width: 2560px) {
+  .board_goneFishText {
+    font-size: 1.2rem;
   }
 }
 .board_goneFishText > span {

@@ -813,7 +813,7 @@ const getClaimButton = (reward, setShowButtonFooter, setFooterMessage) => {
                 >
                     <img src={`${Enums.BASEPATH}/img/redemption/Button_M_Pink.png`} alt="Claim" />
                     <div>
-                        <span>Claim</span>
+                        <span>DTC</span>
                     </div>
                 </button>
             );

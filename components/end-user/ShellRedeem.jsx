@@ -290,13 +290,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
-                                            {rewardRedeemed?.length > 1 && (
-                                                <div className={s.redemption_reward_scroll_left}>
-                                                    <div
-                                                        className={
-                                                            s.redemption_reward_scroll_left_wrapper
-                                                        }
-                                                    >
+                                            <div className={s.redemption_reward_scroll_left}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_left_wrapper
+                                                    }
+                                                >
+                                                    {rewardRedeemed?.length > 1 && (
                                                         <img
                                                             src={
                                                                 currentViewReward === 0
@@ -311,9 +311,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                                     : s.redemption_reward_scroll_left_enable
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )}
+                                            </div>
+
                                             <div className={s.redemption_reward_scroll_img}>
                                                 <div
                                                     className={
@@ -339,13 +340,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                     </div>
                                                 </div>
                                             </div>
-                                            {rewardRedeemed?.length > 1 && (
-                                                <div className={s.redemption_reward_scroll_right}>
-                                                    <div
-                                                        className={
-                                                            s.redemption_reward_scroll_right_wrapper
-                                                        }
-                                                    >
+
+                                            <div className={s.redemption_reward_scroll_right}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_right_wrapper
+                                                    }
+                                                >
+                                                    {rewardRedeemed?.length > 1 && (
                                                         <img
                                                             src={
                                                                 currentViewReward ===
@@ -362,9 +364,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                                     : s.redemption_reward_scroll_left_enable
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )}
+                                            </div>
                                         </div>
                                         {getRewardText()}
                                         <div className={s.redemption_reward_buttons}>
@@ -467,13 +469,13 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
-                                            {rewardRedeemed?.length > 1 && (
-                                                <div className={s.redemption_reward_scroll_left}>
-                                                    <div
-                                                        className={
-                                                            s.redemption_reward_scroll_left_wrapper
-                                                        }
-                                                    >
+                                            <div className={s.redemption_reward_scroll_left}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_left_wrapper
+                                                    }
+                                                >
+                                                    {rewardRedeemed?.length > 1 && (
                                                         <img
                                                             src={
                                                                 currentViewReward === 0
@@ -488,9 +490,10 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                                     : s.redemption_reward_scroll_left_enable
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )}
+                                            </div>
+
                                             <div className={s.redemption_reward_scroll_img}>
                                                 <div
                                                     className={
@@ -516,13 +519,14 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                     </div>
                                                 </div>
                                             </div>
-                                            {rewardRedeemed?.length > 1 && (
-                                                <div className={s.redemption_reward_scroll_right}>
-                                                    <div
-                                                        className={
-                                                            s.redemption_reward_scroll_right_wrapper
-                                                        }
-                                                    >
+
+                                            <div className={s.redemption_reward_scroll_right}>
+                                                <div
+                                                    className={
+                                                        s.redemption_reward_scroll_right_wrapper
+                                                    }
+                                                >
+                                                    {rewardRedeemed?.length > 1 && (
                                                         <img
                                                             src={
                                                                 currentViewReward ===
@@ -539,9 +543,9 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                                     : s.redemption_reward_scroll_left_enable
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )}
+                                            </div>
                                         </div>
                                         {getRewardText()}
                                         <div className={s.redemption_reward_buttons}>

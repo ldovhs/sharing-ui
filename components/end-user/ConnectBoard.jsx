@@ -117,8 +117,7 @@ export default function ConnectBoard() {
                                         CLOSED - GONE FISHIN'
                                     </div>
                                     <div className={s.board_goneFishText}>
-                                        The DeepSea Challenger has been paused. You can still
-                                        connect to view your $SHELL balance.
+                                        The DeepSea Challenger has been paused.
                                     </div>
                                     <div className={s.board_goneFishText}>
                                         Check back on <span>August 29-30</span> to spend your $SHELL

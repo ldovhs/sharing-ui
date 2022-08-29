@@ -1705,8 +1705,8 @@ $list-text-font-size-large: 1.25rem;
         }
         &_octopus {
             position: relative;
-
             height: 40%;
+            z-index: 1;
             @media (min-width: $bp-med) { 
                 position: absolute;
                 right: 0;
@@ -1730,6 +1730,7 @@ $list-text-font-size-large: 1.25rem;
             width: 100%;
             padding: 0;
             color: #FFFFFF;
+            z-index: 2;
         
             // @media (min-width: $bp-small) {  
             //     width: 55%;

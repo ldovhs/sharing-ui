@@ -15,13 +15,28 @@ const NotEnabledChallenger = () => {
                         <>
                             <div className={s.board_goneFishTitle}>CLOSED - GONE FISHIN'</div>
                             <div className={s.board_goneFishText}>
-                                The DeepSea Challenger has been paused. You can still connect to
-                                view your $SHELL balance.
+                                The DeepSea Challenger has been paused.
                             </div>
                             <div className={s.board_goneFishText}>
                                 Check back on <span>August 29-30</span> to spend your $SHELL on a
                                 chance to win shiny treasures!
                             </div>
+                            <button
+                                className={s.board_pinkBtn}
+                                onClick={() => {
+                                    window.open(
+                                        `https://www.anomuragame.com/challenger/shell-redemption`
+                                    );
+                                }}
+                            >
+                                <img
+                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
+                                    alt="connectToContinue"
+                                />
+                                <div>
+                                    <span>LET’S GO</span>
+                                </div>
+                            </button>
                         </>
                     </div>
                 </div>

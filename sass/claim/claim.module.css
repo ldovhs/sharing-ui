@@ -2621,6 +2621,7 @@
 .redemption_footer_octopus {
   position: relative;
   height: 40%;
+  z-index: 1;
 }
 @media (min-width: 748px) {
   .redemption_footer_octopus {
@@ -2649,6 +2650,7 @@
   width: 100%;
   padding: 0;
   color: #FFFFFF;
+  z-index: 2;
 }
 .redemption_footer_boxes > div {
   position: absolute;

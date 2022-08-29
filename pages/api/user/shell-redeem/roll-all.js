@@ -98,7 +98,7 @@ const shellRedeemRollAllAPI = async (req, res) => {
                     // }
 
                     updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
-
+                    updateShellRedeemed.rewards = updateShellRedeemed.rewards.splice(0, updateShellRedeemed.rewardPointer + 1)
                     res.status(200).json(updateShellRedeemed);
                 }
 

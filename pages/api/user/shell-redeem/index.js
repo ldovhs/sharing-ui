@@ -35,7 +35,7 @@ const shellRedeemQueryAPI = async (req, res) => {
             where: { wallet: whiteListUser.wallet }
         })
 
-        //return nothing if not found any, shell not created yet
+        //return nothing if not found any, shell redeem not created yet
         if (!userShellRedeem) {
             return res.status(200).json({ message: "Nothing here" });
         }
@@ -58,7 +58,6 @@ const shellRedeemQueryAPI = async (req, res) => {
         // not redeemed yet,
         else {
             return res.status(200).json({ isRedeemed: false });
-
         }
 
 

@@ -42,7 +42,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     // };
 
     const [showButtonFooter, setShowButtonFooter] = useState(false);
-
+    console.log(rewardRedeemed);
     const handlePlayAudio = () => {
         if (
             (machineState === INITIAL_0 || machineState === INITIAL_1) &&
@@ -290,28 +290,30 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
-                                            <div className={s.redemption_reward_scroll_left}>
-                                                <div
-                                                    className={
-                                                        s.redemption_reward_scroll_left_wrapper
-                                                    }
-                                                >
-                                                    <img
-                                                        src={
-                                                            currentViewReward === 0
-                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
-                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
-                                                        }
-                                                        alt="left arrow"
-                                                        onClick={() => viewPreviousReward()}
+                                            {rewardRedeemed?.length > 1 && (
+                                                <div className={s.redemption_reward_scroll_left}>
+                                                    <div
                                                         className={
-                                                            currentViewReward === 0
-                                                                ? s.redemption_reward_scroll_left_disable
-                                                                : s.redemption_reward_scroll_left_enable
+                                                            s.redemption_reward_scroll_left_wrapper
                                                         }
-                                                    />
+                                                    >
+                                                        <img
+                                                            src={
+                                                                currentViewReward === 0
+                                                                    ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
+                                                                    : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
+                                                            }
+                                                            alt="left arrow"
+                                                            onClick={() => viewPreviousReward()}
+                                                            className={
+                                                                currentViewReward === 0
+                                                                    ? s.redemption_reward_scroll_left_disable
+                                                                    : s.redemption_reward_scroll_left_enable
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                             <div className={s.redemption_reward_scroll_img}>
                                                 <div
                                                     className={
@@ -337,30 +339,32 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={s.redemption_reward_scroll_right}>
-                                                <div
-                                                    className={
-                                                        s.redemption_reward_scroll_right_wrapper
-                                                    }
-                                                >
-                                                    <img
-                                                        src={
-                                                            currentViewReward ===
-                                                            rewardRedeemed?.length - 1
-                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
-                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
-                                                        }
-                                                        onClick={() => viewNextReward()}
-                                                        alt="right arrow"
+                                            {rewardRedeemed?.length > 1 && (
+                                                <div className={s.redemption_reward_scroll_right}>
+                                                    <div
                                                         className={
-                                                            currentViewReward ===
-                                                            rewardRedeemed?.length - 1
-                                                                ? s.redemption_reward_scroll_left_disable
-                                                                : s.redemption_reward_scroll_left_enable
+                                                            s.redemption_reward_scroll_right_wrapper
                                                         }
-                                                    />
+                                                    >
+                                                        <img
+                                                            src={
+                                                                currentViewReward ===
+                                                                rewardRedeemed?.length - 1
+                                                                    ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
+                                                                    : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
+                                                            }
+                                                            onClick={() => viewNextReward()}
+                                                            alt="right arrow"
+                                                            className={
+                                                                currentViewReward ===
+                                                                rewardRedeemed?.length - 1
+                                                                    ? s.redemption_reward_scroll_left_disable
+                                                                    : s.redemption_reward_scroll_left_enable
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                         {getRewardText()}
                                         <div className={s.redemption_reward_buttons}>
@@ -463,28 +467,30 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                             when you’ve acquired more $SHELL.
                                         </div>
                                         <div className={s.redemption_reward_scroll}>
-                                            <div className={s.redemption_reward_scroll_left}>
-                                                <div
-                                                    className={
-                                                        s.redemption_reward_scroll_left_wrapper
-                                                    }
-                                                >
-                                                    <img
-                                                        src={
-                                                            currentViewReward === 0
-                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
-                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
-                                                        }
-                                                        alt="left arrow"
-                                                        onClick={() => viewPreviousReward()}
+                                            {rewardRedeemed?.length > 1 && (
+                                                <div className={s.redemption_reward_scroll_left}>
+                                                    <div
                                                         className={
-                                                            currentViewReward === 0
-                                                                ? s.redemption_reward_scroll_left_disable
-                                                                : s.redemption_reward_scroll_left_enable
+                                                            s.redemption_reward_scroll_left_wrapper
                                                         }
-                                                    />
+                                                    >
+                                                        <img
+                                                            src={
+                                                                currentViewReward === 0
+                                                                    ? `${Enums.BASEPATH}/img/redemption/Arrow Left_Gray.png`
+                                                                    : `${Enums.BASEPATH}/img/redemption/Arrow Left_Blue.png`
+                                                            }
+                                                            alt="left arrow"
+                                                            onClick={() => viewPreviousReward()}
+                                                            className={
+                                                                currentViewReward === 0
+                                                                    ? s.redemption_reward_scroll_left_disable
+                                                                    : s.redemption_reward_scroll_left_enable
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                             <div className={s.redemption_reward_scroll_img}>
                                                 <div
                                                     className={
@@ -510,30 +516,32 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={s.redemption_reward_scroll_right}>
-                                                <div
-                                                    className={
-                                                        s.redemption_reward_scroll_right_wrapper
-                                                    }
-                                                >
-                                                    <img
-                                                        src={
-                                                            currentViewReward ===
-                                                            rewardRedeemed?.length - 1
-                                                                ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
-                                                                : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
-                                                        }
-                                                        onClick={() => viewNextReward()}
-                                                        alt="right arrow"
+                                            {rewardRedeemed?.length > 1 && (
+                                                <div className={s.redemption_reward_scroll_right}>
+                                                    <div
                                                         className={
-                                                            currentViewReward ===
-                                                            rewardRedeemed?.length - 1
-                                                                ? s.redemption_reward_scroll_left_disable
-                                                                : s.redemption_reward_scroll_left_enable
+                                                            s.redemption_reward_scroll_right_wrapper
                                                         }
-                                                    />
+                                                    >
+                                                        <img
+                                                            src={
+                                                                currentViewReward ===
+                                                                rewardRedeemed?.length - 1
+                                                                    ? `${Enums.BASEPATH}/img/redemption/Arrow Right_Gray.png`
+                                                                    : `${Enums.BASEPATH}/img/redemption/Arrow Right_Blue.png`
+                                                            }
+                                                            onClick={() => viewNextReward()}
+                                                            alt="right arrow"
+                                                            className={
+                                                                currentViewReward ===
+                                                                rewardRedeemed?.length - 1
+                                                                    ? s.redemption_reward_scroll_left_disable
+                                                                    : s.redemption_reward_scroll_left_enable
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                         {getRewardText()}
                                         <div className={s.redemption_reward_buttons}>

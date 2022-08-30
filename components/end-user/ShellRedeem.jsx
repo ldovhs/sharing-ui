@@ -360,8 +360,8 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                             className={
                                                                 currentViewReward ===
                                                                 rewardRedeemed?.length - 1
-                                                                    ? s.redemption_reward_scroll_left_disable
-                                                                    : s.redemption_reward_scroll_left_enable
+                                                                    ? s.redemption_reward_scroll_right_disable
+                                                                    : s.redemption_reward_scroll_right_enable
                                                             }
                                                         />
                                                     )}
@@ -539,8 +539,8 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
                                                             className={
                                                                 currentViewReward ===
                                                                 rewardRedeemed?.length - 1
-                                                                    ? s.redemption_reward_scroll_left_disable
-                                                                    : s.redemption_reward_scroll_left_enable
+                                                                    ? s.redemption_reward_scroll_right_disable
+                                                                    : s.redemption_reward_scroll_right_enable
                                                             }
                                                         />
                                                     )}

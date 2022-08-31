@@ -47,11 +47,7 @@ const shellRedeemQueryAPI = async (req, res) => {
         // if is Redeemed then return rewards array
         if (userShellRedeem.isRedeemed) {
 
-            // userShellRedeem.rewards = []
             userShellRedeem.rewards = userShellRedeem.rewards.splice(0, userShellRedeem.rewardPointer + 1)
-
-            // console.log(correctRewards)
-
             return res.status(200).json(userShellRedeem);
 
         }

@@ -36,62 +36,62 @@ const shellRedeemRollAllAPI = async (req, res) => {
                 */
                 let wallet = whiteListUser.wallet
                 console.log(`** Assure this reward exists and not redeemed **`);
-                // let userShellRedeem = await prisma.shellRedeemed.findUnique({
-                //     where: {
-                //         wallet
-                //     }
-                // })
-                // if (userShellRedeem?.isRedeemed) {
-                //     res.status(200).json({ message: "Already redeemed", isError: true });
-                // }
+                let userShellRedeem = await prisma.shellRedeemed.findUnique({
+                    where: {
+                        wallet
+                    }
+                })
+                if (userShellRedeem?.isRedeemed) {
+                    res.status(200).json({ message: "Already redeemed", isError: true });
+                }
 
-                // if (!userShellRedeem) {
-                //     let rewards = [Enums.BOOTS, Enums.ANOMURA_DOWNLOADABLE_STUFFS, Enums.ANOMURA_PFP]
-                //     await prisma.shellRedeemed.create({
-                //         data: {
-                //             isRedeemed: false,
-                //             rewardPointer: -1,
-                //             rewards,
-                //             wallet
-                //         },
-                //     });
-                // }
+                if (!userShellRedeem) {
+                    let rewards = [Enums.BOOTS, Enums.ANOMURA_DOWNLOADABLE_STUFFS, Enums.ANOMURA_PFP]
+                    await prisma.shellRedeemed.create({
+                        data: {
+                            isRedeemed: false,
+                            rewardPointer: -1,
+                            rewards,
+                            wallet
+                        },
+                    });
+                }
 
-                // let shellReward = await prisma.rewardType.findFirst({
-                //     where: {
-                //         reward: "$Shell"
-                //     }
-                // })
-                // let rewardTypeId = shellReward.id
-                // let userReward = await prisma.reward.findUnique({
-                //     where: {
-                //         wallet_rewardTypeId: { wallet, rewardTypeId },
-                //     },
-                // })
+                let shellReward = await prisma.rewardType.findFirst({
+                    where: {
+                        reward: "$Shell"
+                    }
+                })
+                let rewardTypeId = shellReward.id
+                let userReward = await prisma.reward.findUnique({
+                    where: {
+                        wallet_rewardTypeId: { wallet, rewardTypeId },
+                    },
+                })
 
-                // //handle shell less than min roll price
-                // if (!userReward || userReward.quantity < SHELL_PRICE) {
-                //     console.log("inside less than min roll price")
-                //     let updateShellRedeemed = await redeemRewardForAccountLessThanMinimumRollPrice(wallet, rewardTypeId)
-                //     return res.status(200).json(updateShellRedeemed);
-                // }
-                // else {
-                //     let claimableRewards = Math.floor(userReward.quantity / SHELL_PRICE)
+                //handle shell less than min roll price
+                if (!userReward || userReward.quantity < SHELL_PRICE) {
+                    console.log("inside less than min roll price")
+                    let updateShellRedeemed = await redeemRewardForAccountLessThanMinimumRollPrice(wallet, rewardTypeId)
+                    return res.status(200).json(updateShellRedeemed);
+                }
+                else {
+                    let claimableRewards = Math.floor(userReward.quantity / SHELL_PRICE)
 
-                //     // maximum rollable to be less than config number
-                //     if (claimableRewards > MAX_ROLL_REDEEM) {
-                //         claimableRewards = MAX_ROLL_REDEEM
-                //     }
+                    // maximum rollable to be less than config number
+                    if (claimableRewards > MAX_ROLL_REDEEM) {
+                        claimableRewards = MAX_ROLL_REDEEM
+                    }
 
-                //     let reduceShellQty = claimableRewards * SHELL_PRICE;
+                    let reduceShellQty = claimableRewards * SHELL_PRICE;
 
-                //     let updateShellRedeemed;
+                    let updateShellRedeemed;
 
-                //     updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
-                //     updateShellRedeemed.rewards = updateShellRedeemed.rewards.splice(0, updateShellRedeemed.rewardPointer + 1)
-                //     res.status(200).json(updateShellRedeemed);
-                // }
-                res.status(200).json({ message: "ok" });
+                    updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
+                    updateShellRedeemed.rewards = updateShellRedeemed.rewards.splice(0, updateShellRedeemed.rewardPointer + 1)
+                    res.status(200).json(updateShellRedeemed);
+                }
+                // res.status(200).json({ message: "ok" });
 
             } catch (err) {
                 console.log(err)
@@ -133,7 +133,7 @@ const redeemReward = async (
                 wallet,
             },
             data: {
-                isRedeemed: true,
+                isRedeemed: false,
                 rewardPointer: claimableRewards - 1
             },
         });
@@ -174,12 +174,12 @@ const redeemRewardForAccountLessThanMinimumRollPrice = async (
             },
             create: {
                 rewards: [reward],
-                isRedeemed: true,
+                isRedeemed: false,
                 rewardPointer: 0
             },
             update: {
                 rewards: [reward],
-                isRedeemed: true,
+                isRedeemed: false,
                 rewardPointer: 0
             }
         });

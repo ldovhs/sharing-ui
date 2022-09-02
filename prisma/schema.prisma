@@ -118,21 +118,21 @@ model Admin {
 }
 
 model Anomuras {
-  id                    Int               @id @default(autoincrement())
-  owner                 String          
-  crabId                Int               @unique
-  background            String          
-  legs                  String          
-  shell                 String          
-  claws                 String          
-  body                  String          
-  image                 String            @default("")
-  playersWallet         String?         
-  headpieces            String?           @default("")
-  Players               Players?          @relation(fields: [playersWallet], references: [wallet])
+  id                    Int                   @id @default(autoincrement())
+  owner                 String?             
+  crabId                Int                   @unique
+  name                  String?
+  description           String?
+  background            String              
+  legs                  String              
+  shell                 String              
+  claws                 String              
+  body                  String              
+  image                 String                @default("")
+  headpieces            String?               @default("")
   anomuraEquipments     AnomuraEquipment[]
-  createdAt             DateTime            @default(now())
-  updatedAt             DateTime            @default(now()) @updatedAt
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @default(now()) @updatedAt
 }
 
 model AnomuraEquipment {
@@ -144,7 +144,6 @@ model AnomuraEquipment {
   isEquipped            Boolean             @default(false)
   equipToAnomura        Int?                
   playersWallet         String?
-  Players               Players?            @relation(fields: [playersWallet], references: [wallet])
   anomura               Anomuras?           @relation(fields: [equipToAnomura], references: [crabId])
   createdAt             DateTime            @default(now())
   updatedAt             DateTime            @default(now()) @updatedAt
@@ -157,13 +156,6 @@ enum EquipmentType {
   BODY
   SHELL
   HEADPIECES
-}
-
-model Players {
-  wallet          String     @unique
-  id              Int        @id @default(autoincrement())
-  ownedAnomuras   Anomuras[]
-  ownedEquipment  AnomuraEquipment[]
 }
 
 model AnomuraPartImage {
@@ -216,11 +208,6 @@ model WhiteListAddress {
     wallet            String              @unique
 }
 
-model EarlyListAddress {
-    id                Int                 @id @default(autoincrement())
-    wallet            String              @unique
-}
-
 model LogError {
     id                Int                 @id @default(autoincrement())
     url               String
@@ -257,4 +244,17 @@ model shellRedeemed {
     isRedeemed        Boolean             @default(false)
     createdAt         DateTime            @default(now())
     updatedAt         DateTime            @default(now()) @updatedAt
+}
+
+model AnomuraGallery {
+  id                    Int               @id @default(autoincrement())
+  background            String          
+  legs                  String          
+  shell                 String          
+  claws                 String          
+  body                  String          
+  image                 String            @default("")         
+  headpieces            String?           @default("")
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @default(now()) @updatedAt
 }

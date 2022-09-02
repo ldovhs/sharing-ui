@@ -165,9 +165,38 @@ const redeemRewardForAccountLessThanMinimumRollPrice = async (
 
         console.log(`**Update ShellRedeem table**`);
 
-        let oneOrZero = (Math.random() > 0.5) ? 1 : 0
+        // let oneOrZero = (Math.random() > 0.5) ? 1 : 0
+        // let reward = oneOrZero === 1 ? Enums.BOOTS : Enums.ANOMURA_DOWNLOADABLE_STUFFS
+        let reward;
+        let random = Math.random()
+        if (random > 0.1) {
+            reward = Enums.OCTOHEDZ_RELOADED
+        }
+        if (random > 0.2) {
+            reward = Enums.COLORMONSTER_NFT
+        }
+        if (random > 0.3) {
+            reward = Enums.MIRAKAI_SCROLLS_NFT
+        }
+        if (random > 0.4) {
+            reward = Enums.ETHER_JUMP_NFT
+        }
+        if (random > 0.5) {
+            reward = Enums.FREE_MINT
+        }
+        if (random > 0.6) {
+            reward = Enums.ADOPT_ANIMAL
+        }
+        if (random > 0.7) {
+            reward = Enums.GIFT_MINT_LIST_SPOT
+        }
+        if (random > 0.8) {
+            reward = Enums.ZEN_ACADEMY_NFT
+        }
+        if (random > 0.9) {
+            reward = Enums.MINT_LIST_SPOT
+        }
 
-        let reward = oneOrZero === 1 ? Enums.BOOTS : Enums.ANOMURA_DOWNLOADABLE_STUFFS
         let updateShellRedeemed = prisma.shellRedeemed.upsert({
             where: {
                 wallet,

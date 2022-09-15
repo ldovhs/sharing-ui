@@ -34,6 +34,7 @@ const CollaborationQuestBoard = ({
             let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
 
             userQuests = userQuests.filter((q) => {
+                // console.log(q.extendedQuestData);
                 if (
                     !twitterAuthQuest.isDone &&
                     (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
@@ -67,7 +68,7 @@ const CollaborationQuestBoard = ({
                     return false;
                 }
 
-                return true;
+                return false;
             });
 
             userQuests.sort(isAlphabeticallly);

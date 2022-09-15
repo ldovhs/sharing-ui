@@ -43,4 +43,4 @@ function AtariX() {
     );
 }
 
-export default ColorMonster;
+export default AtariX;

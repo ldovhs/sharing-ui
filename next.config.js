@@ -52,17 +52,7 @@ module.exports = {
                 permanent: false,
             },
             {
-                source: "/colormonsters",
-                destination: "/",
-                permanent: false,
-            },
-            {
                 source: "/voidrunner",
-                destination: "/",
-                permanent: false,
-            },
-            {
-                source: "/voidrunners",
                 destination: "/",
                 permanent: false,
             },

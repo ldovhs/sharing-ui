@@ -13,16 +13,16 @@ function AtariX() {
             <Head>
                 <title>DeepSea Challenger Collaboration</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Anomura x Atari" />
+                <meta property="og:title" content="Anomura x AtariX" />
                 <meta
                     property="og:description"
-                    content="We’ve partnered with Atari! Complete quests, earn $SHELL, unlock prizes."
+                    content="We’ve partnered with AtariX! Complete quests and unlock rewards."
                 />
                 <meta
                     property="og:image"
                     content="https://anomuragame.com/challenger/AtariXCollaboration.png"
                 />
-                <meta property="og:site_name" content="Anomura x Atari"></meta>
+                <meta property="og:site_name" content="Anomura x AtariX"></meta>
                 <meta property="keywords" content="Anomura, NFT, Game, DeepSea Challenger" />
 
                 <meta name="twitter:card" content="summary_large_image" />

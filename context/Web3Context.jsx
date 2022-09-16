@@ -172,7 +172,7 @@ export function Web3Provider({ children }) {
                 let provider = new WalletConnectProvider({
                     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
                     qrcodeModalOptions: {
-                        mobileLinks: ["trust, metamask"],
+                        mobileLinks: ["trust", "metamask"],
                         desktopLinks: ["encrypted ink"],
                     },
                 });

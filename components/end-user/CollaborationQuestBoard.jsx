@@ -31,16 +31,7 @@ const CollaborationQuestBoard = ({
 
     const handleRenderUserQuest = async () => {
         if (userQuests && userQuests.length > 0) {
-            let twitterAuthQuest = userQuests.find((q) => q.type.name === Enums.TWITTER_AUTH);
-
             userQuests = userQuests.filter((q) => {
-                // console.log(q.extendedQuestData);
-                if (
-                    !twitterAuthQuest.isDone &&
-                    (q.type.name === Enums.TWITTER_RETWEET || q.type.name === Enums.FOLLOW_TWITTER)
-                ) {
-                    return false;
-                }
                 if (q.type.name === Enums.CODE_QUEST) {
                     return false;
                 }

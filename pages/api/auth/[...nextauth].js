@@ -185,9 +185,9 @@ export const authOptions = {
         },
         async jwt({ token, user, account, profile }) {
             if (user) {
-                token.profile = profile;
-                token.user = user;
-                token.provider = account.provider;
+                token?.profile = profile;
+                token?.user = user;
+                token?.provider = account.provider;
             }
 
             return token;
@@ -198,7 +198,7 @@ export const authOptions = {
             if (token.provider === "twitter") {
                 socialMediaUser = await prisma.whiteList.findFirst({
                     where: {
-                        twitterId: token.user.id,
+                        twitterId: token?.user?.id,
                     },
                 });
             }
@@ -206,16 +206,16 @@ export const authOptions = {
             if (token.provider === "discord") {
                 socialMediaUser = await prisma.whiteList.findFirst({
                     where: {
-                        discordId: token.user.id,
+                        discordId: token?.user?.id,
                     },
                 });
             }
 
-            session.profile = token.profile || null;
-            session.user = token.user;
-            session.provider = token.provider;
+            session?.profile = token.profile || null;
+            session?.user = token.user;
+            session?.provider = token.provider;
             if (socialMediaUser) {
-                session.user.address = socialMediaUser.wallet;
+                session?.user.address = socialMediaUser.wallet;
             }
             return session;
         },

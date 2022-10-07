@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import s from "/sass/claim/claim.module.css";
 import { Web3Context } from "@context/Web3Context";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Enums from "enums";
 import { BoardSmallDollarSign } from "@components/end-user";
-import ReCAPTCHA from "react-google-recaptcha";
-// import Reaptcha from 'reaptcha';
+// import ReCAPTCHA from "react-google-recaptcha";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const util = require("util");
 
@@ -26,6 +26,9 @@ function SignUp() {
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const recaptchaRef = React.createRef();
+    const captchaRef = useRef(null);
+
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
         if (session) {
@@ -59,6 +62,7 @@ function SignUp() {
     };
 
     const handleSignUp = async (walletType) => {
+        captchaRef.current.resetCaptcha();
         changeView(SIGNUP_AWAIT);
         let signUpResult = await TrySignUpWithWallet(walletType);
 
@@ -82,6 +86,18 @@ function SignUp() {
 
     const onChange = (value) => {
         changeView(SIGNUP_OPTIONS)
+    }
+
+    const handleChallenge = () => {
+        // this reaches out to the hcaptcha library and runs the
+        // execute function on it. you can use other functions as well
+        // documented in the api:
+        // https://docs.hcaptcha.com/configuration#jsapi
+        captchaRef.current.execute();
+    };
+
+    const handleVerificationSuccess = (token, ekey) => {
+        console.log(`Verified: ${token}`)
     }
 
     return (
@@ -180,12 +196,27 @@ function SignUp() {
                                 {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
-                                            <ReCAPTCHA
+                                            {/* <ReCAPTCHA
                                                 sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
                                                 onChange={onChange}
                                                 ref={recaptchaRef}
-                                            />
-
+                                            /> */}
+                                            <HCaptcha
+                                                sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
+                                                onVerify={(token, ekey) => handleVerificationSuccess(token, ekey)}
+                                                ref={captchaRef} />
+                                            <button
+                                                className={s.board_orangeBtn}
+                                                onClick={() => handleChallenge()}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <span>Challenge</span>
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
                                 )}

@@ -11,7 +11,6 @@
     "@metamask/eth-sig-util": "^4.0.1",
     "@nsfw-filter/nsfwjs": "^2.2.0",
     "@prisma/client": "^3.13.0",
-    "@tensorflow/tfjs": "^3.18.0",
     "@walletconnect/web3-provider": "^1.7.7",
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",

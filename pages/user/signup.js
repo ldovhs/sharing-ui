@@ -97,7 +97,7 @@ function SignUp() {
     };
 
     const handleVerificationSuccess = (token, ekey) => {
-        console.log(`Verified: ${token}`)
+        changeView(SIGNUP_OPTIONS)
     }
 
     return (

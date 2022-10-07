@@ -1,8 +1,8 @@
 import React from "react";
+import Head from "next/head";
 import s from "/sass/claim/claim.module.css";
 import { useSession } from "next-auth/react";
-import { ConnectBoard } from "@components/end-user";
-import Enums from "enums";
+import { CollaborationQuestBoard, ConnectBoard } from "@components/end-user";
 
 function humanPark() {
     const { data: session, status } = useSession({ required: false });

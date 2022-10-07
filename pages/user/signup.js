@@ -62,7 +62,7 @@ function SignUp() {
     };
 
     const handleSignUp = async (walletType) => {
-        captchaRef.current.resetCaptcha();
+
         changeView(SIGNUP_AWAIT);
         let signUpResult = await TrySignUpWithWallet(walletType);
 
@@ -97,7 +97,8 @@ function SignUp() {
     };
 
     const handleVerificationSuccess = (token, ekey) => {
-        changeView(SIGNUP_OPTIONS)
+        changeView(SIGNUP_OPTIONS);
+        captchaRef.current.resetCaptcha();
     }
 
     return (

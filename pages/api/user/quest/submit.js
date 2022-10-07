@@ -25,7 +25,6 @@ const submitIndividualQuestAPI = async (req, res) => {
                 const { questId, rewardTypeId, quantity, extendedQuestData } = req.body;
                 let userQuest;
 
-
                 // query the type based on questId
                 let currentQuest = await prisma.quest.findUnique({
                     where: {

@@ -6,30 +6,39 @@ import TableFooter from "../elements/Table/TableFooter";
 
 const fetcher = async (url, req) => await axios.post(url, req).then((res) => res.data);
 
-const ADMIN_SEARCH = "/challenger/api/admin/search";
-
 export default function SearchResults({ formData }) {
-    const { data, error } = useSWR([ADMIN_SEARCH, formData], fetcher);
+    const [isLoading, setIsLoading] = useState(false);
     const [tableData, setTableData] = useState(null);
 
     useEffect(async () => {
-        if (data) {
-            // let csv = await BuildCsv(data);
-            // setCsvData(csv);
-            setTableData(data);
-        }
-    }, [data]);
+        let data = [],
+            page = 0,
+            searchRes = {};
+        setIsLoading(true);
 
-    if (error) {
-        return <div>{error}</div>;
-    }
-    if (!tableData) return <div>Loading...</div>;
+        try {
+            do {
+                searchRes = await axios.post(`/challenger/api/admin/search?page=${page}`, formData); //.then((res) => res.data);
+                console.log(searchRes);
+                data = [...data, ...searchRes.data.users];
+                page = page + 1;
+            } while (searchRes?.data?.shouldContinue);
+            setIsLoading(false);
+            setTableData(data);
+        } catch (error) {
+            setIsLoading(false);
+        }
+    }, [formData]);
+
+    if (!tableData || isLoading) return <div>Loading...</div>;
 
     return (
         <>
             <div className="card-header px-0">
                 <h4 className=" mb-0">Result</h4>
-                <div className="d-flex ">
+
+                {/*      need to redo this as another function*/}
+                {/* <div className="d-flex ">
                     <a
                         href={`data:text/csv;charset=utf-8,${encodeURIComponent(
                             BuildCsv(tableData)
@@ -52,62 +61,10 @@ export default function SearchResults({ formData }) {
                     <div className="text-green-600 font-bold">
                         Search Results: {tableData?.length}
                     </div>
-                </div>
+                </div> */}
             </div>
             {tableData?.length > 0 && (
                 <Table data={tableData} rowsPerPage={10} setTableData={setTableData} />
-                // <div className="card">
-                //     <div className="card-body">
-                //         <div className="table-responsive table-icon">
-                //             <table className="table">
-                //                 <thead>
-                //                     <tr>
-                //                         <th className="col-2">User</th>
-                //                         <th className="col-4">Wallet</th>
-                //                         <th className="col-1">Twitter</th>
-                //                         <th className="col-2">Discord</th>
-                //                         <th className="col-3">Rewards</th>
-                //                     </tr>
-                //                 </thead>
-                //                 <tbody>
-                //                     {data &&
-                //                         data.map((el, index) => {
-                //                             return (
-                //                                 <tr key={index}>
-                //                                     <td className="col-2">{el.userId}</td>
-                //                                     <td className="col-4">{el.wallet}</td>
-                //                                     <td className="col-2">{el.twitterUserName}</td>
-                //                                     <td className="col-2">
-                //                                         {el.discordUserDiscriminator}
-                //                                     </td>
-                //                                     <td className="col-2">
-                //                                         {el.rewards.map((reward, rIndex) => {
-                //                                             return (
-                //                                                 <span
-                //                                                     key={rIndex}
-                //                                                     className="text-blue-500"
-                //                                                 >
-                //                                                     {rIndex === 0
-                //                                                         ? `${reward.rewardType.reward} (${reward.quantity})`
-                //                                                         : `, ${reward.rewardType.reward} (${reward.quantity})`}
-                //                                                 </span>
-                //                                             );
-                //                                         })}
-                //                                         {/* <span>
-                //                                         <i className="ri-check-line text-success me-1"></i>
-                //                                     </span>
-                //                                     <span>
-                //                                         <i className="ri-close-line text-danger"></i>
-                //                                     </span> */}
-                //                                     </td>
-                //                                 </tr>
-                //                             );
-                //                         })}
-                //                 </tbody>
-                //             </table>
-                //         </div>
-                //     </div>
-                // </div>
             )}
         </>
     );
@@ -124,7 +81,7 @@ const Table = ({ data, rowsPerPage, setTableData }) => {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th className="col-2">User</th>
+                                {/* <th className="col-2">User</th> */}
                                 <th className="col-4">Wallet</th>
                                 <th className="col-1">Twitter</th>
                                 <th className="col-2">Discord</th>
@@ -135,7 +92,7 @@ const Table = ({ data, rowsPerPage, setTableData }) => {
                             {slice.map((el, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td className="col-2">{el.userId}</td>
+                                        {/* <td className="col-2">{el.userId}</td> */}
                                         <td className="col-4">{el.wallet}</td>
                                         <td className="col-2">{el.twitterUserName}</td>
                                         <td className="col-2">{el.discordUserDiscriminator}</td>
@@ -174,7 +131,7 @@ const BuildCsv = async (data) => {
             "Rewards",
         ],
         ...data.map((item) => [
-            item.userId,
+            // item.userId,
             item.wallet,
             item.twitterId,
             item.twitterUserName,
@@ -204,5 +161,4 @@ const getDiscordUserDiscriminator = (discordUserDiscriminator) => {
     }
     let str = discordUserDiscriminator.split("#");
     return str[0] + "#" + str[1];
-    //return str[0] + str[1];
 };

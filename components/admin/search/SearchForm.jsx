@@ -82,24 +82,22 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                         className="invalid-feedback"
                                     />
                                 </div>
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">User ID</label>
-                                    <Field name="userId" type="text" className={"form-control"} />
-                                </div>
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">Twitter Id</label>
+
+                                <div className="col-xxl-3 col-xl-3 col-lg-3 mb-3">
+                                    <label className="form-label">Twitter Username</label>
                                     <Field name="twitter" type="text" className={"form-control"} />
                                 </div>
-                                <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                                    <label className="form-label">Discord Id </label>
+                                <div className="col-xxl-3 col-xl-3 col-lg-3 mb-3">
+                                    <label className="form-label">Discord Discriminator </label>
                                     <Field name="discord" type="text" className={"form-control"} />
                                 </div>
 
-                                {/* <FieldArray name="rewards">
+                                <FieldArray name="rewards">
                                     {(arrayHelpers) => (
                                         <>
                                             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3 flex items-center">
                                                 <label className="form-label mr-3">Rewards</label>
+
                                                 <MultiSelect
                                                     items={rewardTypeItems}
                                                     onSelectedItem={(item) => {
@@ -107,7 +105,7 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                                             type: item.name,
                                                             typeId: item.id,
                                                             minQty: 1,
-                                                            maxQty: 1000,
+                                                            maxQty: 10,
                                                         });
                                                     }}
                                                     onDeSelectedItem={(item) => {
@@ -190,10 +188,10 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                                 })}
                                         </>
                                     )}
-                                </FieldArray> */}
+                                </FieldArray>
 
                                 {/* Type of List */}
-                                <div className="col-6 mb-3">
+                                {/* <div className="col-6 mb-3">
                                     <label className="form-label">List</label>
                                     <Field name="listId" as="select" className={"form-control"}>
                                         {lists.map((type, index) => {
@@ -204,7 +202,7 @@ const SearchForm = ({ onFormSubmit, rewardTypes }) => {
                                             );
                                         })}
                                     </Field>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="mt-3">

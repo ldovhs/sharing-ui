@@ -97,8 +97,12 @@ function SignUp() {
     };
 
     const handleVerificationSuccess = (token, ekey) => {
+        try {
+            captchaRef?.current?.resetCaptcha();
+        } catch (error) {
+
+        }
         changeView(SIGNUP_OPTIONS);
-        captchaRef.current.resetCaptcha();
     }
 
     return (

@@ -6,7 +6,7 @@ import { withUserQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from ".";
-import * as tf from "@tensorflow/tfjs";
+// import * as tf from "@tensorflow/tfjs";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
 const ANOMURA_DISCORD_SERVER = "851558628032905286";

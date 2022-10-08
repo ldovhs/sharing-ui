@@ -3,8 +3,8 @@ export const BuildCsv = (csvData) => {
         ["Wallet", "TwitterUserName", "Followers", "Discord User ", "ETH"],
         ...csvData.map((item) => [
             item.wallet,
-            item.twitterUserName,
-            getDiscordUserDiscriminator(item.discordUserDiscriminator),
+            item?.twitterUserName,
+            getDiscordUserDiscriminator(item?.discordUserDiscriminator),
             item.whiteListUserData?.data?.followers_count || 0,
             item.whiteListUserData?.data?.eth || 0,
         ]),

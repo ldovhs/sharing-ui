@@ -93,7 +93,9 @@ const adminSearchAPI = async (req, res) => {
                     searchRes.users = searchRes.users.filter((r) => r.rewards.length > 0);
 
                 }
+                res.setHeader('Cache-Control', 'max-age=0, s-maxage=60, stale-while-revalidate');
                 res.status(200).json(searchRes);
+
             } catch (err) {
                 console.log(err);
                 res.status(500).json({ err });

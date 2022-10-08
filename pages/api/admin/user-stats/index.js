@@ -7,36 +7,36 @@ const adminUserStatsAPI = async (req, res) => {
     const { method } = req;
 
     if (method === "POST") {
-        const { wallet } = req.body;
-        let userCondition = {};
+        const currentPage = req.query.page;
+        let searchRes = {}, userCondition = {};
 
-        if (wallet !== "") {
-            userCondition.wallet = { contains: wallet.trim() };
-        }
-
-        let searchRes = await prisma.whiteList.findMany({
+        const userCount = await prisma.whiteList.count();
+        let users = await prisma.whiteList.findMany({
             where: userCondition,
+            skip: currentPage * 10000,
+            take: 10000,
+            orderBy: [
+                {
+                    createdAt: "asc",
+                },
+            ],
             select: {
-                id: true,
-                userId: true,
                 wallet: true,
-                twitterId: true,
                 twitterUserName: true,
                 discordUserDiscriminator: true,
                 whiteListUserData: true
             },
         });
 
-        searchRes.map(res => {
-            if (res.whiteListUserData === null) {
-                res.whiteListUserData = {
-                    data: {
-                        followers_count: 0
-                    }
-                };
-            }
-        })
+        searchRes.userCount = userCount;
+        searchRes.users = users;
+        if (currentPage * 10000 >= userCount) {
+            searchRes.shouldContinue = false;
+        } else {
+            searchRes.shouldContinue = true;
+        }
 
+        res.setHeader('Cache-Control', 'max-age=0, s-maxage=60, stale-while-revalidate');
         return res.status(200).json(JSON.stringify(searchRes));
     }
     throw new ApiError(400, `Method ${req.method} Not Allowed`)

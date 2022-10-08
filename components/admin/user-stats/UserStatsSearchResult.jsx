@@ -11,14 +11,15 @@ const USER_STATS_SEARCH = "/challenger/api/admin/user-stats";
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function UserStatsSearchResult({ formData }) {
-    const { data, error } = useSWR([USER_STATS_SEARCH, formData], fetcher);
+    // const { data, error } = useSWR([USER_STATS_SEARCH, formData], fetcher);
     const [apiError, setApiError] = useState(null);
     const [tableData, setTableData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(async () => {
-        if (data) {
+        /* if (data) {
             try {
+              old implement to cache the nft, run very long, may not be feasible, should take another approach
                 if (formData.contract.length > 0) {
                     let filtered = [];
                     setIsLoading(true);
@@ -55,18 +56,39 @@ export default function UserStatsSearchResult({ formData }) {
 
                     setIsLoading(false);
                     return setTableData(filtered);
+                 
                 }
-                setTableData(data);
+         
             } catch (error) {
                 setApiError(error?.message);
                 setIsLoading(false);
             }
         }
-    }, [data]);
+  */
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+        let data = [],
+            page = 0,
+            searchRes = {};
+        setIsLoading(true);
+
+        try {
+            do {
+                searchRes = await axios.post(
+                    `/challenger/api/admin/user-stats?page=${page}`,
+                    formData
+                ); //.then((res) => res.data);
+                // console.log(searchRes);
+                data = [...data, ...searchRes.data.users];
+                page = page + 1;
+            } while (searchRes?.data?.shouldContinue);
+            setIsLoading(false);
+            setTableData(data);
+        } catch (error) {
+            setIsLoading(false);
+        }
+        setTableData(data);
+    }, [formData]);
+
     if (apiError) {
         return <div>API Error: {apiError}</div>;
     }

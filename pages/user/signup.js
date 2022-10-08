@@ -79,7 +79,8 @@ function SignUp() {
     const GoBack = () => {
         if (currentPrompt === SIGNUP_ERROR) {
             setWeb3Error(null);
-            return router.push("/");
+            router.push("/");
+            return
         }
         return router.push("/");
     };

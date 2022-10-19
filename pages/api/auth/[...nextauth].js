@@ -136,7 +136,6 @@ export const authOptions = {
             version: "2.0",
         }),
     ],
-    // site: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
     debug: false,
     session: {
         jwt: true,

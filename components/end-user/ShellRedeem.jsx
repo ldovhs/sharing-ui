@@ -25,7 +25,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     const [boxMessage, setBoxMessage] = useState("");
 
     const { isMobile } = useDeviceDetect();
-    const [userRewards, userRewardLoading] = useUserRewardQuery();
+    const [userRewards, userRewardLoading] = useUserRewardQuery(session);
     const [rewardAmount, setRewardAmount] = useState(null);
     const [shellRedeemed, shellRedeemedLoading] = useShellRedeemQuery();
     const [currentViewReward, setCurrentViewReward] = useState(-1);
@@ -42,7 +42,7 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     // };
 
     const [showButtonFooter, setShowButtonFooter] = useState(false);
-    console.log(rewardRedeemed);
+
     const handlePlayAudio = () => {
         if (
             (machineState === INITIAL_0 || machineState === INITIAL_1) &&

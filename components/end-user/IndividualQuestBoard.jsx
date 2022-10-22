@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";

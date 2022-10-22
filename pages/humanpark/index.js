@@ -1,11 +1,10 @@
 import React from "react";
 import Head from "next/head";
 import s from "/sass/claim/claim.module.css";
-import { useSession } from "next-auth/react";
 import { CollaborationQuestBoard, ConnectBoard } from "@components/end-user";
 
-function humanPark() {
-    const { data: session, status } = useSession({ required: false });
+function humanPark({ session }) {
+
     // currently disable
     return (
         <>
@@ -41,3 +40,20 @@ function humanPark() {
 }
 
 export default humanPark;
+
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

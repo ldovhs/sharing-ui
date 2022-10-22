@@ -16,7 +16,7 @@ export const SOCIAL_AUTH = 4;
 export const AUTHENTICATING = 5;
 export const GONE_FISHING = 10;
 
-export default function ConnectBoard() {
+export default function ConnectBoard({ session }) {
     let router = useRouter();
     const { web3Error, TryConnectAsUser, setWeb3Error } = useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);

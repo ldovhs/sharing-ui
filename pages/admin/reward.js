@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { AdminLayout } from "/components/admin";
 import AddNewReward from "@components/admin/reward/AddNewReward";
 import Enums from "enums";
-import { useSession } from "next-auth/react";
 import { utils } from "ethers";
 
 const modsAddress = [
@@ -13,8 +12,7 @@ const modsAddress = [
     // 0x2fe1d1B26401a922D19E1E74bed2bA799c64E040 
 ];
 
-const AdminRewards = () => {
-    const { data: session, status } = useSession({ required: false });
+const AdminRewards = ({ session }) => {
     const [viewable, setViewable] = useState(false);
 
     useEffect(async () => {
@@ -60,3 +58,20 @@ const AdminRewards = () => {
 AdminRewards.Layout = AdminLayout;
 AdminRewards.requireAdmin = true;
 export default AdminRewards;
+
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

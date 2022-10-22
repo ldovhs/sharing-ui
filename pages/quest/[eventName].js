@@ -1,11 +1,8 @@
 import React from "react";
 import s from "/sass/claim/claim.module.css";
-import { useSession } from "next-auth/react";
 import { ConnectBoard, ImageUpload } from "@components/end-user";
-import Enums from "enums";
 
-function ImageSubmission() {
-    const { data: session, status } = useSession({ required: false });
+function ImageSubmission({ session }) {
 
     return (
         <>
@@ -19,3 +16,21 @@ function ImageSubmission() {
 }
 
 export default ImageSubmission;
+
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}
+

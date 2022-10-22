@@ -5,7 +5,6 @@ import { ethers, utils } from "ethers";
 import axios from "axios";
 import Enums from "enums";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { useSession } from "next-auth/react";
 
 const util = require("util");
 const API_ADMIN = `${Enums.BASEPATH}/api/admin`; //  `${Enums.BASEPATH}/api/admin`   --  `/api/admin`
@@ -14,9 +13,9 @@ const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`; // `${Enums.BASEPATH}/ap
 
 export const Web3Context = React.createContext();
 
-export function Web3Provider({ children }) {
+export function Web3Provider({ session, children }) {
     const [web3Error, setWeb3Error] = useState(null);
-    const { data: session, status } = useSession({ required: false });
+
     let signMessageTimeout;
 
     function iOS() {
@@ -50,20 +49,9 @@ export function Web3Provider({ children }) {
     }, []);
 
     useEffect(async () => {
-        if (session) {
-            let providerInstance;
+        if (session && window?.ethereum) {
             if (window?.ethereum) {
                 SubscribeProvider(window.ethereum);
-            } else {
-                // let provider = new WalletConnectProvider({
-                //     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-                //     qrcodeModalOptions: {
-                //         mobileLinks: ["trust"],
-                //         desktopLinks: ["encrypted ink"],
-                //     },
-                // });
-                // await provider.enable();
-                // SubscribeProvider(providerInstance);
             }
         }
     }, [session]);
@@ -210,7 +198,7 @@ export function Web3Provider({ children }) {
                 const address = await signer.getAddress();
 
                 signIn("non-admin-authenticate", {
-                    redirect: false,
+                    redirect: true,
                     signature,
                     address,
                 })
@@ -373,6 +361,7 @@ export function Web3Provider({ children }) {
                 TryValidate,
                 web3Error,
                 setWeb3Error,
+                session,
             }}
         >
             {children}

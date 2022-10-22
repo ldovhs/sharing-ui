@@ -1,27 +1,11 @@
 import Head from "next/head";
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import s from "/sass/claim/claim.module.css";
-import { Web3Context } from "@context/Web3Context";
-import { useSession } from "next-auth/react";
-// import { unstable_getServerSession } from "next-auth/next"
-// import { authOptions } from 'pages/api/auth/[...nextauth]'
-import { ConnectBoard, ShellRedeem } from "@components/end-user";
+import { ShellRedeem } from "@components/end-user";
 import ShellRedeemConnectBoard from "@components/end-user/ShellRedeemConnectBoard";
 
-function ShellRedemtion() {
-    const [error, setError] = useState(null);
-    const { data: session, status } = useSession();
-    const { web3Error } = useContext(Web3Context);
+function ShellRedemtionPage({ session }) {
 
-    useEffect(() => {
-        if (web3Error) {
-            setError(web3Error);
-        }
-    }, [web3Error]);
-
-    useEffect(async () => {
-
-    }, [session]);
     return (
         <>
             <Head>
@@ -57,22 +41,20 @@ function ShellRedemtion() {
     );
 }
 
-export default ShellRedemtion
+export default ShellRedemtionPage
 
-// export async function getServerSideProps(context) {
-//     // const session = await unstable_getServerSession(
-//     //     context.req,
-//     //     context.res,
-//     //     authOptions
-//     // );
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
 
-//     const session = await getSession(
-//         context
-//     );
-
-//     return {
-//         props: {
-//             session,
-//         },
-//     }
-// }
+    return {
+        props: {
+            session,
+        },
+    }
+}

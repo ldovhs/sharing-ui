@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import React, { useState, useContext } from "react";
-import { useSession } from "next-auth/react";
+
 import { Web3Context } from "@context/Web3Context";
 import Modal from "./elements/Modal";
 import AdminLogin from "./AdminLogin";
@@ -17,10 +17,8 @@ const ThemeSwitch = dynamic(() => import("./elements/ThemeSwitch.js"), {
 export default function AdminNavbar() {
     const [isToggled, setToggled] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-
+    const { SignOut, session } = useContext(Web3Context);
     const toggleTrueFalse = () => setToggled(!isToggled);
-    const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);
-    const { data: session, status } = useSession({ required: false });
 
     const handleLogout = () => {
         SignOut();

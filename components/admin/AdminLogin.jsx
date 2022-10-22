@@ -4,7 +4,7 @@ import s from "/sass/admin/admin.module.css";
 import Enums from "enums";
 
 const AdminLogin = ({ closeModal }) => {
-    const { TryConnectAsAdmin, web3Error, SignOut } = useContext(Web3Context);
+    const { TryConnectAsAdmin } = useContext(Web3Context);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 

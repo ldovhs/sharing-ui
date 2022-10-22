@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { useUserRewardQuery } from "@shared/HOC";
+import { Web3Context } from "@context/Web3Context";
 
 export default function BoardLargeDollarSign() {
-    const [userRewards, userRewardLoading] = useUserRewardQuery();
+    const { session } = useContext(Web3Context);
+    const [userRewards, userRewardLoading] = useUserRewardQuery(session);
     const [rewardAmount, setRewardAmount] = useState(null);
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {

@@ -12,7 +12,8 @@ import { useRouter } from "next/router";
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+// function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
     const router = useRouter();
     useEffect(() => {
         const handleRouteChange = (url) => {
@@ -23,10 +24,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, [router.events]);
-
+    // console.log("pageProps", pageProps)
     return (
-        <SessionProvider session={session} basePath={`/challenger/api/auth`}>
-            <Web3Provider>
+        <SessionProvider session={pageProps.session} basePath={`/challenger/api/auth`}>
+            <Web3Provider session={pageProps.session}>
                 <QueryClientProvider client={queryClient}>
                     <StrictMode>
                         <Script
@@ -46,7 +47,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                         </Script>
                         {Component.requireAdmin ? (
                             <Component.Layout>
-                                <AdminGuard>
+                                <AdminGuard >
                                     <Component {...pageProps} />
                                 </AdminGuard>
                             </Component.Layout>

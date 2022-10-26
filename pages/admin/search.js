@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AdminLayout, SearchForm, SearchResult } from "/components/admin";
 
-const AdminSearch = () => {
+const AdminSearch = ({ session }) => {
     const [formData, setFormData] = useState({});
 
     const [isFetch, setIsFetch] = useState(false);
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
 
     const onFormSubmit = (data) => {
         setFormData(data);
@@ -34,3 +34,19 @@ const AdminSearch = () => {
 AdminSearch.Layout = AdminLayout;
 AdminSearch.requireAdmin = true;
 export default AdminSearch;
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

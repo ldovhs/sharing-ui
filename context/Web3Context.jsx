@@ -137,6 +137,7 @@ export function Web3Provider({ session, children }) {
                     if (ok) {
                         return true;
                     } else {
+                        console.log("Authentication failed");
                         setWeb3Error("Authentication failed");
                         return false;
                     }
@@ -206,6 +207,7 @@ export function Web3Provider({ session, children }) {
                         if (ok) {
                             return true;
                         } else {
+                            console.log("Authentication failed");
                             return false;
                         }
                     })

@@ -9,7 +9,7 @@ const modsAddress = [
     // "0xcA70D03e8eFFb0C55542a9AEA892dD74Fe208335",
 ];
 
-const AdminUsers = () => {
+const AdminUsers = ({ session }) => {
     const [viewable, setViewable] = useState(false);
 
     useEffect(async () => {

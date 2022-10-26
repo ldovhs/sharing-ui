@@ -130,7 +130,7 @@ export function Web3Provider({ session, children }) {
                 const address = await signer.getAddress();
 
                 signIn("admin-authenticate", {
-                    redirect: false,
+                    redirect: true,
                     signature,
                     address,
                 }).then(({ ok, error }) => {

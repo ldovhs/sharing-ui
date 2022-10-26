@@ -34,7 +34,8 @@ function ShellRedemtionPage({ session }) {
                 <link rel="icon" href="/challenger/faviconShell.png" />
             </Head>
             <div className={s.redemption}>
-                {!session ? <ShellRedeemConnectBoard /> : <ShellRedeem session={session} />}
+                {!session && <ShellRedeemConnectBoard />}
+                {session && <ShellRedeem session={session} />}
                 {/* <ShellRedeem session={session} /> */}
             </div>
         </>

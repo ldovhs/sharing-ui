@@ -2,8 +2,6 @@ import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import { searchPendingRewardBasedOnGeneratedURL } from "repositories/reward";
 import { getWhiteListUserByUserName } from "repositories/user";
 
-const ROUTE = "/api/user/reward/getPending";
-
 const getPendingRewardApi = async (req, res) => {
     const { method } = req;
 

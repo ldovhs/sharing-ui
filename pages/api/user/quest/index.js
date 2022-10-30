@@ -2,7 +2,6 @@ import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 
-const ROUTE = "/api/user/quest";
 
 const questQueryAPI = async (req, res) => {
     const { method } = req;

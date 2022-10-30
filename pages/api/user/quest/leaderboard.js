@@ -2,8 +2,6 @@ import Enums from "enums";
 import { getQuestById } from "repositories/quest";
 import { prisma } from "@context/PrismaContext";
 
-const ROUTE = "/api/user/quest/leaderboard";
-
 export default async function getQuestLeaderBoardAPI(req, res) {
     const { method } = req;
 

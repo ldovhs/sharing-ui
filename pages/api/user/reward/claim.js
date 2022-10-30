@@ -7,8 +7,6 @@ import { UpdateClaimAndPendingRewardTransaction } from "repositories/transaction
 const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
     process.env;
 
-const ROUTE = "/api/user/reward/claim";
-
 const userClaimRewardAPI = async (req, res) => {
     const { method } = req;
 

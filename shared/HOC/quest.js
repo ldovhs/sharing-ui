@@ -1,6 +1,5 @@
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import axios from "axios";
-import { useRouter } from "next/router";
 import Enums from "enums";
 
 const QUEST_TYPE_QUERY = `${Enums.BASEPATH}/api/admin/quest/type`;

@@ -1,11 +1,9 @@
 import { prisma } from "context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
-import Enums from "enums";
-import { ipRateLimit } from "lib/ip-rate-limit";
 
-export const config = {
-    runtime: "experimental-edge",
-};
+// export const config = {
+//     runtime: "experimental-edge",
+// };
 
 const shellRedeemQueryAPI = async (req, res) => {
     const { method } = req;

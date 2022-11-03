@@ -4,7 +4,7 @@ import Enums from "enums";
 import { useUserRewardQuery } from "@shared/HOC";
 import { Web3Context } from "@context/Web3Context";
 
-export default function BoardSmallDollarSign() {
+function BoardSmallDollarSign() {
     const { session } = useContext(Web3Context);
     const [userRewards, userRewardLoading] = useUserRewardQuery(session);
     const [rewardAmount, setRewardAmount] = useState(null);
@@ -53,3 +53,4 @@ export default function BoardSmallDollarSign() {
         </div>
     );
 }
+export default React.memo(BoardSmallDollarSign);

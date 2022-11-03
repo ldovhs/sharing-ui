@@ -1,6 +1,7 @@
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import axios from "axios";
 import Enums from "enums";
+import { useRouter } from "next/router";
 
 const QUEST_TYPE_QUERY = `${Enums.BASEPATH}/api/admin/quest/type`;
 const USER_QUEST_QUERY = `${Enums.BASEPATH}/api/user/quest/`;
@@ -125,6 +126,22 @@ export const withUserQuestQuery =
         ({ ...props }) => {
             const { data, status, isLoading, error } = useQuery("userQueryQuest", () =>
                 axios.get(USER_QUEST_QUERY)
+            );
+            return (
+                <Component
+                    {...props}
+                    isFetchingUserQuests={isLoading}
+                    userQuests={data?.data}
+                    queryError={error}
+                />
+            );
+        };
+
+export const withUserCollaborationQuestQuery =
+    (Component) =>
+        ({ ...props }) => {
+            const { data, status, isLoading, error } = useQuery("userQueryCollaborationQuest", () =>
+                axios.get(`${Enums.BASEPATH}/api/user/quest/collaboration/${props?.collaboration}`)
             );
             return (
                 <Component

@@ -14,9 +14,8 @@ const getClaimedRewardForUserAPI = async (req, res) => {
                     return res.status(200).json({ isError: true, message: "Not allowed to see shell" });
                 }
 
-                // const rewarded = await getClaimedRewardsOfUser(whiteListUser.wallet);
                 const rewarded = await getClaimedRewardsOfUser(userId);
-                res.setHeader('Cache-Control', 'max-age=0, s-maxage=60, stale-while-revalidate');
+                res.setHeader('Cache-Control', 'max-age=0, s-maxage=20, stale-while-revalidate');
                 console.log("getClaimed is hit")
                 res.status(200).json(rewarded);
             } catch (error) {

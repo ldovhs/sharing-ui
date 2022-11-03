@@ -5,7 +5,7 @@ import axios from "axios";
 import { withUserQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
-import { BoardSmallDollarSign } from ".";
+import { BoardSmallDollarSign } from "..";
 // import * as tf from "@tensorflow/tfjs";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
 

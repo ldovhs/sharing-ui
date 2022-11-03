@@ -16,8 +16,23 @@ const questQueryAPI = async (req, res) => {
                 console.log(`** Get quests done by this user **`);
                 let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.userId);
 
-                await Promise.all(
-                    availableQuests.map((aq) => {
+                let quests =
+                    availableQuests.filter(q => {
+                        if (q.type.name === Enums.CODE_QUEST) {
+                            return false;
+                        }
+                        if (
+                            q.extendedQuestData.collaboration &&
+                            q.extendedQuestData.collaboration.length > 0
+                        ) {
+                            return false;
+                        }
+                        if (q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                            return false;
+                        }
+
+                        return true;
+                    }).map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
                             //Enums.DAILY_SHELL
@@ -41,10 +56,10 @@ const questQueryAPI = async (req, res) => {
                             aq.isDone = false;
                             aq.rewardedQty = 0;
                         }
+                        return aq;
                     })
-                );
 
-                return res.status(200).json(availableQuests);
+                return res.status(200).json(quests);
             } catch (err) {
                 // console.log(err);
                 res.status(500).json({ error: err.message });

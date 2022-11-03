@@ -5,15 +5,13 @@ import { Web3Provider } from "@context/Web3Context";
 import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
 import { QueryClient, QueryClientProvider, } from "react-query";
-
 import Script from "next/script";
 import * as gtag from "../lib/ga/gtag";
 import { useRouter } from "next/router";
 import { ChakraProvider } from '@chakra-ui/react'
-import s from "/sass/claim/claim.module.css";
 import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading"
-const queryClient = new QueryClient();
 
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();

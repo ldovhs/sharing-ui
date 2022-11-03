@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Enums from "enums";
 import s from "/sass/claim/claim.module.css";
-import { BoardLargeDollarSign } from ".";
+import { BoardLargeDollarSign } from "..";
 
 const ANOMURA_DISCORD_SERVER = "851558628032905286";
 

@@ -2,7 +2,7 @@ import React from "react";
 import s from "/sass/claim/claim.module.css";
 import { ConnectBoard } from "@components/end-user";
 import Enums from "enums";
-import ClaimShellForOwningNFT from "@components/end-user/ClaimShellForOwningNFT";
+import ClaimShellForOwningNFT from "@components/end-user/single-board-quest/ClaimShellForOwningNFT";
 
 function zedClaimShell({ session }) {
 

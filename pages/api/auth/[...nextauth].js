@@ -185,9 +185,9 @@ export const authOptions = {
         },
         async jwt({ token, user, account, profile }) {
             if (user) {
-                token?.profile = profile;
-                token?.user = user;
-                token?.provider = account.provider;
+                token.profile = profile;
+                token.user = user;
+                token.provider = account?.provider;
             }
 
             return token;
@@ -196,9 +196,9 @@ export const authOptions = {
             let userQuery;
 
             if (token.provider === "admin-authenticate") {
-                session?.profile = token.profile || null;
-                session?.user = token.user;
-                session?.provider = token.provider;
+                session.profile = token.profile || null;
+                session.user = token.user;
+                session.provider = token.provider;
                 return session;
             }
             else {
@@ -218,14 +218,14 @@ export const authOptions = {
                     });
                 }
 
-                session?.profile = token.profile || null;
-                session?.user = token.user;
-                session?.provider = token.provider;
+                session.profile = token.profile || null;
+                session.user = token.user;
+                session.provider = token.provider;
 
-                if (!session?.user.userId) {
+                if (!session.user.userId) {
 
-                    session?.user?.address = userQuery.wallet || "";
-                    session?.user.userId = userQuery.userId;
+                    session.user.address = userQuery.wallet || "";
+                    session.user.userId = userQuery.userId;
                 }
                 return session;
             }

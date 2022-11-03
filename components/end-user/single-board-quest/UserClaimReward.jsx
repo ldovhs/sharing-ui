@@ -3,7 +3,7 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
 import Enums from "enums";
-import { BoardSmallDollarSign } from ".";
+import { BoardSmallDollarSign } from "..";
 
 const UserClaimReward = ({
     session,

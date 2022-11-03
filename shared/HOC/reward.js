@@ -108,6 +108,7 @@ export const useUserRewardQuery = (session) => {
 
     const { data, isLoading } = useQuery(["userRewardQuery", userId], () => {
         try {
+            console.log("hook RewardQuery")
             return axios
                 .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
                 .then((r) => r.data);

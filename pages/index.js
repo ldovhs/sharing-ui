@@ -1,25 +1,12 @@
 import Head from "next/head";
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import s from "/sass/claim/claim.module.css";
-import { Web3Context } from "@context/Web3Context";
 import { ConnectBoard, IndividualQuestBoard } from "@components/end-user";
-import Enums from "enums";
 import NotEnabledChallenger from "@components/end-user/NotEnabledChallenger";
 const util = require("util");
 
 // Home page for user
 function Home({ session }) {
-    const [error, setError] = useState(null);
-
-    const { web3Error } = useContext(Web3Context);
-
-    useEffect(() => {
-        if (web3Error) {
-            setError(web3Error);
-        }
-    }, [web3Error]);
-
-
 
     return (
         <>
@@ -67,7 +54,7 @@ export async function getServerSideProps(context) {
         context.res,
         authOptions
     );
-    console.log(123)
+
     return {
         props: {
             session,

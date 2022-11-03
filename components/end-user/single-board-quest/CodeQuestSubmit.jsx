@@ -4,7 +4,7 @@ import s from "/sass/claim/claim.module.css";
 import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
-import { BoardSmallDollarSign } from ".";
+import { BoardSmallDollarSign } from "..";
 
 const SUBMITTABLE = 1;
 const SUBMITTED = 2;

@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import s from "/sass/claim/claim.module.css";
 import { ShellRedeem } from "@components/end-user";
-import ShellRedeemConnectBoard from "@components/end-user/ShellRedeemConnectBoard";
+import ShellRedeemConnectBoard from "@components/end-user/shell-redeem/ShellRedeemConnectBoard";
 
 function ShellRedemtionPage({ session }) {
 

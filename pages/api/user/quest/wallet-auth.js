@@ -61,7 +61,8 @@ export default async function walletAuthQuest(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, address)
+                let correctAddress = utils.getAddress(address)
+                await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
 
                 res.status(200).json({ message: "ok" });
             } catch (error) {

@@ -175,7 +175,6 @@ export function Web3Provider({ session, children }) {
                 },
             });
 
-            console.log(user);
             if (!user || !user.data || user.data.isError) {
                 setWeb3Error("User not found, please sign up.");
                 return;
@@ -385,7 +384,6 @@ export function Web3Provider({ session, children }) {
             if (doQuest == "Wallet Auth successful") {
                 return true;
             } else {
-                console.log(doQuest);
                 setWeb3Error(doQuest);
             }
 
@@ -412,7 +410,7 @@ export function Web3Provider({ session, children }) {
                             signature,
                         })
                         .catch((err) => {
-                            console.log(err);
+                            console.log(err.message);
                             reject(err.message);
                         });
 
@@ -421,7 +419,6 @@ export function Web3Provider({ session, children }) {
                         resolve(newUser?.data?.message);
                         clearTimeout(timeout);
                     } else {
-                        console.log(newUser);
                         resolve("Wallet Auth successful");
                         clearTimeout(timeout);
                     }

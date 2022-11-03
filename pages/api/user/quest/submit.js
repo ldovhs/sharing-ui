@@ -6,7 +6,7 @@ import {
     submitUserDailyQuestTransaction,
 } from "repositories/transactions";
 
-function sleep(ms = 2000) {
+function sleep(ms = 500) {
     return new Promise((res) => setTimeout(res, ms));
 }
 
@@ -15,7 +15,7 @@ const submitIndividualQuestAPI = async (req, res) => {
 
     if (process.env.NODE_ENV === "production") {
         console.log("In production, throttle the request");
-        await sleep();
+        // await sleep();
     }
 
     switch (method) {

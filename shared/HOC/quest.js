@@ -155,6 +155,26 @@ export const withUserCollaborationQuestQuery =
             );
         };
 
+export const withUserCodeQuestQuery =
+    (Component) =>
+        ({ ...props }) => {
+
+            const router = useRouter();
+            const codeQuestEvent = typeof router.query?.event === "string" ? router.query.event : "";
+
+            const { data, status, isLoading, error } = useQuery("userQueryCollaborationQuest", () =>
+                axios.get(`${Enums.BASEPATH}/api/user/quest/code-quest?event=${codeQuestEvent}`), { enabled: codeQuestEvent.length > 0 }
+            );
+            return (
+                <Component
+                    {...props}
+                    isFetchingUserQuests={isLoading}
+                    userQuests={data?.data}
+                    queryError={error}
+                />
+            );
+        };
+
 export const withQuestTypeQuery =
     (Component) =>
         ({ ...props }) => {

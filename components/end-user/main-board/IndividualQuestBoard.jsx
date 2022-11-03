@@ -19,7 +19,7 @@ const IndividualQuestBoard = ({
     isSubmitting,
     submittedQuest,
 }) => {
-    const [currentQuests, setCurrentQuests] = useState(userQuests);
+    const [currentQuests, setCurrentQuests] = useState([]);
     let router = useRouter();
     const toast = useToast();
 
@@ -63,10 +63,12 @@ const IndividualQuestBoard = ({
         }
     }, [userQuests]);
 
-    const doQuest = useCallback(async (quest) => {
-        let updatedQuestArr = await doQuestUtility(router, quest, currentQuests, onSubmit);
-        setCurrentQuests(updatedQuestArr);
-    }, []);
+    const doQuest = useCallback(
+        async (quest) => {
+            await doQuestUtility(router, quest, currentQuests, onSubmit);
+        },
+        [currentQuests]
+    );
 
     return (
         <div className={s.boardLarge}>

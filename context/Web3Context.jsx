@@ -164,7 +164,7 @@ export function Web3Provider({ session, children }) {
                 addresses = provider?.accounts;
                 SubscribeProvider(provider);
             }
-            console.log(addresses);
+
             if (addresses.length === 0) {
                 setWeb3Error("Account is locked, or is not connected, or is in pending request.");
                 return;

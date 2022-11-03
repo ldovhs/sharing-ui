@@ -107,14 +107,10 @@ export const useUserRewardQuery = (session) => {
     let userId = session?.user?.userId;
 
     const { data, isLoading } = useQuery(["userRewardQuery", userId], () => {
-        try {
-            console.log("hook RewardQuery")
-            return axios
-                .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
-                .then((r) => r.data);
-        } catch (error) {
-            //to not throw an error when wallet is null initially
-        }
+        return axios
+            .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
+            .then((r) => r.data);
+
     });
 
     return [data, isLoading];

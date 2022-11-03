@@ -67,7 +67,9 @@ export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => 
   };
 
   try {
+
     return await onSubmit(submission, currentQuests);
+
   } catch (error) {
     console.log(error);
   }

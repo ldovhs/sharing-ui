@@ -49,6 +49,7 @@ export const withUserQuestSubmit =
                 {
                     onSuccess: () => {
                         queryClient.invalidateQueries("userRewardQuery");
+                        queryClient.invalidateQueries("userQueryQuest");
                     },
                 }
             );
@@ -56,19 +57,20 @@ export const withUserQuestSubmit =
             const handleOnSubmit = async (quest, currentQuests) => {
                 let submitted = await mutateAsync(quest);
 
-                if (submitted) {
-                    let updatedQuests = currentQuests.map((q) => {
-                        if (q.questId == quest.questId) {
-                            q.isDone = true;
-                        }
-                        return q;
-                    });
+                // return updated quest, not used as we invalidate the query
+                // if (submitted) {
+                //     let updatedQuests = currentQuests.map((q) => {
+                //         if (q.questId == quest.questId) {
+                //             q.isDone = true;
+                //         }
+                //         return q;
+                //     });
 
-                    return await Promise.all(updatedQuests).then(() => {
-                        updatedQuests.sort(isNotDoneFirst);
-                        return updatedQuests;
-                    });
-                }
+                //     return await Promise.all(updatedQuests).then(() => {
+                //         updatedQuests.sort(isNotDoneFirst);
+                //         return updatedQuests;
+                //     });
+                // }
             };
 
             return (

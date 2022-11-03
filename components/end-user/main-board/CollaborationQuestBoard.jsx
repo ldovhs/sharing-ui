@@ -48,10 +48,13 @@ const CollaborationQuestBoard = ({
         }
     };
 
-    const doQuest = useCallback(async (quest) => {
-        let updatedQuestArr = await doQuestUtility(router, quest, currentQuests, onSubmit);
-        setCurrentQuests(updatedQuestArr);
-    }, []);
+    const doQuest = useCallback(
+        async (quest) => {
+            let updatedQuestArr = await doQuestUtility(router, quest, currentQuests, onSubmit);
+            setCurrentQuests(updatedQuestArr);
+        },
+        [currentQuests]
+    );
 
     return (
         <div className={s.boardLarge}>

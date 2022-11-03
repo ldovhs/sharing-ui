@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
     const { isPageLoading } = useChallengerPageLoading();
-    console.log(router.isReady)
+
     useEffect(() => {
         const handleRouteChange = (url) => {
             gtag.pageview(url);

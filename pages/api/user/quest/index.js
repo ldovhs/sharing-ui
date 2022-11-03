@@ -2,20 +2,19 @@ import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 
-
 const questQueryAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
         case "GET":
             try {
-                // let wallet = utils.getAddress(whiteListUser.wallet);
+
                 const whiteListUser = req.whiteListUser;
                 console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await getAllEnableQuestsForUser();
 
                 console.log(`** Get quests done by this user **`);
-                let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.wallet);
+                let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.userId);
 
                 await Promise.all(
                     availableQuests.map((aq) => {
@@ -48,7 +47,7 @@ const questQueryAPI = async (req, res) => {
                 return res.status(200).json(availableQuests);
             } catch (err) {
                 // console.log(err);
-                res.status(500).json({ err });
+                res.status(500).json({ error: err.message });
             }
             break;
 

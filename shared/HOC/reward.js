@@ -104,12 +104,12 @@ export const withClaimRewardSubmit =
         };
 
 export const useUserRewardQuery = (session) => {
-    let wallet = session?.user?.address;
+    let userId = session?.user?.userId;
 
-    const { data, isLoading } = useQuery(["userRewardQuery", wallet], () => {
+    const { data, isLoading } = useQuery(["userRewardQuery", userId], () => {
         try {
             return axios
-                .get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`)
+                .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
                 .then((r) => r.data);
         } catch (error) {
             //to not throw an error when wallet is null initially

@@ -129,18 +129,10 @@ export function Web3Provider({ session, children }) {
                 const signature = await signer.signMessage(`${Enums.ADMIN_SIGN_MSG}: ${nonce}`);
                 const address = await signer.getAddress();
 
-                signIn("admin-authenticate", {
+                await signIn("admin-authenticate", {
                     redirect: true,
                     signature,
                     address,
-                }).then(({ ok, error }) => {
-                    if (ok) {
-                        return true;
-                    } else {
-                        console.log("Authentication failed");
-                        setWeb3Error("Authentication failed");
-                        return false;
-                    }
                 });
             }, 1000);
         } catch (error) {}
@@ -229,7 +221,7 @@ export function Web3Provider({ session, children }) {
             if (walletType === Enums.METAMASK) {
                 providerInstance = new ethers.providers.Web3Provider(window.ethereum);
                 addresses = await providerInstance.send("eth_requestAccounts", []);
-                SubscribeProvider(window.ethereum);
+                // SubscribeProvider(window.ethereum);
             } else if (walletType === Enums.WALLETCONNECT) {
                 let provider = new WalletConnectProvider({
                     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
@@ -242,7 +234,7 @@ export function Web3Provider({ session, children }) {
 
                 providerInstance = new ethers.providers.Web3Provider(provider);
                 addresses = provider.accounts;
-                SubscribeProvider(provider);
+                // SubscribeProvider(provider);
             }
 
             if (addresses.length === 0) {
@@ -251,7 +243,7 @@ export function Web3Provider({ session, children }) {
             }
 
             let signUpRes = await signUp(providerInstance, addresses[0]).catch((err) => {
-                setWeb3Error(err);
+                setWeb3Error(err.message);
                 return false;
             });
 
@@ -323,7 +315,7 @@ export function Web3Provider({ session, children }) {
 
     const signUp = (providerInstance, address) => {
         var promise = new Promise(function (resolve, reject) {
-            setTimeout(async () => {
+            let timeout = setTimeout(async () => {
                 const signer = await providerInstance.getSigner();
                 const signature = await signer
                     .signMessage(`${Enums.USER_SIGN_MSG}`)
@@ -331,26 +323,113 @@ export function Web3Provider({ session, children }) {
                         reject(err.message);
                     });
 
-                const newUser = await axios.post(API_SIGNUP, {
-                    address,
-                    signature,
-                    secret: process.env.NEXT_PUBLIC_API_SECRET,
-                });
+                const newUser = await axios.post(
+                    API_SIGNUP,
 
-                // await signIn("non-admin-authenticate", {
-                //     redirect: false,
-                //     signature,
-                //     address,
-                // });
+                    {
+                        address,
+                        signature,
+                    }
+                );
+
                 if (newUser?.data?.isError) {
                     setWeb3Error(newUser?.data?.message);
                     resolve(newUser?.data?.message);
+                    clearTimeout(timeout);
                 } else {
                     resolve("User sign up successful");
+                    clearTimeout(timeout);
                 }
             }, 1000);
         });
         return promise;
+    };
+
+    const doWalletAuth = async (walletType) => {
+        try {
+            if (!walletType) {
+                throw new Error("Missing type of wallet when trying to setup wallet provider");
+            }
+
+            let addresses, providerInstance;
+
+            if (walletType === Enums.METAMASK) {
+                providerInstance = new ethers.providers.Web3Provider(window.ethereum);
+                addresses = await providerInstance.send("eth_requestAccounts", []);
+            } else if (walletType === Enums.WALLETCONNECT) {
+                let provider = new WalletConnectProvider({
+                    infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+                    qrcodeModalOptions: {
+                        mobileLinks: ["trust"],
+                        desktopLinks: ["encrypted ink"],
+                    },
+                });
+                await provider.enable();
+
+                providerInstance = new ethers.providers.Web3Provider(provider);
+                addresses = provider.accounts;
+            }
+
+            if (addresses.length === 0) {
+                setWeb3Error("Account is locked, or is not connected, or is in pending request.");
+                return;
+            }
+            let doQuest = await walletAuth(providerInstance, addresses[0]).catch((err) => {
+                console.log(err);
+                setWeb3Error(err);
+                return false;
+            });
+
+            if (doQuest == "Wallet Auth successful") {
+                return true;
+            } else {
+                console.log(doQuest);
+                setWeb3Error(doQuest);
+            }
+
+            return false;
+        } catch (error) {
+            setWeb3Error(error.message);
+        }
+    };
+
+    const walletAuth = (providerInstance, address) => {
+        try {
+            var promise = new Promise(function (resolve, reject) {
+                let timeout = setTimeout(async () => {
+                    const signer = await providerInstance.getSigner();
+                    const signature = await signer
+                        .signMessage(`${Enums.USER_SIGN_MSG}`)
+                        .catch((err) => {
+                            reject(err.message);
+                        });
+
+                    const newUser = await axios
+                        .post(`${Enums.BASEPATH}/api/user/quest/wallet-auth`, {
+                            address,
+                            signature,
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            reject(err.message);
+                        });
+
+                    if (newUser?.data?.isError) {
+                        setWeb3Error(newUser?.data?.message);
+                        resolve(newUser?.data?.message);
+                        clearTimeout(timeout);
+                    } else {
+                        console.log(newUser);
+                        resolve("Wallet Auth successful");
+                        clearTimeout(timeout);
+                    }
+                }, 1000);
+            });
+            return promise;
+        } catch (error) {
+            setWeb3Error(error.message);
+            reject(error.message);
+        }
     };
 
     return (
@@ -364,6 +443,7 @@ export function Web3Provider({ session, children }) {
                 web3Error,
                 setWeb3Error,
                 session,
+                doWalletAuth,
             }}
         >
             {children}

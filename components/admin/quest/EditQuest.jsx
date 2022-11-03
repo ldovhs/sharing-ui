@@ -14,6 +14,7 @@ import {
     DailyShellQuestForm,
     ImageUploadQuest,
     CodeQuestForm,
+    WalletAuthQuestForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 
@@ -23,6 +24,13 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
             <div className="col-xxl-12">
                 <div className="card">
                     <div className="card-body">
+                        {quest.type.name === Enums.WALLET_AUTH && rewardTypes && (
+                            <WalletAuthQuestForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
                         {quest.type.name === Enums.DISCORD_AUTH && rewardTypes && (
                             <DiscordAuthQuest
                                 quest={quest}

@@ -101,8 +101,6 @@ const CodeQuestForm = ({
                                 <label className="form-label">End Date</label>
                                 <Field name={`extendedQuestData.endDate`}>
                                     {({ field, meta, form: { setFieldValue } }) => {
-                                        // console.log(field);
-
                                         return (
                                             <DatePicker
                                                 className={

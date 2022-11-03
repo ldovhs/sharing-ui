@@ -214,13 +214,11 @@ const ShellRedeem = ({ session, isRolling, rolledData, rollError, onRollSubmit }
     };
     const handleStuckToPunch = () => {
         if (machineState !== STUCK || !showFooter) {
-            // console.log("Not In Stuck");
             return;
         }
         setShowFooter(false);
 
         let punchTimeout = setTimeout(async () => {
-            // console.log("Stuck to Punch");
             setMachineState(PUNCH);
             audioControl.punch.play(0.15);
             clearTimeout(punchTimeout);

@@ -13,6 +13,7 @@ import {
     DailyShellQuestForm,
     ImageUploadQuest,
     CodeQuestForm,
+    WalletAuthQuestForm,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -45,7 +46,13 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                     ))}
                             </select>
                         </div>
-
+                        {selectedType === Enums.WALLET_AUTH && (
+                            <WalletAuthQuestForm
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
                         {selectedType === Enums.DISCORD_AUTH && (
                             <DiscordAuthQuest
                                 rewardTypes={rewardTypes}

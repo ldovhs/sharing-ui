@@ -1,8 +1,12 @@
 import { utils } from "ethers";
-import { addNewUser, getWhiteListUserByWallet } from "repositories/user";
 import { prisma } from "@context/PrismaContext";
+import { updateUserWalletAndAddRewardTransaction } from "repositories/transactions";
+import { getSession } from "next-auth/react";
+import { isWhiteListUser } from "repositories/session-auth";
+import { getQuestByTypeId, getQuestType } from "repositories/quest";
+import Enums from "@enums/index";
 
-export default async function whitelistSignUp(req, res) {
+export default async function walletAuthQuest(req, res) {
     const { method } = req;
 
     switch (method) {
@@ -11,17 +15,21 @@ export default async function whitelistSignUp(req, res) {
                 if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
                     return res.status(200).json({ isError: true, message: "challenger is not enabled." });
                 }
+
+                const session = await getSession({ req });
+                let whiteListUser = await isWhiteListUser(session);
+
+                if (!session || !whiteListUser) {
+                    let error = "Attempt to access without authenticated.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
                 console.log(`**Sign up new user**`);
                 const { address, signature, secret } = req.body;
 
-                let checkMessage = await checkRequest(req, res)
-                if (checkMessage !== "") {
-                    return res.status(200).json({ isError: true, message: checkMessage });
-                }
-
-                // if (check === false) {
-                //     console.log(`**Duplicate Sign Up**`);
-                //     return res.status(200).json({ isError: true, message: "Duplicate Sign Up" });
+                // let checkMessage = await checkRequest(req, res)
+                // if (checkMessage !== "") {
+                //     return res.status(200).json({ isError: true, message: checkMessage });
                 // }
 
                 if (!signature || !address) {
@@ -38,24 +46,24 @@ export default async function whitelistSignUp(req, res) {
                         .json({ isError: true, message: "The wallet address is not valid" });
                 }
 
-                await trackRequest(req)
 
-                const existingUser = await getWhiteListUserByWallet(wallet);
-                if (existingUser) {
-                    console.log(`Found existing user`);
-                    return res.status(200).json({ existingUser });
+
+                let walletAuthQuestType = await getQuestType(Enums.WALLET_AUTH);
+                if (!walletAuthQuestType) {
+                    let error =
+                        "Cannot find quest type wallet auth. Pleaes contact administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                const newUser = await addNewUser(wallet);
-                if (!newUser) {
-                    return res.status(200).json({
-                        isError: true,
-                        message: "Cannot sign up new user. Please contact administrator!",
-                    });
+                let walletAuthQuest = await getQuestByTypeId(walletAuthQuestType.id);
+                if (!walletAuthQuest) {
+                    let error = "Cannot find any quest associated with wallet authenticate.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, address)
 
-                res.status(200).json(newUser);
+                res.status(200).json({ message: "ok" });
             } catch (error) {
 
                 return res.status(200).json({ isError: true, message: error.message });

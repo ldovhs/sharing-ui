@@ -1,6 +1,7 @@
 import { prisma } from "context/PrismaContext";
 
-export const createPendingReward = async (rewardTypeId, quantity, wallet) => {
+export const createPendingReward = async (rewardTypeId, quantity, user) => {
+    const { userId } = user
     return await prisma.pendingReward.create({
         data: {
             quantity,
@@ -12,7 +13,7 @@ export const createPendingReward = async (rewardTypeId, quantity, wallet) => {
             },
             user: {
                 connect: {
-                    wallet,
+                    userId,
                 },
             },
         },
@@ -23,11 +24,12 @@ export const createPendingReward = async (rewardTypeId, quantity, wallet) => {
     });
 };
 
-export const searchPendingRewardBasedOnGeneratedURL = async (generatedURL, wallet) => {
+export const searchPendingRewardBasedOnGeneratedURL = async (generatedURL, user) => {
+    const { userId } = user;
     return await prisma.pendingReward.findFirst({
         where: {
             generatedURL,
-            wallet,
+            userId,
         },
         include: {
             rewardType: true,
@@ -35,9 +37,9 @@ export const searchPendingRewardBasedOnGeneratedURL = async (generatedURL, walle
     });
 };
 
-export const getClaimedRewardsOfUser = async (wallet) => {
+export const getClaimedRewardsOfUser = async (userId) => {
     return await prisma.reward.findMany({
-        where: { wallet },
+        where: { userId },
         include: { rewardType: true },
     });
 };

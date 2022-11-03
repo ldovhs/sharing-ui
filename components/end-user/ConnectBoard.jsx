@@ -41,10 +41,8 @@ export default function ConnectBoard({ session }) {
         setIsMetamaskDisabled(!ethereum || !ethereum.on);
 
         if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true") {
-            // console.log("welcome");
             setPrompt(WELCOME);
         } else {
-            // console.log("gone fishing");
             setPrompt(GONE_FISHING);
         }
     }, []);

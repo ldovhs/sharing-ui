@@ -26,6 +26,7 @@ const Enums = {
     JOIN_DISCORD: "Join our Discord",
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
+    WALLET_AUTH: "Wallet Authenticate",
     TWITTER_RETWEET: "Retweet a Tweet",
     FOLLOW_TWITTER: "Follow Twitter Account",
     FOLLOW_INSTAGRAM: "Follow Instagram Account",

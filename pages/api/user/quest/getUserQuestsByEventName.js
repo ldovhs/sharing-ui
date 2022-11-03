@@ -10,8 +10,6 @@ const questQueryAPI = async (req, res) => {
     switch (method) {
         case "GET":
             try {
-                // let wallet = utils.getAddress(whiteListUser.wallet);
-
                 const { eventName, page } = req.query;
 
                 let questType = await prisma.questType.findMany({});
@@ -23,7 +21,6 @@ const questQueryAPI = async (req, res) => {
                 let allImageQuests = await prisma.quest.findMany({
                     where: {
                         questTypeId: imageQuest.id,
-
                     },
                 });
 

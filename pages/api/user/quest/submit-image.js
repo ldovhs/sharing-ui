@@ -12,21 +12,22 @@ const submitImageQuestAPI = async (req, res) => {
         case "POST":
             try {
                 if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
-                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "Challenger is not enabled." });
                 }
                 const whiteListUser = req.whiteListUser;
-                const { questId, rewardTypeId, extendedQuestData, imageUrl } =
-                    req.body;
+                const { questId, rewardTypeId, extendedQuestData, imageUrl } = req.body;
                 let userQuest;
 
                 let currentQuest = await prisma.quest.findUnique({
                     where: {
-                        questId
+                        questId,
                     },
                     include: {
-                        type: true
-                    }
-                })
+                        type: true,
+                    },
+                });
 
                 if (currentQuest.type.name !== Enums.IMAGE_UPLOAD_QUEST) {
                     return res.status(200).json({
@@ -37,7 +38,7 @@ const submitImageQuestAPI = async (req, res) => {
 
                 let entry = await prisma.UserQuest.findUnique({
                     where: {
-                        wallet_questId: { wallet: whiteListUser.wallet, questId },
+                        userID_questId: { userId: whiteListUser.userId, questId },
                     },
                 });
                 if (entry) {
@@ -48,7 +49,6 @@ const submitImageQuestAPI = async (req, res) => {
 
                 let extendedUserQuestData = {
                     ...extendedQuestData,
-                    // messageId: discordMsg?.data?.response?.id,
                     imageUrl,
                 };
 
@@ -57,21 +57,13 @@ const submitImageQuestAPI = async (req, res) => {
                     rewardTypeId,
                     currentQuest.quantity,
                     extendedUserQuestData,
-                    whiteListUser.wallet
+                    whiteListUser
                 );
                 if (!userQuest) {
                     return res
                         .status(200)
                         .json({ isError: true, message: "User Quest cannot be submitted!" });
                 }
-
-                // updateQuest = await updateUserQuest(
-                //     whiteListUser.wallet,
-                //     questId,
-                //     rewardTypeId,
-                //     quantity,
-                //     extendedUserQuestData
-                // );
 
                 return res.status(200).json(userQuest);
             } catch (error) {
@@ -85,25 +77,6 @@ const submitImageQuestAPI = async (req, res) => {
     }
 };
 
-const discordHelper = async (user, discordChannel, imageUrl) => {
-    let discordPost = await axios.post(
-        `${DISCORD_NODEJS}/api/v1/channels/image-quest`,
-        {
-            user,
-            imageUrl,
-            discordChannel,
-        },
-        {
-            headers: {
-                Authorization: `Bot ${NODEJS_SECRET}`,
-                "Content-Type": "application/json",
-            },
-        }
-    );
-
-    return discordPost;
-};
-
 export default whitelistUserMiddleware(submitImageQuestAPI);
 
 const submitNewUserImageQuestTransaction = async (
@@ -111,14 +84,15 @@ const submitNewUserImageQuestTransaction = async (
     rewardTypeId,
     quantity,
     extendedUserQuestData,
-    wallet
+    whiteListUser
 ) => {
     let claimedReward;
 
     console.log(`**Create / Update reward for user**`);
+    const { userId } = whiteListUser;
     claimedReward = prisma.reward.upsert({
         where: {
-            wallet_rewardTypeId: { wallet, rewardTypeId },
+            userId_rewardTypeId: { userId, rewardTypeId },
         },
         update: {
             quantity: {
@@ -126,13 +100,13 @@ const submitNewUserImageQuestTransaction = async (
             },
         },
         create: {
-            wallet,
+            userId,
             quantity,
             rewardTypeId,
         },
 
         select: {
-            wallet: true,
+            userId: true,
             quantity: true,
             user: true,
             rewardTypeId: true,
@@ -143,7 +117,7 @@ const submitNewUserImageQuestTransaction = async (
     console.log(`**Save to UserQuest, to keep track that its done**`);
     let userQuest = prisma.userQuest.create({
         data: {
-            wallet,
+            userId,
             questId,
             rewardedTypeId: rewardTypeId,
             rewardedQty: quantity,

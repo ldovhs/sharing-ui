@@ -119,14 +119,14 @@ export const authOptions = {
 
                     console.log("Authenticated as user successfully");
 
-                    return { address: originalAddress, isAdmin: false };
+                    return { address: originalAddress, isAdmin: false, userId: user.userId };
                 } catch (error) {
                     console.log(error);
                 }
             },
         }),
-        // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
         DiscordProvider({
+            // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
             clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,
             clientSecret: DISCORD_CLIENT_SECRET,
         }),
@@ -140,7 +140,7 @@ export const authOptions = {
     debug: false,
     session: {
         jwt: true,
-        maxAge: 60 * 60 * 24 * 30, //  30 * 24 * 60 * 60
+        maxAge: 60 * 60 * 24 * 7, // 7 days
     },
     jwt: {
         signingKey: NEXT_PUBLIC_NEXTAUTH_SECRET,
@@ -193,31 +193,42 @@ export const authOptions = {
             return token;
         },
         async session({ session, token }) {
-            let socialMediaUser;
+            let userQuery;
 
-            if (token.provider === "twitter") {
-                socialMediaUser = await prisma.whiteList.findFirst({
-                    where: {
-                        twitterId: token?.user?.id,
-                    },
-                });
+            if (token.provider === "admin-authenticate") {
+                session?.profile = token.profile || null;
+                session?.user = token.user;
+                session?.provider = token.provider;
+                return session;
             }
+            else {
 
-            if (token.provider === "discord") {
-                socialMediaUser = await prisma.whiteList.findFirst({
-                    where: {
-                        discordId: token?.user?.id,
-                    },
-                });
-            }
+                if (token.provider === "twitter") {
+                    userQuery = await prisma.whiteList.findFirst({
+                        where: {
+                            twitterId: token?.user?.id,
+                        },
+                    });
+                }
+                if (token.provider === "discord") {
+                    userQuery = await prisma.whiteList.findFirst({
+                        where: {
+                            discordId: token?.user?.id,
+                        },
+                    });
+                }
 
-            session?.profile = token.profile || null;
-            session?.user = token.user;
-            session?.provider = token.provider;
-            if (socialMediaUser) {
-                session?.user.address = socialMediaUser.wallet;
+                session?.profile = token.profile || null;
+                session?.user = token.user;
+                session?.provider = token.provider;
+
+                if (!session?.user.userId) {
+
+                    session?.user?.address = userQuery.wallet || "";
+                    session?.user.userId = userQuery.userId;
+                }
+                return session;
             }
-            return session;
         },
     },
     secret: NEXT_PUBLIC_NEXTAUTH_SECRET,

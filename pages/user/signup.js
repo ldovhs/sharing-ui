@@ -9,12 +9,14 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 const util = require("util");
 
 export const SIGNUP = 0;
-export const SIGNUP_OPTIONS = 1;
-export const SIGNUP_CAPTCHA = 2;
-export const SIGNUP_AWAIT = 3;
-export const SIGNUP_ERROR = 4;
-export const SIGNUP_SUCCESS = 5;
+export const SIGNUP_CAPTCHA = 1;
+export const SIGNUP_OPTIONS = 2;
+export const SIGNUP_WALLET = 3;
+export const SIGNUP_SOCIAL = 4;
 
+export const SIGNUP_AWAIT = 5;
+export const SIGNUP_SUCCESS = 6;
+export const SIGNUP_ERROR = 7;
 function SignUp({ session }) {
     const [currentPrompt, setPrompt] = useState(SIGNUP);
 
@@ -57,20 +59,36 @@ function SignUp({ session }) {
         setPrompt(viewState);
     };
 
-    const handleSignUp = async (walletType) => {
+    const handleSignUp = async (typeOfSignUp) => {
 
         changeView(SIGNUP_AWAIT);
-        let signUpResult = await TrySignUpWithWallet(walletType);
 
-        if (signUpResult === true) {
-            changeView(SIGNUP_SUCCESS);
+        if (typeOfSignUp == Enums.WALLETCONNECT || typeOfSignUp == Enums.METAMASK) {
+            let signUpResult
+            signUpResult = await TrySignUpWithWallet(typeOfSignUp);
+            if (signUpResult === true) {
+                changeView(SIGNUP_SUCCESS);
 
-            redirectTimeout = setTimeout(() => {
-                router.push("/");
-            }, 2500);
-        } else {
-            changeView(SIGNUP_ERROR);
+                redirectTimeout = setTimeout(() => {
+                    router.push("/");
+                }, 2500);
+            } else {
+                changeView(SIGNUP_ERROR);
+            }
         }
+        // sign up through social medioa
+        else {
+            if (typeOfSignUp === Enums.DISCORD_AUTH) {
+                return window.open(getDiscordAuthLink(), "_self");
+            }
+
+            if (typeOfSignUp === Enums.TWITTER_AUTH) {
+                return window.open(getTwitterAuthLink(), "_self");
+            }
+        }
+
+
+
     };
     const GoBack = () => {
         if (currentPrompt === SIGNUP_ERROR) {
@@ -78,7 +96,8 @@ function SignUp({ session }) {
             router.push("/");
             return
         }
-        return router.push("/");
+        router.push("/");
+        return
     };
 
     const handleChallenge = () => {
@@ -86,7 +105,10 @@ function SignUp({ session }) {
         // execute function on it. you can use other functions as well
         // documented in the api:
         // https://docs.hcaptcha.com/configuration#jsapi
-        captchaRef.current.execute();
+        // captchaRef.current.execute();
+
+
+        changeView(SIGNUP_OPTIONS);
     };
 
     const handleVerificationSuccess = (token, ekey) => {
@@ -113,7 +135,6 @@ function SignUp({ session }) {
                                             className={s.board_pinkBtn}
                                             onClick={() => {
                                                 setWeb3Error(null);
-                                                // changeView(SIGNUP_CAPTCHA);
                                                 return router.push("/");
                                             }}
                                         >
@@ -143,7 +164,6 @@ function SignUp({ session }) {
 
                                         <button
                                             className={s.board_orangeBtn}
-                                            // onClick={() => changeView(SIGNUP_OPTIONS)}
                                             onClick={() => {
 
                                                 changeView(SIGNUP_CAPTCHA)
@@ -160,6 +180,38 @@ function SignUp({ session }) {
                                     </>
                                 )}
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
+                                    <div className={` ${s.board_signin_wrapper}`}>
+                                        <div className={s.board_signin_content}>
+                                            {!isMetamaskDisabled && !isMobile && (
+                                                <button
+                                                    className={s.board_orangeBtn}
+                                                    onClick={() => changeView(SIGNUP_WALLET)}
+                                                >
+                                                    <img
+                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                        alt="Sign Up With Wallet"
+                                                    />
+                                                    <div>
+                                                        <span>Crypto Wallet</span>
+                                                    </div>
+                                                </button>
+                                            )}
+                                            <button
+                                                className={s.board_tealBtn}
+                                                onClick={() => changeView(SIGNUP_SOCIAL)}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                    alt="Sign Up With Social Media"
+                                                />
+                                                <div>
+                                                    <span>Social Account</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                                {currentPrompt === SIGNUP_WALLET && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
                                             {!isMetamaskDisabled && !isMobile && (
@@ -191,13 +243,45 @@ function SignUp({ session }) {
                                         </div>
                                     </div>
                                 )}
+                                {currentPrompt === SIGNUP_SOCIAL && !web3Error && (
+                                    <div className={` ${s.board_signin_wrapper}`}>
+                                        <div className={s.board_signin_content}>
+                                            {!isMetamaskDisabled && !isMobile && (
+                                                <button
+                                                    className={s.board_orangeBtn}
+                                                    onClick={() => handleSignUp(Enums.DISCORD_AUTH)}
+                                                >
+                                                    <img
+                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                        alt="Sign Up With Discord"
+                                                    />
+                                                    <div>
+                                                        <span>Discord</span>
+                                                    </div>
+                                                </button>
+                                            )}
+                                            <button
+                                                className={s.board_tealBtn}
+                                                onClick={() => handleSignUp(Enums.TWITTER_AUTH)}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                    alt="Sign Up With Twitter"
+                                                />
+                                                <div>
+                                                    <span>Twitter</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                                 {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
-                                            <HCaptcha
+                                            {/* <HCaptcha
                                                 sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
                                                 onVerify={(token, ekey) => handleVerificationSuccess(token, ekey)}
-                                                ref={captchaRef} />
+                                                ref={captchaRef} /> */}
                                             <button
                                                 className={s.board_orangeBtn}
                                                 onClick={() => handleChallenge()}
@@ -257,6 +341,14 @@ function SignUp({ session }) {
         </>
     );
 }
+
+const getDiscordAuthLink = () => {
+    return `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
+};
+
+const getTwitterAuthLink = () => {
+    return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
+};
 
 export default SignUp;
 

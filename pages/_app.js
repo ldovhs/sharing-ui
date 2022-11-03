@@ -4,17 +4,21 @@ import "../sass/admin/adminBootstrap.css";
 import { Web3Provider } from "@context/Web3Context";
 import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import Enums from "enums";
+import { QueryClient, QueryClientProvider, } from "react-query";
+
 import Script from "next/script";
 import * as gtag from "../lib/ga/gtag";
 import { useRouter } from "next/router";
-
+import { ChakraProvider } from '@chakra-ui/react'
+import s from "/sass/claim/claim.module.css";
+import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading"
 const queryClient = new QueryClient();
 
-// function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
+    const { isPageLoading } = useChallengerPageLoading();
+    console.log(router.isReady)
     useEffect(() => {
         const handleRouteChange = (url) => {
             gtag.pageview(url);
@@ -24,8 +28,9 @@ function MyApp({ Component, pageProps }) {
             router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, [router.events]);
-    // console.log("pageProps", pageProps)
+
     return (
+
         <SessionProvider session={pageProps.session} basePath={`/challenger/api/auth`}>
             <Web3Provider session={pageProps.session}>
                 <QueryClientProvider client={queryClient}>
@@ -45,19 +50,25 @@ function MyApp({ Component, pageProps }) {
                                 });
                             `}
                         </Script>
-                        {Component.requireAdmin ? (
-                            <Component.Layout>
-                                <AdminGuard >
-                                    <Component {...pageProps} />
-                                </AdminGuard>
-                            </Component.Layout>
-                        ) : (
-                            <Component {...pageProps} />
-                        )}
+                        <ChakraProvider>
+                            {Component.requireAdmin ? (
+                                <Component.Layout>
+                                    <AdminGuard >
+                                        <Component {...pageProps} />
+                                    </AdminGuard>
+                                </Component.Layout>
+                            ) : (
+
+
+                                < Component {...pageProps} />
+
+                            )}
+                        </ChakraProvider>
                     </StrictMode>
                 </QueryClientProvider>
             </Web3Provider>
         </SessionProvider>
+
     );
 }
 

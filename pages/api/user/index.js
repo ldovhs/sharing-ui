@@ -1,7 +1,7 @@
 import { utils } from "ethers";
 import { getWhiteListUserByWallet } from "repositories/user";
 
-export default async function whitelistSignIn(req, res) {
+export default async function whitelistWalletSignIn(req, res) {
     const { method } = req;
 
     switch (method) {

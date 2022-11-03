@@ -7,7 +7,6 @@ import adminMiddleware from "middlewares/adminMiddleware";
 const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
     process.env;
 
-const ROUTE = "/api/admin/reward/addPending";
 
 const AddPendingRewardAPI = async (req, res) => {
     const { method } = req;
@@ -44,7 +43,6 @@ const AddPendingRewardAPI = async (req, res) => {
                     userCondition = { ...userCondition, wallet };
                 }
 
-                console.log(`** Pending Reward: Finding user wallet: ${wallet} **`);
                 let user = await prisma.whiteList.findFirst({
                     where: userCondition,
                 });
@@ -58,23 +56,25 @@ const AddPendingRewardAPI = async (req, res) => {
                     return;
                 }
 
-                console.log(`** Pending Reward: Create reward for user wallet: ${wallet} **`);
-                let pendingReward = await createPendingReward(rewardTypeId, quantity, user.wallet);
+                console.log(`** Pending Reward: Create reward for user**`);
+                let pendingReward = await createPendingReward(rewardTypeId, quantity, user);
 
                 if (!pendingReward) {
                     return res.status(200).json({
                         isError: true,
-                        message: `Cannot add pending reward for user ${user.wallet}`,
+                        message: `Cannot add pending reward for user ${user.userId}`,
                     });
                 }
 
                 pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Treasure-Chest.gif`;
-                pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.wallet}?specialcode=${pendingReward.generatedURL}`;
+                pendingReward.embededLink = `${process.env.NEXT_PUBLIC_WEBSITE_HOST}${Enums.BASEPATH}/claim/${user.userId}?specialcode=${pendingReward.generatedURL}`;
 
                 if (user.discordId != null && user.discordId.trim().length > 0) {
                     pendingReward.receivingUser = `<@${user.discordId.trim()}>`;
-                } else {
+                } else if (user.wallet != null && user.wallet.trim().length > 0) {
                     pendingReward.receivingUser = pendingReward.user.wallet;
+                } else {
+                    pendingReward.receivingUser = pendingReward.user.userId;
                 }
 
                 await axios

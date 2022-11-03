@@ -32,6 +32,14 @@ export const getWhiteListUserByWallet = async (wallet) => {
     });
 };
 
+export const getWhiteListUserByUserId = async (userId) => {
+    return await prisma.whiteList.findUnique({
+        where: {
+            userId,
+        },
+    });
+};
+
 export const addNewUser = async (wallet) => {
     return await prisma.whiteList.create({
         data: {

@@ -76,8 +76,8 @@ export default function UserStatsSearchResult({ formData }) {
                 searchRes = await axios.post(
                     `/challenger/api/admin/user-stats?page=${page}`,
                     formData
-                ); //.then((res) => res.data);
-                // console.log(searchRes);
+                );
+
                 data = [...data, ...searchRes.data.users];
                 page = page + 1;
             } while (searchRes?.data?.shouldContinue);

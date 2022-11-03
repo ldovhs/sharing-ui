@@ -10,3 +10,4 @@ export { default as FreeLimitedShell } from "./Forms/FreeLimitedShell";
 export { default as CollaborationFreeShell } from "./Forms/CollaborationFreeShell";
 export { default as DailyShellQuestForm } from "./Forms/DailyShellQuestForm";
 export { default as CodeQuestForm } from "./Forms/CodeQuestForm";
+export { default as WalletAuthQuestForm } from "./Forms/WalletAuthQuestForm";

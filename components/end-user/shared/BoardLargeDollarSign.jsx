@@ -8,6 +8,7 @@ export default function BoardLargeDollarSign() {
     const { session } = useContext(Web3Context);
     const [userRewards, userRewardLoading] = useUserRewardQuery(session);
     const [rewardAmount, setRewardAmount] = useState(null);
+
     useEffect(async () => {
         if (userRewards && userRewards.length > 0) {
             let shellReward = userRewards.find(

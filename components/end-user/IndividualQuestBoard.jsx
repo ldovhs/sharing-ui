@@ -5,6 +5,7 @@ import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import { useRouter } from "next/router";
 import { BoardLargeDollarSign } from ".";
 import DisconnectButton from "./shared/DisconnectButton";
+import { useToast } from "@chakra-ui/react";
 
 const IndividualQuestBoard = ({
     session,
@@ -22,6 +23,20 @@ const IndividualQuestBoard = ({
         canScrollUp: false,
         canScrollDown: true,
     });
+    const toast = useToast();
+
+    useEffect(() => {
+        if (submittedQuest?.isError) {
+            toast({
+                title: "Exception",
+                description: `Catch error at questId: ${submittedQuest.questId}. Please contact admin.`,
+                position: "top-right",
+                status: "error",
+                duration: 10000,
+                isClosable: true,
+            });
+        }
+    }, [submittedQuest]);
 
     const scrollRef = useRef();
     let router = useRouter();
@@ -120,7 +135,9 @@ const IndividualQuestBoard = ({
      */
     const DoQuest = async (quest) => {
         const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
-
+        if (type.name === Enums.WALLET_AUTH) {
+            return router.push("/auth-wallet");
+        }
         if (type.name === Enums.ZED_CLAIM) {
             return router.push("/zed");
         }
@@ -138,11 +155,11 @@ const IndividualQuestBoard = ({
             }
         }
         if (type.name === Enums.DISCORD_AUTH) {
-            return window.open(getDiscordAuthLink(), "_blank");
+            return window.open(getDiscordAuthLink(), "_self");
         }
 
         if (type.name === Enums.TWITTER_AUTH) {
-            return window.open(getTwitterAuthLink(), "_blank");
+            return window.open(getTwitterAuthLink(), "_self");
         }
 
         if (type.name === Enums.JOIN_DISCORD) {
@@ -174,9 +191,14 @@ const IndividualQuestBoard = ({
             quantity,
             extendedQuestData,
         };
-        let updatedQuestArr = await onSubmit(submission, currentQuests);
 
-        setCurrentQuests(updatedQuestArr);
+        try {
+            let updatedQuestArr = await onSubmit(submission, currentQuests);
+
+            setCurrentQuests(updatedQuestArr);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const GetQuestText = (text, type, extendedQuestData) => {

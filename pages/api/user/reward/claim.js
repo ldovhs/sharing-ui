@@ -59,7 +59,7 @@ const userClaimRewardAPI = async (req, res) => {
                 }
 
                 let claimReward = await UpdateClaimAndPendingRewardTransaction(
-                    whiteListUser.wallet,
+                    whiteListUser,
                     rewardTypeId,
                     pendingReward.quantity,
                     generatedURL

@@ -2,6 +2,9 @@ import { prisma } from "../context/PrismaContext";
 import { utils } from "ethers";
 
 export const isWhiteListUser = async (session) => {
+    if (!session) {
+        return null;
+    }
     // session login through discord
     let user;
 
@@ -9,7 +12,7 @@ export const isWhiteListUser = async (session) => {
 
         user = await prisma.whiteList.findFirst({
             where: {
-                discordId: session.user.id,
+                discordId: session?.user?.id,
             },
         });
     }
@@ -17,16 +20,16 @@ export const isWhiteListUser = async (session) => {
     if (session?.provider === "twitter") {
         user = await prisma.whiteList.findFirst({
             where: {
-                twitterId: session.user.id,
+                twitterId: session?.user?.id,
             },
         });
     }
 
     // session login through wallet
-    if (session.user?.address) {
+    if (session?.user?.address) {
         user = await prisma.whiteList.findUnique({
             where: {
-                wallet: utils.getAddress(session.user.address),
+                wallet: utils.getAddress(session?.user?.address),
             },
         });
     }

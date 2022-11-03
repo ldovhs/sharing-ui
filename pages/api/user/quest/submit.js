@@ -1,39 +1,44 @@
 import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
-import { submitNewUserQuestTransaction } from "repositories/transactions";
+import {
+    submitNewUserQuestTransaction,
+    submitUserDailyQuestTransaction,
+} from "repositories/transactions";
 
 function sleep(ms = 2000) {
-    return new Promise((res) => setTimeout(res, ms))
+    return new Promise((res) => setTimeout(res, ms));
 }
 
 const submitIndividualQuestAPI = async (req, res) => {
     const { method } = req;
 
-    if (process.env.NODE_ENV === 'production') {
-        console.log("In production, throttle the request")
-        await sleep()
+    if (process.env.NODE_ENV === "production") {
+        console.log("In production, throttle the request");
+        await sleep();
     }
 
     switch (method) {
         case "POST":
-            try {
-                if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
-                    return res.status(200).json({ isError: true, message: "Challenger is not enabled." });
-                }
-                const whiteListUser = req.whiteListUser;
-                const { questId, rewardTypeId, quantity, extendedQuestData } = req.body;
-                let userQuest;
+            if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
+                return res
+                    .status(200)
+                    .json({ isError: true, message: "Challenger is not enabled." });
+            }
 
+            const whiteListUser = req.whiteListUser;
+            const { questId, rewardTypeId, quantity, extendedQuestData } = req.body;
+            let userQuest;
+            try {
                 // query the type based on questId
                 let currentQuest = await prisma.quest.findUnique({
                     where: {
-                        questId
+                        questId,
                     },
                     include: {
-                        type: true
-                    }
-                })
+                        type: true,
+                    },
+                });
 
                 /** This route is not for image upload quest */
                 if (currentQuest.type.name === Enums.IMAGE_UPLOAD_QUEST) {
@@ -49,7 +54,7 @@ const submitIndividualQuestAPI = async (req, res) => {
 
                     let entry = await prisma.UserQuest.findUnique({
                         where: {
-                            wallet_questId: { wallet: whiteListUser.wallet, questId },
+                            userId_questId: { userId: whiteListUser.userId, questId },
                         },
                     });
                     if (entry) {
@@ -58,7 +63,10 @@ const submitIndividualQuestAPI = async (req, res) => {
                         if (today <= oldDate) {
                             return res
                                 .status(200)
-                                .json({ isError: true, message: "This quest already submitted before!" });
+                                .json({
+                                    isError: true,
+                                    message: "This quest already submitted before!",
+                                });
                         }
                     }
 
@@ -73,9 +81,9 @@ const submitIndividualQuestAPI = async (req, res) => {
 
                     let currentQuest = await prisma.quest.findUnique({
                         where: {
-                            questId
-                        }
-                    })
+                            questId,
+                        },
+                    });
 
                     userQuest = await submitUserDailyQuestTransaction(
                         questId,
@@ -83,7 +91,7 @@ const submitIndividualQuestAPI = async (req, res) => {
                         rewardTypeId,
                         currentQuest.quantity,
                         extendedUserQuestData,
-                        whiteListUser.wallet
+                        whiteListUser
                     );
                     if (!userQuest) {
                         return res.status(200).json({
@@ -93,34 +101,31 @@ const submitIndividualQuestAPI = async (req, res) => {
                     }
 
                     return res.status(200).json(userQuest);
-                }
-
-                /* Rest of other quest */
-                let entry = await prisma.UserQuest.findUnique({
-                    where: {
-                        wallet_questId: { wallet: whiteListUser.wallet, questId },
-                    },
-                });
-
-                if (entry) {
-                    console.log("This quest has been submitted before")
-                    return res
-                        .status(200)
-                        .json({ isError: true, message: "This quest already submitted before!" });
                 } else {
-                    userQuest = await submitNewUserQuestTransaction(req.body, whiteListUser.wallet);
-                    console.log(userQuest)
-                    if (!userQuest) {
+                    /* Rest of other quest */
+                    let entry = await prisma.UserQuest.findUnique({
+                        where: {
+                            userId_questId: { userId: whiteListUser.userId, questId },
+                        },
+                    });
+
+                    if (entry) {
+                        console.log("This quest has been submitted before");
                         return res
                             .status(200)
-                            .json({ isError: true, message: "User Quest cannot be submitted!" });
+                            .json({
+                                isError: true,
+                                message: "This quest already submitted before!",
+                            });
+                    } else {
+                        await submitNewUserQuestTransaction(questId, rewardTypeId, whiteListUser);
                     }
-                }
 
-                return res.status(200).json(userQuest);
+                    return res.status(200).json(userQuest);
+                }
             } catch (error) {
-                // console.log(error);
-                return res.status(200).json({ isError: true, message: error.message });
+                console.log(error);
+                return res.status(200).json({ isError: true, message: error.message, questId });
             }
             break;
         default:
@@ -130,63 +135,3 @@ const submitIndividualQuestAPI = async (req, res) => {
 };
 
 export default whitelistUserMiddleware(submitIndividualQuestAPI);
-
-const submitUserDailyQuestTransaction = async (
-    questId,
-    type,
-    rewardTypeId,
-    quantity,
-    extendedUserQuestData,
-    wallet
-) => {
-    let claimedReward;
-    try {
-        console.log(`**Create / Update reward for user**`);
-        claimedReward = prisma.reward.upsert({
-            where: {
-                wallet_rewardTypeId: { wallet, rewardTypeId },
-            },
-            update: {
-                quantity: {
-                    increment: quantity,
-                },
-            },
-            create: {
-                wallet,
-                quantity,
-                rewardTypeId,
-            },
-
-            select: {
-                wallet: true,
-                quantity: true,
-                user: true,
-                rewardTypeId: true,
-                rewardType: true,
-            },
-        });
-
-        console.log(`**Save to UserQuest for Daily, to keep track that its done**`);
-        let userQuest = prisma.userQuest.upsert({
-            where: {
-                wallet_questId: { wallet, questId },
-            },
-            create: {
-                wallet,
-                questId,
-                rewardedTypeId: rewardTypeId,
-                rewardedQty: quantity,
-                extendedUserQuestData,
-            },
-            update: {
-                extendedUserQuestData,
-            },
-        });
-
-        await prisma.$transaction([claimedReward, userQuest]);
-
-        return userQuest;
-    } catch (error) {
-        console.log(error);
-    }
-};

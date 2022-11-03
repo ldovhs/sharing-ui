@@ -12,7 +12,7 @@ const getPendingRewardApi = async (req, res) => {
                 const { username, generatedURL } = req.query;
                 if (!username) return res.status(200).json({ message: "Await" });
 
-                console.log(`** Finding user wallet for pending reward, username: ${username} **`);
+                console.log(`** Finding use for pending reward, username: ${username} **`);
                 let user = await getWhiteListUserByUserName(username);
                 if (!user) {
                     return res.status(200).json({
@@ -24,12 +24,12 @@ const getPendingRewardApi = async (req, res) => {
                 console.log(`** Finding pending reward **`);
                 let pendingReward = await searchPendingRewardBasedOnGeneratedURL(
                     generatedURL,
-                    user.wallet
+                    user
                 );
 
-                if (pendingReward.wallet !== whiteListUser.wallet) {
+                if (pendingReward.userId !== whiteListUser.userId) {
                     return res.status(200).json({
-                        message: `User ${whiteListUser.wallet} does not own this reward `,
+                        message: `User ${whiteListUser.wallet ? whiteListUser.wallet : whiteListUser.userId} does not own this reward `,
                         isError: true,
                     });
                 }

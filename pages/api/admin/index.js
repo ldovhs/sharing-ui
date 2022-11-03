@@ -1,8 +1,6 @@
 import { prisma } from "@context/PrismaContext";
 import { utils } from "ethers";
 
-const ROUTE = "/api/admin";
-
 export default async function adminAPI(req, res) {
     const { method } = req;
 

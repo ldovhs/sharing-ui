@@ -46,8 +46,6 @@ export default async function walletAuthQuest(req, res) {
                         .json({ isError: true, message: "The wallet address is not valid" });
                 }
 
-
-
                 let walletAuthQuestType = await getQuestType(Enums.WALLET_AUTH);
                 if (!walletAuthQuestType) {
                     let error =
@@ -59,6 +57,23 @@ export default async function walletAuthQuest(req, res) {
                 if (!walletAuthQuest) {
                     let error = "Cannot find any quest associated with wallet authenticate.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
+                const questId = walletAuthQuest.questId;
+                if (whiteListUser) {
+                    let walletAuthQuestOfThisUser = await prisma.userQuest.findFirst({
+                        where: {
+                            userId: whiteListUser?.userId,
+                            questId: questId,
+                        },
+                    });
+
+                    if (walletAuthQuestOfThisUser) {
+                        let error = "Wallet quest has finished.";
+                        return res
+                            .status(200)
+                            .redirect(`/challenger/quest-redirect?error=${error}`);
+                    }
                 }
 
                 let correctAddress = utils.getAddress(address)

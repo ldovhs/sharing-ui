@@ -31,7 +31,7 @@ function WalletAuth({ session }) {
       router.push("/");
     }
     if (session?.user?.address && session?.user?.address?.length > 0) {
-      setWeb3Error("Current login session bound to a crypto wallet");
+      // setWeb3Error("Current login session bound to a crypto wallet");
     }
   }, [session]);
 

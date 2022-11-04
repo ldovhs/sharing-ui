@@ -21,7 +21,7 @@ export default async function walletAuthQuest(req, res) {
 
                 if (!session || !whiteListUser) {
                     let error = "Attempt to access without authenticated.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                    return res.status(200).json({ isError: true, message: error });
                 }
 
                 console.log(`**Sign up new user**`);
@@ -50,15 +50,15 @@ export default async function walletAuthQuest(req, res) {
                 if (!walletAuthQuestType) {
                     let error =
                         "Cannot find quest type wallet auth. Pleaes contact administrator.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                    return res.status(200).json({ isError: true, message: error });
                 }
 
                 let walletAuthQuest = await getQuestByTypeId(walletAuthQuestType.id);
                 if (!walletAuthQuest) {
                     let error = "Cannot find any quest associated with wallet authenticate.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                    return res.status(200).json({ isError: true, message: error });
                 }
-
+                console.log(12323)
                 const questId = walletAuthQuest.questId;
                 if (whiteListUser) {
                     let walletAuthQuestOfThisUser = await prisma.userQuest.findFirst({
@@ -72,10 +72,10 @@ export default async function walletAuthQuest(req, res) {
                         let error = "Wallet quest has finished.";
                         return res
                             .status(200)
-                            .redirect(`/challenger/quest-redirect?error=${error}`);
+                            .json({ isError: true, message: "Quest finished before." });
                     }
                 }
-
+                console.log(23232223)
                 let correctAddress = utils.getAddress(address)
                 await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
 

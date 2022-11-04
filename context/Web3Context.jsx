@@ -404,7 +404,7 @@ export function Web3Provider({ session, children }) {
                             reject(err.message);
                         });
 
-                    const newUser = await axios
+                    const doQuest = await axios
                         .post(`${Enums.BASEPATH}/api/user/quest/wallet-auth`, {
                             address,
                             signature,
@@ -414,9 +414,9 @@ export function Web3Provider({ session, children }) {
                             reject(err.message);
                         });
 
-                    if (newUser?.data?.isError) {
-                        setWeb3Error(newUser?.data?.message);
-                        resolve(newUser?.data?.message);
+                    if (doQuest?.data?.isError) {
+                        setWeb3Error(doQuest?.data?.message);
+                        resolve(doQuest?.data?.message);
                         clearTimeout(timeout);
                     } else {
                         resolve("Wallet Auth successful");

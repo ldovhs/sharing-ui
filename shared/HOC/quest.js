@@ -57,20 +57,19 @@ export const withUserQuestSubmit =
             const handleOnSubmit = async (quest, currentQuests) => {
                 let submitted = await mutateAsync(quest);
 
-                // return updated quest, not used as we invalidate the query
-                // if (submitted) {
-                //     let updatedQuests = currentQuests.map((q) => {
-                //         if (q.questId == quest.questId) {
-                //             q.isDone = true;
-                //         }
-                //         return q;
-                //     });
+                if (submitted) {
+                    let updatedQuests = currentQuests.map((q) => {
+                        if (q.questId == quest.questId) {
+                            q.isDone = true;
+                        }
+                        return q;
+                    });
 
-                //     return await Promise.all(updatedQuests).then(() => {
-                //         updatedQuests.sort(isNotDoneFirst);
-                //         return updatedQuests;
-                //     });
-                // }
+                    return await Promise.all(updatedQuests).then(() => {
+                        updatedQuests.sort(isNotDoneFirst);
+                        return updatedQuests;
+                    });
+                }
             };
 
             return (
@@ -163,7 +162,8 @@ export const withUserCodeQuestQuery =
             const codeQuestEvent = typeof router.query?.event === "string" ? router.query.event : "";
 
             const { data, status, isLoading, error } = useQuery("userQueryCollaborationQuest", () =>
-                axios.get(`${Enums.BASEPATH}/api/user/quest/code-quest?event=${codeQuestEvent}`), { enabled: codeQuestEvent.length > 0 }
+                axios.get(`${Enums.BASEPATH}/api/user/quest/code-quest?event=${codeQuestEvent}`),
+                { enabled: !!codeQuestEvent }
             );
             return (
                 <Component

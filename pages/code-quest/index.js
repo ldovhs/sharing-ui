@@ -1,9 +1,8 @@
 import React from "react";
 import s from "/sass/claim/claim.module.css";
-
 import { ConnectBoard, CodeQuestSubmit } from "@components/end-user";
 
-function TwitterSpaceComponent({ session }) {
+function CodeQuestPage({ session }) {
 
     return (
         <>
@@ -17,7 +16,7 @@ function TwitterSpaceComponent({ session }) {
     );
 }
 
-export default TwitterSpaceComponent;
+export default CodeQuestPage;
 
 
 import { unstable_getServerSession } from "next-auth/next"

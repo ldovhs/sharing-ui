@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
-import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
+import { withUserCodeQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from "..";
@@ -250,7 +250,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
 };
 
 const firstHOC = withUserQuestSubmit(CodeQuestSubmit);
-export default withUserQuestQuery(firstHOC);
+export default withUserCodeQuestQuery(firstHOC);
 
 function debounce(func, wait) {
     let timeout;

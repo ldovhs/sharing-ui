@@ -175,6 +175,27 @@ export const withUserCodeQuestQuery =
             );
         };
 
+export const withUserImageQuestQuery =
+    (Component) =>
+        ({ ...props }) => {
+
+            const router = useRouter();
+            const imageQuestEvent = typeof router.query?.event === "string" ? router.query.event : "";
+
+            const { data, status, isLoading, error } = useQuery("userQueryCollaborationQuest", () =>
+                axios.get(`${Enums.BASEPATH}/api/user/quest/image-quest?event=${imageQuestEvent}`),
+                { enabled: !!imageQuestEvent }
+            );
+            return (
+                <Component
+                    {...props}
+                    isFetchingUserQuests={isLoading}
+                    userQuests={data?.data}
+                    queryError={error}
+                />
+            );
+        };
+
 export const withQuestTypeQuery =
     (Component) =>
         ({ ...props }) => {

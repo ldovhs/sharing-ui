@@ -2,11 +2,10 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import axios from "axios";
-import { withUserQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
+import { withUserImageQuestQuery, withUserImageQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from "..";
-// import * as tf from "@tensorflow/tfjs";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
 
 const ANOMURA_DISCORD_SERVER = "851558628032905286";
@@ -354,4 +353,4 @@ const ImageUpload = ({
 };
 
 const firstHOC = withUserImageQuestSubmit(ImageUpload);
-export default withUserQuestQuery(firstHOC);
+export default withUserImageQuestQuery(firstHOC);

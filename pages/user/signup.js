@@ -93,6 +93,7 @@ function SignUp({ session }) {
         // execute function on it. you can use other functions as well
         // documented in the api:
         // https://docs.hcaptcha.com/configuration#jsapi
+
         captchaRef.current.execute();
 
         // changeView(SIGNUP_OPTIONS);

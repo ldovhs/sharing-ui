@@ -2,7 +2,7 @@ import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 
-const questQueryAPI = async (req, res) => {
+const collaborationQuestQueryAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
@@ -17,53 +17,27 @@ const questQueryAPI = async (req, res) => {
                 let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.userId);
 
                 let quests = availableQuests.filter(q => {
-                    if (q.type.name === Enums.CODE_QUEST) {
-                        return false;
-                    }
-                    if (
+
+                    // for now dont show code quest on collaboration
+                    // if (q.type.name === Enums.CODE_QUEST) {
+                    //     return false;
+                    // }
+
+                    if (// only get quest that has collaboration same as query uri
                         q.extendedQuestData.collaboration &&
                         q.extendedQuestData.collaboration.length > 0 &&
                         q.extendedQuestData.collaboration === collaboration
                     ) {
                         return true;
                     }
-                    if (
-                        q.extendedQuestData.collaboration &&
-                        q.extendedQuestData.collaboration.length > 0 &&
-                        q.extendedQuestData.collaboration !== collaboration
-                    ) {
-                        return false;
-                    }
-
-                    /* exclude daily free cell */
-                    if (
-                        q.type.name === Enums.ZED_CLAIM ||
-                        q.type.name === Enums.NOODS_CLAIM ||
-                        q.type.name === Enums.DAILY_SHELL
-                    ) {
-                        return false;
-                    }
 
                     return false;
                 }).map((aq) => {
                     let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                     if (relatedQuest) {
+                        aq.isDone = true;
+                        aq.rewardedQty = relatedQuest.rewardedQty;
 
-                        if (//Enums.DAILY_SHELL
-                            relatedQuest?.quest.type.name === Enums.DAILY_SHELL &&
-                            relatedQuest?.extendedUserQuestData?.frequently === Enums.DAILY
-                        ) {
-                            let oldDate = relatedQuest?.extendedUserQuestData?.date;
-                            let [today] = new Date().toISOString().split("T");
-                            if (today > oldDate) {
-                                aq.isDone = false;
-                            } else aq.isDone = true;
-                        }
-
-                        else {// THE REST
-                            aq.isDone = true;
-                            aq.rewardedQty = relatedQuest.rewardedQty;
-                        }
                     } else {
                         aq.isDone = false;
                         aq.rewardedQty = 0;
@@ -82,4 +56,4 @@ const questQueryAPI = async (req, res) => {
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 };
-export default whitelistUserMiddleware(questQueryAPI);
+export default whitelistUserMiddleware(collaborationQuestQueryAPI);

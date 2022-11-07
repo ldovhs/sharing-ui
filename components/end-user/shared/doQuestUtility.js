@@ -18,12 +18,6 @@ export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => 
   if (type.name === Enums.WALLET_AUTH) {
     return router.push("/auth-wallet");
   }
-  if (type.name === Enums.ZED_CLAIM) {
-    return router.push("/zed");
-  }
-  if (type.name === Enums.NOODS_CLAIM) {
-    return router.push("/humanpark");
-  }
   // sub directory quest, should RETURN
   if (type.name === Enums.COLLABORATION_FREE_SHELL) {
     switch (extendedQuestData.collaboration) {

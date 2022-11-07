@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import axios from "axios";
-import { withUserQuestQuery, withUserQuestSubmit } from "shared/HOC/quest";
+import { withUserOwningNftQuestQuery, withUserOwningNftQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { useDeviceDetect } from "lib/hooks";
@@ -11,15 +11,12 @@ const CLAIMABLE = 0;
 const CLAIMED = 1;
 const UNCLAIMABLE = 2;
 
-const ClaimShellForOwningNFT = ({
+const ClaimRewardForOwningNFT = ({
     session,
     onSubmit,
     isSubmitting,
-    NFT,
     isFetchingUserQuests,
     userQuests,
-    chain,
-    NftSymbol,
 }) => {
     const [nftQuest, setNftQuest] = useState(null);
     const [error, setError] = useState(null);
@@ -37,14 +34,21 @@ const ClaimShellForOwningNFT = ({
     }, []);
 
     useEffect(async () => {
-        if (userQuests) {
-            let findNftQuest = userQuests.find((q) => q.type.name === NFT);
+        if (userQuests && router) {
+            let nft = router.query.nft;
 
-            if (findNftQuest) {
-                setNftQuest(findNftQuest);
-                if (findNftQuest.isDone) {
-                    setView(CLAIMED);
-                }
+            let currentNftQuest = userQuests.find(
+                (q) => q.type.name === Enums.OWNING_NFT_CLAIM && q.extendedQuestData.nft === nft
+            );
+
+            if (!currentNftQuest) {
+                return setView(UNCLAIMABLE);
+            }
+
+            setNftQuest(currentNftQuest);
+
+            if (currentNftQuest.isDone) {
+                return setView(CLAIMED);
             }
         }
     }, [userQuests]);
@@ -56,42 +60,6 @@ const ClaimShellForOwningNFT = ({
                 setIsValidating(false);
                 return;
             }
-            let ownerAddress;
-            if (!isMetamaskDisabled && !isMobile) {
-                ownerAddress = await TryValidate(Enums.METAMASK);
-            } else {
-                ownerAddress = await TryValidate(Enums.WALLETCONNECT);
-            }
-
-            let haveNft = false;
-
-            let allNFTsOwned = await axios.get(
-                `https://deep-index.moralis.io/api/v2/${ownerAddress}/nft?chain=${chain}&format=decimal`,
-                {
-                    headers: {
-                        "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_APIKEY,
-                    },
-                }
-            );
-
-            if (allNFTsOwned?.data?.result?.length > 0) {
-                let nftsToProcess = allNFTsOwned?.data?.result;
-                let promiseCheck = nftsToProcess.map((nft) => {
-                    if (nft.symbol === NftSymbol) {
-                        haveNft = true;
-                    }
-                });
-                Promise.all(promiseCheck);
-                if (!haveNft) {
-                    setIsValidating(false);
-                    setView(UNCLAIMABLE);
-                    return;
-                }
-            } else {
-                setIsValidating(false);
-                setView(UNCLAIMABLE);
-                return;
-            }
 
             const { questId, type, quantity, rewardTypeId, extendedQuestData } = nftQuest;
             let submission = {
@@ -101,21 +69,26 @@ const ClaimShellForOwningNFT = ({
                 quantity,
                 extendedQuestData,
             };
-            await onSubmit(submission, userQuests);
-            setView(CLAIMED);
+            let res = await onSubmit(submission, userQuests);
+            if (res.isError) {
+                setError(res.message);
+                setView(UNCLAIMABLE);
+            } else {
+                setView(CLAIMED);
+            }
             setIsValidating(false);
         } catch (e) {
             setIsValidating(false);
-
+            console.log(e);
             return;
         }
     };
 
-    const getNFT = () => {
-        let pathname = router.pathname;
-        const nft = pathname.split("/");
-        return nft[1].toString().trim().toUpperCase();
-    };
+    // const getNFT = () => {
+    //     let pathname = router.pathname;
+    //     const nft = pathname.split("/");
+    //     return nft[1].toString().trim().toUpperCase();
+    // };
 
     return (
         <div className={s.board}>
@@ -139,7 +112,7 @@ const ClaimShellForOwningNFT = ({
                                 </div>
                             </div>
                         )}
-                        {nftQuest && !error && (
+                        {nftQuest && (
                             <>
                                 {currentView === CLAIMABLE &&
                                     !isSubmitting &&
@@ -212,7 +185,7 @@ const ClaimShellForOwningNFT = ({
                                 {currentView === UNCLAIMABLE && (
                                     <>
                                         <div className={s.board_title}>
-                                            Unclaimable. You don't own any {NftSymbol}
+                                            Unclaimable. {error || `You don't own this NFT`}.
                                         </div>
                                         <button
                                             className={s.board_pinkBtn}
@@ -251,5 +224,5 @@ const ClaimShellForOwningNFT = ({
     );
 };
 
-const firstHOC = withUserQuestSubmit(ClaimShellForOwningNFT);
-export default withUserQuestQuery(firstHOC);
+const firstHOC = withUserOwningNftQuestSubmit(ClaimRewardForOwningNFT);
+export default withUserOwningNftQuestQuery(firstHOC);

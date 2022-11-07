@@ -2,7 +2,7 @@ import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 
-const codeQuestQueryAPI = async (req, res) => {
+const codeQuestQuery = async (req, res) => {
     const { method } = req;
 
     switch (method) {
@@ -34,21 +34,8 @@ const codeQuestQueryAPI = async (req, res) => {
                     .map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
-                            if (
-                                //Enums.DAILY_SHELL
-                                relatedQuest?.quest.type.name === Enums.DAILY_SHELL &&
-                                relatedQuest?.extendedUserQuestData?.frequently === Enums.DAILY
-                            ) {
-                                let oldDate = relatedQuest?.extendedUserQuestData?.date;
-                                let [today] = new Date().toISOString().split("T");
-                                if (today > oldDate) {
-                                    aq.isDone = false;
-                                } else aq.isDone = true;
-                            } else {
-                                // THE REST
-                                aq.isDone = true;
-                                aq.rewardedQty = relatedQuest.rewardedQty;
-                            }
+                            aq.isDone = true;
+                            aq.rewardedQty = relatedQuest.rewardedQty;
                         } else {
                             aq.isDone = false;
                             aq.rewardedQty = 0;
@@ -56,8 +43,6 @@ const codeQuestQueryAPI = async (req, res) => {
                         return aq;
                     });
 
-                // quests.map(m => console.log(m))
-                // console.log("quests", quests)
                 return res.status(200).json(quests);
             } catch (err) {
                 res.status(500).json({ error: err.message });
@@ -69,4 +54,4 @@ const codeQuestQueryAPI = async (req, res) => {
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 };
-export default whitelistUserMiddleware(codeQuestQueryAPI);
+export default whitelistUserMiddleware(codeQuestQuery);

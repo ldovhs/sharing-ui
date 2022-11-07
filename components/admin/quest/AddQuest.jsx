@@ -6,8 +6,6 @@ import {
     TwitterFollowQuest,
     InstagramFollowQuest,
     TwitterRetweetQuest,
-    ZedOwnQuest,
-    NoodsOwnQuest,
     FreeLimitedShell,
     CollaborationFreeShell,
     DailyShellQuestForm,
@@ -19,6 +17,7 @@ import {
 import { withRewardTypeQuery } from "shared/HOC/reward";
 import { withQuestTypeQuery } from "@shared/HOC/quest";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
+import ClaimRewardForOwningNFTForm from "./Forms/ClaimRewardForOwningNFTForm";
 
 const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
     const [selectedType, setSelectedType] = useState();
@@ -46,6 +45,14 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                     ))}
                             </select>
                         </div>
+
+                        {selectedType === Enums.OWNING_NFT_CLAIM && (
+                            <ClaimRewardForOwningNFTForm
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
                         {selectedType === Enums.WALLET_AUTH && (
                             <WalletAuthQuestForm
                                 rewardTypes={rewardTypes}
@@ -60,7 +67,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.TWITTER_AUTH && (
                             <TwitterAuthQuest
                                 rewardTypes={rewardTypes}
@@ -75,7 +81,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.FOLLOW_TWITTER && (
                             <TwitterFollowQuest
                                 rewardTypes={rewardTypes}
@@ -83,25 +88,8 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.FOLLOW_INSTAGRAM && (
                             <InstagramFollowQuest
-                                rewardTypes={rewardTypes}
-                                closeModal={closeModal}
-                                isCreate={true}
-                            />
-                        )}
-
-                        {selectedType === Enums.ZED_CLAIM && (
-                            <ZedOwnQuest
-                                rewardTypes={rewardTypes}
-                                closeModal={closeModal}
-                                isCreate={true}
-                            />
-                        )}
-
-                        {selectedType === Enums.NOODS_CLAIM && (
-                            <NoodsOwnQuest
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
                                 isCreate={true}
@@ -115,7 +103,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.LIMITED_FREE_SHELL && (
                             <FreeLimitedShell
                                 rewardTypes={rewardTypes}
@@ -123,7 +110,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.JOIN_DISCORD && (
                             <JoinDiscordQuest
                                 rewardTypes={rewardTypes}
@@ -131,7 +117,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.COLLABORATION_FREE_SHELL && (
                             <CollaborationFreeShell
                                 rewardTypes={rewardTypes}
@@ -139,7 +124,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.DAILY_SHELL && (
                             <DailyShellQuestForm
                                 rewardTypes={rewardTypes}
@@ -147,7 +131,6 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                 isCreate={true}
                             />
                         )}
-
                         {selectedType === Enums.CODE_QUEST && (
                             <CodeQuestForm
                                 rewardTypes={rewardTypes}

@@ -10,6 +10,7 @@ function sleep(ms = 500) {
     return new Promise((res) => setTimeout(res, ms));
 }
 
+//General user quest submit
 const submitIndividualQuestAPI = async (req, res) => {
     const { method } = req;
 
@@ -40,15 +41,17 @@ const submitIndividualQuestAPI = async (req, res) => {
                     },
                 });
 
-                /** This route is not for image upload quest */
-                if (currentQuest.type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                if (
+                    currentQuest.type.name === Enums.IMAGE_UPLOAD_QUEST ||
+                    currentQuest.type.name === Enums.CODE_QUEST ||
+                    currentQuest.type.name === Enums.OWNING_NFT_CLAIM
+                ) {
                     return res.status(200).json({
                         isError: true,
-                        message: "This route is not for image upload quest!",
+                        message: "This route is only for general quest submitt!",
                     });
                 }
 
-                // Handling daily quest
                 if (currentQuest.type.name === Enums.DAILY_SHELL) {
                     console.log(`**In daily shell**`);
 
@@ -61,12 +64,10 @@ const submitIndividualQuestAPI = async (req, res) => {
                         let oldDate = entry.extendedUserQuestData?.date || entry.updatedAt;
                         let [today] = new Date().toISOString().split("T");
                         if (today <= oldDate) {
-                            return res
-                                .status(200)
-                                .json({
-                                    isError: true,
-                                    message: "This quest already submitted before!",
-                                });
+                            return res.status(200).json({
+                                isError: true,
+                                message: "This quest already submitted before!",
+                            });
                         }
                     }
 
@@ -111,12 +112,10 @@ const submitIndividualQuestAPI = async (req, res) => {
 
                     if (entry) {
                         console.log("This quest has been submitted before");
-                        return res
-                            .status(200)
-                            .json({
-                                isError: true,
-                                message: "This quest already submitted before!",
-                            });
+                        return res.status(200).json({
+                            isError: true,
+                            message: "This quest already submitted before!",
+                        });
                     } else {
                         await submitNewUserQuestTransaction(questId, rewardTypeId, whiteListUser);
                     }

@@ -133,7 +133,7 @@ export default function ConnectBoard({ session }) {
                                             >
                                                 <img
                                                     src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                    alt="connectToContinue"
+                                                    alt="Sign Up"
                                                 />
                                                 <div>
                                                     <span>Sign Up</span>

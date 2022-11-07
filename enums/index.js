@@ -30,12 +30,12 @@ const Enums = {
     TWITTER_RETWEET: "Retweet a Tweet",
     FOLLOW_TWITTER: "Follow Twitter Account",
     FOLLOW_INSTAGRAM: "Follow Instagram Account",
-    ZED_CLAIM: "Own ZED to claim $SHELL",
-    NOODS_CLAIM: "Own NOODS to claim $SHELL",
-    NFT_CLAIM: "Claim Reward For Owning NFT",
+    ZED_CLAIM: "Own ZED to claim $SHELL", // deprecated
+    NOODS_CLAIM: "Own NOODS to claim $SHELL", // deprecated
+    OWNING_NFT_CLAIM: "Claim Reward For Owning NFT",
     IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
-    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // do not use this
+    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // deprecated
     DAILY_SHELL: "Daily Shell Quest",
     CODE_QUEST: "Code Quest",
 

@@ -18,16 +18,13 @@ const questQueryAPI = async (req, res) => {
 
                 let quests =
                     availableQuests.filter(q => {
-                        if (q.type.name === Enums.CODE_QUEST) {
+                        if (q.type.name === Enums.CODE_QUEST || q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
                             return false;
                         }
                         if (
                             q.extendedQuestData.collaboration &&
                             q.extendedQuestData.collaboration.length > 0
                         ) {
-                            return false;
-                        }
-                        if (q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
                             return false;
                         }
 

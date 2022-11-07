@@ -83,13 +83,6 @@ const ClaimRewardForOwningNFT = ({
             return;
         }
     };
-
-    // const getNFT = () => {
-    //     let pathname = router.pathname;
-    //     const nft = pathname.split("/");
-    //     return nft[1].toString().trim().toUpperCase();
-    // };
-
     return (
         <div className={s.board}>
             <div className={s.board_container}>
@@ -213,7 +206,7 @@ const ClaimRewardForOwningNFT = ({
                 <button className={s.board_disconnect} onClick={() => SignOut()}>
                     <img
                         src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
+                        alt="Disconnect From Challenger"
                     />
                     <div>
                         <span>Disconnect</span>

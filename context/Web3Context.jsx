@@ -7,9 +7,9 @@ import Enums from "enums";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const util = require("util");
-const API_ADMIN = `${Enums.BASEPATH}/api/admin`; //  `${Enums.BASEPATH}/api/admin`   --  `/api/admin`
-const API_USER = `${Enums.BASEPATH}/api/user`; // `${Enums.BASEPATH}/api/user`  --- `/api/user`
-const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`; // `${Enums.BASEPATH}/api/user/signup` -- `$/api/user/signup`
+const API_ADMIN = `${Enums.BASEPATH}/api/admin`;
+const API_USER = `${Enums.BASEPATH}/api/user`;
+const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`;
 
 export const Web3Context = React.createContext();
 
@@ -260,55 +260,6 @@ export function Web3Provider({ session, children }) {
         }
     };
 
-    const TryValidate = async (walletType) => {
-        if (!walletType) {
-            throw new Error("Missing type of wallet when trying to setup wallet provider");
-        }
-        try {
-            let addresses, providerInstance;
-
-            if (walletType === Enums.METAMASK) {
-                providerInstance = new ethers.providers.Web3Provider(window.ethereum);
-                addresses = await providerInstance.send("eth_requestAccounts", []);
-                SubscribeProvider(window.ethereum);
-            } else if (walletType === Enums.WALLETCONNECT) {
-                let provider = new WalletConnectProvider({
-                    infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-                    qrcodeModalOptions: {
-                        mobileLinks: ["trust"],
-                        desktopLinks: ["encrypted ink"],
-                    },
-                });
-                await provider.enable();
-
-                providerInstance = new ethers.providers.Web3Provider(provider);
-                addresses = provider.accounts;
-                SubscribeProvider(provider);
-            }
-
-            if (addresses.length === 0) {
-                setWeb3Error("Account is locked, or is not connected, or is in pending request.");
-                return;
-            }
-
-            return new Promise((resolve, reject) => {
-                setTimeout(async () => {
-                    const signer = await providerInstance.getSigner();
-
-                    await signer.signMessage(`${Enums.USER_CLAIM_NFT_MSG}`).catch((err) => {
-                        setWeb3Error(err.message);
-                        reject(err.message);
-                    });
-
-                    const address = await signer.getAddress();
-                    resolve(address);
-                }, 1000);
-            });
-        } catch (error) {
-            setWeb3Error(error.message);
-        }
-    };
-
     const SignOut = async () => {
         RemoveLocalStorageWalletConnect();
         signOut();
@@ -438,7 +389,7 @@ export function Web3Provider({ session, children }) {
                 TryConnectAsUser,
                 SignOut,
                 TrySignUpWithWallet,
-                TryValidate,
+
                 web3Error,
                 setWeb3Error,
                 session,

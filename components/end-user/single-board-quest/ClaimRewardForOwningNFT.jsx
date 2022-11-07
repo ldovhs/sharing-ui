@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
-import axios from "axios";
 import { withUserOwningNftQuestQuery, withUserOwningNftQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
-import { useDeviceDetect } from "lib/hooks";
 
 const CLAIMABLE = 0;
 const CLAIMED = 1;
@@ -20,18 +18,11 @@ const ClaimRewardForOwningNFT = ({
 }) => {
     const [nftQuest, setNftQuest] = useState(null);
     const [error, setError] = useState(null);
-    const { SignOut, TryValidate } = useContext(Web3Context);
-    const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
-    const { isMobile } = useDeviceDetect();
+    const { SignOut } = useContext(Web3Context);
 
     const [isValidating, setIsValidating] = useState(false);
     const [currentView, setView] = useState(CLAIMABLE);
     let router = useRouter();
-
-    useEffect(() => {
-        const ethereum = window.ethereum;
-        setIsMetamaskDisabled(!ethereum || !ethereum.on);
-    }, []);
 
     useEffect(async () => {
         if (userQuests && router) {
@@ -167,10 +158,10 @@ const ClaimRewardForOwningNFT = ({
                                         >
                                             <img
                                                 src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                alt="connectToContinue"
+                                                alt="Go Back"
                                             />
                                             <div>
-                                                <span>Back</span>
+                                                <span>Go Back</span>
                                             </div>
                                         </button>
                                     </>
@@ -188,7 +179,7 @@ const ClaimRewardForOwningNFT = ({
                                         >
                                             <img
                                                 src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                alt="connectToContinue"
+                                                alt="Go Back"
                                             />
                                             <div>
                                                 <span>Go Back</span>

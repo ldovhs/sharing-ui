@@ -265,12 +265,16 @@ function SignUp({ session }) {
                                 )}
                                 {currentPrompt === SIGNUP_CAPTCHA && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
+
                                         <div className={s.board_signin_content}>
+                                            <div className={s.board_signin_title}>
+                                                Prove that you’re a human
+                                            </div>
                                             <HCaptcha
                                                 sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
                                                 onVerify={(token, ekey) => handleVerificationSuccess(token, ekey)}
                                                 ref={captchaRef} />
-                                            <button
+                                            {/* <button
                                                 className={s.board_orangeBtn}
                                                 onClick={() => handleChallenge()}
                                             >
@@ -281,7 +285,7 @@ function SignUp({ session }) {
                                                 <div>
                                                     <span>Challenge</span>
                                                 </div>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 )}

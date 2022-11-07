@@ -14,7 +14,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
     const [submissionQuest, setSubmissionQuest] = useState(null);
     const [inputError, setInputError] = useState(null);
     const [inputCode, setInputCode] = useState(null);
-    const { SignOut, TryValidate } = useContext(Web3Context);
+    const { SignOut } = useContext(Web3Context);
     const [currentView, setView] = useState(SUBMITTABLE);
     const router = useRouter();
 

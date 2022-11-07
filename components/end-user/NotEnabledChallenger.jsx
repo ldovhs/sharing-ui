@@ -5,7 +5,7 @@ import Enums from "enums";
 import { BoardSmallDollarSign } from ".";
 
 const NotEnabledChallenger = ({ session }) => {
-    const { SignOut, TryValidate } = useContext(Web3Context);
+    const { SignOut } = useContext(Web3Context);
     return (
         <div className={s.board}>
             <div className={s.board_container}>

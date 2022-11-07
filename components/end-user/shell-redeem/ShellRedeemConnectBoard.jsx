@@ -116,7 +116,7 @@ export default function ShellRedeemConnectBoard() {
                                                 alt="connectToContinue"
                                             />
                                             <div>
-                                                <span>Log In</span>
+                                                <span>Login</span>
                                             </div>
                                         </button>
                                     </div>

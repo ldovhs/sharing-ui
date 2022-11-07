@@ -27,7 +27,7 @@ const ImageUpload = ({
     const [currentQuest, setCurrentQuest] = useState(null);
     const [submittedQuest, setSubmittedQuest] = useState(null);
     const [error, setError] = useState(null);
-    const { SignOut, TryValidate } = useContext(Web3Context);
+    const { SignOut } = useContext(Web3Context);
 
     const [nsfwModel, setNSFWModel] = useState(null);
     const [currentView, setView] = useState(UPLOADABLE);

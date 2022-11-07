@@ -178,7 +178,7 @@ const ClaimRewardForOwningNFT = ({
                                 {currentView === UNCLAIMABLE && (
                                     <>
                                         <div className={s.board_title}>
-                                            Unclaimable. {error || `You don't own this NFT`}.
+                                            Unclaimable. {error || `You don't own this NFT`}
                                         </div>
                                         <button
                                             className={s.board_pinkBtn}

@@ -14,9 +14,6 @@ const Enums = {
     ADMIN_SIGN_MSG: "Sign to authenticate as admin",
     USER_SIGN_MSG: "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
 
-    USER_CLAIM_NFT_MSG:
-        "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
-
     DAILY: "daily",
     HOURLY: "hourly",
     WEEKLY: "weekly",
@@ -35,7 +32,7 @@ const Enums = {
     OWNING_NFT_CLAIM: "Claim Reward For Owning NFT",
     IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
-    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // deprecated
+    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // deprecated, collaboration is determined based on quest.extendedQuestData
     DAILY_SHELL: "Daily Shell Quest",
     CODE_QUEST: "Code Quest",
 

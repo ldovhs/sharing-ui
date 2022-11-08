@@ -6,10 +6,6 @@ module.exports = {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     },
 
-    // images: {
-    //     domains: [process.env.NEXT_PUBLIC_WEBSITE_HOST],
-    //     path: `${basePath}/_next/image`,
-    // },
     publicRuntimeConfig: {
         basePath: basePath,
     },

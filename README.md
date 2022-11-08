@@ -27,7 +27,7 @@ In any sql client, the tables should be created.
 
   ### Populate data
 Go to ./prisma/seed/admin.js
-Modifying the value with your wallet
+Modifying the value with your wallet, then execute these commands:
 ```js
 dotenv -e .env.development -- node ./prisma/seed/admin.js
 dotenv -e .env.development -- node ./prisma/seed/quest-type.js
@@ -36,8 +36,6 @@ dotenv -e .env.development -- node ./prisma/seed/reward-type.js
 ```
 
 </details>
-
-<br/>
 <br/>
 
 <details>

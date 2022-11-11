@@ -30,7 +30,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
             message: "Missing unstoppable!",
           });
         }
-        console.log("query quest")
+
         // query the type based on questId
         let currentQuest = await prisma.quest.findUnique({
           where: {
@@ -83,13 +83,13 @@ const submitUnstoppableAuthQuest = async (req, res) => {
             message: error,
           });
         }
-        console.log("validate")
+
         // checking validity of uauthUser
         const resolution = new Resolution();
         let walletOwner = await resolution.owner(uauthUser);
 
-        console.log("update")
-        await updateUserUnstopabbleAndAddRewardTransaction(questId, rewardTypeId, uauthUser);
+
+        await updateUserUnstopabbleAndAddRewardTransaction(currentQuest, whiteListUser, uauthUser);
         return res.status(200).json(userQuest);
 
 

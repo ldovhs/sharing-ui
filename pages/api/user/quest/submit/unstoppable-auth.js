@@ -13,7 +13,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
 
   switch (method) {
     case "POST":
-      console.log("In Code Quest Submit");
+      console.log("In Unstoppable Auth Quest Submit");
       if (process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false") {
         return res
           .status(200)
@@ -27,7 +27,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
         if (!uauthUser) {
           return res.status(200).json({
             isError: true,
-            message: "Missing input!",
+            message: "Missing unstoppable!",
           });
         }
 
@@ -75,14 +75,17 @@ const submitUnstoppableAuthQuest = async (req, res) => {
         }
 
         // checked if existed
-        let existingUnstopableUser = await prisma.whiteList.findFirst({
+        let existingUnstoppableUser = await prisma.whiteList.findFirst({
           where: {
             uathUser: uauthUser,
           },
         });
-        if (existingUnstopableUser) {
+        if (existingUnstoppableUser) {
           let error = "Same unstoppable domain authenticated";
-          return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+          return res.status(200).json({
+            isError: true,
+            message: error,
+          });
         }
 
         // checking validity of uauthUser
@@ -94,7 +97,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
 
 
       } catch (error) {
-
+        console.log(error)
         return res.status(200).json({ isError: true, message: error.message, questId });
       }
       break;

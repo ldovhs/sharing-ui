@@ -63,10 +63,10 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
         try {
             // let test = await resolution.addr(auth, "ETH"); // resolver
             const authorization = await uauth.loginWithPopup();
-            // console.log(authorization)
+            console.log(authorization);
             // let test = await resolution.owner(auth);
             if (authorization) {
-                setUauthUser(auth);
+                setUauthUser(authorization);
                 setView(STEP_4);
             } else {
                 console.log(authorization);

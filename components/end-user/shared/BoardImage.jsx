@@ -16,7 +16,7 @@ export default function RenderBoardImage() {
             )}
             {!isMobile && (
                 <img
-                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/board_medium.png`}
+                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/board_med.png`}
                     alt="Board Layout"
                     className={`${s.boardLarge_bgImg}  `}
                 />

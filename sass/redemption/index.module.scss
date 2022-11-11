@@ -402,19 +402,10 @@ $list-text-font-size-large: 1.25rem;
 
     &_container {
       position: relative;
-      // @include m.flex-master(column, center, center);
+
       width: 100%;
       height: 0;
       padding-top: 156.2%;
-
-      // @media (min-width: $bp-small-2) {
-      //     width: 100%;
-      //     height:0;
-      //     padding-top: 104.29%;
-
-      //     background: url("/challenger/img/sharing-ui/invite/Board_medium.png") no-repeat;
-      //     background-size: cover;
-      // }
     }
     &_idle {
       background: url("/challenger/img/redemption/machine_idle_x4.gif") no-repeat;
@@ -442,10 +433,6 @@ $list-text-font-size-large: 1.25rem;
       position: relative;
       width: 100%;
       height: 100%;
-
-      // @media (min-width: $bp-xl) {
-      //     gap: 1.75rem;
-      // }
     }
 
     &_shell {

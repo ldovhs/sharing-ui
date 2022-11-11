@@ -356,7 +356,7 @@ export function Web3Provider({ session, children }) {
                         });
 
                     const doQuest = await axios
-                        .post(`${Enums.BASEPATH}/api/user/quest/wallet-auth`, {
+                        .post(`${Enums.BASEPATH}/api/user/quest/submit/wallet-auth`, {
                             address,
                             signature,
                         })

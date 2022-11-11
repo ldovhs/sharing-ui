@@ -69,8 +69,8 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             if (authorization) {
                 let user = await uauth.user();
                 console.log(user);
-                // setUauthUser(authorization);
-                // setView(STEP_4);
+                setUauthUser(user.sub);
+                setView(STEP_4);
             } else {
                 console.log(authorization);
                 setError("something wrong");

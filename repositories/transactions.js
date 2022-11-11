@@ -463,3 +463,68 @@ export const updateUserWalletAndAddRewardTransaction = async (quest, whiteListUs
 
 
 };
+
+export const updateUserUnstopabbleAndAddRewardTransaction = async (quest, whiteListUser, uauthUser) => {
+    console.log(`**Update user unstopable**`);
+    let { questId, rewardTypeId, quantity } = quest;
+
+    let currentQuest = await prisma.quest.findUnique({
+        where: {
+            questId,
+        },
+    });
+
+    const { userId } = whiteListUser;
+
+    let updatedUser = prisma.whiteList.update({
+        where: { userId },
+        data: {
+            uathUser: uauthUser,
+        },
+    });
+
+    console.log(`**Create / Update reward for user**`);
+    let claimedReward = prisma.reward.upsert({
+        where: {
+            userId_rewardTypeId: { userId, rewardTypeId },
+        },
+        update: {
+            quantity: {
+                increment: currentQuest.quantity,
+            },
+        },
+        create: {
+            userId,
+            quantity,
+            rewardTypeId,
+        },
+
+        select: {
+            userId: true,
+            quantity: true,
+            user: true,
+            rewardTypeId: true,
+            rewardType: true,
+        },
+    });
+
+    console.log(`**Save to UserQuest, to keep track that its done**`);
+    let userQuest = prisma.userQuest.create({
+        data: {
+            userId,
+            questId,
+            rewardedTypeId: rewardTypeId,
+            rewardedQty: currentQuest.quantity,
+        },
+    });
+
+    try {
+        await prisma.$transaction([updatedUser, claimedReward, userQuest]);
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+
+
+
+};

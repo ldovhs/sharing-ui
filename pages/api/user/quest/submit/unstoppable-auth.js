@@ -2,8 +2,7 @@ import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 import {
-  submitUserQuestTransaction,
-  submitUserDailyQuestTransaction,
+  updateUserUnstopabbleAndAddRewardTransaction
 } from "repositories/transactions";
 
 const { default: Resolution } = require("@unstoppabledomains/resolution");
@@ -90,7 +89,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
         const resolution = new Resolution();
         let walletOwner = await resolution.owner(uauthUser);
 
-        await submitUserQuestTransaction(questId, rewardTypeId, whiteListUser);
+        await updateUserUnstopabbleAndAddRewardTransaction(questId, rewardTypeId, uauthUser);
         return res.status(200).json(userQuest);
 
 

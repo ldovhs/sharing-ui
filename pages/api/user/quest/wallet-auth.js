@@ -38,6 +38,8 @@ export default async function walletAuthQuest(req, res) {
                         .json({ isError: true, message: "Missing user info for sign up." });
                 }
 
+                // TODO: we need to recover the address from signature here to ensure only one address can sign up with no replay attack
+
                 let wallet = utils.getAddress(address);
                 let isValid = utils.isAddress(address);
                 if (!wallet || !isValid) {
@@ -58,7 +60,7 @@ export default async function walletAuthQuest(req, res) {
                     let error = "Cannot find any quest associated with wallet authenticate.";
                     return res.status(200).json({ isError: true, message: error });
                 }
-                console.log(12323)
+
                 const questId = walletAuthQuest.questId;
                 if (whiteListUser) {
                     let walletAuthQuestOfThisUser = await prisma.userQuest.findFirst({
@@ -75,7 +77,7 @@ export default async function walletAuthQuest(req, res) {
                             .json({ isError: true, message: "Quest finished before." });
                     }
                 }
-                console.log(23232223)
+
                 let correctAddress = utils.getAddress(address)
                 await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
 

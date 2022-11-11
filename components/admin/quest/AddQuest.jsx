@@ -12,6 +12,7 @@ import {
     ImageUploadQuest,
     CodeQuestForm,
     WalletAuthQuestForm,
+    UnstoppableAuthQuestForm,
 } from "./index";
 
 import { withRewardTypeQuery } from "shared/HOC/reward";
@@ -45,6 +46,13 @@ const AddQuest = ({ closeModal, rewardTypes, questTypes }) => {
                                     ))}
                             </select>
                         </div>
+                        {selectedType === Enums.UNSTOPPABLE_AUTH && (
+                            <UnstoppableAuthQuestForm
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                                isCreate={true}
+                            />
+                        )}
 
                         {selectedType === Enums.OWNING_NFT_CLAIM && (
                             <ClaimRewardForOwningNFTForm

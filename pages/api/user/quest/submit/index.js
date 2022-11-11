@@ -2,7 +2,7 @@ import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 import {
-    submitNewUserQuestTransaction,
+    submitUserQuestTransaction,
     submitUserDailyQuestTransaction,
 } from "repositories/transactions";
 
@@ -44,11 +44,12 @@ const submitIndividualQuestAPI = async (req, res) => {
                 if (
                     currentQuest.type.name === Enums.IMAGE_UPLOAD_QUEST ||
                     currentQuest.type.name === Enums.CODE_QUEST ||
-                    currentQuest.type.name === Enums.OWNING_NFT_CLAIM
+                    currentQuest.type.name === Enums.OWNING_NFT_CLAIM ||
+                    currentQuest.type.name === Enums.UNSTOPPABLE_AUTH
                 ) {
                     return res.status(200).json({
                         isError: true,
-                        message: "This route is only for general quest submitt!",
+                        message: "This route is only for general quest!",
                     });
                 }
 
@@ -117,7 +118,7 @@ const submitIndividualQuestAPI = async (req, res) => {
                             message: "This quest already submitted before!",
                         });
                     } else {
-                        await submitNewUserQuestTransaction(questId, rewardTypeId, whiteListUser);
+                        await submitUserQuestTransaction(questId, rewardTypeId, whiteListUser);
                     }
 
                     return res.status(200).json(userQuest);

@@ -35,6 +35,7 @@ const Enums = {
     COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // deprecated, collaboration is determined based on quest.extendedQuestData
     DAILY_SHELL: "Daily Shell Quest",
     CODE_QUEST: "Code Quest",
+    UNSTOPPABLE_AUTH: "Unstoppable Domain Authenticate",
 
     // Image approval
     ITEM_PER_PAGE: 100,

@@ -3,6 +3,7 @@ import { Web3Context } from "@context/Web3Context";
 import s from "/sass/claim/claim.module.css";
 import Enums from "enums";
 import { BoardSmallDollarSign } from ".";
+import { DisconnectButton } from "./shared";
 
 const NotEnabledChallenger = ({ session }) => {
     const { SignOut } = useContext(Web3Context);
@@ -41,16 +42,7 @@ const NotEnabledChallenger = ({ session }) => {
                     </div>
                 </div>
             </div>
-            {/*  Disconnect */}
-            <button className={s.board_disconnect} onClick={() => SignOut()}>
-                <img
-                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                    alt="connectToContinue"
-                />
-                <div>
-                    <span>Disconnect</span>
-                </div>
-            </button>
+            <DisconnectButton />
         </div>
     );
 };

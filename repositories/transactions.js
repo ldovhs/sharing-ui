@@ -239,7 +239,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListU
 
 };
 
-export const submitNewUserQuestTransaction = async (questId, rewardTypeId, whiteListUser) => {
+export const submitUserQuestTransaction = async (questId, rewardTypeId, whiteListUser) => {
     let currentQuest = await prisma.quest.findUnique({
         where: {
             questId,

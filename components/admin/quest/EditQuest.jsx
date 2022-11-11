@@ -13,6 +13,7 @@ import {
     ImageUploadQuest,
     CodeQuestForm,
     WalletAuthQuestForm,
+    UnstoppableAuthQuestForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
 import ClaimRewardForOwningNFTForm from "./Forms/ClaimRewardForOwningNFTForm";
@@ -116,9 +117,16 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                                 closeModal={closeModal}
                             />
                         )}
-
                         {quest.type.name === Enums.CODE_QUEST && (
                             <CodeQuestForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.UNSTOPPABLE_AUTH && (
+                            <UnstoppableAuthQuestForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

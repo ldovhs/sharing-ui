@@ -54,3 +54,5 @@ cache
 artifacts
 .vscode/settings.json
 .npmrc
+bowl-owners.csv
+bowl-owners.xlsx

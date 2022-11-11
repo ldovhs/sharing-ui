@@ -2,7 +2,7 @@ import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 import {
-    submitNewUserQuestTransaction,
+    submitUserQuestTransaction,
     submitUserDailyQuestTransaction,
 } from "repositories/transactions";
 import { getWhiteListUserByUserId } from "repositories/user";
@@ -119,7 +119,7 @@ const submitNftQuest = async (req, res) => {
                     );
 
                     if (haveNft) {
-                        await submitNewUserQuestTransaction(questId, rewardTypeId, whiteListUser);
+                        await submitUserQuestTransaction(questId, rewardTypeId, whiteListUser);
                         return res.status(200).json(userQuest);
                     }
                     return res

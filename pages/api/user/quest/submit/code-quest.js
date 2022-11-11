@@ -2,7 +2,7 @@ import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 import {
-    submitNewUserQuestTransaction,
+    submitUserQuestTransaction,
     submitUserDailyQuestTransaction,
 } from "repositories/transactions";
 
@@ -97,7 +97,7 @@ const submitCodeQuest = async (req, res) => {
                     thisCodeQuest?.extendedQuestData.secretCode.toLowerCase() ||
                     foundOtherAnswersCorrect !== -1
                 ) {
-                    await submitNewUserQuestTransaction(questId, rewardTypeId, whiteListUser);
+                    await submitUserQuestTransaction(questId, rewardTypeId, whiteListUser);
                     return res.status(200).json(userQuest);
                 }
                 else {

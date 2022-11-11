@@ -4,6 +4,7 @@ import s from "/sass/claim/claim.module.css";
 import { withUserOwningNftQuestQuery, withUserOwningNftQuestSubmit } from "shared/HOC/quest";
 import Enums from "enums";
 import { useRouter } from "next/router";
+import { BackToMainBoardButton, DisconnectButton } from "../shared";
 
 const CLAIMABLE = 0;
 const CLAIMED = 1;
@@ -150,20 +151,7 @@ const ClaimRewardForOwningNFT = ({
                                 {currentView === CLAIMED && (
                                     <>
                                         <div className={s.board_title}>Claimed successfully</div>
-                                        <button
-                                            className={s.board_pinkBtn}
-                                            onClick={() => {
-                                                router.push("/");
-                                            }}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                alt="Go Back"
-                                            />
-                                            <div>
-                                                <span>Go Back</span>
-                                            </div>
-                                        </button>
+                                        <BackToMainBoardButton />
                                     </>
                                 )}
                                 {currentView === UNCLAIMABLE && (
@@ -171,20 +159,7 @@ const ClaimRewardForOwningNFT = ({
                                         <div className={s.board_title}>
                                             Unclaimable. {error || `You don't own this NFT`}
                                         </div>
-                                        <button
-                                            className={s.board_pinkBtn}
-                                            onClick={() => {
-                                                router.push("/");
-                                            }}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                alt="Go Back"
-                                            />
-                                            <div>
-                                                <span>Go Back</span>
-                                            </div>
-                                        </button>
+                                        <BackToMainBoardButton />
                                     </>
                                 )}
                             </>
@@ -192,18 +167,7 @@ const ClaimRewardForOwningNFT = ({
                     </div>
                 </div>
             </div>
-            {/*  Disconnect */}
-            {!isFetchingUserQuests && (
-                <button className={s.board_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="Disconnect From Challenger"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            <DisconnectButton />
         </div>
     );
 };

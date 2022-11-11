@@ -7,10 +7,9 @@ import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from "..";
 import * as nsfwjs from "@nsfw-filter/nsfwjs";
+import { BackToMainBoardButton, DisconnectButton } from "../shared";
 
 const ANOMURA_DISCORD_SERVER = "851558628032905286";
-// 954167590677258241 test
-// 851558628032905286 production
 
 const UPLOADABLE = 0;
 const SUBMITTABLE = 1;
@@ -315,20 +314,7 @@ const ImageUpload = ({
                                                 </div>
                                             </button>
                                         )}
-                                        <button
-                                            className={s.board_tealBtn}
-                                            onClick={() => {
-                                                router.push("/");
-                                            }}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
-                                                alt="Back To Quest page"
-                                            />
-                                            <div>
-                                                <span>Back to quests</span>
-                                            </div>
-                                        </button>
+                                        <BackToMainBoardButton />
                                     </>
                                 )}
                             </>
@@ -336,18 +322,7 @@ const ImageUpload = ({
                     </div>
                 </div>
             </div>
-            {/*  Disconnect */}
-            {!isFetchingUserQuests && (
-                <button className={s.board_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            <DisconnectButton />
         </div>
     );
 };

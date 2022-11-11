@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-import s from "/sass/claim/claim.module.css";
+import s from "/sass/redemption/index.module.css";
 import Enums from "enums";
 import { useDeviceDetect } from "lib/hooks";
 import "/node_modules/nes.css/css/nes.css";

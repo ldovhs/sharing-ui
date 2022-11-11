@@ -8,3 +8,4 @@ export { default as BoardSmallDollarSign } from "./shared/BoardSmallDollarSign";
 export { default as BoardLargeDollarSign } from "./shared/BoardLargeDollarSign";
 export { default as CodeQuestSubmit } from "./single-board-quest/CodeQuestSubmit";
 export { default as ShellRedeem } from "./shell-redeem/ShellRedeem";
+export { default as UnstoppableAuth } from "./single-board-quest/UnstoppableAuth";

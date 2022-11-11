@@ -9,3 +9,4 @@ export { default as CollaborationFreeShell } from "./Forms/CollaborationFreeShel
 export { default as DailyShellQuestForm } from "./Forms/DailyShellQuestForm";
 export { default as CodeQuestForm } from "./Forms/CodeQuestForm";
 export { default as WalletAuthQuestForm } from "./Forms/WalletAuthQuestForm";
+export { default as UnstoppableAuthQuestForm } from "./Forms/UnstoppableAuthQuestForm";

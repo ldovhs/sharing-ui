@@ -173,6 +173,52 @@ export const withUserOwningNftQuestSubmit =
             );
         };
 
+export const withUserUnstoppableAuthQuestSubmit =
+    (Component) =>
+        ({ ...props }) => {
+            const queryClient = useQueryClient();
+            const { data, error, isError, isLoading, isSuccess, mutate, mutateAsync } = useMutation(
+                "submitUnstopableAuthQuest",
+                (quest) => axios.post(`${Enums.BASEPATH}/api/user/quest/submit/unstoppable-auth`, quest),
+                {
+                    onSuccess: () => {
+                        queryClient.invalidateQueries("userRewardQuery");
+                        queryClient.invalidateQueries("userQueryQuest");
+                    },
+                }
+            );
+
+            const handleOnSubmit = async (quest, currentQuests) => {
+                let submitted = await mutateAsync(quest).then(r => r.data);
+
+                if (!submitted.isError) {
+                    let updatedQuests = currentQuests.map((q) => {
+                        if (q.questId == quest.questId) {
+                            q.isDone = true;
+                        }
+                        return q;
+                    });
+
+                    return await Promise.all(updatedQuests).then(() => {
+                        updatedQuests.sort(isNotDoneFirst);
+                        return updatedQuests;
+                    });
+                } else {
+                    return submitted
+                }
+            }
+
+            return (
+                <Component
+                    {...props}
+                    isSubmitting={isLoading}
+                    submittedQuest={data?.data}
+                    mutationError={error}
+                    onSubmit={(quest, currentQuests) => handleOnSubmit(quest, currentQuests)}
+                />
+            );
+        };
+
 export const withUserImageQuestSubmit =
     (Component) =>
         ({ ...props }) => {
@@ -254,6 +300,26 @@ export const withUserCodeQuestQuery =
             const { data, status, isLoading, error } = useQuery("userQueryCollaborationQuest", () =>
                 axios.get(`${Enums.BASEPATH}/api/user/quest/code-quest?event=${codeQuestEvent}`),
                 { enabled: !!codeQuestEvent }
+            );
+            return (
+                <Component
+                    {...props}
+                    isFetchingUserQuests={isLoading}
+                    userQuests={data?.data}
+                    queryError={error}
+                />
+            );
+        };
+
+
+export const withUserUnstoppableAuthQuestQuery =
+    (Component) =>
+        ({ ...props }) => {
+
+            const { data, status, isLoading, error } = useQuery("userQueryUnstoppableAuthQuest", () =>
+                // axios.get(`${Enums.BASEPATH}/api/user/quest/unstopple-quest?event=domain-auth`),
+                axios.get(`${Enums.BASEPATH}/api/user/quest/unstoppable-quest`),
+
             );
             return (
                 <Component

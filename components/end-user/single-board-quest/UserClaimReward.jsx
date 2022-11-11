@@ -4,6 +4,7 @@ import s from "/sass/claim/claim.module.css";
 import { withClaimableRewardQuery, withClaimRewardSubmit } from "shared/HOC/reward";
 import Enums from "enums";
 import { BoardSmallDollarSign } from "..";
+import { DisconnectButton } from "../shared";
 
 const UserClaimReward = ({
     session,
@@ -100,18 +101,7 @@ const UserClaimReward = ({
                     </div>
                 </div>
             </div>
-            {/*  Disconnect */}
-            {!isSubmittingReward && !isFetchingReward && (
-                <button className={s.board_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            <DisconnectButton />
         </div>
     );
 };

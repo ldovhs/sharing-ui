@@ -19,15 +19,7 @@ const csvWriter = createCsvWriter({
 async function main() {
 
   await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
-  // const query = await Moralis.EvmApi.nft.getContractNFTs({
-  //   address: ethers.utils.getAddress("0xe2ddf03ba8cDafd2Bb4884E52f7FB46df4FC7DC1"),
-  //   chain: 1,
-  //   // totalRanges: 2000,
-  //   range: 1,
-  // });
 
-  // console.log(query)
-  // console.log(query.result[0])
   let data = [];;
   for (let i = 1; i < 300; i++) {
     let dataToWrite = {}

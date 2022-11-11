@@ -9,6 +9,9 @@ import { useToast } from "@chakra-ui/react";
 import { BoardTitle, DisconnectButton, ScrollableContent } from "../shared";
 import { doQuestUtility } from "../shared/doQuestUtility";
 
+import { isAlphabeticallly, isNotDoneFirst } from "@utils/sort";
+import RenderBoardImage from "../shared/BoardImage";
+
 const IndividualQuestBoard = ({
     session,
     isFetchingUserQuests,
@@ -72,21 +75,22 @@ const IndividualQuestBoard = ({
 
     return (
         <div className={s.boardLarge}>
-            <div className={s.boardLarge_container}>
-                <BoardLargeDollarSign session={session} />
+            <div className={s.boardLarge_layout}>
                 <div className={s.boardLarge_wrapper}>
-                    <div className={s.boardLarge_content}>
-                        <BoardTitle session={session} />
-                        {/*  Render error message */}
-                        {currentQuests?.isError && <div>{currentQuests?.message}</div>}
-
-                        <ScrollableContent
-                            isFetchingUserQuests={isFetchingUserQuests}
-                            isSubmitting={isSubmitting}
-                            isFetchingUserRewards={isFetchingUserRewards}
-                            currentQuests={currentQuests}
-                            doQuest={(item) => doQuest(item)}
-                        />
+                    <RenderBoardImage />
+                    <BoardLargeDollarSign session={session} />
+                    <div className={s.boardLarge_container}>
+                        <div className={s.boardLarge_content}>
+                            <BoardTitle session={session} />
+                            {currentQuests?.isError && <div>{currentQuests?.message}</div>}
+                            <ScrollableContent
+                                isFetchingUserQuests={isFetchingUserQuests}
+                                isSubmitting={isSubmitting}
+                                isFetchingUserRewards={isFetchingUserRewards}
+                                currentQuests={currentQuests}
+                                doQuest={(item) => doQuest(item)}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,13 +98,6 @@ const IndividualQuestBoard = ({
         </div>
     );
 };
-
-function isNotDoneFirst(a, b) {
-    return Number(a.isDone) - Number(b.isDone);
-}
-function isAlphabeticallly(a, b) {
-    return a.text.localeCompare(b.text);
-}
 
 const firstHOC = withUserQuestSubmit(IndividualQuestBoard);
 export default withUserQuestQuery(firstHOC);

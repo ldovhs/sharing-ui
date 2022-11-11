@@ -17,7 +17,7 @@ const QuestFormTemplate = ({
     return (
         <>
             <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
-                <label className="form-label">Quest Text</label>
+                <label className="form-label">Quest Text (to be shown on user-end)</label>
                 <Field
                     name="text"
                     type="text"

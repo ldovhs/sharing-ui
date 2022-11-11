@@ -5,10 +5,12 @@ import { withUserCodeQuestQuery, withUserCodeQuestSubmit } from "shared/HOC/ques
 import Enums from "enums";
 import { useRouter } from "next/router";
 import { BoardSmallDollarSign } from "..";
+import { BackToMainBoardButton, DisconnectButton } from "../shared";
 
 const SUBMITTABLE = 1;
 const SUBMITTED = 2;
 const OVERDUE = 3;
+const UNCLAIMABLE = 4;
 
 const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests, userQuests }) => {
     const [submissionQuest, setSubmissionQuest] = useState(null);
@@ -98,7 +100,10 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
             };
             let res = await onSubmit(submission, userQuests);
 
-            if (res) {
+            if (res.isError) {
+                setError(res.message);
+                setView(UNCLAIMABLE);
+            } else {
                 setSubmissionQuest((prevState) => ({ ...prevState, isDone: true }));
                 return setView(SUBMITTED);
             }
@@ -191,20 +196,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                         <div className={s.board_title}>
                                             Success! Quest completed.
                                         </div>
-                                        <button
-                                            className={s.board_tealBtn}
-                                            onClick={() => {
-                                                router.push("/");
-                                            }}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
-                                                alt="Back To Quest page"
-                                            />
-                                            <div>
-                                                <span>Back to quests</span>
-                                            </div>
-                                        </button>
+                                        <BackToMainBoardButton />
                                     </>
                                 )}
                                 {currentView === OVERDUE && (
@@ -213,20 +205,13 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                             Sorry, you're too late. All the $SHELL has been found
                                             for this quest.
                                         </div>
-                                        <button
-                                            className={s.board_tealBtn}
-                                            onClick={() => {
-                                                router.push("/");
-                                            }}
-                                        >
-                                            <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
-                                                alt="Back To Quest page"
-                                            />
-                                            <div>
-                                                <span>Back to quests</span>
-                                            </div>
-                                        </button>
+                                        <BackToMainBoardButton />
+                                    </>
+                                )}
+                                {currentView === UNCLAIMABLE && (
+                                    <>
+                                        <div className={s.board_title}>Error: {error}</div>
+                                        <BackToMainBoardButton />
                                     </>
                                 )}
                             </>
@@ -234,18 +219,7 @@ const CodeQuestSubmit = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                     </div>
                 </div>
             </div>
-            {/*  Disconnect */}
-            {!isFetchingUserQuests && (
-                <button className={s.board_disconnect} onClick={() => SignOut()}>
-                    <img
-                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Disconnect.png`}
-                        alt="connectToContinue"
-                    />
-                    <div>
-                        <span>Disconnect</span>
-                    </div>
-                </button>
-            )}
+            <DisconnectButton />
         </div>
     );
 };

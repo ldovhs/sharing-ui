@@ -30,7 +30,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
             message: "Missing unstoppable!",
           });
         }
-
+        console.log("query quest")
         // query the type based on questId
         let currentQuest = await prisma.quest.findUnique({
           where: {
@@ -40,6 +40,14 @@ const submitUnstoppableAuthQuest = async (req, res) => {
             type: true,
           },
         });
+
+
+        if (!currentQuest) {
+          return res.status(200).json({
+            isError: true,
+            message: "This quest not existed!",
+          });
+        }
 
         /** This route is for image upload quest */
         if (currentQuest.type.name !== Enums.UNSTOPPABLE_AUTH) {
@@ -62,19 +70,7 @@ const submitUnstoppableAuthQuest = async (req, res) => {
           });
         }
 
-        let thisUnstoppableAuthCodeQuest = await prisma.quest.findFirst({
-          where: {
-            questId
-          }
-        })
-        if (!thisUnstoppableAuthCodeQuest) {
-          return res.status(200).json({
-            isError: true,
-            message: "This quest not existed!",
-          });
-        }
-
-        // checked if existed
+        // checked unstoppable if existed
         let existingUnstoppableUser = await prisma.whiteList.findFirst({
           where: {
             uathUser: uauthUser,
@@ -87,11 +83,12 @@ const submitUnstoppableAuthQuest = async (req, res) => {
             message: error,
           });
         }
-
+        console.log("validate")
         // checking validity of uauthUser
         const resolution = new Resolution();
         let walletOwner = await resolution.owner(uauthUser);
 
+        console.log("update")
         await updateUserUnstopabbleAndAddRewardTransaction(questId, rewardTypeId, uauthUser);
         return res.status(200).json(userQuest);
 

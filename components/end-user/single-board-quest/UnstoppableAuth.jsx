@@ -21,6 +21,7 @@ const resolution = new Resolution();
 const uauth = new UAuth({
     clientID: process.env.NEXT_PUBLIC_UNSTOPPABLE_CLIENT_ID,
     redirectUri: process.env.NEXT_PUBLIC_UNSTOPPABLE_REDIRECT_URI,
+    scope: "openid wallet",
 });
 
 const STEP_1 = 1;

@@ -10,6 +10,7 @@ import * as gtag from "../lib/ga/gtag";
 import { useRouter } from "next/router";
 import { ChakraProvider } from '@chakra-ui/react'
 import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading"
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient();
 
@@ -57,8 +58,10 @@ function MyApp({ Component, pageProps }) {
                                 </Component.Layout>
                             ) : (
 
-
-                                < Component {...pageProps} />
+                                <>
+                                    <Component {...pageProps} />
+                                    <Analytics />
+                                </>
 
                             )}
                         </ChakraProvider>

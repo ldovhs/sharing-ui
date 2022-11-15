@@ -392,8 +392,7 @@ export function Web3Provider({ session, children }) {
     };
 
     const tryConnectAsUnstoppable = async () => {
-        const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
-        let uathUser;
+        // const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
 
         try {
             const authorization = await uauth.loginWithPopup();
@@ -402,22 +401,24 @@ export function Web3Provider({ session, children }) {
             if (authorization) {
                 let user = await uauth.user();
                 console.log(user);
-                uathUser = user.sub;
-                // signIn("unstoppable-authenticate", {
-                //     redirect: true,
-                //     uathUser,
-                //     address,
-                // })
-                //     .then(({ ok, error }) => {
-                //         if (ok) {
-                //             console.log("ok");
-                //             return true;
-                //         } else {
-                //             console.log("Authentication failed");
-                //             return false;
-                //         }
-                //     })
-                //     .catch((err) => {});
+                let uathUser = user.sub;
+                let address = user?.wallet_address;
+
+                signIn("unstoppable-authenticate", {
+                    redirect: false,
+                    uathUser,
+                    address,
+                })
+                    .then(({ ok, error }) => {
+                        if (ok) {
+                            console.log("ok");
+                            return true;
+                        } else {
+                            console.log("Authentication failed");
+                            return false;
+                        }
+                    })
+                    .catch((err) => {});
             } else {
                 console.log(authorization);
                 setError("something wrong");

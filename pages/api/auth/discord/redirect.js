@@ -105,17 +105,20 @@ export default async function discordRedirect(req, res) {
                         let error = "Discord quest has finished.";
                         return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                     }
+                    await updateDiscordUserAndAddRewardTransaction(
+                        discordQuest,
+                        whiteListUser,
+                        userInfo.data
+                    );
 
+                    let discordSignUp = `Sign Up With Discord Successfully`
+                    res.status(200).redirect(`/challenger/quest-redirect?result=${discordSignUp}`);
+                } else {
+                    let error = "No Session.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                await updateDiscordUserAndAddRewardTransaction(
-                    discordQuest,
-                    whiteListUser,
-                    userInfo.data
-                );
 
-                let discordSignUp = `Sign Up With Discord Successfully`
-                res.status(200).redirect(`/challenger/quest-redirect?result=${discordSignUp}`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

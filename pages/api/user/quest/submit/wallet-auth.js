@@ -103,6 +103,9 @@ export default async function walletAuthQuest(req, res) {
                     await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
 
                     res.status(200).json({ message: "ok" });
+                } else {
+                    let error = "No Session.";
+                    return res.status(200).json({ isError: true, message: error });
                 }
 
 

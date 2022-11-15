@@ -72,9 +72,9 @@ const TwitterRetweetQuest = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData.tweetId &&
-                                        touched.extendedQuestData.tweetId
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.tweetId &&
+                                        touched?.extendedQuestData?.tweetId
                                             ? " is-invalid"
                                             : "")
                                     }

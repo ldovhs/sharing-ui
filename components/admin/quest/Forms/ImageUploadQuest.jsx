@@ -78,9 +78,9 @@ const ImageUploadQuest = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.eventName &&
-                                        touched.extendedQuestData?.eventName
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.eventName &&
+                                        touched?.extendedQuestData?.eventName
                                             ? " is-invalid"
                                             : "")
                                     }

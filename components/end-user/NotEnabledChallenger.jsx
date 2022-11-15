@@ -19,8 +19,7 @@ const NotEnabledChallenger = ({ session }) => {
                                 The DeepSea Challenger has been paused.
                             </div>
                             <div className={s.board_goneFishText}>
-                                Check back on <span>August 29-30</span> to spend your $SHELL on a
-                                chance to win shiny treasures!
+                                Check back on <span>November 15</span>!
                             </div>
                             <button
                                 className={s.board_pinkBtn}

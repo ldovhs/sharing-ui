@@ -76,67 +76,67 @@ const userClaimRewardAPI = async (req, res) => {
 
 
                 //post to discord if discordId exists
-                // if (claimReward) {
-                //     if (
-                //         whiteListUser.discordId != null &&
-                //         whiteListUser.discordId.trim().length > 0
-                //     ) {
-                //         pendingReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
-                //     } else if (
-                //         whiteListUser.uathUser != null &&
-                //         whiteListUser.uathUser.trim().length > 0
-                //     ) {
-                //         pendingReward.claimedUser = whiteListUser.uathUser;
-                //     } else if (
-                //         whiteListUser.twitterUserName != null &&
-                //         whiteListUser.twitterUserName.trim().length > 0
-                //     ) {
-                //         pendingReward.claimedUser = whiteListUser.twitterUserName;
-                //     } else {
-                //         pendingReward.claimedUser = whiteListUser.userId;
-                //     }
+                if (claimReward) {
+                    if (
+                        whiteListUser.discordId != null &&
+                        whiteListUser.discordId.trim().length > 0
+                    ) {
+                        pendingReward.claimedUser = `<@${whiteListUser.discordId.trim()}>`;
+                    } else if (
+                        whiteListUser.uathUser != null &&
+                        whiteListUser.uathUser.trim().length > 0
+                    ) {
+                        pendingReward.claimedUser = whiteListUser.uathUser;
+                    } else if (
+                        whiteListUser.twitterUserName != null &&
+                        whiteListUser.twitterUserName.trim().length > 0
+                    ) {
+                        pendingReward.claimedUser = whiteListUser.twitterUserName;
+                    } else {
+                        pendingReward.claimedUser = whiteListUser.userId;
+                    }
 
-                //     switch (pendingReward.rewardType.reward) {
-                //         case Enums.REWARDTYPE.MYSTERYBOWL:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
-                //             break;
-                //         case Enums.REWARDTYPE.NUDE:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/15.gif`;
-                //             break;
-                //         case Enums.REWARDTYPE.BOREDAPE:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/11.gif`;
-                //             break;
-                //         case Enums.REWARDTYPE.MINTLIST:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
-                //             break;
-                //         case Enums.REWARDTYPE.SHELL:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                //             break;
-                //         default:
-                //             pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
-                //             break;
-                //     }
+                    switch (pendingReward.rewardType.reward) {
+                        case Enums.REWARDTYPE.MYSTERYBOWL:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/shop.gif`;
+                            break;
+                        case Enums.REWARDTYPE.NUDE:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/15.gif`;
+                            break;
+                        case Enums.REWARDTYPE.BOREDAPE:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/11.gif`;
+                            break;
+                        case Enums.REWARDTYPE.MINTLIST:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Mintlist-Reward.gif`;
+                            break;
+                        case Enums.REWARDTYPE.SHELL:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                            break;
+                        default:
+                            pendingReward.imageUrl = `${NEXT_PUBLIC_ORIGIN_HOST}/challenger/img/sharing-ui/invite/Shell-Reward.gif`;
+                            break;
+                    }
 
-                //     let discordPost = await axios
-                //         .post(
-                //             `${DISCORD_NODEJS}/api/v1/channels/claimedReward`,
-                //             {
-                //                 pendingReward,
-                //             },
-                //             {
-                //                 //authorization
-                //                 headers: {
-                //                     Authorization: `Bot ${NODEJS_SECRET}`,
-                //                     "Content-Type": "application/json",
-                //                 },
-                //             }
-                //         )
-                //         .catch((err) => {
-                //             // console.log(err);
-                //             res.status(200).json({ isError: true, message: err.message });
-                //             return
-                //         });
-                // }
+                    let discordPost = await axios
+                        .post(
+                            `${DISCORD_NODEJS}/api/v1/channels/claimedReward`,
+                            {
+                                pendingReward,
+                            },
+                            {
+                                //authorization
+                                headers: {
+                                    Authorization: `Bot ${NODEJS_SECRET}`,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        )
+                        .catch((err) => {
+                            // console.log(err);
+                            res.status(200).json({ isError: true, message: err.message });
+                            return
+                        });
+                }
                 res.status(200).json(pendingReward);
 
                 // res.status(200).json({ message: "ok" });

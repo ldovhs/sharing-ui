@@ -51,6 +51,14 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         },
                     });
 
+                    let unstoppableAuth = unstoppableAuthCheck(existingQuests, questType.name);
+                    if (unstoppableAuth) {
+                        return res.status(200).json({
+                            message: `Cannot add more than one "${type}" type for same auth `,
+                            isError: true,
+                        });
+                    }
+
                     let existingDiscordTwitterAuth = discordTwitterAuthCheck(
                         existingQuests,
                         questType.name
@@ -110,8 +118,11 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-
-                    let ownNftCheck = owningNftCheck(existingQuests, extendedQuestData, questType.name);
+                    let ownNftCheck = owningNftCheck(
+                        existingQuests,
+                        extendedQuestData,
+                        questType.name
+                    );
                     if (ownNftCheck) {
                         return res.status(200).json({
                             message: `Cannot add more than one "${type}" type to quest list `,
@@ -143,10 +154,11 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-
-                    let existingImageUploadQuest = imageUploadQuestCheck(existingQuests,
+                    let existingImageUploadQuest = imageUploadQuestCheck(
+                        existingQuests,
                         extendedQuestData,
-                        questType.name)
+                        questType.name
+                    );
 
                     if (existingImageUploadQuest) {
                         return res.status(200).json({
@@ -154,7 +166,6 @@ const AdminQuestUpsertAPI = async (req, res) => {
                             isError: true,
                         });
                     }
-
                 } else {
                     // update userquest, we need to get original extendedQuestData and create a new object to avoid data loss
                     console.log(`** Upserting a quest **`);
@@ -209,6 +220,17 @@ const AdminQuestUpsertAPI = async (req, res) => {
 // FOLLOW_INSTAGRAM: "Follow Instagram Account",
 // IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
 
+const unstoppableAuthCheck = (existingQuests, type) => {
+    if (type != Enums.UNSTOPPABLE_AUTH) return;
+
+    let unstoppableAuthQuest = existingQuests.filter((q) => q.type.name === Enums.UNSTOPPABLE_AUTH);
+
+    if (unstoppableAuthQuest?.length >= 1 && type === Enums.UNSTOPPABLE_AUTH) {
+        return true;
+    }
+    return false;
+};
+
 const discordTwitterAuthCheck = (existingQuests, type) => {
     if (type != Enums.DISCORD_AUTH && type != Enums.TWITTER_AUTH) return;
 
@@ -259,18 +281,14 @@ const retweetCheck = (existingQuests, extendedQuestData, type) => {
     );
 };
 
-
 const owningNftCheck = (existingQuests, extendedQuestData, type) => {
     if (type != Enums.OWNING_NFT_CLAIM) return;
 
     let owningNftQuests = existingQuests.filter((q) => q.type.name === Enums.OWNING_NFT_CLAIM);
 
     // false if same nft name existed
-    return owningNftQuests.some(
-        (q) => q.extendedQuestData.nft === extendedQuestData.nft
-    );
+    return owningNftQuests.some((q) => q.extendedQuestData.nft === extendedQuestData.nft);
 };
-
 
 const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.COLLABORATION_FREE_SHELL) return;
@@ -298,7 +316,10 @@ const imageUploadQuestCheck = (existingQuests, extendedQuestData, type) => {
     let existingCodeQuests = existingQuests.filter((q) => q.type.name === Enums.IMAGE_UPLOAD_QUEST);
 
     return existingCodeQuests.some(
-        (q) => q.extendedQuestData.eventName.toLowerCase() === extendedQuestData.eventName.toLowerCase() || q.extendedQuestData.discordChannel === extendedQuestData.discordChannel
+        (q) =>
+            q.extendedQuestData.eventName.toLowerCase() ===
+            extendedQuestData.eventName.toLowerCase() ||
+            q.extendedQuestData.discordChannel === extendedQuestData.discordChannel
     );
 };
 

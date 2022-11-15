@@ -49,7 +49,7 @@ export default async function walletAuthQuest(req, res) {
                         .json({ isError: true, message: "The wallet address is not valid" });
                 }
 
-                let existingUserOfWallet = await getWhiteListUserByWallet(address);
+                let existingUserOfWallet = await getWhiteListUserByWallet(wallet);
                 if (existingUserOfWallet) {
                     let error =
                         "Wallet used with another user.";

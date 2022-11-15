@@ -6,6 +6,8 @@ import { isWhiteListUser } from "repositories/session-auth";
 import { getQuestByTypeId, getQuestType } from "repositories/quest";
 import Enums from "@enums/index";
 import { getWhiteListUserByWallet } from "repositories/user";
+import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import { bufferToHex } from "ethereumjs-util";
 
 export default async function walletAuthQuest(req, res) {
     const { method } = req;
@@ -39,7 +41,20 @@ export default async function walletAuthQuest(req, res) {
                         .json({ isError: true, message: "Missing user info for sign up." });
                 }
 
-                // TODO: we need to recover the address from signature here to ensure only one address can sign up with no replay attack
+                //recover the address from signature here to ensure only one address can sign up with no replay attack
+                const msg = `${Enums.USER_SIGN_MSG}`;
+                const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
+
+                const originalAddress = recoverPersonalSignature({
+                    data: msgBufferHex,
+                    signature: signature.trim(),
+                });
+
+                if (originalAddress.toLowerCase() !== address.toLowerCase())
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "Invalid signature" });
+
 
                 let wallet = utils.getAddress(address);
                 let isValid = utils.isAddress(address);

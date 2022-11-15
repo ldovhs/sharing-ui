@@ -1,6 +1,9 @@
 import { utils } from "ethers";
 import { addNewUser, getWhiteListUserByWallet } from "repositories/user";
 import { prisma } from "@context/PrismaContext";
+import Enums from "@enums/index";
+import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import { bufferToHex } from "ethereumjs-util";
 
 export default async function whitelistSignUp(req, res) {
     const { method } = req;
@@ -37,6 +40,19 @@ export default async function whitelistSignUp(req, res) {
                         .status(200)
                         .json({ isError: true, message: "The wallet address is not valid" });
                 }
+
+                //recover the address from signature here to ensure only one address can sign up with no replay attack
+                const msg = `${Enums.USER_SIGN_MSG}`;
+                const msgBufferHex = bufferToHex(Buffer.from(msg, "utf8"));
+
+                const originalAddress = recoverPersonalSignature({
+                    data: msgBufferHex,
+                    signature: signature.trim(),
+                });
+                if (originalAddress.toLowerCase() !== address.toLowerCase())
+                    return res
+                        .status(200)
+                        .json({ isError: true, message: "Invalid signature" });
 
                 await trackRequest(req)
 

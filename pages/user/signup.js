@@ -276,7 +276,12 @@ function SignUp({ session }) {
                                                 <HCaptcha
                                                     sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
                                                     onVerify={(token, ekey) => handleVerificationSuccess(token, ekey)}
-                                                    ref={captchaRef} />
+                                                    ref={captchaRef}
+
+                                                    data-size={`${isMobile ? "compact" : "normal "}`}
+
+                                                />
+
                                             )}
                                         </div>
                                     </div>

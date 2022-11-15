@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 import { isWhiteListUser } from "repositories/session-auth";
 import { getQuestByTypeId, getQuestType } from "repositories/quest";
 import Enums from "@enums/index";
+import { getWhiteListUserByWallet } from "repositories/user";
 
 export default async function walletAuthQuest(req, res) {
     const { method } = req;

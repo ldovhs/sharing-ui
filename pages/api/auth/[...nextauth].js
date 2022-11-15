@@ -1,6 +1,6 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import { recoverPersonalSignature, recoverTypedSignature, SignTypedDataVersion } from "@metamask/eth-sig-util";
 import { bufferToHex } from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
 import { utils } from "ethers";
@@ -152,14 +152,27 @@ export const authOptions = {
                         throw new Error("This unstoppable account is not in our record.");
                     }
 
-                    const msgBufferHex = bufferToHex(Buffer.from(message, "utf8"));
+                    // const originalAddress = recoverPersonalSignature({
+                    //     data: message,
+                    //     signature: signature.trim(),
+                    // });
 
-                    const originalAddress = recoverPersonalSignature({
-                        data: msgBufferHex,
+                    const msgParams = [
+                        {
+                            type: 'string',      // Any valid solidity type
+                            name: 'Message',     // Any string label you want
+                            value: message  // The value to sign
+                        },
+
+                    ]
+
+                    const originalAddress = recoverTypedSignature({
+                        data: msgParams,
                         signature: signature.trim(),
+                        version: SignTypedDataVersion.V1,
                     });
 
-                    console.log(originalAddress);
+                    console.log("originalAddress: " + originalAddress);
                     console.log(address);
                     // if (originalAddress.toLowerCase() !== address.toLowerCase())
                     //     throw new Error("Signature verification failed");

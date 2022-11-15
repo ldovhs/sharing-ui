@@ -8,7 +8,6 @@ const questQueryAPI = async (req, res) => {
     switch (method) {
         case "GET":
             try {
-
                 const whiteListUser = req.whiteListUser;
                 console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await getAllEnableQuestsForUser();
@@ -16,9 +15,13 @@ const questQueryAPI = async (req, res) => {
                 console.log(`** Get quests done by this user **`);
                 let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.userId);
 
-                let quests =
-                    availableQuests.filter(q => {
-                        if (q.type.name === Enums.CODE_QUEST || q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                let quests = availableQuests
+                    .filter((q) => {
+                        if (
+                            q.type.name === Enums.CODE_QUEST ||
+                            q.type.name === Enums.IMAGE_UPLOAD_QUEST ||
+                            q.type.name === Enums.UNSTOPPABLE_AUTH // comment this to show the quest later
+                        ) {
                             return false;
                         }
                         if (
@@ -29,7 +32,8 @@ const questQueryAPI = async (req, res) => {
                         }
 
                         return true;
-                    }).map((aq) => {
+                    })
+                    .map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
                             //Enums.DAILY_SHELL
@@ -54,7 +58,7 @@ const questQueryAPI = async (req, res) => {
                             aq.rewardedQty = 0;
                         }
                         return aq;
-                    })
+                    });
 
                 return res.status(200).json(quests);
             } catch (err) {

@@ -63,15 +63,15 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
 
         try {
             const authorization = await uauth.loginWithPopup();
-            console.log(authorization);
+            // console.log(authorization);
             // let test = await resolution.owner(auth);
             if (authorization) {
                 let user = await uauth.user();
-                console.log(user);
+                // console.log(user);
                 setUauthUser(user.sub);
                 setView(STEP_4);
             } else {
-                console.log(authorization);
+                // console.log(authorization);
                 setError("something wrong");
                 setView(ERROR);
             }
@@ -117,57 +117,23 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                             <>
                                 {submissionQuest && currentView === STEP_1 && (
                                     <>
-                                        <div className={s.board_title}>{submissionQuest.text}</div>
+                                        <div className={s.board_title}>Welcome!</div>
 
-                                        <div className={s.board_text}>Placeholder text</div>
+                                        <div className={s.board_text}>
+                                            Link your Unstoppable Domain
+                                        </div>
 
                                         <PinkLargeButton
-                                            text={"Go Next"}
+                                            text={"Next"}
                                             onClick={() => setView(STEP_2)}
                                         />
-                                        {/* <div className={s.board_buttonContainer}>
-                                            <button
-                                                className={s.board_singleClaimBtn}
-                                                onClick={handleOnSubmit}
-                                                disabled={
-                                                    submissionQuest?.isDone ||
-                                                    isSubmitting ||
-                                                    isFetchingUserQuests
-                                                }
-                                            >
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                    alt="Submit"
-                                                />
-                                                <div>
-                                                    <div>
-                                                        Claim {submissionQuest.quantity}
-                                                        {submissionQuest.rewardType.reward.match(
-                                                            "hell"
-                                                        ) && (
-                                                            <img
-                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/shell.png`}
-                                                                alt="reward icon"
-                                                            />
-                                                        )}
-                                                        {submissionQuest.rewardType.reward.match(
-                                                            /bowl|Bowl/
-                                                        ) && (
-                                                            <img
-                                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/bowl10frames.gif`}
-                                                                alt="reward icon"
-                                                            />
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </div> */}
                                     </>
                                 )}
                                 {currentView === STEP_2 && (
                                     <>
+                                        <div className={s.board_title}>Buy Your Crypto Domain</div>
                                         <div className={s.board_text}>
-                                            Go to unstoppabledomain.com and buy your crypto domain
+                                            Visit unstoppabledomain.com to purchase your domain.
                                         </div>
                                         <PinkLargeButton
                                             text={"Go Next"}
@@ -177,10 +143,12 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                 )}
                                 {currentView === STEP_3 && (
                                     <>
+                                        <div className={s.board_title}>Authenticate the Domain</div>
                                         <div className={s.board_text}>
-                                            Authenticate your crypto domain
+                                            To authenticate your crypto domain, click the button
+                                            below.
                                         </div>
-                                        <PinkLargeButton
+                                        <UnstoppableButton
                                             text={"Authenticate"}
                                             onClick={() => handleUnstoppableLogin()}
                                         />
@@ -189,7 +157,7 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                 {currentView === STEP_4 && (
                                     <>
                                         <div className={s.board_text}>
-                                            Confirmed to link unstoppable domain {uauthUser}
+                                            {uauthUser} has been authenticated
                                         </div>
                                         <ClaimButton
                                             onClick={handleOnSubmit}
@@ -212,7 +180,7 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
                                 {submissionQuest && currentView === SUBMITTED && (
                                     <>
                                         <div className={s.board_title}>
-                                            Success! Quest completed.
+                                            Success! Your Unstoppable Domain has been linked!
                                         </div>
                                         <BackToMainBoardButton />
                                     </>
@@ -287,5 +255,39 @@ const ClaimButton = ({ onClick, isSubmitting, isFetchingUserQuests, submissionQu
                 </div>
             </button>
         </div>
+    );
+};
+
+const UnstoppableButton = ({ text = "", onClick }) => {
+    return (
+        <button className={s.unstoppableBtn} onClick={onClick}>
+            <img
+                src={`${Enums.BASEPATH}/img/sharing-ui/invite/unstoppable.png`}
+                alt="Unstoppable Authenticate"
+            />
+            <div>
+                <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M23 2.34473V9.93093L1 18.8965L23 2.34473Z"
+                        fill="#2FE9FF"
+                    />
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M18.875 2V15.1034C18.875 18.9123 15.797 22 12 22C8.20304 22 5.125 18.9123 5.125 15.1034V9.58621L9.25 7.31034V15.1034C9.25 16.4365 10.3273 17.5172 11.6562 17.5172C12.9852 17.5172 14.0625 16.4365 14.0625 15.1034V4.65517L18.875 2Z"
+                        fill="white"
+                    />
+                </svg>
+                <span>{text}</span>
+            </div>
+        </button>
     );
 };

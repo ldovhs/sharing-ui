@@ -154,62 +154,9 @@ export const authOptions = {
                         throw new Error("This unstoppable account is not in our record.");
                     }
 
-
-
-                    console.log("correct addr" + address);
-                    // if (originalAddress.toLowerCase() !== address.toLowerCase())
-                    //     throw new Error("Signature verification failed");
-                    const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/e26c48fe88884b9f997fc96344dd0f6a")
-                    const web3 = new Web3(provider);
-
-                    // console.log("signature", signature)
-                    // console.log("message", message)
-
-
-                    // let test = utils.verifyMessage(message, signature)
-                    // console.log(test)
-
-                    // const msg = `${Enums.USER_SIGN_MSG}`;
-
-                    const msg =
-                        `identity.unstoppabledomains.com wants you to sign in with your Ethereum account:0x9128C112f6BB0B2D888607AE6d36168930a37087
-    
-I consent to giving access to: openid wallet
-    
-URI: uns:quan612.wallet
-Version: 1
-Chain ID: 1
-Nonce: 0x7615b547bc31c1b31029949196083b6a3014dbcce03f32139c895343ee01f935
-Issued At: 2022-11-15T20:12:57.971Z`;
-
-                    let data = web3.eth.accounts.recover(msg, signature);
-                    console.log("web3 test: ", data);
-
-
-                    const msgBufferHex = ethUtil.bufferToHex(Buffer.from(msg, "utf8"));
-                    const originalAddress = recoverPersonalSignature({
-                        data: msgBufferHex,
-                        signature: signature.trim(),
-                    });
-                    console.log("originalAddress: ", originalAddress)
-                    // const msgBuffer = ethUtil.toBuffer("Signing abcdse");
-                    // const msgHash = ethUtil.hashPersonalMessage(msgBuffer);
-                    // const signatureBuffer = ethUtil.toBuffer(signature);
-
-                    // const signatureParams = ethUtil.fromRpcSig(signatureBuffer);
-                    // const publicKey = ethUtil.ecrecover(
-                    //     msgHash,
-                    //     signatureParams.v,
-                    //     signatureParams.r,
-                    //     signatureParams.s
-                    // );
-                    // const addressBuffer = ethUtil.publicToAddress(publicKey);
-                    // const abcde = ethUtil.bufferToHex(addressBuffer);
-                    // console.log(abcde)
-
                     console.log("Authenticated as user successfully");
-                    throw new Error("test");
-                    return { address, isAdmin: false, userId: user.userId, uauthUser: uathUser };
+
+                    return { address: user.address, isAdmin: false, userId: user.userId, uauthUser: uathUser };
                 } catch (error) {
                     console.log(error);
                 }
@@ -332,3 +279,57 @@ export default (req, res) => {
     }
     return NextAuth(req, res, authOptions);
 };
+
+
+/*
+ console.log("correct addr" + address);
+                    // if (originalAddress.toLowerCase() !== address.toLowerCase())
+                    //     throw new Error("Signature verification failed");
+                    const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/e26c48fe88884b9f997fc96344dd0f6a")
+                    const web3 = new Web3(provider);
+
+                    // console.log("signature", signature)
+                    // console.log("message", message)
+
+
+                    // let test = utils.verifyMessage(message, signature)
+                    // console.log(test)
+
+                    // const msg = `${Enums.USER_SIGN_MSG}`;
+
+                    const msg =
+                        `identity.unstoppabledomains.com wants you to sign in with your Ethereum account:0x9128C112f6BB0B2D888607AE6d36168930a37087
+    
+I consent to giving access to: openid wallet
+    
+URI: uns:quan612.wallet
+Version: 1
+Chain ID: 1
+Nonce: 0x7615b547bc31c1b31029949196083b6a3014dbcce03f32139c895343ee01f935
+Issued At: 2022-11-15T20:12:57.971Z`;
+
+                    let data = web3.eth.accounts.recover(msg, signature);
+                    console.log("web3 test: ", data);
+
+
+                    const msgBufferHex = ethUtil.bufferToHex(Buffer.from(msg, "utf8"));
+                    const originalAddress = recoverPersonalSignature({
+                        data: msgBufferHex,
+                        signature: signature.trim(),
+                    });
+                    console.log("originalAddress: ", originalAddress)
+                    // const msgBuffer = ethUtil.toBuffer("Signing abcdse");
+                    // const msgHash = ethUtil.hashPersonalMessage(msgBuffer);
+                    // const signatureBuffer = ethUtil.toBuffer(signature);
+
+                    // const signatureParams = ethUtil.fromRpcSig(signatureBuffer);
+                    // const publicKey = ethUtil.ecrecover(
+                    //     msgHash,
+                    //     signatureParams.v,
+                    //     signatureParams.r,
+                    //     signatureParams.s
+                    // );
+                    // const addressBuffer = ethUtil.publicToAddress(publicKey);
+                    // const abcde = ethUtil.bufferToHex(addressBuffer);
+                    // console.log(abcde)
+*/

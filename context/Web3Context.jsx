@@ -396,30 +396,16 @@ export function Web3Provider({ session, children }) {
         // const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
 
         try {
-            const authorization = await uauth.loginWithPopup();
-            console.log(authorization);
-            // let authorization = true;
+            // const authorization = await uauth.loginWithPopup();
+            // console.log(authorization);
+            let authorization = true;
             if (authorization) {
-                // let user = await uauth.user();
+                let user = await uauth.user();
                 // console.log(user);
-                // let uathUser = user.sub;
-                // let address = user?.wallet_address;
-                // let message = user?.eip4361_message;
-                // let signature = user?.eip4361_message;
-
-                let uathUser = "quan612.wallet";
-                let address = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
-                let message = `identity.unstoppabledomains.com wants you to sign in with your Ethereum account:
-                0x9128C112f6BB0B2D888607AE6d36168930a37087
-                
-                I consent to giving access to: openid wallet
-                
-                URI: uns:quan612.wallet
-                Version: 1
-                Chain ID: 1
-                Nonce: 0x7615b547bc31c1b31029949196083b6a3014dbcce03f32139c895343ee01f935
-                Issued At: 2022-11-15T20:12:57.971Z`;
-                let signature = `0x812de194fc10fd7b680021e4fd1bf5e23836aa4dc857581e660868441400556c501cc57bb5696cfce760835bd7f8f6a1eb24b3f16b5dc1c546a7ce8c907dc71e1b`;
+                let uathUser = user.sub;
+                let address = user?.wallet_address;
+                let message = user?.eip4361_message;
+                let signature = user?.eip4361_message;
 
                 signIn("unstoppable-authenticate", {
                     redirect: false,
@@ -492,3 +478,19 @@ const removeLocalStorageUath = () => {
         localStorage.removeItem("username");
     }
 };
+
+/*
+let uathUser = "quan612.wallet";
+let address = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
+let message = `identity.unstoppabledomains.com wants you to sign in with your Ethereum account:
+0x9128C112f6BB0B2D888607AE6d36168930a37087
+
+I consent to giving access to: openid wallet
+
+URI: uns:quan612.wallet
+Version: 1
+Chain ID: 1
+Nonce: 0x7c9a651b1bcb7c7b53dca2100c4ca149b15e536b53c3b57b541b808e6b80a942
+Issued At: 2022-11-15T22:17:21.730Z`;
+let signature = `0x812de194fc10fd7b680021e4fd1bf5e23836aa4dc857581e660868441400556c501cc57bb5696cfce760835bd7f8f6a1eb24b3f16b5dc1c546a7ce8c907dc71e1b`;
+*/

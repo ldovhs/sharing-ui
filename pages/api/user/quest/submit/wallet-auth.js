@@ -65,7 +65,7 @@ export default async function walletAuthQuest(req, res) {
                 }
 
                 let existingUserOfWallet = await getWhiteListUserByWallet(wallet);
-                if (existingUserOfWallet) {
+                if (existingUserOfWallet && existingUserOfWallet.userId !== whiteListUser.userId) {
                     let error =
                         "Wallet used with another user.";
                     return res.status(200).json({ isError: true, message: error });
@@ -98,12 +98,14 @@ export default async function walletAuthQuest(req, res) {
                             .status(200)
                             .json({ isError: true, message: "Quest finished before." });
                     }
+
+                    let correctAddress = utils.getAddress(address)
+                    await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
+
+                    res.status(200).json({ message: "ok" });
                 }
 
-                let correctAddress = utils.getAddress(address)
-                await updateUserWalletAndAddRewardTransaction(walletAuthQuest, whiteListUser, correctAddress)
 
-                res.status(200).json({ message: "ok" });
             } catch (error) {
 
                 return res.status(200).json({ isError: true, message: error.message });

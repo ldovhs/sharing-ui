@@ -43,7 +43,7 @@ export function Web3Provider({ session, children }) {
     }
 
     useEffect(() => {
-        RemoveLocalStorageWalletConnect();
+        removeLocalStorageWalletConnect();
         document.addEventListener("visibilitychange", function () {
             // if (window.visibilityState === "hidden") {
             localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
@@ -270,7 +270,8 @@ export function Web3Provider({ session, children }) {
     };
 
     const SignOut = async () => {
-        RemoveLocalStorageWalletConnect();
+        removeLocalStorageWalletConnect();
+        removeLocalStorageUath();
         signOut();
     };
 
@@ -403,11 +404,15 @@ export function Web3Provider({ session, children }) {
                 console.log(user);
                 let uathUser = user.sub;
                 let address = user?.wallet_address;
+                let message = user?.eip4361_message;
+                let signature = user?.eip4361_message;
 
                 signIn("unstoppable-authenticate", {
                     redirect: false,
                     uathUser,
                     address,
+                    message,
+                    signature,
                 })
                     .then(({ ok, error }) => {
                         if (ok) {
@@ -448,7 +453,7 @@ export function Web3Provider({ session, children }) {
     );
 }
 
-const RemoveLocalStorageWalletConnect = () => {
+const removeLocalStorageWalletConnect = () => {
     const walletConnectCache = localStorage.getItem("walletconnect");
     if (walletConnectCache) {
         localStorage.removeItem("walletconnect");
@@ -456,5 +461,20 @@ const RemoveLocalStorageWalletConnect = () => {
     const walletMobileCache = localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE");
     if (walletMobileCache) {
         localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+    }
+};
+
+const removeLocalStorageUath = () => {
+    const openidCache = localStorage.getItem("openidConfiguration:");
+    if (openidCache) {
+        localStorage.removeItem("openidConfiguration:");
+    }
+    const uathRequestCache = localStorage.getItem("request");
+    if (uathRequestCache) {
+        localStorage.removeItem("request");
+    }
+    const uathUserCache = localStorage.getItem("username");
+    if (uathUserCache) {
+        localStorage.removeItem("username");
     }
 };

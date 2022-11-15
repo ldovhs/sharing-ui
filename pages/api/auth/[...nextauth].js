@@ -132,7 +132,10 @@ export const authOptions = {
             authorize: async (credentials, req) => {
                 try {
                     console.log("Authenticating as unstoppable user");
-                    let { address, uathUser } = credentials;
+                    let { uathUser,
+                        address,
+                        message,
+                        signature, } = credentials;
 
                     if (!address || !uathUser) throw new Error("Missing address or unstoppable info");
 
@@ -148,6 +151,17 @@ export const authOptions = {
                     if (!user) {
                         throw new Error("This unstoppable account is not in our record.");
                     }
+
+                    const msgBufferHex = bufferToHex(Buffer.from(message, "utf8"));
+
+                    const originalAddress = recoverPersonalSignature({
+                        data: msgBufferHex,
+                        signature: signature.trim(),
+                    });
+
+                    if (originalAddress.toLowerCase() !== address.toLowerCase())
+                        throw new Error("Signature verification failed");
+
 
                     console.log("Authenticated as user successfully");
 

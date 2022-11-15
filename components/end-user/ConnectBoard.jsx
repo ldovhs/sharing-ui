@@ -246,7 +246,7 @@ export default function ConnectBoard() {
                                                 </div>
                                             </button>
                                         )}
-                                        {/* {!isMetamaskDisabled && !isMobile && (
+                                        {!isMetamaskDisabled && !isMobile && (
                                             <button
                                                 className={s.unstoppableBtn}
                                                 onClick={() => authenticateUsingUnstoppable()}
@@ -279,7 +279,7 @@ export default function ConnectBoard() {
                                                     <span> Unstoppable</span>
                                                 </div>
                                             </button>
-                                        )} */}
+                                        )}
                                         <button
                                             className={s.purpleBtn}
                                             onClick={() =>

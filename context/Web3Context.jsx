@@ -396,9 +396,9 @@ export function Web3Provider({ session, children }) {
         // const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
 
         try {
-            // const authorization = await uauth.loginWithPopup();
-            // console.log(authorization);
-            let authorization = true;
+            const authorization = await uauth.loginWithPopup();
+            console.log(authorization);
+            // let authorization = true;
             if (authorization) {
                 // let user = await uauth.user();
                 // console.log(user);

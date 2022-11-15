@@ -359,6 +359,29 @@ $list-text-font-size-large: 1.25rem;
     }
 }
 
+.unstoppableBtn {
+    // 526 x 129
+    @include large_button();
+    &:hover {
+        color: #559bce !important;
+    }
+
+    &:disabled {
+        cursor: not-allowed !important;
+        color: #a2b7b6 !important;
+        &:hover {
+            color: #a2b7b6 !important;
+        }
+    }
+}
+
+.purpleBtn {
+    @include large_button();
+    &:hover {
+        color: #7967de !important;
+    }
+}
+
 .claimBtn {
     @include m.flex-master(row, center, center);
     max-width: 50%;

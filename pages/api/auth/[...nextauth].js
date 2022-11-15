@@ -125,6 +125,38 @@ export const authOptions = {
                 }
             },
         }),
+        CredentialsProvider({
+            id: "unstoppable-authenticate",
+            name: "Unstoppable authentication",
+            type: "credentials",
+            authorize: async (credentials, req) => {
+                try {
+                    console.log("Authenticating as unstoppable user");
+                    let { address, uathUser } = credentials;
+
+                    if (!address || !uathUser) throw new Error("Missing address or unstoppable info");
+
+                    if (utils.getAddress(address) && !utils.isAddress(address))
+                        throw new Error("Invalid address");
+
+                    const user = await prisma.whiteList.findFirst({
+                        where: {
+                            uathUser: { equals: uathUser, mode: "insensitive" },
+                        },
+                    });
+
+                    if (!user) {
+                        throw new Error("This unstoppable account is not in our record.");
+                    }
+
+                    console.log("Authenticated as user successfully");
+
+                    return { address, isAdmin: false, userId: user.userId, uauthUser: uathUser };
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        }),
         DiscordProvider({
             // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
             clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,
@@ -225,6 +257,7 @@ export const authOptions = {
 
                     session.user.address = userQuery.wallet || "";
                     session.user.userId = userQuery.userId;
+                    session.user.uathUser = userQuery.uauthUser || "";
                 }
                 return session;
             }

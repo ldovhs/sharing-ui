@@ -62,7 +62,6 @@ const UnstoppableAuth = ({ session, onSubmit, isSubmitting, isFetchingUserQuests
         // let auth = "quan612.crypto";
 
         try {
-            // let test = await resolution.addr(auth, "ETH"); // resolver
             const authorization = await uauth.loginWithPopup();
             console.log(authorization);
             // let test = await resolution.owner(auth);

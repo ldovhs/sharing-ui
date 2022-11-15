@@ -6,7 +6,7 @@ import { useDeviceDetect } from "lib/hooks";
 
 // currently no use anywhere
 const UserLogin = () => {
-    const { TryConnectAsUser, web3Error, SignOut } = useContext(Web3Context);
+    const { tryConnectAsUser, web3Error, SignOut } = useContext(Web3Context);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const { isMobile } = useDeviceDetect();
 
@@ -23,7 +23,7 @@ const UserLogin = () => {
                     <div
                         className={s.nonPixelModal_container}
                         onClick={() => {
-                            TryConnectAsUser(Enums.METAMASK);
+                            tryConnectAsUser(Enums.METAMASK);
                         }}
                     >
                         <div className={s.nonPixelModal_providerIcon}>
@@ -59,7 +59,7 @@ const UserLogin = () => {
                 <div
                     className={s.nonPixelModal_container}
                     onClick={async () => {
-                        await TryConnectAsUser(Enums.WALLETCONNECT);
+                        await tryConnectAsUser(Enums.WALLETCONNECT);
                     }}
                 >
                     <div className={s.nonPixelModal_providerIcon}>

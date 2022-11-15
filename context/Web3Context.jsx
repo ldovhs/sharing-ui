@@ -13,6 +13,12 @@ const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`;
 
 export const Web3Context = React.createContext();
 
+const uauth = new UAuth({
+    clientID: process.env.NEXT_PUBLIC_UNSTOPPABLE_CLIENT_ID,
+    redirectUri: process.env.NEXT_PUBLIC_UNSTOPPABLE_REDIRECT_URI,
+    scope: "openid wallet",
+});
+
 export function Web3Provider({ session, children }) {
     const [web3Error, setWeb3Error] = useState(null);
 
@@ -138,7 +144,7 @@ export function Web3Provider({ session, children }) {
         } catch (error) {}
     };
 
-    const TryConnectAsUser = async (walletType) => {
+    const tryConnectAsUser = async (walletType) => {
         if (!walletType) {
             throw new Error("Missing type of wallet when trying to setup wallet provider");
         }
@@ -382,14 +388,51 @@ export function Web3Provider({ session, children }) {
         }
     };
 
+    const tryConnectAsUnstoppable = async () => {
+        const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
+        let uathUser;
+
+        try {
+            const authorization = await uauth.loginWithPopup();
+            console.log(authorization);
+            // let test = await resolution.owner(auth);
+            if (authorization) {
+                let user = await uauth.user();
+                console.log(user);
+                uathUser = user.sub;
+                signIn("unstoppable-authenticate", {
+                    redirect: true,
+                    uathUser,
+                    address,
+                })
+                    .then(({ ok, error }) => {
+                        if (ok) {
+                            console.log("ok");
+                            return true;
+                        } else {
+                            console.log("Authentication failed");
+                            return false;
+                        }
+                    })
+                    .catch((err) => {});
+            } else {
+                console.log(authorization);
+                setError("something wrong");
+                setWeb3Error("Cannot authenticate with unstoppable");
+            }
+        } catch (error) {
+            setWeb3Error(error.message);
+        }
+    };
+
     return (
         <Web3Context.Provider
             value={{
                 TryConnectAsAdmin,
-                TryConnectAsUser,
+                tryConnectAsUser,
                 SignOut,
                 TrySignUpWithWallet,
-
+                tryConnectAsUnstoppable,
                 web3Error,
                 setWeb3Error,
                 session,

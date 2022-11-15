@@ -18,7 +18,8 @@ export const GONE_FISHING = 10;
 
 export default function ConnectBoard() {
     let router = useRouter();
-    const { web3Error, TryConnectAsUser, setWeb3Error } = useContext(Web3Context);
+    const { web3Error, tryConnectAsUser, setWeb3Error, tryConnectAsUnstoppable } =
+        useContext(Web3Context);
     const [currentPrompt, setPrompt] = useState(WELCOME);
     const [isMetamaskDisabled, setIsMetamaskDisabled] = useState(false);
     const { isMobile } = useDeviceDetect();
@@ -40,7 +41,12 @@ export default function ConnectBoard() {
 
     const authenticateUsingWallet = async (walletType) => {
         changeView(AUTHENTICATING);
-        TryConnectAsUser(walletType);
+        tryConnectAsUser(walletType);
+    };
+
+    const authenticateUsingUnstoppable = async () => {
+        changeView(AUTHENTICATING);
+        tryConnectAsUnstoppable();
     };
 
     const GoBack = () => {
@@ -233,21 +239,55 @@ export default function ConnectBoard() {
                                             >
                                                 <img
                                                     src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                    alt="connectToContinue"
+                                                    alt="Metamask Connect"
                                                 />
                                                 <div>
                                                     <span> MetaMask</span>
                                                 </div>
                                             </button>
                                         )}
+                                        {!isMetamaskDisabled && !isMobile && (
+                                            <button
+                                                className={s.unstoppableBtn}
+                                                onClick={() => authenticateUsingUnstoppable()}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                    alt="connectToContinue"
+                                                />
+                                                <div>
+                                                    <svg
+                                                        width="36"
+                                                        height="36"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            clipRule="evenodd"
+                                                            d="M23 2.34473V9.93093L1 18.8965L23 2.34473Z"
+                                                            fill="#2FE9FF"
+                                                        />
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            clipRule="evenodd"
+                                                            d="M18.875 2V15.1034C18.875 18.9123 15.797 22 12 22C8.20304 22 5.125 18.9123 5.125 15.1034V9.58621L9.25 7.31034V15.1034C9.25 16.4365 10.3273 17.5172 11.6562 17.5172C12.9852 17.5172 14.0625 16.4365 14.0625 15.1034V4.65517L18.875 2Z"
+                                                            fill="white"
+                                                        />
+                                                    </svg>
+                                                    <span> Unstoppable</span>
+                                                </div>
+                                            </button>
+                                        )}
                                         <button
-                                            className={s.board_tealBtn}
+                                            className={s.purpleBtn}
                                             onClick={() =>
                                                 authenticateUsingWallet(Enums.WALLETCONNECT)
                                             }
                                         >
                                             <img
-                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 4.png`}
                                                 alt="connectToContinue"
                                             />
                                             <div>

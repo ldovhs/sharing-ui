@@ -175,20 +175,18 @@ function SignUp({ session }) {
                                 {currentPrompt === SIGNUP_OPTIONS && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
-                                            {!isMetamaskDisabled && !isMobile && (
-                                                <button
-                                                    className={s.board_orangeBtn}
-                                                    onClick={() => changeView(SIGNUP_WALLET)}
-                                                >
-                                                    <img
-                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                        alt="Sign Up With Wallet"
-                                                    />
-                                                    <div>
-                                                        <span>Crypto Wallet</span>
-                                                    </div>
-                                                </button>
-                                            )}
+                                            <button
+                                                className={s.board_orangeBtn}
+                                                onClick={() => changeView(SIGNUP_WALLET)}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                    alt="Sign Up With Wallet"
+                                                />
+                                                <div>
+                                                    <span>Crypto Wallet</span>
+                                                </div>
+                                            </button>
                                             <button
                                                 className={s.board_tealBtn}
                                                 onClick={() => changeView(SIGNUP_SOCIAL)}
@@ -239,20 +237,18 @@ function SignUp({ session }) {
                                 {currentPrompt === SIGNUP_SOCIAL && !web3Error && (
                                     <div className={` ${s.board_signin_wrapper}`}>
                                         <div className={s.board_signin_content}>
-                                            {!isMetamaskDisabled && !isMobile && (
-                                                <button
-                                                    className={s.board_orangeBtn}
-                                                    onClick={() => handleSignUp(Enums.DISCORD_AUTH)}
-                                                >
-                                                    <img
-                                                        src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                        alt="Sign Up With Discord"
-                                                    />
-                                                    <div>
-                                                        <span>Discord</span>
-                                                    </div>
-                                                </button>
-                                            )}
+                                            <button
+                                                className={s.board_orangeBtn}
+                                                onClick={() => handleSignUp(Enums.DISCORD_AUTH)}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
+                                                    alt="Sign Up With Discord"
+                                                />
+                                                <div>
+                                                    <span>Discord</span>
+                                                </div>
+                                            </button>
                                             <button
                                                 className={s.board_tealBtn}
                                                 onClick={() => handleSignUp(Enums.TWITTER_AUTH)}
@@ -282,18 +278,6 @@ function SignUp({ session }) {
                                                     onVerify={(token, ekey) => handleVerificationSuccess(token, ekey)}
                                                     ref={captchaRef} />
                                             )}
-                                            {/* <button
-                                                className={s.board_orangeBtn}
-                                                onClick={() => handleChallenge()}
-                                            >
-                                                <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                                                    alt="connectToContinue"
-                                                />
-                                                <div>
-                                                    <span>Challenge</span>
-                                                </div>
-                                            </button> */}
                                         </div>
                                     </div>
                                 )}

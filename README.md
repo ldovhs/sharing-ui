@@ -74,3 +74,23 @@ Under http://localhost:3000/challenger/admin/quest
 - Claim Reward for owning NFT
 
 </details>
+
+Go to admin site on
+http://localhost:3000/challenger/admin
+
+Create quest 
+Under http://localhost:3000/challenger/admin/quest
+
+- Join Discord Type: server should be name of server (anomuragame, atarix,...)
+- Discord Authenticate (Link current session with discord)
+- Twitter Authenticate (Link current session with twitter)
+- Twitter Retweet
+- Twitter Follow
+- Instagram Follow
+- Wallet Authenticate
+- Code Quest
+- Image Upload
+- Daily
+- Claim Reward for owning NFT
+
+</details>

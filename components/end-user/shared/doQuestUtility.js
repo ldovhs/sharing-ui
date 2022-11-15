@@ -15,6 +15,9 @@ const getTwitterAuthLink = () => {
  */
 export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => {
   const { questId, type, quantity, rewardTypeId, extendedQuestData } = quest;
+  if (type.name === Enums.UNSTOPPABLE_AUTH) {
+    return router.push("/unstoppable/domain-auth");
+  }
   if (type.name === Enums.WALLET_AUTH) {
     return router.push("/auth-wallet");
   }

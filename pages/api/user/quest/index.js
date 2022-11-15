@@ -19,8 +19,8 @@ const questQueryAPI = async (req, res) => {
                     .filter((q) => {
                         if (
                             q.type.name === Enums.CODE_QUEST ||
-                            q.type.name === Enums.IMAGE_UPLOAD_QUEST ||
-                            q.type.name === Enums.UNSTOPPABLE_AUTH // comment this to show the quest later
+                            q.type.name === Enums.IMAGE_UPLOAD_QUEST
+                            // q.type.name === Enums.UNSTOPPABLE_AUTH // comment this to show the quest later
                         ) {
                             return false;
                         }

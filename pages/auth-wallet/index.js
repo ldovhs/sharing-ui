@@ -112,25 +112,21 @@ function WalletAuth({ session }) {
                       src={`${Enums.BASEPATH}/img/sharing-ui/invite/starfish.gif`}
                     />
                     <div className={s.board_title}>
-                      Welcome to the Cove’s DeepSea Challenger!
-                    </div>
-                    <div className={s.board_text}>
-                      Sign Up with your account
+                      Link Crypto Wallet to existing Account!
                     </div>
 
                     <button
                       className={s.board_orangeBtn}
                       onClick={() => {
-
                         changeView(SIGNUP_CAPTCHA)
                       }}
                     >
                       <img
                         src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 2.png`}
-                        alt="connectToContinue"
+                        alt="Continue"
                       />
                       <div>
-                        <span>Sign Up</span>
+                        <span>Continue</span>
                       </div>
                     </button>
                   </>
@@ -176,7 +172,7 @@ function WalletAuth({ session }) {
                         alt="Loading data"
                       />
                       <div className={s.board_loading_wrapper_text}>
-                        Awaiting doing quest
+                        Awaiting doing connect wallet quest
                         <span
                           className={
                             s.board_loading_wrapper_text_ellipsis

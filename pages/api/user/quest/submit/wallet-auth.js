@@ -79,7 +79,6 @@ export default async function walletAuthQuest(req, res) {
                     });
 
                     if (walletAuthQuestOfThisUser) {
-                        let error = "Wallet quest has finished.";
                         return res
                             .status(200)
                             .json({ isError: true, message: "Quest finished before." });

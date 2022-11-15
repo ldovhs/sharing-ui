@@ -403,21 +403,21 @@ export function Web3Provider({ session, children }) {
                 let user = await uauth.user();
                 console.log(user);
                 uathUser = user.sub;
-                signIn("unstoppable-authenticate", {
-                    redirect: true,
-                    uathUser,
-                    address,
-                })
-                    .then(({ ok, error }) => {
-                        if (ok) {
-                            console.log("ok");
-                            return true;
-                        } else {
-                            console.log("Authentication failed");
-                            return false;
-                        }
-                    })
-                    .catch((err) => {});
+                // signIn("unstoppable-authenticate", {
+                //     redirect: true,
+                //     uathUser,
+                //     address,
+                // })
+                //     .then(({ ok, error }) => {
+                //         if (ok) {
+                //             console.log("ok");
+                //             return true;
+                //         } else {
+                //             console.log("Authentication failed");
+                //             return false;
+                //         }
+                //     })
+                //     .catch((err) => {});
             } else {
                 console.log(authorization);
                 setError("something wrong");

@@ -349,14 +349,14 @@ async function main() {
         console.log(wallet + " " + quantityQuery[walletIndex].correctqty + " " + amountToFix + " " + quantityQuery[walletIndex].hackedqty)
 
 
-        await prisma.reward.update({
-            where: {
-                wallet_rewardTypeId: { wallet, rewardTypeId }
-            },
-            data: {
-                quantity: amountToFix
-            }
-        })
+        // await prisma.reward.update({
+        //     where: {
+        //         wallet_rewardTypeId: { wallet, rewardTypeId }
+        //     },
+        //     data: {
+        //         quantity: amountToFix
+        //     }
+        // })
     }
 }
 

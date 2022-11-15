@@ -1,7 +1,7 @@
 import { prisma } from "context/PrismaContext";
 
 export const updateUserQuest = async (
-    wallet,
+    userId,
     questId,
     rewardedTypeId,
     rewardedQty,
@@ -9,7 +9,7 @@ export const updateUserQuest = async (
 ) => {
     return await prisma.UserQuest.update({
         where: {
-            wallet_questId: { wallet, questId },
+            userId_questId: { userId, questId },
         },
         data: {
             rewardedTypeId,

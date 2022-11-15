@@ -5,6 +5,9 @@ export const getWhiteListUserByUserName = async (username) => {
         where: {
             OR: [
                 {
+                    userId: username,
+                },
+                {
                     discordId: username,
                 },
                 {

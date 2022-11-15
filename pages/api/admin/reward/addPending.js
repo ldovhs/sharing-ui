@@ -24,23 +24,21 @@ const AddPendingRewardAPI = async (req, res) => {
                 const {
                     username,
                     type,
-                    wallet,
+
                     rewardTypeId,
                     quantity,
                     postInBotChannel,
                     postInGeneralChannel,
                 } = req.body;
 
-                let userCondition = { wallet };
+                let userCondition = username;
 
                 if (type === Enums.DISCORD && username.trim().length > 0) {
-                    userCondition = { ...userCondition, discordId: username };
-                }
-                if (type === Enums.TWITTER && username.trim().length > 0) {
-                    userCondition = { ...userCondition, twitterId: username };
-                }
-                if (username.trim().length === 0) {
-                    userCondition = { ...userCondition, wallet };
+                    userCondition = { discordUserDiscriminator: username };
+                } else if (type === Enums.TWITTER && username.trim().length > 0) {
+                    userCondition = { twitterUserName: username };
+                } else {
+                    userCondition = { wallet: username }
                 }
 
                 let user = await prisma.whiteList.findFirst({
@@ -49,8 +47,7 @@ const AddPendingRewardAPI = async (req, res) => {
 
                 if (!user) {
                     res.status(200).json({
-                        message: `Cannot find any user with ${type === Enums.DISCORD ? "Discord Id" : "Twitter"
-                            } : ${username}, on wallet ${wallet}.`,
+                        message: `Cannot find any user with id ${username}.`,
                         isError: true,
                     });
                     return;
@@ -71,10 +68,19 @@ const AddPendingRewardAPI = async (req, res) => {
 
                 if (user.discordId != null && user.discordId.trim().length > 0) {
                     pendingReward.receivingUser = `<@${user.discordId.trim()}>`;
-                } else if (user.wallet != null && user.wallet.trim().length > 0) {
-                    pendingReward.receivingUser = pendingReward.user.wallet;
+                } else if (user.uathUser != null &&
+                    user.uathUser.trim().length > 0) {
+                    pendingReward.receivingUser = user.uathUser;
+                } else if (
+                    user.twitterUserName != null &&
+                    user.twitterUserName.trim().length > 0
+                ) {
+                    pendingReward.receivingUser = user.twitterUserName;
+                }
+                else if (user.wallet != null && user.wallet.trim().length > 0) {
+                    pendingReward.receivingUser = user.wallet;
                 } else {
-                    pendingReward.receivingUser = pendingReward.user.userId;
+                    pendingReward.receivingUser = user.userId;
                 }
 
                 await axios
@@ -93,14 +99,14 @@ const AddPendingRewardAPI = async (req, res) => {
                         }
                     )
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                     });
 
 
                 res.status(200).json(pendingReward);
             } catch (err) {
-                console.log(err)
-                res.status(500).json({ err: err.message });
+                // console.log(err)
+                res.status(200).json({ err: err.message });
             }
             break;
         default:

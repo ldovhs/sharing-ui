@@ -18,8 +18,8 @@ const avatars = [
 
 const initialValues = {
     username: "",
-    type: "Discord",
-    wallet: "",
+    type: "Wallet",
+    // wallet: "",
     rewardTypeId: 1,
     quantity: 1,
     postInBotChannel: false,
@@ -28,12 +28,12 @@ const initialValues = {
 };
 
 const RewardSchema = object().shape({
-    wallet: string()
-        .required()
-        .test("valid address", "Wallet Address is not valid", function () {
-            if (utils.isAddress(this.parent.wallet)) return true;
-            else return false;
-        }),
+    // wallet: string()
+    //     .required()
+    //     .test("valid address", "Wallet Address is not valid", function () {
+    //         if (utils.isAddress(this.parent.wallet)) return true;
+    //         else return false;
+    //     }),
     quantity: number().required().min(1),
 });
 
@@ -92,15 +92,27 @@ const AddNewReward = ({
                             </div>
                         </div>
 
-                        {/* Username Input  */}
+                        {/* Type of social media account  */}
                         <div className="col-6 mb-3">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">Type</label>
+                            <Field name="type" as="select" className={"form-control"}>
+                                <option value="Twitter">Wallet</option>
+                                <option value="Discord">Discord</option>
+                                <option value="Twitter">Twitter</option>
+                            </Field>
+                        </div>
+
+                        {/* Username Input  */}
+                        <div className="col-12 mb-3">
+                            <label className="form-label">
+                                User (Wallet / Discord User abc#1234 / Twitter User)
+                            </label>
                             <Field
                                 name="username"
                                 type="text"
                                 className={
                                     "form-control" +
-                                    (errors.size && touched.size ? " is-invalid" : "")
+                                    (errors?.size && touched?.size ? " is-invalid" : "")
                                 }
                             />
                             <ErrorMessage
@@ -110,16 +122,7 @@ const AddNewReward = ({
                             />
                         </div>
 
-                        {/* Type of social media account  */}
-                        <div className="col-6 mb-3">
-                            <label className="form-label">Type</label>
-                            <Field name="type" as="select" className={"form-control"}>
-                                <option value="Discord">Discord</option>
-                                <option value="Twitter">Twitter</option>
-                            </Field>
-                        </div>
-
-                        {/* Wallet  */}
+                        {/* Wallet 
                         <div className="col-12 mb-3">
                             <label className="form-label">Wallet Address</label>
                             <Field
@@ -135,7 +138,7 @@ const AddNewReward = ({
                                 component="div"
                                 className="invalid-feedback"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Type of Reward */}
                         <div className="col-6 mb-3">

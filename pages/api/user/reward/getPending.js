@@ -12,7 +12,7 @@ const getPendingRewardApi = async (req, res) => {
                 const { username, generatedURL } = req.query;
                 if (!username) return res.status(200).json({ message: "Await" });
 
-                console.log(`** Finding use for pending reward, username: ${username} **`);
+                console.log(`** Finding user for pending reward, username: ${username} **`);
                 let user = await getWhiteListUserByUserName(username);
                 if (!user) {
                     return res.status(200).json({

@@ -3,7 +3,6 @@ import { prisma } from "context/PrismaContext";
 export const updateTwitterUserAndAddRewardTransaction = async (quest, whiteListUser, userInfo) => {
     let { questId, type, rewardTypeId, quantity, extendedQuestData } = quest;
 
-
     console.log(`**Update user**`);
     const { id, username } = userInfo;
 
@@ -114,7 +113,6 @@ export const updateTwitterUserAndAddRewardTransaction = async (quest, whiteListU
             }
         }
     }
-
 };
 
 export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListUser, userInfo) => {
@@ -191,11 +189,10 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListU
 
         // if the transaction fails, user can still do the quest again later.
         if (newUser) {
-
             console.log(`**Create / Update reward for user**`);
             let claimedReward = prisma.reward.upsert({
                 where: {
-                    userId_rewardTypeId: { userId: (newUser).userId, rewardTypeId },
+                    userId_rewardTypeId: { userId: newUser.userId, rewardTypeId },
                 },
                 update: {
                     quantity: {
@@ -203,7 +200,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListU
                     },
                 },
                 create: {
-                    userId: (newUser).userId,
+                    userId: newUser.userId,
                     quantity,
                     rewardTypeId,
                 },
@@ -220,7 +217,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListU
             console.log(`**Save to UserQuest, to keep track that its done**`);
             let userQuest = prisma.userQuest.create({
                 data: {
-                    userId: (newUser).userId,
+                    userId: newUser.userId,
                     questId,
                     rewardedTypeId: rewardTypeId,
                     rewardedQty: currentQuest.quantity,
@@ -233,10 +230,7 @@ export const updateDiscordUserAndAddRewardTransaction = async (quest, whiteListU
                 // doing nothing, user can still do the quest later
             }
         }
-
     }
-
-
 };
 
 export const submitUserQuestTransaction = async (questId, rewardTypeId, whiteListUser) => {
@@ -350,27 +344,32 @@ export const submitUserDailyQuestTransaction = async (
     }
 };
 
-export const UpdateClaimAndPendingRewardTransaction = async (
+export const updateClaimAndPendingRewardTransaction = async (
     whiteListUser,
     rewardTypeId,
-    quantity,
-    generatedURL
+    pendingReward,
+    generatedURL,
 ) => {
     console.log(`** Claiming Reward ${generatedURL} **`);
     const { userId } = whiteListUser;
+
+    let quantity = pendingReward.quantity
+
+    console.log("quantity: ", quantity);
+    console.log("rewardTypeId: ", rewardTypeId);
     let claimedReward = prisma.reward.upsert({
         where: {
             userId_rewardTypeId: { userId, rewardTypeId },
+        },
+        update: {
+            quantity: {
+                increment: parseInt(quantity),
+            },
         },
         create: {
             userId,
             quantity,
             rewardTypeId,
-        },
-        update: {
-            quantity: {
-                increment: quantity,
-            },
         },
         select: {
             userId: true,
@@ -394,9 +393,14 @@ export const UpdateClaimAndPendingRewardTransaction = async (
             isClaimed: true,
         },
     });
+    try {
+        await prisma.$transaction([claimedReward, updatePendingReward]);
 
-    await prisma.$transaction([claimedReward, updatePendingReward]);
-    return claimedReward;
+        return claimedReward;
+    } catch (error) {
+        console.log(error)
+    }
+
 };
 
 export const updateUserWalletAndAddRewardTransaction = async (quest, whiteListUser, address) => {
@@ -456,15 +460,16 @@ export const updateUserWalletAndAddRewardTransaction = async (quest, whiteListUs
     try {
         await prisma.$transaction([updatedUser, claimedReward, userQuest]);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         throw error;
     }
-
-
-
 };
 
-export const updateUserUnstopabbleAndAddRewardTransaction = async (quest, whiteListUser, uauthUser) => {
+export const updateUserUnstopabbleAndAddRewardTransaction = async (
+    quest,
+    whiteListUser,
+    uauthUser
+) => {
     console.log(`**Update user unstopable**`);
     let { questId, rewardTypeId, quantity } = quest;
 
@@ -521,10 +526,7 @@ export const updateUserUnstopabbleAndAddRewardTransaction = async (quest, whiteL
     try {
         await prisma.$transaction([updatedUser, claimedReward, userQuest]);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         throw error;
     }
-
-
-
 };

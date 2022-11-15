@@ -108,20 +108,16 @@ export default async function twitterRedirect(req, res) {
                             .status(200)
                             .redirect(`/challenger/quest-redirect?error=${error}`);
                     }
-
-                    await updateTwitterUserAndAddRewardTransaction(
-                        twitterQuest,
-                        whiteListUser,
-                        userInfo.data.data
-                    );
-
-                    let twitterSignUp = `Sign Up With Twitter Successfully`;
-                    res.status(200).redirect(`/challenger/quest-redirect?result=${twitterSignUp}`);
-                } else {
-                    let error = "No Session.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                await updateTwitterUserAndAddRewardTransaction(
+                    twitterQuest,
+                    whiteListUser,
+                    userInfo.data.data
+                );
+
+                let twitterSignUp = `Sign Up With Twitter Successfully`;
+                res.status(200).redirect(`/challenger/quest-redirect?result=${twitterSignUp}`);
 
             } catch (err) {
                 console.log(err);

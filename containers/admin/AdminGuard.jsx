@@ -1,13 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import { Web3Context } from "@context/Web3Context";
-import { useSession } from "next-auth/react";
 
 export function AdminGuard({ children }) {
-    const { data: session, status } = useSession({ required: false });
-    const { web3Error } = useContext(Web3Context);
-
-    useEffect(async () => {}, [session]);
-
+    const { web3Error, session } = useContext(Web3Context);
     if (web3Error) {
         return (
             <div className="d-flex justify-content-center align-items-center fs-1 text-red-500">

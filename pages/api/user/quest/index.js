@@ -2,24 +2,34 @@ import { getAllEnableQuestsForUser, getQuestsDoneByThisUser } from "repositories
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
 import Enums from "enums";
 
-const ROUTE = "/api/user/quest";
-
 const questQueryAPI = async (req, res) => {
     const { method } = req;
 
     switch (method) {
         case "GET":
             try {
-                // let wallet = utils.getAddress(whiteListUser.wallet);
+
                 const whiteListUser = req.whiteListUser;
                 console.log(`** Get all enabled quests for user **`);
                 let availableQuests = await getAllEnableQuestsForUser();
 
                 console.log(`** Get quests done by this user **`);
-                let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.wallet);
+                let finishedQuest = await getQuestsDoneByThisUser(whiteListUser.userId);
 
-                await Promise.all(
-                    availableQuests.map((aq) => {
+                let quests =
+                    availableQuests.filter(q => {
+                        if (q.type.name === Enums.CODE_QUEST || q.type.name === Enums.IMAGE_UPLOAD_QUEST) {
+                            return false;
+                        }
+                        if (
+                            q.extendedQuestData.collaboration &&
+                            q.extendedQuestData.collaboration.length > 0
+                        ) {
+                            return false;
+                        }
+
+                        return true;
+                    }).map((aq) => {
                         let relatedQuest = finishedQuest.find((q) => q.questId === aq.questId);
                         if (relatedQuest) {
                             //Enums.DAILY_SHELL
@@ -43,13 +53,13 @@ const questQueryAPI = async (req, res) => {
                             aq.isDone = false;
                             aq.rewardedQty = 0;
                         }
+                        return aq;
                     })
-                );
 
-                return res.status(200).json(availableQuests);
+                return res.status(200).json(quests);
             } catch (err) {
                 // console.log(err);
-                res.status(500).json({ err });
+                res.status(500).json({ error: err.message });
             }
             break;
 

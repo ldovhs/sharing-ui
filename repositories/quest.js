@@ -12,6 +12,7 @@ export const questUpsert = async (
     isRequired,
     extendedQuestData
 ) => {
+    console.log(questTypeId)
     return await prisma.quest.upsert({
         where: {
             id: questId || -1,
@@ -65,10 +66,10 @@ export const getAllEnableQuestsForUser = async () => {
     });
 };
 
-export const getQuestsDoneByThisUser = async (wallet) => {
+export const getQuestsDoneByThisUser = async (userId) => {
     return await prisma.userQuest.findMany({
         where: {
-            wallet,
+            userId,
         },
         include: {
             user: true,

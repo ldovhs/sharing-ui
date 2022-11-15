@@ -53,7 +53,7 @@ const adminSearchAPI = async (req, res) => {
                         },
                     ],
                     select: {
-                        // userId: true,
+                        userId: true,
                         wallet: true,
                         twitterUserName: true,
                         discordUserDiscriminator: true,

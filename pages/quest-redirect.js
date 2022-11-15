@@ -17,9 +17,25 @@ function QuestComplete() {
                             <div className={s.board_content}>
                                 <>
                                     {!router?.query?.error && (
-                                        <div className={s.board_text}>
-                                            Quest Completed. Please close this page!
-                                        </div>
+                                        <>
+                                            <div className={s.board_text}>
+                                                {router?.query?.result}
+                                            </div>
+                                            <button
+                                                className={s.board_pinkBtn}
+                                                onClick={() => {
+                                                    router.push("/");
+                                                }}
+                                            >
+                                                <img
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
+                                                    alt="Go Back"
+                                                />
+                                                <div>
+                                                    <span>Go Back</span>
+                                                </div>
+                                            </button>
+                                        </>
                                     )}
                                     {router?.query?.error && (
                                         <>
@@ -34,7 +50,7 @@ function QuestComplete() {
                                             >
                                                 <img
                                                     src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large.png`}
-                                                    alt="connectToContinue"
+                                                    alt="Go Back"
                                                 />
                                                 <div>
                                                     <span>Go Back</span>

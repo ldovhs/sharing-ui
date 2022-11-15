@@ -101,8 +101,6 @@ const CodeQuestForm = ({
                                 <label className="form-label">End Date</label>
                                 <Field name={`extendedQuestData.endDate`}>
                                     {({ field, meta, form: { setFieldValue } }) => {
-                                        // console.log(field);
-
                                         return (
                                             <DatePicker
                                                 className={
@@ -161,9 +159,9 @@ const CodeQuestForm = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.otherAnswers &&
-                                        touched.extendedQuestData?.otherAnswers
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.otherAnswers &&
+                                        touched?.extendedQuestData?.otherAnswers
                                             ? " is-invalid"
                                             : "")
                                     }
@@ -178,9 +176,9 @@ const CodeQuestForm = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData?.collaboration &&
-                                        touched.extendedQuestData?.collaboration
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.collaboration &&
+                                        touched?.extendedQuestData?.collaboration
                                             ? " is-invalid"
                                             : "")
                                     }

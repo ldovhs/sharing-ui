@@ -1,8 +1,5 @@
 import { prisma } from "@context/PrismaContext";
 import adminMiddleware from "middlewares/adminMiddleware";
-import axios from "axios";
-
-const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
 
 const hideUserQuestAPI = async (req, res) => {
     const { method } = req;
@@ -10,12 +7,11 @@ const hideUserQuestAPI = async (req, res) => {
     switch (method) {
         case "POST":
             try {
-                const { questId, extendedUserQuestData, user } = req.body;
-                const { discordChannel, imageUrl } = extendedUserQuestData;
+                const { questId, user } = req.body;
 
                 let entry = await prisma.UserQuest.findUnique({
                     where: {
-                        wallet_questId: { wallet: user.wallet, questId },
+                        userId_questId: { userId: user.userId, questId },
                     },
                 });
                 if (!entry) {
@@ -26,7 +22,7 @@ const hideUserQuestAPI = async (req, res) => {
 
                 await prisma.UserQuest.update({
                     where: {
-                        wallet_questId: { wallet: user.wallet, questId },
+                        userId_questId: { userId: user.userId, questId },
                     },
                     data: {
                         isHidden: true,

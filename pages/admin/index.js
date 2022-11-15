@@ -1,31 +1,37 @@
-import Head from "next/head";
+
 
 import { AdminLayout } from "/components/admin";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-function Admin() {
-    useEffect(() => {}, []);
 
-    return (
-        <>
-            <div>this is admin home</div>
-            {/* Css modules cant have a none pure style in 
-             /  it like body so making a JSS style here 
-             /  and applying it globally */}
-            {/* <style>{`
-                body {
-                  overflow-x:hidden;
-                  font-size: clamp(18px,2vw,28px);
-                  font-family: Atlantis;
-                  color: black;
-                  line-height: 1.5;
-                }
-      `}</style> */}
-        </>
-    );
+function Admin({ session }) {
+  useEffect(() => { }, []);
+
+  return (
+    <>
+      <div>this is admin home</div>
+    </>
+  );
 }
 
 Admin.requireAdmin = true;
 Admin.Layout = AdminLayout;
 
 export default Admin;
+
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  return {
+    props: {
+      session,
+    },
+  }
+}

@@ -4,36 +4,73 @@
 
 This is the repo for the Sharing-UI of project Anomura.
 
-Some endpoints which post a message to a discord server, we need a nodejs server to handle discordjs package, currently we cannot have discordjs within this repo due to Vercel only supports Node runtime execution up to v14. Discordjs needs v16.
-
-The nodejs server can be found at: https://github.com/qhuynhvhslab/aedi-bot
+Some endpoints which post a message to a discord server, we need a nodejs server to handle discordjs package, currently we cannot have discordjs within this repo due to Vercel only supports Node runtime execution up to v14 at the time of development. Discordjs needs v16.
 
 ## How to use
 
-Execute run dev command to start the site on local server for developing it.
-The server uses prisma, so it needs a local postgresql.
+<details>
+  <summary> Setup database</summary>
+ 
+-------------------
+  ### Modify env file (.env.development)
+```js
+     DATABASE_URL=postgres://username:password@localhost:5432/database_name
+```
+  ### Apply prisma migration
+```js
+      dotenv -e .env.development -- npx prisma migrate dev
+```
 
-```bash
+### Expected: 
+In any sql client, the tables should be created.
+
+
+  ### Populate data
+Go to ./prisma/seed/admin.js
+Modifying the value with your wallet, then execute these commands:
+```js
+dotenv -e .env.development -- node ./prisma/seed/admin.js
+dotenv -e .env.development -- node ./prisma/seed/quest-type.js
+dotenv -e .env.development -- node ./prisma/seed/reward-type.js 
+
+```
+
+</details>
+<br/>
+
+<details>
+  <summary> Start up</summary>
+ 
+  ### Modifying BasePath
+This project is configured with basepath in order to be accessed as sub domain from another repository so the default starting path would be
+http://localhost:3000/[base_path_name] (http://localhost:3000/challenger)
+
+If we use this repos as the standalone we would have to remove all the basePath value.
+- Under next.config.js
+- Under enums/
+- Under sass/  (anything with /[base_path_name]) 
+
+### Start the project
+```js
 npm run dev
-# or
-yarn run dev
 ```
 
-## Env file
-```bash
+Go to admin site on
+http://localhost:3000/challenger/admin
 
-DATABASE_URL=postgres://username:password@localhost:5432/databasename
-NEXT_PUBLIC_WEBSITE_HOST = "http://localhost:3000"
-NEXT_PUBLIC_NEXTAUTH_SECRET=  "the secret to be used for NextAuth"
-NEXT_PUBLIC_INFURA_ID = the infura id instance, need this for wallet connect authentication
-NEXTAUTH_URL= "http://localhost:3000/api/auth"
+Create quest 
+Under http://localhost:3000/challenger/admin/quest
 
-DISCORD_NODEJS=http://localhost:3005
-NODEJS_SECRET= "the secret to be used with NodeJs, on NodeJs server above, we need the same credentials"
-DISCORD_BOT_CHANNEL = Any discord channel Id that you want to post message to
-NEXT_PUBLIC_DISCORD_CLIENT_ID = client Id from Discord Developer Portal for an app
-DISCORD_CLIENT_SECRET =  client secret from Discord Developer Portal for an app
+- Join Discord Type: server should be name of server (anomuragame, atarix,...)
+- Discord Authenticate (Link current session with discord)
+- Twitter Authenticate (Link current session with twitter)
+- Twitter Retweet
+- Twitter Follow
+- Instagram Follow
+- Wallet Authenticate
+- Code Quest
+- Image Upload
+- Daily
+- Claim Reward for owning NFT
 
-NEXT_PUBLIC_TWITTER_CLIENT_ID = client Id from Twitter Developer Portal for an app
-TWITTER_CLIENT_SECRET = client secret from Twitter Developer Portal for an app
-```
+</details>

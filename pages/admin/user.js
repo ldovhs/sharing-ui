@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AdminLayout, AddNewUser } from "/components/admin";
-import Enums from "enums";
-import { useSession } from "next-auth/react";
 import { utils } from "ethers";
 
 const modsAddress = [
@@ -11,8 +9,7 @@ const modsAddress = [
     // "0xcA70D03e8eFFb0C55542a9AEA892dD74Fe208335",
 ];
 
-const AdminUsers = () => {
-    const { data: session, status } = useSession({ required: false });
+const AdminUsers = ({ session }) => {
     const [viewable, setViewable] = useState(false);
 
     useEffect(async () => {
@@ -46,3 +43,20 @@ const AdminUsers = () => {
 AdminUsers.Layout = AdminLayout;
 AdminUsers.requireAdmin = true;
 export default AdminUsers;
+
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

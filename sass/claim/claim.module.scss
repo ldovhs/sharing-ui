@@ -1,16 +1,16 @@
 @use "../mixins" as m;
 
-$bp-small: 384px;            // 384   24em
-$bp-small-2: 500px;       // 500   31.25em
-$bp-small-3: 636px;        // 636   39.8em
-$bp-med: 748px;            // 748   46.8em
-$bp-med-2: 800px;            // 800   50em
-$bp-large: 872px;          // 872   54.5em
-$bp-large-2: 1200px;          // 1200  75em
-$bp-xl: 1440px;               // 1440  90em 
-$bp-xl-2: 1980px;         // 1980  123.75em
-$bp-xl-3: 2560px;            // 2560  160em
-$bp-xl-4: 3840px;            // 2560  160em
+$bp-small: 384px; // 384   24em
+$bp-small-2: 500px; // 500   31.25em
+$bp-small-3: 636px; // 636   39.8em
+$bp-med: 748px; // 748   46.8em
+$bp-med-2: 800px; // 800   50em
+$bp-large: 872px; // 872   54.5em
+$bp-large-2: 1200px; // 1200  75em
+$bp-xl: 1440px; // 1440  90em
+$bp-xl-2: 1980px; // 1980  123.75em
+$bp-xl-3: 2560px; // 2560  160em
+$bp-xl-4: 3840px; // 2560  160em
 
 $heading-font-size-small: 3.75vh;
 $heading-font-size-small-2: 1.65rem;
@@ -27,311 +27,311 @@ $list-text-font-size-small-2: 0.675rem;
 $list-text-font-size-med: 1rem;
 $list-text-font-size-large: 1.25rem;
 
-@mixin heading(){
-	font-size: $heading-font-size-small;
-	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
-	text-align: center;
+@mixin heading() {
+    font-size: $heading-font-size-small;
+    font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
+    text-align: center;
 
-	@media (min-width: $bp-small-3) {  
+    @media (min-width: $bp-small-3) {
         font-size: $heading-font-size-small-2;
     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-med-2) {
         font-size: $heading-font-size-med;
     }
-    @media (min-width: $bp-large-2) {  
+    @media (min-width: $bp-large-2) {
         font-size: $heading-font-size-med;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-xl) {
         font-size: $heading-font-size-large;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         font-size: $heading-font-size-large;
     }
 }
 
-@mixin boardHeading(){
-	font-size: 1.75vh;
-	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
+@mixin boardHeading() {
+    font-size: 1.75vh;
+    font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 500;
-	text-align: center;
-    color:#35464F;
+    text-align: center;
+    color: #35464f;
     line-height: 1rem;
 
-    @media (min-width: $bp-small) {  
-         font-size: 1.25rem;
-         line-height: 1.25rem;
+    @media (min-width: $bp-small) {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
     }
-    @media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         line-height: 1.35rem;
         font-size: 1.55rem;
     }
-	@media (min-width: $bp-small-3) {  
+    @media (min-width: $bp-small-3) {
         font-size: $heading-font-size-small-2;
         line-height: 1.5rem;
     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-med-2) {
         font-size: $heading-font-size-med;
         line-height: 2rem;
     }
-    @media (min-width: $bp-large-2) {  
+    @media (min-width: $bp-large-2) {
         font-size: $heading-font-size-med;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         line-height: 2.5rem;
     }
 }
 
-@mixin goneFishHeading(){
-	font-size: 1rem;
-	font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
+@mixin goneFishHeading() {
+    font-size: 1rem;
+    font-family: Safety Goggles; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 500;
-	text-align: center;
-    color:#35464F;
+    text-align: center;
+    color: #35464f;
     line-height: 1rem;
 
-    @media (min-width: $bp-small) {  
+    @media (min-width: $bp-small) {
         font-size: 1.25rem;
         line-height: 1.25rem;
     }
-    @media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         line-height: 1.35rem;
         font-size: 1.55rem;
     }
-	@media (min-width: $bp-small-3) {  
+    @media (min-width: $bp-small-3) {
         font-size: $heading-font-size-small-2;
         line-height: 1.5rem;
     }
-    @media (min-width: $bp-med) {  
+    @media (min-width: $bp-med) {
         font-size: 2.25rem;
     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-med-2) {
         font-size: 2.35rem;
         line-height: 2rem;
     }
-    @media (min-width: $bp-large) {  
+    @media (min-width: $bp-large) {
         font-size: 2.35rem;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-xl) {
         font-size: 2.5rem;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         font-size: 2.75rem;
     }
-    @media (min-width: $bp-xl-3) {  
+    @media (min-width: $bp-xl-3) {
         font-size: 3rem;
     }
 }
 
-@mixin goneFishText(){
-	font-size: 0.45rem;
-	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
+@mixin goneFishText() {
+    font-size: 0.45rem;
+    font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 400;
-	text-align: center;
-    color:#35464F;
+    text-align: center;
+    color: #35464f;
     line-height: 1rem;
     width: 88%;
 
-	@media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         font-size: 0.5rem;
         line-height: 1.25rem;
     }
-    @media (min-width: $bp-med) {  
+    @media (min-width: $bp-med) {
         font-size: 0.95rem;
         line-height: 1.85rem;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-xl) {
         font-size: 1rem;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         font-size: 1.1rem;
     }
-    @media (min-width: $bp-xl-3) {  
+    @media (min-width: $bp-xl-3) {
         font-size: 1.2rem;
     }
 }
 
-@mixin boardText(){
-	font-size: $text-font-size-small;
-	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
+@mixin boardText() {
+    font-size: $text-font-size-small;
+    font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 400;
-	text-align: center;
-    color:#35464F;
+    text-align: center;
+    color: #35464f;
     line-height: 1.55rem;
-	@media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         font-size: $text-font-size-small-2;
     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-med-2) {
         font-size: $text-font-size-med;
         line-height: 1.85rem;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-xl) {
         font-size: $text-font-size-large;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         font-size: $text-font-size-large;
     }
 }
- 
-@mixin listText(){
-	font-size: $list-text-font-size-small;
-	font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
+
+@mixin listText() {
+    font-size: $list-text-font-size-small;
+    font-family: PFRondaSeven; // PFRondaSeven Safety Goggles Atlantis
     font-weight: 400;
-	text-align: center;
+    text-align: center;
 
-    @media (min-width: $bp-small) {  
+    @media (min-width: $bp-small) {
         font-size: $list-text-font-size-small-2;
     }
 
-    @media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         font-size: $list-text-font-size-small-2;
     }
 
-	 @media (min-width: $bp-small-3) {  
-         //font-size: $list-text-font-size-small-2;
-         font-size: $list-text-font-size-med;
-     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-small-3) {
+        //font-size: $list-text-font-size-small-2;
+        font-size: $list-text-font-size-med;
+    }
+    @media (min-width: $bp-med-2) {
         font-size: $list-text-font-size-med;
     }
 
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl-2) {
         font-size: $list-text-font-size-large;
     }
 }
 
 @mixin text() {
     font-family: PFRondaSeven;
-	text-align: center;
-	font-size: $text-font-size-small;
-	@media (min-width: $bp-small-3) {
-		font-size: $text-font-size-small;
-	} 
-    @media (min-width: $bp-med-2) {  
+    text-align: center;
+    font-size: $text-font-size-small;
+    @media (min-width: $bp-small-3) {
         font-size: $text-font-size-small;
     }
-    @media (min-width: $bp-large-2) {  
+    @media (min-width: $bp-med-2) {
         font-size: $text-font-size-small;
     }
-    @media (min-width: $bp-xl) {  
+    @media (min-width: $bp-large-2) {
         font-size: $text-font-size-small;
     }
-    @media (min-width: $bp-xl-2) {  
+    @media (min-width: $bp-xl) {
         font-size: $text-font-size-small;
     }
-}	
+    @media (min-width: $bp-xl-2) {
+        font-size: $text-font-size-small;
+    }
+}
 
 @mixin large_button() {
-    position:relative;
-	width: 50%;
-	display:flex;
-	justify-content: center;
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: center;
     padding: 0;
-    color: #FFFFFF;
+    color: #ffffff;
 
-    @media (min-width: $bp-small) {  
+    @media (min-width: $bp-small) {
         width: 55%;
     }
-    @media (min-width: $bp-small-2) {  
+    @media (min-width: $bp-small-2) {
         width: 50%;
     }
-    @media (min-width: $bp-med-2) {  
+    @media (min-width: $bp-med-2) {
         width: 60%;
     }
 
-	& > div {
-		position:absolute;
-		display: flex;
-		text-align: center;
-		align-items: center;
-		height: 90%;
-		& > span { 
-            width: 100%;
-            font-size: 0.9rem;
-	        font-family: Safety Goggles;
-            font-weight: 400;
-	        text-align: center;
-
-            line-height: 1.05rem;
-            @media (min-width: $bp-small) {  
-                font-size: 1rem;
-            }
-            @media (min-width: $bp-small-2) {  
-                font-size: 1.15rem;
-            }
-	        @media (min-width: $bp-small-3) {  
-                font-size: 1.55rem;
-                line-height: 1.35rem;
-            }
-            @media (min-width: $bp-med-2) {  
-                font-size: 1.75rem;
-            }
-            @media (min-width: $bp-xl) {  
-                font-size: $heading-font-size-med;
-            }
-		}
-        & > img { 
-            margin-left: 0.3rem;
-            max-height: 50%;
-            width: auto!important;
-
-            @media (min-width: $bp-small-3) {  
-                max-height: 65%;
-            }
-            @media (min-width: $bp-med-2) {  
-                max-height: 65%;
-            }
-            @media (min-width: $bp-large-2) {  
-                max-height: 65%;
-            }
-		}
-        & > img:nth-child(2) { 
-           margin-left: 0.25rem;
-		}
-    }
-    &:disabled {
-        cursor: not-allowed!important;
-        color: #A2B7B6;
-        &:hover {
-            color: #A2B7B6;
-        }
-    }
-}	
-
-@mixin disconnect_button(){
-    margin-top: 1rem;
-    position:relative;
-    width: 40%; //10.375rem;
-    display:flex;
-    justify-content: center;
-    padding: 0;
-    color: #BED3D2;
-
     & > div {
-        position:absolute;
+        position: absolute;
         display: flex;
         text-align: center;
         align-items: center;
         height: 90%;
-        & > span { 
+        & > span {
+            width: 100%;
+            font-size: 0.9rem;
+            font-family: Safety Goggles;
+            font-weight: 400;
+            text-align: center;
+
+            line-height: 1.05rem;
+            @media (min-width: $bp-small) {
+                font-size: 1rem;
+            }
+            @media (min-width: $bp-small-2) {
+                font-size: 1.15rem;
+            }
+            @media (min-width: $bp-small-3) {
+                font-size: 1.55rem;
+                line-height: 1.35rem;
+            }
+            @media (min-width: $bp-med-2) {
+                font-size: 1.75rem;
+            }
+            @media (min-width: $bp-xl) {
+                font-size: $heading-font-size-med;
+            }
+        }
+        & > img {
+            margin-left: 0.3rem;
+            max-height: 50%;
+            width: auto !important;
+
+            @media (min-width: $bp-small-3) {
+                max-height: 65%;
+            }
+            @media (min-width: $bp-med-2) {
+                max-height: 65%;
+            }
+            @media (min-width: $bp-large-2) {
+                max-height: 65%;
+            }
+        }
+        & > img:nth-child(2) {
+            margin-left: 0.25rem;
+        }
+    }
+    &:disabled {
+        cursor: not-allowed !important;
+        color: #a2b7b6;
+        &:hover {
+            color: #a2b7b6;
+        }
+    }
+}
+
+@mixin disconnect_button() {
+    margin-top: 1rem;
+    position: relative;
+    width: 40%; //10.375rem;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    color: #bed3d2;
+
+    & > div {
+        position: absolute;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        height: 90%;
+        & > span {
             font-size: 5vw;
             font-family: Safety Goggles;
             font-weight: 500;
             text-align: center;
 
             line-height: 1.15rem;
-            @media (min-width: $bp-small-2) {  
+            @media (min-width: $bp-small-2) {
                 font-size: $heading-font-size-small-2;
-            }  
+            }
         }
     }
-    &:hover{
-        color:#35454F;
+    &:hover {
+        color: #35454f;
     }
     &:disabled {
-        cursor: not-allowed!important;
-        color: #A2B7B6;
+        cursor: not-allowed !important;
+        color: #a2b7b6;
         &:hover {
-            color: #A2B7B6;
+            color: #a2b7b6;
         }
     }
 }
@@ -339,66 +339,164 @@ $list-text-font-size-large: 1.25rem;
 .app {
     width: 100%;
     height: 100vh;
-    background: 50% 30%/cover url("/challenger/img/sharing-ui/invite/Background.png");
+    background: 50% 30% / cover url("/challenger/img/sharing-ui/invite/Background.png");
     @include m.flex-master(null, center, center);
+}
+
+.pinkBtn {
+    // 526 x 129
+    @include large_button();
+    &:hover {
+        color: #ce3c85;
+    }
+
+    &:disabled {
+        cursor: not-allowed !important;
+        color: #a2b7b6 !important;
+        &:hover {
+            color: #a2b7b6 !important;
+        }
+    }
+}
+
+.claimBtn {
+    @include m.flex-master(row, center, center);
+    max-width: 50%;
+
+    > button {
+        position: relative;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        color: #ffffff;
+
+        & > div {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            height: 90%;
+            // width: 100%;
+            gap: 0.45rem;
+            & > div {
+                @include m.flex-master(row, center, center);
+                width: 100%;
+                height: 100%;
+                font-size: 1.35vh;
+                font-family: Safety Goggles;
+                font-weight: 400;
+                line-height: 1rem;
+
+                @media (min-width: $bp-small) {
+                    font-size: 0.9rem;
+                    line-height: 1rem;
+                }
+                @media (min-width: $bp-small-2) {
+                    font-size: 1.3rem;
+                }
+                @media (min-width: $bp-small-3) {
+                    font-size: 1.75rem;
+                    line-height: 1.5rem;
+                }
+
+                & > img {
+                    max-height: 50%;
+                    width: auto !important;
+                    margin-left: 0.4rem;
+
+                    @media (min-width: $bp-small-3) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-med-2) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-large-2) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-xl) {
+                    }
+                }
+            }
+        }
+        &:hover {
+            color: #ce3c85;
+        }
+
+        &:disabled {
+            cursor: not-allowed !important;
+            color: #a2b7b6 !important;
+            &:hover {
+                color: #a2b7b6 !important;
+            }
+        }
+    }
+    // 526 x 129
 }
 
 .board {
     @include m.flex-master(column, center, center);
     width: 92%;
-    height:100%;
+    height: 100%;
     position: relative;
     color: #fff;
 
-    @media (min-width: $bp-large) { width: 45em; }
-    @media (min-width: $bp-xl) { width: 50em; }
-    @media (min-width: $bp-xl-2) { width: 52em; }
-    @media (min-width: $bp-xl-3) { width: 65em; }
+    @media (min-width: $bp-large) {
+        width: 45em;
+    }
+    @media (min-width: $bp-xl) {
+        width: 50em;
+    }
+    @media (min-width: $bp-xl-2) {
+        width: 52em;
+    }
+    @media (min-width: $bp-xl-3) {
+        width: 65em;
+    }
 
     &_dollar {
         position: absolute;
         width: 100%;
         top: 14.15%;
-        display:flex;
+        display: flex;
         justify-content: center;
 
         @media (min-width: $bp-small-2) {
             top: 14.15%;
-        } 
+        }
         @media (min-width: $bp-small-3) {
             top: 14%;
-        } 
+        }
         @media (min-width: $bp-large-2) {
             top: 14.25%;
-        } 
-        @media (min-width: $bp-xl-3) {  
+        }
+        @media (min-width: $bp-xl-3) {
             top: 15%;
         }
 
         &_content {
             @include m.flex-master(row, center, center);
             font-family: PFRondaSeven;
-            color: #F8D61D;
+            color: #f8d61d;
             margin-left: 7px;
             font-size: 2.25vw;
-            
+
             @media (min-width: $bp-small) {
                 margin-left: 12px;
                 font-size: 0.5rem;
-            } 
+            }
             @media (min-width: $bp-small-2) {
                 font-size: 0.675rem;
-            } 
+            }
             @media (min-width: $bp-small-3) {
                 margin-left: 15px;
                 font-size: 0.9rem;
-            } 
+            }
             @media (min-width: $bp-med) {
                 font-size: 1rem;
-            } 
+            }
             @media (min-width: $bp-xl-2) {
                 margin-left: 17px;
-            } 
+            }
             & > img {
                 // height: 1.25vh;
                 width: 0.65rem;
@@ -408,32 +506,32 @@ $list-text-font-size-large: 1.25rem;
                     // height: 1.4vh;
                     width: 0.75rem;
                     margin-right: 3px;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     // height: 1.65vh;
                     width: 0.95rem;
-                } 
+                }
                 @media (min-width: $bp-small-3) {
                     // height: 2.1vh;
                     width: 1.25rem;
-                } 
+                }
                 @media (min-width: $bp-large) {
                     // height: 2.2vh;
-                } 
+                }
                 @media (min-width: $bp-large-2) {
                     width: 1.5rem;
-                } 
+                }
 
                 @media (min-width: $bp-xl-2) {
                     // height: 2.2vh;
-                } 
+                }
             }
         }
     }
     &_container {
         position: relative;
         width: 100%;
-        height:0;
+        height: 0;
         padding-top: 85.53%;
         background: url("/challenger/img/sharing-ui/invite/board_sm.png") no-repeat;
         background-size: contain;
@@ -446,24 +544,24 @@ $list-text-font-size-large: 1.25rem;
         position: absolute;
         width: 100%;
         height: 54%;
-        top:32%;
-        left:0;
+        top: 32%;
+        left: 0;
         padding: 0 19%;
 
-        @media (min-width: $bp-small) {  
+        @media (min-width: $bp-small) {
             padding: 0 19%;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-2) {
             padding: 0 19%;
         }
-        @media (min-width: $bp-small-3) {  
+        @media (min-width: $bp-small-3) {
             padding: 0 19%;
         }
-        @media (min-width: $bp-med-2) {  
+        @media (min-width: $bp-med-2) {
             padding: 0 19%;
         }
-        @media (min-width: $bp-xl-2) {  
-          //  padding: 0 5rem;
+        @media (min-width: $bp-xl-2) {
+            //  padding: 0 5rem;
         }
     }
     &_content {
@@ -473,13 +571,13 @@ $list-text-font-size-large: 1.25rem;
         gap: 0.35rem;
         margin-left: 0.5rem;
 
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-2) {
             gap: 1rem;
         }
-        @media (min-width: $bp-med-2) {  
+        @media (min-width: $bp-med-2) {
             gap: 1.5rem;
         }
-        @media (min-width: $bp-xl) {  
+        @media (min-width: $bp-xl) {
             gap: 1.75rem;
         }
     }
@@ -490,15 +588,15 @@ $list-text-font-size-large: 1.25rem;
         display: flex;
         flex-direction: column;
         position: relative;
-        justify-content:center;
-        align-items:center;
+        justify-content: center;
+        align-items: center;
 
         &_wrapper {
             display: flex;
             flex-direction: column;
             position: relative;
-            justify-content:center;
-            align-items:center;
+            justify-content: center;
+            align-items: center;
             height: 100%;
             font-family: PFRondaSeven;
 
@@ -509,44 +607,44 @@ $list-text-font-size-large: 1.25rem;
 
                 @media (min-width: $bp-small) {
                     width: 30%;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     width: 40%;
-                } 
+                }
                 @media (min-width: $bp-med) {
                     width: 60%;
-                } 
+                }
             }
             &_text {
-                position:absolute;
-                width:100%;
+                position: absolute;
+                width: 100%;
                 bottom: 10%;
                 text-align: center;
                 font-size: $text-font-size-small * 0.75;
-                display:flex;
+                display: flex;
                 flex-direction: row;
                 justify-content: center;
 
                 @media (min-width: $bp-small) {
                     font-size: $text-font-size-small;
                     bottom: 12%;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     font-size: $text-font-size-small-2;
                     bottom: 9%;
-                } 
-                @media (min-width: $bp-med) {  
+                }
+                @media (min-width: $bp-med) {
                     font-size: $text-font-size-med;
                     bottom: 12%;
                 }
                 &_ellipsis {
-                    width:5px;
+                    width: 5px;
                     &:after {
                         overflow: hidden;
                         display: inline-block;
                         vertical-align: bottom;
-                        -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
-                        animation: ellipsis steps(4,end) 900ms infinite;
+                        -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+                        animation: ellipsis steps(4, end) 900ms infinite;
                         content: "\2026"; /* ascii code for the ellipsis character */
                         width: 0px;
                     }
@@ -557,7 +655,7 @@ $list-text-font-size-large: 1.25rem;
     &_headingIcon {
         height: 10%;
     }
-    &_title { 
+    &_title {
         @include boardHeading();
     }
     &_goneFishTitle {
@@ -567,80 +665,84 @@ $list-text-font-size-large: 1.25rem;
         @include goneFishText();
 
         & > span {
-            color: #2484B2;
+            color: #2484b2;
         }
     }
-    &_text { 
+    &_text {
         @include boardText();
         width: 85%;
         overflow-wrap: break-word;
     }
-    &_pinkBtn { // 526 x 129
+    &_pinkBtn {
+        // 526 x 129
         @include large_button();
         &:hover {
-            color: #CE3C85;
-		}
+            color: #ce3c85;
+        }
 
         &:disabled {
-            cursor: not-allowed!important;
-            color: #A2B7B6!important;
+            cursor: not-allowed !important;
+            color: #a2b7b6 !important;
             &:hover {
-                color: #A2B7B6!important;
+                color: #a2b7b6 !important;
             }
         }
     }
-    &_orangeBtn { 
+    &_orangeBtn {
         @include large_button();
         &:hover {
-            color: #E06655;
-		}
+            color: #e06655;
+        }
     }
-    &_tealBtn { 
+    &_tealBtn {
         @include large_button();
         &:hover {
-            color: #559BCE!important;
-		}
+            color: #559bce !important;
+        }
     }
-    &_blackBtn { 
+    &_blackBtn {
         @include large_button();
         &:hover {
-            color: #BED3D2!important;
-		}
+            color: #bed3d2 !important;
+        }
     }
-    &_purpleBtn { 
+    &_purpleBtn {
         @include large_button();
         &:hover {
-            color: #7967DE!important;
-		}
+            color: #7967de !important;
+        }
     }
     &_signin {
         &_wrapper {
-            width:100%;
-            height:90%;
+            @include m.flex-master(column, center, center);
+            width: 100%;
+            height: 75%;
         }
         &_content {
             @include m.flex-master(column, space-evenly, center);
             height: 100%;
-            width:100%;
+            width: 100%;
+        }
+        &_title {
+            @include boardHeading();
         }
     }
     &_imageUpload {
         &_wrapper {
             @include m.flex-master(row, space-evenly, center);
-         
         }
         &_imagePreview {
-            max-width:30%;
-            max-height:35%;
+            max-width: 30%;
+            max-height: 35%;
         }
         &_imageName {
             @include listText();
             max-width: 100%;
             overflow-wrap: break-word;
         }
-        &_chooseFileLabel{
+        &_chooseFileLabel {
             position: relative;
-           
+
             width: 50%;
             & > span {
                 position: absolute;
@@ -653,17 +755,16 @@ $list-text-font-size-large: 1.25rem;
             position: absolute;
             width: 6rem;
         }
-        
     }
     &_input {
-        &_wrapper{
+        &_wrapper {
             @include m.flex-master(column, space-evenly, center);
-            width:100%;
+            width: 100%;
         }
 
         &_custom {
             font-family: PFRondaSeven;
-            color:  #35454F;
+            color: #35454f;
             width: 60%;
             padding-bottom: 3px;
             background: url("/challenger/img/sharing-ui/invite/Text Input Box.png") no-repeat;
@@ -675,39 +776,39 @@ $list-text-font-size-large: 1.25rem;
             position: relative;
 
             &::-webkit-input-placeholder {
-                color: #A3B7B6;
+                color: #a3b7b6;
             }
             &::-moz-placeholder {
-              color: #A3B7B6;
+                color: #a3b7b6;
             }
             &:-ms-input-placeholder {
-              color: #A3B7B6;
+                color: #a3b7b6;
             }
             &:-moz-placeholder {
-              color: #A3B7B6;
+                color: #a3b7b6;
             }
 
             font-size: 1.35vh;
             @media (min-width: $bp-small) {
                 font-size: 1rem;
-            } 
+            }
             @media (min-width: $bp-small-2) {
                 font-size: 1.25rem;
             }
             @media (min-width: $bp-small-3) {
                 font-size: 1.45rem;
-            } 
+            }
             @media (min-width: $bp-med) {
-            //    font-size: 2.05vh;
+                //    font-size: 2.05vh;
                 font-size: 1.65rem;
-            } 
-            @media (min-width: $bp-med-2) {  
+            }
+            @media (min-width: $bp-med-2) {
                 font-size: 1.85rem;
             }
         }
         &_error {
             height: 0.7rem;
-            color: #C1344F;
+            color: #c1344f;
             font-weight: 600;
         }
     }
@@ -715,134 +816,197 @@ $list-text-font-size-large: 1.25rem;
         @include m.flex-master(row, center, center);
         max-width: 50%;
 
-        & > button:nth-child(2) { 
+        & > button:nth-child(2) {
             margin-left: 0.75rem;
-         }
+        }
     }
-    &_singleClaimBtn { // 526 x 129
-        position:relative;
-	    width: 90%;
-	    display:flex;
-	    justify-content: center;
+    &_singleClaimBtn {
+        // 526 x 129
+        position: relative;
+        width: 90%;
+        display: flex;
+        justify-content: center;
         padding: 0;
-        color: #FFFFFF;
+        color: #ffffff;
 
-	    & > div {
-	    	position:absolute;
-	    	display: flex;
-	    	align-items: center;
-	    	height: 90%;
+        & > div {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            height: 90%;
             // width: 100%;
-            gap:0.45rem;
-	    	& > div { 
+            gap: 0.45rem;
+            & > div {
                 @include m.flex-master(row, center, center);
                 width: 100%;
-                height:100%;
+                height: 100%;
                 font-size: 1.35vh;
-	            font-family: Safety Goggles;
+                font-family: Safety Goggles;
                 font-weight: 400;
                 line-height: 1rem;
-               
-                @media (min-width: $bp-small) {  
+
+                @media (min-width: $bp-small) {
                     font-size: 0.9rem;
                     line-height: 1rem;
                 }
-                @media (min-width: $bp-small-2) {  
+                @media (min-width: $bp-small-2) {
                     font-size: 1.3rem;
                 }
-	            @media (min-width: $bp-small-3) {  
+                @media (min-width: $bp-small-3) {
                     font-size: 1.75rem;
                     line-height: 1.5rem;
                 }
 
-                & > img { 
-       
+                & > img {
                     max-height: 50%;
-                    width: auto!important;
-                    margin-left:0.4rem;
-    
-                    @media (min-width: $bp-small-3) {  
-                        max-height: 62%;
-                    }
-                    @media (min-width: $bp-med-2) {  
-                        max-height: 62%;
-                        
-                    }
-                    @media (min-width: $bp-large-2) {  
-                        max-height: 62%;
-                    }
-                    @media (min-width: $bp-xl) {  
-                    }
-                }
-	    	}
-            
-        }
-            &:hover {
-                color: #CE3C85;
-	    	}
+                    width: auto !important;
+                    margin-left: 0.4rem;
 
-            &:disabled {
-                cursor: not-allowed!important;
-                color: #A2B7B6!important;
-                &:hover {
-                    color: #A2B7B6!important;
+                    @media (min-width: $bp-small-3) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-med-2) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-large-2) {
+                        max-height: 62%;
+                    }
+                    @media (min-width: $bp-xl) {
+                    }
                 }
             }
+        }
+        &:hover {
+            color: #ce3c85;
+        }
+
+        &:disabled {
+            cursor: not-allowed !important;
+            color: #a2b7b6 !important;
+            &:hover {
+                color: #a2b7b6 !important;
+            }
+        }
     }
 }
 
 .boardLarge {
     @include m.flex-master(column, center, center);
-    width: 85%;
-    height: 70vh;
+    width: 100%;
+    height: 100%;
     position: relative;
-    color: #fff;  
 
-    @media (min-width: $bp-small-3) {
-        width: 38em; 
+    &_layout {
+        @include m.flex-master(null, center, center);
+        position: relative;
+        height: 70%;
+        width: auto;
+        max-width: 85%;
     }
-
-    @media (min-width: $bp-xl-2) {
-        width: 45em; 
-    }
-
-    &_container {
+    &_wrapper {
+        @include m.flex-master(null, center, center);
         position: relative;
         width: 100%;
-        height:0;
-        padding-top: 136.32%;
-        background: url("/challenger/img/sharing-ui/invite/board_large.png") no-repeat;
-        background-size: contain;
+        height: 100%;
+    }
+    &_bgImg {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+    &_dollar {
+        position: absolute;
+        width: 100%;
+        top: 9%;
+        display: flex;
+        justify-content: center;
 
+        @media (min-width: $bp-small) {
+            top: 8.85%;
+        }
         @media (min-width: $bp-small-2) {
-            width: 100%;
-            height:0;
-            padding-top: 104.29%;
+            top: 11.55%;
+        }
+        // @media (min-width: $bp-med) {
+        //     top: 11.55%;
+        // }
+        // @media (min-width: $bp-large) {
+        //     top: 11.55%;
+        // }
+        // @media (min-width: $bp-xl) {
+        //     top: 11.55%;
+        // }
 
-            background: url("/challenger/img/sharing-ui/invite/Board_medium.png") no-repeat;
-            background-size: cover;
+        &_content {
+            @include m.flex-master(row, center, center);
+            font-family: PFRondaSeven;
+            color: #f8d61d;
+            margin-left: 7px;
+            font-size: 2.25vw;
+
+            @media (min-width: $bp-small) {
+                margin-left: 12px;
+                font-size: 0.5rem;
+            }
+            @media (min-width: $bp-small-2) {
+                font-size: 0.675rem;
+            }
+            @media (min-width: $bp-small-3) {
+                margin-left: 15px;
+                font-size: 0.9rem;
+            }
+            @media (min-width: $bp-med) {
+                font-size: 1rem;
+            }
+            @media (min-width: $bp-xl-2) {
+                margin-left: 17px;
+            }
+
+            & > img {
+                height: 1.25vh;
+                margin-right: 1px;
+
+                @media (min-width: $bp-small) {
+                    height: 1.4vh;
+                    margin-right: 3px;
+                }
+                @media (min-width: $bp-small-2) {
+                    height: 1.65vh;
+                }
+
+                @media (min-width: $bp-small-3) {
+                    height: 1.9vh;
+                }
+                @media (min-width: $bp-large-2) {
+                    height: 2.2vh;
+                }
+
+                @media (min-width: $bp-xl-2) {
+                    height: 2.2vh;
+                }
+            }
         }
     }
-
-    &_disconnect {
-        @include disconnect_button();
-    }
-
-    &_wrapper {
+    &_container {
+        // position: absolute;
+        // top: 0;
+        // width: 100%;
+        // height: 100%;
         @include m.flex-master(column, center, center);
         position: absolute;
         width: 100%;
         height: 72%;
         top: 21%;
-        left:0%;
-        padding: 0 18% 0 20.4%; 
+        left: 0%;
+        padding: 0 18% 0 20.4%;
 
         @media (min-width: $bp-small-2) {
             height: 65.5%;
             top: 27%;
-            padding: 0 18% 0 20.4%; 
+            padding: 0 18% 0 20.4%;
         }
     }
+
     &_content {
         @include m.flex-master(column, center, center);
         width: 100%;
@@ -852,7 +1016,6 @@ $list-text-font-size-large: 1.25rem;
 
         @media (min-width: $bp-small) {
             padding-top: 0.5rem;
-            
         }
         @media (min-width: $bp-small-2) {
             padding-top: 1rem;
@@ -864,87 +1027,13 @@ $list-text-font-size-large: 1.25rem;
         }
     }
 
-    &_dollar {
-        position: absolute;
-        width: 100%;
-        top: 9%;
-        display:flex;
-        justify-content: center;
-
-        @media (min-width: $bp-small) {
-            top: 8.85%;
-        } 
-        @media (min-width: $bp-small-2) {
-            top: 11.55%;
-        } 
-        @media (min-width: $bp-med) {
-            top: 11.25%;
-        } 
-        @media (min-width: $bp-large) {
-            top: 11.25%;
-        } 
-        @media (min-width: $bp-xl) {
-            top: 11.25%;
-        } 
-    
-        &_content {
-            @include m.flex-master(row, center, center);
-            font-family: PFRondaSeven;
-            color: #F8D61D;
-            margin-left: 7px;
-            font-size: 2.25vw;
-
-            @media (min-width: $bp-small) {
-                margin-left: 12px;
-                font-size: 0.5rem;
-            } 
-            @media (min-width: $bp-small-2) {
-                font-size: 0.675rem;
-            } 
-            @media (min-width: $bp-small-3) {
-                margin-left: 15px;
-                font-size: 0.9rem;
-            } 
-            @media (min-width: $bp-med) {
-                font-size: 1rem;
-            } 
-            @media (min-width: $bp-xl-2) {
-                margin-left: 17px;
-            } 
-  
-            & > img {
-                height: 1.25vh;
-                margin-right: 1px;
-
-                @media (min-width: $bp-small) {
-                    height: 1.4vh;
-                    margin-right: 3px;
-                } 
-                @media (min-width: $bp-small-2) {
-                    height: 1.65vh;
-                } 
-
-                @media (min-width: $bp-small-3) {
-                    height: 1.9vh;
-                } 
-                @media (min-width: $bp-large-2) {
-                    height: 2.2vh;
-                } 
-
-                @media (min-width: $bp-xl-2) {
-                    height: 2.2vh;
-                } 
-            }
-        }
-    }
-
     &_title {
         @include boardHeading();
         overflow-wrap: break-word;
         & > div:nth-child(2) {
             margin-top: 0.15rem;
             font-size: 0.65em;
-            color: #617E82;
+            color: #617e82;
             line-height: 1rem;
 
             @media (min-width: $bp-small-2) {
@@ -957,79 +1046,87 @@ $list-text-font-size-large: 1.25rem;
         @include m.flex-master(row, center, null);
         flex: 12%;
         width: 100%;
-
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
         @media (min-width: $bp-small-2) {
-            flex: 15%;
+            flex: 14%;
+            gap: 1rem;
         }
 
         @media (min-width: $bp-large-2) {
-            //flex: 21%;
+            gap: 1.5rem;
+            // margin-bottom: 0.75rem;
+        }
+        @media (min-width: $bp-xl) {
+            gap: 2rem;
+            // margin-bottom: 2rem;
         }
 
         & > button {
-            width: 30%;
+            width: 15%;
             height: auto;
             margin-bottom: 0.5rem;
             @media (min-width: $bp-small) {
-                width: 27%;
+                width: 15%;
             }
             @media (min-width: $bp-small-2) {
-                width: 25%;
+                width: 15%;
             }
-            
+
             @media (min-width: $bp-small-3) {
-                width: 20%;
-                margin-bottom: 1rem;
+                width: 15%;
+            }
+            @media (min-width: $bp-large-2) {
+                width: 17%;
             }
         }
 
         & > button:nth-child(2) {
-            margin-left: -1rem;
+            // margin-left: -0.5rem;
         }
-   
     }
-    &_orangeBtn { 
+    &_orangeBtn {
         @include text();
         @include m.flex-master(row, center, center);
-        background-image: url('/challenger/img/sharing-ui/invite/button_wallet.png'); // 166 x 31
+        background-image: url("/challenger/img/sharing-ui/invite/button_wallet.png"); // 166 x 31
         background-size: cover;
         margin-top: 0.75rem;
         width: 10.375rem;
         height: 1.9375rem;
-        @media (min-width: $bp-small) {  
+        @media (min-width: $bp-small) {
             width: 15.5625rem;
-            height: 2.90675rem; 
+            height: 2.90675rem;
             font-size: 1rem;
         }
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-2) {
             width: 20.875rem;
-            height: 3.875rem; 
+            height: 3.875rem;
             font-size: 1.375rem;
         }
         &:disabled {
-            background-image: url('/challenger/img/sharing-ui/invite/button_wallet-disable.png'); // 166 x 31
+            background-image: url("/challenger/img/sharing-ui/invite/button_wallet-disable.png"); // 166 x 31
             background-size: cover;
         }
     }
-    &_yellowText { 
+    &_yellowText {
         @include text();
         @include m.flex-master(row, center, null);
         margin-top: 2%;
-        color: #F8D61D;
+        color: #f8d61d;
         align-self: center;
         width: 4.6rem;
         height: 2.16rem;
 
-        @media (min-width: $bp-small-2) {  
+        @media (min-width: $bp-small-2) {
             width: 94px;
-            height: 44px; 
+            height: 44px;
         }
     }
 
     &_scrollableArea {
         // @include m.flex-master(column, space-between, null);
         @include m.flex-master(column, flex-start, null);
-        width:100%;
+        width: 100%;
         flex: 90%;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -1045,7 +1142,7 @@ $list-text-font-size-large: 1.25rem;
             gap: 0.6rem;
             flex: 90%;
         }
-        
+
         @media (min-width: $bp-small-3) {
             gap: 0.85rem;
             flex: 85%;
@@ -1063,15 +1160,15 @@ $list-text-font-size-large: 1.25rem;
         display: flex;
         flex-direction: column;
         position: relative;
-        justify-content:center;
-        align-items:center;
+        justify-content: center;
+        align-items: center;
 
         &_wrapper {
             display: flex;
             flex-direction: column;
             position: relative;
-            justify-content:center;
-            align-items:center;
+            justify-content: center;
+            align-items: center;
             height: 100%;
 
             & > img {
@@ -1081,52 +1178,52 @@ $list-text-font-size-large: 1.25rem;
 
                 @media (min-width: $bp-small) {
                     width: 50%;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     width: 40%;
-                } 
+                }
                 @media (min-width: $bp-med) {
                     width: 50%;
-                } 
+                }
             }
             &_text {
-                position:absolute;
-                width:100%;
+                position: absolute;
+                width: 100%;
                 bottom: 1%;
                 text-align: center;
                 font-size: $text-font-size-small * 0.85;
-                display:flex;
+                display: flex;
                 flex-direction: row;
                 justify-content: center;
-                color: #35464F;
+                color: #35464f;
                 font-family: PFRondaSeven;
 
                 @media (min-width: $bp-small) {
                     font-size: 0.75rem;
                     bottom: 3%;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     font-size: 0.8rem;
                     bottom: -5%;
-                } 
+                }
                 @media (min-width: $bp-small-3) {
                     font-size: 0.85rem;
                     bottom: 1%;
-                } 
+                }
 
                 @media (min-width: $bp-med-2) {
                     font-size: 1.15rem;
                     bottom: 1%;
-                } 
-                
+                }
+
                 &_ellipsis {
-                    width:5px;
+                    width: 5px;
                     &:after {
                         overflow: hidden;
                         display: inline-block;
                         vertical-align: bottom;
-                        -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
-                        animation: ellipsis steps(4,end) 900ms infinite;
+                        -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+                        animation: ellipsis steps(4, end) 900ms infinite;
                         content: "\2026"; /* ascii code for the ellipsis character */
                         width: 0px;
                     }
@@ -1139,7 +1236,7 @@ $list-text-font-size-large: 1.25rem;
         &_container {
             @include m.flex-master(row, null, null);
             @include text();
-            background: url('/challenger/img/sharing-ui/invite/Quest_List bg_Mobile.png') no-repeat;
+            background: url("/challenger/img/sharing-ui/invite/Quest_List bg_Mobile.png") no-repeat;
             background-size: 100% 100%;
             text-align: left;
 
@@ -1147,33 +1244,34 @@ $list-text-font-size-large: 1.25rem;
             max-height: 30%;
             min-height: 30%;
 
-            @media (min-width: $bp-small-2) {  
+            @media (min-width: $bp-small-2) {
                 padding: 0.5rem 1rem;
             }
 
-            @media (min-width: $bp-small-3) { 
-                background: url('/challenger/img/sharing-ui/invite/Quest_List bg.png') no-repeat;
-                background-size: 100% 100%; 
+            @media (min-width: $bp-small-3) {
+                background: url("/challenger/img/sharing-ui/invite/Quest_List bg.png") no-repeat;
+                background-size: 100% 100%;
                 padding: 0.5rem 1.5rem;
             }
         }
-        &_text { 
+        &_text {
             @include listText();
             @include m.flex-master(row, flex-start, center);
             text-align: left;
-            color: #A3EAE5;
+            color: #a3eae5;
             flex: 70%;
             padding-right: 0.1rem;
         }
-        &_reward { 
+        &_reward {
             @include listText();
             @include m.flex-master(row, center, center);
             flex: 25%;
-            color: #A3EAE5;
+            color: #a3eae5;
             font-weight: bold;
-     
-            & > img { margin-left: 0.2rem}
-        
+
+            & > img {
+                margin-left: 0.2rem;
+            }
         }
         &_action {
             @include m.flex-master(row, flex-end, center);
@@ -1181,144 +1279,143 @@ $list-text-font-size-large: 1.25rem;
             flex: 25%;
         }
         &_doneBtn {
-            position:relative;
+            position: relative;
             width: auto;
-            display:flex;
+            display: flex;
             justify-content: center;
             padding: 0;
-            color: #5EC1D3!important;
+            color: #5ec1d3 !important;
 
             & > div {
-                position:absolute;
+                position: absolute;
                 display: flex;
                 text-align: center;
                 align-items: center;
                 height: 87%;
-                & > span { 
+                & > span {
                     font-size: 5vw;
                     font-family: Safety Goggles;
                     font-weight: 500;
                     text-align: center;
 
                     line-height: 1.15rem;
-                    @media (min-width: $bp-small-2) {  
+                    @media (min-width: $bp-small-2) {
                         font-size: $heading-font-size-small-2;
-                    }  
+                    }
                 }
             }
-            &:hover{
-                color: #5EC1D3;
+            &:hover {
+                color: #5ec1d3;
                 cursor: default;
             }
             &:disabled {
-                cursor: not-allowed!important;
-                color: #5EC1D3!important;
+                cursor: not-allowed !important;
+                color: #5ec1d3 !important;
                 &:hover {
-                    color: #5EC1D3!important;
+                    color: #5ec1d3 !important;
                 }
             }
         }
-        &_button { 
-            position:relative;
-            display:flex;
+        &_button {
+            position: relative;
+            display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
             padding: 0;
             min-width: 3rem;
-            color: #FFFFFF;
-            color: #FFFFFF;
+            color: #ffffff;
+            color: #ffffff;
 
             & > img {
                 max-height: 100%;
-                @media (min-width: $bp-small-2) {  
+                @media (min-width: $bp-small-2) {
                     max-height: 96%;
                 }
             }
             & > div {
-                position:absolute;
+                position: absolute;
                 display: flex;
-           
+
                 text-align: center;
                 align-items: center;
                 height: 100%;
-                & > span { 
+                & > span {
                     @include listText();
                     margin-right: 0.2rem;
                     font-weight: 600;
                 }
 
                 & > img {
-              
                     max-height: 55%;
-                    width: auto!important;
-                    @media (min-width: $bp-small-2) {  
+                    width: auto !important;
+                    @media (min-width: $bp-small-2) {
                         max-height: 85%;
                     }
                 }
             }
-        
+
             &:hover {
-                color: #CE3C85;
+                color: #ce3c85;
             }
-    
+
             &:disabled {
-                cursor: not-allowed!important;
-                color: #394B54;
+                cursor: not-allowed !important;
+                color: #394b54;
             }
         }
-        
-        &_questBtn { 
-            position:relative;
+
+        &_questBtn {
+            position: relative;
             width: auto;
-            display:flex;
+            display: flex;
             justify-content: center;
             padding: 0;
             color: #ffffff;
 
             & > div {
-                position:absolute;
+                position: absolute;
                 display: flex;
                 text-align: center;
                 align-items: center;
                 justify-content: center;
                 height: 87%;
-                gap:0.25rem;
-                & > span { 
+                gap: 0.25rem;
+                & > span {
                     font-size: 4vw;
                     font-family: Safety Goggles;
                     font-weight: 500;
                     text-align: center;
 
                     line-height: 1.15rem;
-                    @media (min-width: $bp-small-2) {  
+                    @media (min-width: $bp-small-2) {
                         font-size: 1.25rem;
-                    }  
-                    @media (min-width: $bp-med-2) {  
+                    }
+                    @media (min-width: $bp-med-2) {
                         font-size: 1.75rem;
-                    } 
+                    }
                 }
                 & > img {
                     max-height: 55%;
-                    width: auto!important;
-                    @media (min-width: $bp-small-2) {  
+                    width: auto !important;
+                    @media (min-width: $bp-small-2) {
                         max-height: 55%;
                     }
                 }
             }
-            &:hover{
-                color: #CE3C85;
+            &:hover {
+                color: #ce3c85;
                 cursor: pointer;
             }
         }
 
         /* same as above, except ranking has color style*/
-        &_ranking{
-            &_container{
+        &_ranking {
+            &_container {
                 position: relative;
                 @include m.flex-master(row, null, null);
                 @include text();
-                background: url('/challenger/img/sharing-ui/invite/Ranking_List bg.png') no-repeat;
+                background: url("/challenger/img/sharing-ui/invite/Ranking_List bg.png") no-repeat;
                 background-size: 100% 100%;
                 text-align: left;
 
@@ -1328,35 +1425,34 @@ $list-text-font-size-large: 1.25rem;
                 padding-right: 1rem;
 
                 @media (min-width: $bp-small) {
-                 
                     margin-left: 1.25rem;
-                } 
+                }
 
                 @media (min-width: $bp-small-2) {
                     max-height: 27%;
                     min-height: 27%;
-                    margin-left:6%;
-                } 
+                    margin-left: 6%;
+                }
             }
             &_text {
                 @include m.flex-master(row, space-between, center);
-                width:100%;
+                width: 100%;
                 font-size: 0.475rem;
                 text-decoration: none;
                 font-family: PFRondaSeven;
-                color:#8ED5FB;
+                color: #8ed5fb;
 
-                & > div:nth-child(1) { 
-                    margin-left:1.85rem;
-                    max-width:75%;
+                & > div:nth-child(1) {
+                    margin-left: 1.85rem;
+                    max-width: 75%;
                     @media (min-width: $bp-small) {
-                        margin-left:2.5rem;
+                        margin-left: 2.5rem;
                     }
                     @media (min-width: $bp-small-2) {
-                        margin-left:2.5rem;
+                        margin-left: 2.5rem;
                     }
                     @media (min-width: $bp-small-3) {
-                        margin-left:3rem;
+                        margin-left: 3rem;
                     }
                     @media (min-width: $bp-large-2) {
                         margin-left: 14%;
@@ -1364,846 +1460,137 @@ $list-text-font-size-large: 1.25rem;
                 }
 
                 &:hover {
-                    color:#8ED5FB;
+                    color: #8ed5fb;
                 }
 
                 @media (min-width: $bp-small) {
                     font-size: 0.5rem;
-                } 
+                }
                 @media (min-width: $bp-small-2) {
                     font-size: 0.65rem;
-                } 
+                }
                 @media (min-width: $bp-small-3) {
                     font-size: 0.725rem;
-                } 
-                @media (min-width: $bp-large) {  
+                }
+                @media (min-width: $bp-large) {
                     font-size: 0.8rem;
                 }
-
             }
             &_numberContainer {
                 position: absolute;
-                left:0;
+                left: 0;
                 height: 100%;
-        
+
                 &_img {
-                    margin-left:-33%;
+                    margin-left: -33%;
                     height: 100%;
-                   
                 }
                 z-index: 1;
             }
             &_digit {
                 position: absolute;
-                left:0;
+                left: 0;
                 font-family: Safety Goggles;
                 font-size: 1.65rem;
                 z-index: 2;
-                height:100%;
+                height: 100%;
                 @include m.flex-master(row, center, center);
-            
             }
         }
-       
     }
     &_rankingCol {
         @include m.flex-master(row, space-between, center);
-        width:100%;
+        width: 100%;
         margin-top: -0.5rem; // to offset the gap and not mess up other styles
         margin-bottom: -0.5rem;
 
         > div {
-            color: #0D5B91;
+            color: #0d5b91;
             font-family: PFRondaSeven;
         }
         > div:nth-child(1) {
-            margin-left: 2.75rem; 
+            margin-left: 2.75rem;
             font-size: 0.5rem;
             @media (min-width: $bp-small) {
                 margin-left: 3.75rem;
                 font-size: 0.6rem;
-            } 
+            }
             @media (min-width: $bp-small-2) {
                 font-size: 0.85rem;
-           
-            } 
+            }
             @media (min-width: $bp-small-3) {
-                font-size: 1rem;  
-                margin-left: 4.25rem;   
-            } 
- 
+                font-size: 1rem;
+                margin-left: 4.25rem;
+            }
         }
         > div:nth-child(2) {
-            margin-right: 1rem; 
+            margin-right: 1rem;
             font-size: 0.5rem;
             @media (min-width: $bp-small) {
                 font-size: 0.6rem;
-            } 
+            }
             @media (min-width: $bp-small-2) {
                 font-size: 0.85rem;
-            } 
+            }
             @media (min-width: $bp-small-3) {
                 font-size: 1rem;
-            } 
+            }
         }
     }
 
-    z-index:3;
+    &_disconnect {
+        @include disconnect_button();
+    }
+    z-index: 3;
 }
 
 .close {
-    animation: bounce-out 1.5s 0.5s 3 ease-in ;
+    animation: bounce-out 1.5s 0.5s 3 ease-in;
 }
 .open {
-    animation: bounce-in 1.5s  ease-in ;
+    animation: bounce-in 1.5s ease-in;
 }
 
 .slidedown {
-    animation: bounce-in 1.5s  ease-in ;
+    animation: bounce-in 1.5s ease-in;
 }
 
-@keyframes bounce-in{
-    0%    {opacity: 0;   transform: scale(0.5);}
-    100%  {opacity: 1;   transform: scale(1);}
+@keyframes bounce-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
-@keyframes bounce-out{
-    0%    {opacity: 1;   transform: scale(1);}
-    100%  {opacity: 0;   transform: scale(0.5);}
+@keyframes bounce-out {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
 }
 @keyframes ellipsis {
     to {
-      width: 1.25em;    
+        width: 1.25em;
     }
 }
 @-webkit-keyframes ellipsis {
-  to {
-    width: 1.25em;    
-  }
+    to {
+        width: 1.25em;
+    }
 }
 
-@mixin pointer(){
-	cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
+@mixin pointer() {
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
+            14 0,
+        pointer;
 }
-@mixin pointerDisabled(){
-	cursor: not-allowed;
-}
-
-.redemption {
-    @include m.flex-master(null, center, center);
-    width: 100%;
-    height: 100vh;
-    background: 50% 30%/cover url("/challenger/img/redemption/machine_bg_x4.png");
-    position: relative;
-
-    &_loading {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        color: #fff;
-        font-size: 3vh;
-        font-family: Safety Goggles;
-
-    }
-    &_machine {
-        @include m.flex-master(column, center, center);
-        position: relative;
-        width: 75%;
-        margin-top: -10%;
-        height: auto; //70vh
-        color: #fff;  
-    
-        @media (min-width: $bp-small) {
-            width: 80%;
-        }
-        @media (min-width: $bp-small-2) {
-            width: min(30em, 72%);
-        }
-        @media (min-width: $bp-small-3) {
-            width: min(32em, 80%);
-        }
-        @media (min-width: $bp-med) {
-            width: min(25em, 60%);
-        }
-        @media (min-width: $bp-med-2) {
-            // width: 35%;
-            width: min(26em, 50%);
-            margin-top: 0;
-        }
-        @media (min-width: $bp-large) {
-            width: min(25em, 27%);
-        }
-        @media (min-width: $bp-large-2) {
-            width: min(25em, 30%);
-        }
-        @media (min-width: $bp-xl) {
-            width: min(32em, 70%);
-        }
-        @media (min-width: $bp-xl-2) {
-            width: min(32em, 70%);
-        }
-        @media (min-width: $bp-xl-3) {
-            width: min(37em, 28%);
-        }
-        @media (min-width: $bp-xl-4) {
-            width: min(55em, 26%);
-        }
-    
-        &_container {
-            position: relative;
-            // @include m.flex-master(column, center, center);
-            width: 100%;
-            height:0;
-            padding-top: 156.20%;
-            
-            // @media (min-width: $bp-small-2) {
-            //     width: 100%;
-            //     height:0;
-            //     padding-top: 104.29%;
-    
-            //     background: url("/challenger/img/sharing-ui/invite/Board_medium.png") no-repeat;
-            //     background-size: cover;
-            // }
-        }
-        &_idle {
-            background: url("/challenger/img/redemption/machine_idle_x4.gif") no-repeat;
-            background-size: contain;
-        }
-        &_punch {
-            background: url("/challenger/img/redemption/machine_punch_x4.gif") no-repeat;
-            background-size: contain;
-        }
-        &_stuck {
-            background: url("/challenger/img/redemption/machine_stuck_x4.gif") no-repeat;
-            background-size: contain;
-        }
-        &_wrapper {
-            @include m.flex-master(column, center, center);
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0%;
-            left: 0%; 
-        }
-
-        &_content {
-            @include m.flex-master(column, center, center);
-            position: relative;
-            width: 100%;
-            height: 100%;
-
-            // @media (min-width: $bp-xl) {  
-            //     gap: 1.75rem;
-            // }
-        }
-
-        &_shell {
-            position: absolute;
-            @include m.flex-master(column, center, center);
-            width: 58%;
-            height: 7%;
-            top: 62%;
-            left:12%;
-            color: #11657e;
-            font-size: 2.85vh;
-            font-family: Safety Goggles;
-            opacity: 0.4;
-
-            @media (min-width: $bp-small) {  
-                font-size: 2.75vh;
-            }
-            @media (min-width: $bp-small-2) {  
-                font-size: min(3.2vh, 2.75rem);
-            }
-            @media (min-width: $bp-xl) {  
-                font-size: 2.35rem;
-            }
-            @media (min-width: $bp-xl-2) {  
-                font-size: 2.35rem;
-            }
-            @media (min-width: $bp-xl-3) {  
-                font-size: 3rem;
-            }
-            @media (min-width: $bp-xl-4) {  
-                font-size: 4rem;
-            }
-        }
-        &_roll {
-            position: absolute;
-            width: 27%;
-            height: 18%;
-            left: 12%;
-            top: 72%;
-            padding: 0;
-            z-index: 12;
-          
-            &:hover {
-                @include pointer()
-            }
-            &:disabled {
-                cursor: not-allowed!important;
-               
-                &:hover {
-                    cursor: not-allowed!important;
-                }
-            }
-        } 
-    }
-    &_footer {
-        @include m.flex-master(column, center, center);
-        position: absolute;
-        width: 100%;
-        height: 8rem;
-        max-height: 25%;
-        bottom: 1.5%;
-        z-index: 14;
-
-        @media (min-width: $bp-small) {  
-            height: 13rem;
-            max-height: 22%;
-        }
-        @media (min-width: $bp-small-3) {  
-            max-height: 21%;
-        }
-        @media (min-width: $bp-med) { 
-            bottom: 4%; 
-            max-height: 9%;
-        }
-        @media (min-width: $bp-large-2) {  
-            height: 11%;
-            bottom: 7%;
-            max-height: none;
-        }
-
-        &_wrapper {
-            @include m.flex-master(column, center, center);
-            position: relative;
-            width: 85%;
-            height: 100%;
-
-            @media (min-width: $bp-small) {  
-           
-            }
-            @media (min-width: $bp-small-2) {  
-           
-            }
-            @media (min-width: $bp-small-3) {  
-                width: 75%; 
-            }
-            @media (min-width: $bp-med) { 
-                @include m.flex-master(row, center, center); 
-                margin-left: -15%;
-                height: 100%;
-            }
-            @media (min-width: $bp-large) { 
-                margin-left: -10%;
-            }
-            @media (min-width: $bp-large-2) {  
-
-                margin-left: 0;
-                width: 40%;
-            }
-        }
-        &_octopus {
-            position: relative;
-            height: 40%;
-            z-index: 1;
-            @media (min-width: $bp-med) { 
-                position: absolute;
-                right: 0;
-                top: 0;
-                height: 100%;
-            }
-
-            & > img {
-                height: 100%;
-                margin-left: -20%;
-                @media (min-width: $bp-med) { 
-                    height: 100%;
-                    margin-left: 100%;
-                }
-            }
-        }
-        &_boxes {
-            @include m.flex-master(column, center, null);
-            position:relative;
-            height: 100%;
-            width: 100%;
-            padding: 0;
-            color: #FFFFFF;
-            z-index: 2;
-        
-            // @media (min-width: $bp-small) {  
-            //     width: 55%;
-            // }
-            // @media (min-width: $bp-small-2) {  
-            //     width: 50%;
-            // }
-            // @media (min-width: $bp-med-2) {  
-            //     width: 60%;
-            // }
-        
-            & > div {
-                position:absolute;
-                @include m.flex-master(row, null, null);
-                height: 95%;
-                width: 100%;
-                padding-left: 1rem;
-                padding-right: 1rem;
-                gap: 0.5rem;
-
-                @media (min-width: $bp-med) { 
-                    @include m.flex-master(row, center, null); 
-                    padding-bottom:0;
-                }
-                @media (min-width: $bp-med) { 
-                    width: 95%;
-                }
-                @media (min-width: $bp-xl) {  
-                    padding-left: 1.5rem;
-                    padding-right: 1.5rem;
-                }
-                @media (min-width: $bp-xl-3) {  
-                    padding-left: 2.5rem;
-                    padding-right: 2.5rem;
-                }
-
-                & > span { 
-                    max-width: 100%;
-                    @include m.flex-master(row, center, null);
-                    height: 70%;
-                    font-size: 0.525rem;
-                    font-family: PFRondaSeven;
-                    font-weight: 400;
-                    overflow-wrap: break-word;
-                    line-height: 1rem;
-                    margin-top: 1%;
-
-                    @media (min-width: $bp-small) {  
-                        font-size: 0.6rem;
-                    }
-                    @media (min-width: $bp-small-2) {  
-                        font-size: 0.6rem;
-                    }
-                    @media (min-width: $bp-med) {  
-                        font-size: 0.875rem;
-                        line-height: 1.25rem;
-                    }
-                    @media (min-width: $bp-xl) {  
-                        font-size: 1.65vh;
-                        line-height: 1.75rem;
-                    }
-                    @media (min-width: $bp-xl-3) {  
-                        font-size: 1.55rem;
-                        line-height: 2.75rem;
-                    }
-                    @media (min-width: $bp-xl-4) {  
-                        font-size: 2.25rem;
-                        line-height: 3.25rem;
-                    }
-                    & > img {
-                        height: 0.5rem;
-                        margin-top: auto;
-                        @media (min-width: $bp-small) {  
-                            height: 0.675rem;
-                        }
-                        @media (min-width: $bp-xl) {  
-                            height: 1rem;
-                        }
-                        @media (min-width: $bp-xl-3) {  
-                            height: 1.25rem;
-                        }
-                    }
-                    // & > span {
-                    //     @include m.flex-master(row, center, flex-end);
-                    //     & > img {
-                    //         height: 1.5rem;
-                    //     }
-                    // }
-                }
-            }
-            & > img { 
-                height: 100%;
-                width: auto!important;
-    
-                // @media (min-width: $bp-small-3) {  
-                //     max-height: 65%;
-                // }
-                // @media (min-width: $bp-med-2) {  
-                //     max-height: 65%;
-                // }
-    
-                // @media (min-width: $bp-large-2) {  
-                //     max-height: 65%;
-                // }
-            }
-            &:disabled {
-                cursor: not-allowed!important;
-                color: #A2B7B6;
-                &:hover {
-                    color: #A2B7B6;
-                }
-            }
-        }
-    }
-    &_bubble {
-        @include m.flex-master(column, center, center);
-        position: absolute;
-        width: 100%;
-        bottom: 15%;
-        
-        z-index: 11;
-        opacity: 0.5;
-        height: 60%;
-
-        @media (min-width: $bp-small-3) {
-            height: 50%;
-            width: 100vw;
-        }
-
-        &_wrapper {
-            width: 100%;
-            @media (min-width: $bp-small-3) {
-                width: 60%;
-            }
-        }
-        pointer-events: none;
-    }
-    &_reward {
-        @include m.flex-master(column, center, center);
-        position: relative;
-        width: 85%;
-        margin-top: -10%;
-        height: auto; //70vh
-        color: #fff;  
-    
-        @media (min-width: $bp-small) {
-            width: 85%;
-        }
-        @media (min-width: $bp-small-2) {
-            width: min(34em, 72%);
-        }
-        @media (min-width: $bp-small-3) {
-            width: min(36em, 80%);
-        }
-        @media (min-width: $bp-med) {
-            width: min(36em, 80%);
-        }
-        @media (min-width: $bp-med-2) {
-            width: 72%;
-            margin-top: 0;
-        }
-        @media (min-width: $bp-large) {
-            width: 600px;
-            margin-top: 0;
-        }
-        @media (min-width: $bp-large-2) {
-            width: min(25em, 32%);
-            margin-top: 0;
-        }
-        @media (min-width: $bp-xl) {
-            margin-top: 0;
-            width: min(34em, 70%);
-        }
-        @media (min-width: $bp-xl-2) {
-            width: min(36em, 70%);
-        }
-        @media (min-width: $bp-xl-3) {
-            width: min(48em, 28%);
-        }
-        @media (min-width: $bp-xl-4) {
-            width: min(65em, 30%);
-        }
-    
-        &_container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-top: 140.27%;
-            
-            background: url("/challenger/img/redemption/Reward bg with text_animated_3x.gif") no-repeat;
-            background-size: contain;
-        }
-        
-        &_wrapper {
-            @include m.flex-master(column, center, center);
-            position: absolute;
-            width: 100%;
-            height: 69%;
-            top: 28%;
-            left: 0; 
-        }
-
-        &_content {
-            @include m.flex-master(column, space-between, center);
-            position: relative;
-            width: 88%;
-            height: 100%;
-            padding-top: 5%;
-            padding-bottom: 5%;
-        }
-        &_description {
-            @include m.flex-master(column, center, center);
-            position: relative;
-            width: 90%;
-            height: 20%;
-            color: #AD6B34;
-            font-family: PFRondaSeven;
-            font-size: 0.45rem; 
-            text-align: center;
-
-            @media (min-width: $bp-small) {  
-                font-size: 0.575rem;
-            }
-            @media (min-width: $bp-small-3) { 
-                width: 80%; 
-                font-size: 0.8rem;
-            }
-            @media (min-width: $bp-med-2) {  
-                font-size: 0.85rem;
-            }
-            @media (min-width: $bp-large-2) {  
-                font-size: 0.9rem;
-            }
-            @media (min-width: $bp-xl) {  
-                // font-size: 1.05rem;
-            }
-            @media (min-width: $bp-xl-3) {  
-                font-size: 1.2rem;
-            }
-            @media (min-width: $bp-xl-4) {  
-                font-size: 1.5rem;
-            }
-        }
-        &_scroll {
-            @include m.flex-master(row, center, center);
-            position: relative;
-            width: 85%;
-            flex: 1;
-
-            &_left {
-                width: 15%;
-                &_wrapper {
-                    margin-left: auto;
-                    width: 50%;
-                }  
-                &_enable {
-                    &:hover {
-                        @include pointer()
-                    }
-                }   
-                &_disable {
-                    &:hover {
-                        @include pointerDisabled()
-                    }
-                }          
-            }
-            &_right {
-                width: 15%;  
-                &_wrapper {
-                    margin-right: auto;
-                    width: 50%;
-                }   
-                &_enable {
-                    &:hover {
-                        @include pointer()
-                    }
-                }   
-                &_disable {
-                    &:hover {
-                        @include pointerDisabled()
-                    }
-                }         
-            }
-            &_img {
-                flex: 1;  
-                @include m.flex-master(row, center, center);
-                &_wrapper {
-                    position: relative;
-                    @include m.flex-master(row, center, center);
-                    width: 75%;  
-                } 
-                &_asset {
-                    position: absolute;
-                    top: 0;
-                    z-index: 2;
-                    width: 100%;
-                    height:100%;
-
-                    @include m.flex-master(row, center, center);
-
-                    & > img { 
-                        height: auto;
-                        width: 67%;    
-                    }
-                    
-                }
-                &_star {
-                    width: 100%;    
-                    @media (min-width: $bp-xl-2) {            
-                        width: 100%;    
-                        z-index: 1;
-                    }
-                }
-            }
-
-        }
-        &_text {
-            @include m.flex-master(column, center, center);
-            position: relative;
-            width: 100%;
-            height: 16%;
-            color: #2484B2;
-            font-family: Safety Goggles;
-            font-size: 1rem;
-            text-align: center;
-            line-height: 1.15rem;
-
-            @media (min-width: $bp-small-2) { 
-                font-size: 1.15rem;
-            }
-            @media (min-width: $bp-small-3) { 
-                font-size: 1.25rem;
-            }
-            @media (min-width: $bp-med) { 
-                width: 80%; 
-                line-height: 1.5rem;
-                font-size: 1.5rem;
-            }
-            @media (min-width: $bp-med-2) { 
-                width: 80%; 
-                line-height: 1.75rem;
-            }
-            @media (min-width: $bp-large-2) { 
-                width: 80%; 
-                line-height: 2rem;
-                font-size: 1.75rem;
-            }
-            @media (min-width: $bp-xl-2) { 
-                font-size: 1.85rem;
-                line-height: 2.25rem;
-            } 
-            @media (min-width: $bp-xl-3) { 
-                line-height: 2.5rem;
-                font-size: 2.35rem;
-            }
-            & > span {
-                font-size: 0.5rem;
-                width:80%;
-                font-family: PFRondaSeven;
-                color: #AD6B34;
-
-                @media (min-width: $bp-small-3) { 
-                    font-size: 0.6rem;
-                }
-                @media (min-width: $bp-med) { 
-                    line-height: 1.35rem;
-                    font-size: 1rem;
-                }
-                @media (min-width: $bp-large-2) { 
-                    font-size: 1rem;
-                }
-                @media (min-width: $bp-xl-2) { 
-                    font-size: 1rem;
-                    line-height: 1.5rem;
-                } 
-                @media (min-width: $bp-xl-3) { 
-                    line-height: 1.5rem;
-                    font-size: 1.15rem;
-                }
-            }
-        }
-        &_pinkText {
-            color: #FF5FB7;
-            font-size: 2.9vh;
-
-            @media (min-width: $bp-small-2) { 
-                font-size: 1.5rem;
-            }
-            @media (min-width: $bp-small-2) { 
-                font-size: 1.75rem;
-            }
-            @media (min-width: $bp-med) { 
-                font-size: 2rem;
-            }
-            @media (min-width: $bp-med-2) { 
-                font-size: 2.25rem;
-            }
-            @media (min-width: $bp-large-2) { 
-                font-size: 2.5rem;
-            }
-            @media (min-width: $bp-xl-2) { 
-                font-size: 3rem;
-            } 
-            @media (min-width: $bp-xl-3) { 
-                font-size: 3.75rem;
-            }
-        }
-        &_buttons {
-            @include m.flex-master(column, center, center);
-            position: relative;
-            width: 80%;
-            height: 20%;
-            @media (min-width: $bp-med) { 
-                height: 15%;
-            }
-            
-            &_wrapper {
-                @include m.flex-master(row, center, center);
-                gap: 1.5rem;
-            }
-
-            &_claim {
-                @include large_button();
-                &:hover {
-                    color: #881C64!important;
-		        }
-            }
-            &_share {
-                @include large_button();
-                
-                & > div {
-                    width:100%;
-                    @include m.flex-master(row, space-evenly, center);
-                    
-                    & > span {
-                        width: auto;
-                    }
-                }
-                &:hover {
-                    color: #0E5B91!important;
-		        }
-            }
-            &_footer {
-                font-family: PFRondaSeven;
-                color: #AD6B34;
-                font-size: 0.65rem;
-                text-align: center;
-
-                @media (min-width: $bp-small-2) { 
-                    // font-size: 1.5rem;
-                }
-                @media (min-width: $bp-small-2) { 
-                    // font-size: 1.75rem;
-                }
-                @media (min-width: $bp-med) { 
-                    font-size: 0.8rem;
-                }
-                @media (min-width: $bp-med-2) { 
-                    // font-size: 1rem;
-                }
-                @media (min-width: $bp-large-2) { 
-                    font-size: 0.85rem;
-                }
-                @media (min-width: $bp-xl-2) { 
-                    font-size: 0.9rem;
-                } 
-                @media (min-width: $bp-xl-3) { 
-                    font-size: 1.05rem;
-                }
-                @media (min-width: $bp-xl-4) { 
-                    font-size: 1.25rem;
-                }
-            }
-        }
-    }
+@mixin pointerDisabled() {
+    cursor: not-allowed;
 }

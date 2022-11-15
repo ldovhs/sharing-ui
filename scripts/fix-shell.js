@@ -343,7 +343,7 @@ async function main() {
         amountToFix = quantityQuery[walletIndex].correctqty
         if (quantityQuery[walletIndex].correctqty !== amountToFix) {
             console.log(wallet + " " + quantityQuery[walletIndex].correctqty + " " + diffInDays + " " + amountToFix + " " + quantityQuery[walletIndex].hackedqty)
-            //  console.log(amountToFix)
+
         }
 
         console.log(wallet + " " + quantityQuery[walletIndex].correctqty + " " + amountToFix + " " + quantityQuery[walletIndex].hackedqty)

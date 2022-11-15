@@ -14,9 +14,6 @@ const Enums = {
     ADMIN_SIGN_MSG: "Sign to authenticate as admin",
     USER_SIGN_MSG: "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
 
-    USER_CLAIM_NFT_MSG:
-        "Welcome to the Cove’s DeepSea Challenger!\nSign in to start earning treasure.",
-
     DAILY: "daily",
     HOURLY: "hourly",
     WEEKLY: "weekly",
@@ -26,16 +23,19 @@ const Enums = {
     JOIN_DISCORD: "Join our Discord",
     DISCORD_AUTH: "Discord Authenticate",
     TWITTER_AUTH: "Twitter Authenticate",
+    WALLET_AUTH: "Wallet Authenticate",
     TWITTER_RETWEET: "Retweet a Tweet",
     FOLLOW_TWITTER: "Follow Twitter Account",
     FOLLOW_INSTAGRAM: "Follow Instagram Account",
-    ZED_CLAIM: "Own ZED to claim $SHELL",
-    NOODS_CLAIM: "Own NOODS to claim $SHELL",
+    ZED_CLAIM: "Own ZED to claim $SHELL", // deprecated
+    NOODS_CLAIM: "Own NOODS to claim $SHELL", // deprecated
+    OWNING_NFT_CLAIM: "Claim Reward For Owning NFT",
     IMAGE_UPLOAD_QUEST: "Anomura #SUBMISSION Quest",
     LIMITED_FREE_SHELL: "Limited Free $SHELL",
-    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // do not use this
+    COLLABORATION_FREE_SHELL: "Free $SHELL On Collaboration", // deprecated, collaboration is determined based on quest.extendedQuestData
     DAILY_SHELL: "Daily Shell Quest",
     CODE_QUEST: "Code Quest",
+    UNSTOPPABLE_AUTH: "Unstoppable Domain Authenticate",
 
     // Image approval
     ITEM_PER_PAGE: 100,

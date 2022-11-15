@@ -110,16 +110,9 @@ const AdminQuestUpsertAPI = async (req, res) => {
                         });
                     }
 
-                    let existingNoodsClaim = noodsClaimCheck(existingQuests, questType.name);
-                    if (existingNoodsClaim) {
-                        return res.status(200).json({
-                            message: `Cannot add more than one "${type}" type to quest list `,
-                            isError: true,
-                        });
-                    }
 
-                    let existingZEDClaim = ZEDClaimCheck(existingQuests, questType.name);
-                    if (existingZEDClaim) {
+                    let ownNftCheck = owningNftCheck(existingQuests, extendedQuestData, questType.name);
+                    if (ownNftCheck) {
                         return res.status(200).json({
                             message: `Cannot add more than one "${type}" type to quest list `,
                             isError: true,
@@ -265,26 +258,20 @@ const retweetCheck = (existingQuests, extendedQuestData, type) => {
         (q) => q.extendedQuestData.tweetId === extendedQuestData.tweetId
     );
 };
-const noodsClaimCheck = (existingQuests, type) => {
-    if (type != Enums.NOODS_CLAIM) return;
 
-    let noodsQuest = existingQuests.filter((q) => q.type.name === Enums.NOODS_CLAIM);
 
-    if (noodsQuest?.length >= 1 && type === Enums.NOODS_CLAIM) {
-        return true;
-    }
-    return false;
+const owningNftCheck = (existingQuests, extendedQuestData, type) => {
+    if (type != Enums.OWNING_NFT_CLAIM) return;
+
+    let owningNftQuests = existingQuests.filter((q) => q.type.name === Enums.OWNING_NFT_CLAIM);
+
+    // false if same nft name existed
+    return owningNftQuests.some(
+        (q) => q.extendedQuestData.nft === extendedQuestData.nft
+    );
 };
-const ZEDClaimCheck = (existingQuests, type) => {
-    if (type != Enums.ZED_CLAIM) return;
 
-    let zedQuest = existingQuests.filter((q) => q.type.name === Enums.ZED_CLAIM);
 
-    if (zedQuest?.length >= 1 && type === Enums.ZED_CLAIM) {
-        return true;
-    }
-    return false;
-};
 const collaborationClaimQuestCheck = (existingQuests, extendedQuestData, type) => {
     if (type !== Enums.COLLABORATION_FREE_SHELL) return;
     let collaborationClaim = existingQuests.filter(

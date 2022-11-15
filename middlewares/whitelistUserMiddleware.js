@@ -1,10 +1,13 @@
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { isWhiteListUser } from "repositories/session-auth";
 
 const whitelistUserMiddleware = (handler) => {
     return async (req, res) => {
 
-        const session = await getSession({ req });
+        // const session = await getSession({ req });
+        const session = await unstable_getServerSession(req, res, authOptions)
         if (!session) {
             return res.status(200).json({
                 message: "Missing session auth",

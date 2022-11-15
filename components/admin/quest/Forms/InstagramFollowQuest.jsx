@@ -72,9 +72,9 @@ const InstagramFollowQuest = ({
                                         type="text"
                                         className={
                                             "form-control" +
-                                            (errors.extendedQuestData &&
-                                            errors.extendedQuestData.followAccount &&
-                                            touched.extendedQuestData.followAccount
+                                            (errors?.extendedQuestData &&
+                                            errors?.extendedQuestData?.followAccount &&
+                                            touched?.extendedQuestData?.followAccount
                                                 ? " is-invalid"
                                                 : "")
                                         }

@@ -2,7 +2,6 @@ import { useQueryClient, useQuery, useMutation } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Enums from "enums";
-import { useSession } from "next-auth/react";
 import { utils } from "ethers";
 
 const REWARD_TYPE_QUERY = `${Enums.BASEPATH}/api/admin/rewardType`;
@@ -104,19 +103,15 @@ export const withClaimRewardSubmit =
             );
         };
 
-export const useUserRewardQuery = () => {
-    const { data: session, status } = useSession({ required: false });
-    let wallet = session?.user?.address
+export const useUserRewardQuery = (session) => {
+    let userId = session?.user?.userId;
 
-    const { data, isLoading } = useQuery(["userRewardQuery", wallet], () => {
-        try {
-            return axios.get(`${USER_GET_CLAIMED_REWARD}/${utils.getAddress(wallet)}`).then((r) => r.data)
-        } catch (error) {
-            //to not throw an error when wallet is null initially
-        }
+    const { data, isLoading } = useQuery(["userRewardQuery", userId], () => {
+        return axios
+            .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
+            .then((r) => r.data);
 
-    }
-    );
+    }, { staleTime: 5 * 60 * 1000 });
 
     return [data, isLoading];
 };

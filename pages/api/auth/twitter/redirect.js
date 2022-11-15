@@ -26,10 +26,10 @@ export default async function twitterRedirect(req, res) {
 
                 let whiteListUser = await isWhiteListUser(session);
 
-                if (!session || !utils.isAddress(whiteListUser.wallet)) {
-                    let error = "Attempt to access without authenticated.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
+                // if (!session || !whiteListUser) {
+                //     let error = "Attempt to access without authenticated.";
+                //     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                // }
 
                 const { code } = req.query;
                 if (!code) {
@@ -53,7 +53,8 @@ export default async function twitterRedirect(req, res) {
                 });
 
                 if (!response || !response?.data?.access_token) {
-                    let error = "Couldn't authenticate with Twitter Auth Oath2.";
+                    let error =
+                        "Couldn't authenticate with Twitter Auth Oath2. Please contact administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
@@ -68,15 +69,7 @@ export default async function twitterRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                if (
-                    whiteListUser.twitterId != null &&
-                    (whiteListUser.twitterId.length > 0 || whiteListUser.twitterUserName.length > 0)
-                ) {
-                    let error = "Twitter account is already authenticated.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
-
-                // find user of this twitter handle
+                // checked if existed
                 let existingTwitterUser = await prisma.whiteList.findFirst({
                     where: {
                         twitterId: userInfo?.data?.data?.id,
@@ -100,18 +93,31 @@ export default async function twitterRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                let userQuest = await updateTwitterUserAndAddRewardTransaction(
+                const questId = twitterQuest.questId;
+                if (whiteListUser) {
+                    let twitterQuestOfThisUser = await prisma.userQuest.findFirst({
+                        where: {
+                            userId: whiteListUser?.userId,
+                            questId: questId,
+                        },
+                    });
+
+                    if (twitterQuestOfThisUser) {
+                        let error = "Twitter quest has finished.";
+                        return res
+                            .status(200)
+                            .redirect(`/challenger/quest-redirect?error=${error}`);
+                    }
+                }
+
+                await updateTwitterUserAndAddRewardTransaction(
                     twitterQuest,
-                    whiteListUser.wallet,
+                    whiteListUser,
                     userInfo.data.data
                 );
 
-                if (!userQuest) {
-                    let error = "Cannot finish this quest, pls contact administrator!";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
-
-                res.status(200).redirect(`/challenger/quest-redirect`);
+                let twitterSignUp = `Sign Up With Twitter Successfully`;
+                res.status(200).redirect(`/challenger/quest-redirect?result=${twitterSignUp}`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

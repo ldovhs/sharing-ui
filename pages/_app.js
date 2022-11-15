@@ -4,16 +4,20 @@ import "../sass/admin/adminBootstrap.css";
 import { Web3Provider } from "@context/Web3Context";
 import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import Enums from "enums";
+import { QueryClient, QueryClientProvider, } from "react-query";
 import Script from "next/script";
 import * as gtag from "../lib/ga/gtag";
 import { useRouter } from "next/router";
+import { ChakraProvider } from '@chakra-ui/react'
+import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading"
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
     const router = useRouter();
+    const { isPageLoading } = useChallengerPageLoading();
+
     useEffect(() => {
         const handleRouteChange = (url) => {
             gtag.pageview(url);
@@ -25,8 +29,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     }, [router.events]);
 
     return (
-        <SessionProvider session={session} basePath={`/challenger/api/auth`}>
-            <Web3Provider>
+
+        <SessionProvider session={pageProps.session} basePath={`/challenger/api/auth`}>
+            <Web3Provider session={pageProps.session}>
                 <QueryClientProvider client={queryClient}>
                     <StrictMode>
                         <Script
@@ -44,19 +49,27 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                                 });
                             `}
                         </Script>
-                        {Component.requireAdmin ? (
-                            <Component.Layout>
-                                <AdminGuard>
+                        <ChakraProvider>
+                            {Component.requireAdmin ? (
+                                <Component.Layout>
+                                    <AdminGuard >
+                                        <Component {...pageProps} />
+                                    </AdminGuard>
+                                </Component.Layout>
+                            ) : (
+
+                                <>
                                     <Component {...pageProps} />
-                                </AdminGuard>
-                            </Component.Layout>
-                        ) : (
-                            <Component {...pageProps} />
-                        )}
+                                    <Analytics />
+                                </>
+
+                            )}
+                        </ChakraProvider>
                     </StrictMode>
                 </QueryClientProvider>
             </Web3Provider>
         </SessionProvider>
+
     );
 }
 

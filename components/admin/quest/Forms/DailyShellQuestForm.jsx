@@ -74,9 +74,9 @@ const DailyShellQuestForm = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData.frequently &&
-                                        touched.extendedQuestData.frequently
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.frequently &&
+                                        touched?.extendedQuestData?.frequently
                                             ? " is-invalid"
                                             : "")
                                     }

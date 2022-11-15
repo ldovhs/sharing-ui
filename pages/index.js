@@ -1,26 +1,12 @@
 import Head from "next/head";
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import s from "/sass/claim/claim.module.css";
-import { Web3Context } from "@context/Web3Context";
-import { useSession } from "next-auth/react";
-import { BoardSmallDollarSign, ConnectBoard, IndividualQuestBoard } from "@components/end-user";
-import Enums from "enums";
+import { ConnectBoard, IndividualQuestBoard } from "@components/end-user";
 import NotEnabledChallenger from "@components/end-user/NotEnabledChallenger";
 const util = require("util");
 
 // Home page for user
-function Home() {
-    const [error, setError] = useState(null);
-    const { data: session, status } = useSession({ required: false });
-    const { web3Error } = useContext(Web3Context);
-
-    useEffect(() => {
-        if (web3Error) {
-            setError(web3Error);
-        }
-    }, [web3Error]);
-
-    useEffect(async () => { }, [session]);
+function Home({ session }) {
 
     return (
         <>
@@ -51,7 +37,7 @@ function Home() {
             </Head>
             <div className={s.app}>
                 {!session && <ConnectBoard />}
-                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false" && <NotEnabledChallenger />}
+                {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "false" && <NotEnabledChallenger session={session} />}
                 {session && process.env.NEXT_PUBLIC_ENABLE_CHALLENGER === "true" && <IndividualQuestBoard session={session} />}
             </div>
         </>
@@ -59,3 +45,19 @@ function Home() {
 }
 
 export default Home;
+
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+export async function getServerSideProps(context) {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    return {
+        props: {
+            session,
+        },
+    }
+}

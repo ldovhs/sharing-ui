@@ -25,10 +25,10 @@ export default async function discordRedirect(req, res) {
 
                 let whiteListUser = await isWhiteListUser(session);
 
-                if (!session || !whiteListUser || !utils.isAddress(whiteListUser.wallet)) {
-                    let error = "Attempt to access without authenticated.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
+                // if (!session || !whiteListUser) {
+                //     let error = "Attempt to access without authenticated.";
+                //     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                // }
 
                 const { code } = req.query;
                 if (!code) {
@@ -51,7 +51,7 @@ export default async function discordRedirect(req, res) {
                 });
 
                 if (!response || !response?.data?.access_token) {
-                    let error = "Couldn't authenticate with Discord";
+                    let error = "Couldn't authenticate with Discord. Please contact administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
@@ -67,16 +67,7 @@ export default async function discordRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                if (
-                    whiteListUser.discordId != null &&
-                    (whiteListUser.discordId.length > 0 ||
-                        whiteListUser.discordUserDiscriminator.length > 0)
-                ) {
-                    let error = "Discord account is already authenticated.";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
-
-                // find user of this discord discriminator
+                // checked if existed
                 let existingDiscordUser = await prisma.whiteList.findFirst({
                     where: {
                         discordId: userInfo.data.id,
@@ -87,6 +78,7 @@ export default async function discordRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                // check if finished
                 let discordAuthQuestType = await getQuestType(Enums.DISCORD_AUTH);
                 if (!discordAuthQuestType) {
                     let error = "Cannot find quest type discord auth";
@@ -95,26 +87,35 @@ export default async function discordRedirect(req, res) {
 
                 let discordQuest = await getQuestByTypeId(discordAuthQuestType.id);
                 if (!discordQuest) {
-
                     let error = "Cannot find quest associated with discord auth";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                let userQuest = await updateDiscordUserAndAddRewardTransaction(
+                const questId = discordQuest.questId;
+                if (whiteListUser) {
+                    let discordQuestOfThisUser = await prisma.userQuest.findFirst({
+                        where: {
+
+                            userId: whiteListUser?.userId,
+                            questId: questId,
+                        },
+                    });
+
+                    if (discordQuestOfThisUser) {
+                        let error = "Discord quest has finished.";
+                        return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                    }
+
+                }
+
+                await updateDiscordUserAndAddRewardTransaction(
                     discordQuest,
-                    whiteListUser.wallet,
+                    whiteListUser,
                     userInfo.data
                 );
 
-                if (!userQuest) {
-                    // return res
-                    //     .status(200)
-                    //     .json({ message: "Cannot finish quest, pls contact administrator!" });
-                    let error = "Cannot finish this quest, pls contact administrator!";
-                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                }
-
-                res.status(200).redirect(`/challenger/quest-redirect`);
+                let discordSignUp = `Sign Up With Discord Successfully`
+                res.status(200).redirect(`/challenger/quest-redirect?result=${discordSignUp}`);
             } catch (err) {
                 console.log(err);
                 res.status(200).json({ error: err.message });

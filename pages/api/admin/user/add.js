@@ -13,12 +13,10 @@ const whitelistUserAddAPI = async (req, res) => {
 
                 let existingUser = await prisma.whiteList.findUnique({ where: { wallet } })
                 if (existingUser) {
-
                     return res.status(200).json(existingUser);
                 }
 
                 else {
-
                     const user = await prisma.whiteList.create({
                         data: {
                             wallet

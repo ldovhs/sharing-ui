@@ -19,7 +19,7 @@ export default function SearchResults({ formData }) {
         try {
             do {
                 searchRes = await axios.post(`/challenger/api/admin/search?page=${page}`, formData); //.then((res) => res.data);
-                // console.log(searchRes);
+
                 data = [...data, ...searchRes.data.users];
                 page = page + 1;
             } while (searchRes?.data?.shouldContinue);

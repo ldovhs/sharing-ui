@@ -7,15 +7,16 @@ import {
     TwitterFollowQuest,
     TwitterRetweetQuest,
     InstagramFollowQuest,
-    ZedOwnQuest,
-    NoodsOwnQuest,
     FreeLimitedShell,
     CollaborationFreeShell,
     DailyShellQuestForm,
     ImageUploadQuest,
     CodeQuestForm,
+    WalletAuthQuestForm,
+    UnstoppableAuthQuestForm,
 } from "./index";
 import JoinDiscordQuest from "./Forms/JoinDiscordQuest";
+import ClaimRewardForOwningNFTForm from "./Forms/ClaimRewardForOwningNFTForm";
 
 const EditQuest = ({ quest, closeModal, rewardTypes }) => {
     return (
@@ -23,6 +24,20 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
             <div className="col-xxl-12">
                 <div className="card">
                     <div className="card-body">
+                        {quest.type.name === Enums.OWNING_NFT_CLAIM && rewardTypes && (
+                            <ClaimRewardForOwningNFTForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+                        {quest.type.name === Enums.WALLET_AUTH && rewardTypes && (
+                            <WalletAuthQuestForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
                         {quest.type.name === Enums.DISCORD_AUTH && rewardTypes && (
                             <DiscordAuthQuest
                                 quest={quest}
@@ -57,22 +72,6 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
 
                         {quest.type.name === Enums.FOLLOW_INSTAGRAM && rewardTypes && (
                             <InstagramFollowQuest
-                                quest={quest}
-                                rewardTypes={rewardTypes}
-                                closeModal={closeModal}
-                            />
-                        )}
-
-                        {quest.type.name === Enums.ZED_CLAIM && rewardTypes && (
-                            <ZedOwnQuest
-                                quest={quest}
-                                rewardTypes={rewardTypes}
-                                closeModal={closeModal}
-                            />
-                        )}
-
-                        {quest.type.name === Enums.NOODS_CLAIM && rewardTypes && (
-                            <NoodsOwnQuest
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}
@@ -118,9 +117,16 @@ const EditQuest = ({ quest, closeModal, rewardTypes }) => {
                                 closeModal={closeModal}
                             />
                         )}
-
                         {quest.type.name === Enums.CODE_QUEST && (
                             <CodeQuestForm
+                                quest={quest}
+                                rewardTypes={rewardTypes}
+                                closeModal={closeModal}
+                            />
+                        )}
+
+                        {quest.type.name === Enums.UNSTOPPABLE_AUTH && (
+                            <UnstoppableAuthQuestForm
                                 quest={quest}
                                 rewardTypes={rewardTypes}
                                 closeModal={closeModal}

@@ -15,7 +15,7 @@ const approveImageQuestAPI = async (req, res) => {
 
                 let entry = await prisma.UserQuest.findUnique({
                     where: {
-                        wallet_questId: { wallet: user.wallet, questId },
+                        userId_questId: { userId: user.userId, questId },
                     },
                 });
                 if (!entry) {
@@ -52,7 +52,7 @@ const approveImageQuestAPI = async (req, res) => {
 
                 let updateQuest = await prisma.UserQuest.update({
                     where: {
-                        wallet_questId: { wallet: user.wallet, questId },
+                        userId_questId: { userId: user.userId, questId },
                     },
                     data: {
                         extendedUserQuestData: newExtendedUserQuestData,
@@ -96,54 +96,3 @@ const discordHelper = async (user, discordChannel, imageUrl) => {
 };
 
 export default adminMiddleware(approveImageQuestAPI);
-
-// export const submitNewUserImageQuestTransaction = async (
-//     questId,
-//     type,
-//     rewardTypeId,
-//     quantity,
-//     extendedUserQuestData,
-//     wallet
-// ) => {
-//     let claimedReward;
-
-//     console.log(`**Create / Update reward for user**`);
-//     claimedReward = prisma.reward.upsert({
-//         where: {
-//             wallet_rewardTypeId: { wallet, rewardTypeId },
-//         },
-//         update: {
-//             quantity: {
-//                 increment: quantity,
-//             },
-//         },
-//         create: {
-//             wallet,
-//             quantity,
-//             rewardTypeId,
-//         },
-
-//         select: {
-//             wallet: true,
-//             quantity: true,
-//             user: true,
-//             rewardTypeId: true,
-//             rewardType: true,
-//         },
-//     });
-
-//     console.log(`**Save to UserQuest, to keep track that its done**`);
-//     let userQuest = prisma.userQuest.create({
-//         data: {
-//             wallet,
-//             questId,
-//             rewardedTypeId: rewardTypeId,
-//             rewardedQty: quantity,
-//             extendedUserQuestData,
-//         },
-//     });
-
-//     await prisma.$transaction([claimedReward, userQuest]);
-
-//     return userQuest;
-// };

@@ -1,10 +1,6 @@
 import { prisma } from "@context/PrismaContext";
 import whitelistUserMiddleware from "middlewares/whitelistUserMiddleware";
-import axios from "axios";
 import Enums from "enums";
-
-const { DISCORD_NODEJS, NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, NEXT_PUBLIC_ORIGIN_HOST } =
-    process.env;
 
 const SHELL_PRICE = Enums.SHELL_PRICE;
 const MAX_ROLL_REDEEM = Enums.MAX_ROLL_REDEEM;
@@ -34,11 +30,11 @@ const shellRedeemRollAllAPI = async (req, res) => {
 
                         b. if claimableRewards > userShellRedeem.rewardArray
                 */
-                let wallet = whiteListUser.wallet
+                let userId = whiteListUser.userId
                 console.log(`** Assure this reward exists and not redeemed **`);
                 let userShellRedeem = await prisma.shellRedeemed.findUnique({
                     where: {
-                        wallet
+                        userId
                     }
                 })
                 if (userShellRedeem?.isRedeemed) {
@@ -52,7 +48,7 @@ const shellRedeemRollAllAPI = async (req, res) => {
                             isRedeemed: false,
                             rewardPointer: -1,
                             rewards,
-                            wallet
+                            userId
                         },
                     });
                 }
@@ -65,14 +61,14 @@ const shellRedeemRollAllAPI = async (req, res) => {
                 let rewardTypeId = shellReward.id
                 let userReward = await prisma.reward.findUnique({
                     where: {
-                        wallet_rewardTypeId: { wallet, rewardTypeId },
+                        userId_rewardTypeId: { userId, rewardTypeId },
                     },
                 })
 
                 //handle shell less than min roll price
                 if (!userReward || userReward.quantity < SHELL_PRICE) {
                     console.log("inside less than min roll price")
-                    let updateShellRedeemed = await redeemRewardForAccountLessThanMinimumRollPrice(wallet, rewardTypeId)
+                    let updateShellRedeemed = await redeemRewardForAccountLessThanMinimumRollPrice(userId, rewardTypeId)
                     return res.status(200).json(updateShellRedeemed);
                 }
                 else {
@@ -87,7 +83,7 @@ const shellRedeemRollAllAPI = async (req, res) => {
 
                     let updateShellRedeemed;
 
-                    updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, wallet, rewardTypeId)
+                    updateShellRedeemed = await redeemReward(claimableRewards, reduceShellQty, userId, rewardTypeId)
                     updateShellRedeemed.rewards = updateShellRedeemed.rewards.splice(0, updateShellRedeemed.rewardPointer + 1)
                     res.status(200).json(updateShellRedeemed);
                 }
@@ -110,7 +106,7 @@ export default whitelistUserMiddleware(shellRedeemRollAllAPI);
 const redeemReward = async (
     claimableRewards,
     reduceShellQty,
-    wallet,
+    userId,
     rewardTypeId
 ) => {
 
@@ -118,7 +114,7 @@ const redeemReward = async (
         console.log(`**Update Reward for User Redeem**`);
         // let updateUserReward = prisma.reward.update({
         //     where: {
-        //         wallet_rewardTypeId: { wallet, rewardTypeId },
+        //         userId_rewardTypeId: { userId, rewardTypeId },
         //     },
         //     data: {
         //         quantity: {
@@ -130,7 +126,7 @@ const redeemReward = async (
         console.log(`**Update ShellRedeem table**`);
         let updateShellRedeemed = prisma.shellRedeemed.update({
             where: {
-                wallet,
+                userId,
             },
             data: {
                 isRedeemed: false,
@@ -147,7 +143,7 @@ const redeemReward = async (
 };
 
 const redeemRewardForAccountLessThanMinimumRollPrice = async (
-    wallet,
+    userId,
     rewardTypeId
 ) => {
 
@@ -156,7 +152,7 @@ const redeemRewardForAccountLessThanMinimumRollPrice = async (
         // update shell to 0
         // let updateUserReward = prisma.reward.update({
         //     where: {
-        //         wallet_rewardTypeId: { wallet, rewardTypeId },
+        //         userId_rewardTypeId: { userId, rewardTypeId },
         //     },
         //     data: {
         //         quantity: 0,
@@ -199,7 +195,7 @@ const redeemRewardForAccountLessThanMinimumRollPrice = async (
 
         let updateShellRedeemed = prisma.shellRedeemed.upsert({
             where: {
-                wallet,
+                userId,
             },
             create: {
                 rewards: [reward],

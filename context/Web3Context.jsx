@@ -396,9 +396,9 @@ export function Web3Provider({ session, children }) {
         // const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
 
         try {
-            // const authorization = await uauth.loginWithPopup();
+            const authorization = await uauth.loginWithPopup();
             // console.log(authorization);
-            let authorization = true;
+            // let authorization = true;
             if (authorization) {
                 let user = await uauth.user();
                 // console.log(user);
@@ -408,7 +408,7 @@ export function Web3Provider({ session, children }) {
                 let signature = user?.eip4361_message;
 
                 signIn("unstoppable-authenticate", {
-                    redirect: false,
+                    redirect: true,
                     uathUser,
                     address,
                     message,
@@ -425,7 +425,6 @@ export function Web3Provider({ session, children }) {
                     })
                     .catch((err) => {});
             } else {
-                console.log(authorization);
                 setError("something wrong");
                 setWeb3Error("Cannot authenticate with unstoppable");
             }

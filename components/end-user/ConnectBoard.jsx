@@ -252,7 +252,7 @@ export default function ConnectBoard() {
                                                 onClick={() => authenticateUsingUnstoppable()}
                                             >
                                                 <img
-                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/Button_Large 3.png`}
+                                                    src={`${Enums.BASEPATH}/img/sharing-ui/invite/unstoppable.png`}
                                                     alt="connectToContinue"
                                                 />
                                                 <div>

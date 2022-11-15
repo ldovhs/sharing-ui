@@ -11,7 +11,9 @@ const API_ADMIN = `${Enums.BASEPATH}/api/admin`;
 const API_USER = `${Enums.BASEPATH}/api/user`;
 const API_SIGNUP = `${Enums.BASEPATH}/api/user/signup`;
 
-export const Web3Context = React.createContext();
+import UAuth from "@uauth/js";
+const { default: Resolution } = require("@unstoppabledomains/resolution");
+const resolution = new Resolution();
 
 const uauth = new UAuth({
     clientID: process.env.NEXT_PUBLIC_UNSTOPPABLE_CLIENT_ID,
@@ -19,6 +21,7 @@ const uauth = new UAuth({
     scope: "openid wallet",
 });
 
+export const Web3Context = React.createContext();
 export function Web3Provider({ session, children }) {
     const [web3Error, setWeb3Error] = useState(null);
 

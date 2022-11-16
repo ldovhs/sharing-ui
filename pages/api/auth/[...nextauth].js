@@ -162,8 +162,8 @@ export const authOptions = {
                             uathUser,
                         },
                     });
-                    console.log(address);
-                    console.log(JSON.stringify(authorizationUath));
+
+                    console.log(JSON.parse(authorizationUath));
                     console.log(authorizationUath);
                     const test = await uauth.getVerifiedAccounts(authorizationUath);
 

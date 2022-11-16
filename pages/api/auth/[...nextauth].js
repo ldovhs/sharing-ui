@@ -148,8 +148,10 @@ export const authOptions = {
                     console.log("Authenticating as unstoppable user");
                     let { uathUser, address, message, signature, authorization } = credentials;
 
-                    if (!address || !uathUser || !authorization)
+                    if (!address || !uathUser || !authorization) {
+                        console.log("Missing unstoppable info")
                         throw new Error("Missing unstoppable info");
+                    }
 
                     if (utils.getAddress(address) && !utils.isAddress(address))
                         throw new Error("Invalid address");
@@ -213,12 +215,13 @@ export const authOptions = {
             if (user?.account?.provider === "unstoppable-authenticate") {
                 let credentials = user.credentials;
                 let userInfo = user.user;
-
+                console.log("test")
                 if (
                     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
                     credentials.message != userInfo.message ||
                     credentials.signature != userInfo.signature
                 ) {
+                    console.log("Invalid unstoppable authorization.")
                     let error = `Invalid unstoppable authorization.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
@@ -230,6 +233,7 @@ export const authOptions = {
                 });
 
                 if (!existingUser) {
+                    console.log("Unstoppable domain ${uathUser} is not linked.")
                     let error = `Unstoppable domain ${uathUser} is not linked.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }

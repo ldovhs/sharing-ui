@@ -168,10 +168,6 @@ export const authOptions = {
                     let type = "sig",
                         version = "v1";
 
-
-                    // let originalAddress = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
-                    // let originalMessage = "";
-                    // let originalSignature = "";
                     const {
                         address: originalAddress,
                         message: originalMessage,
@@ -180,14 +176,21 @@ export const authOptions = {
 
                     console.log("Authenticated as user successfully");
 
+                    if (
+                        originalAddress.toLowerCase() != address.toLowerCase() ||
+                        originalMessage != message ||
+                        originalSignature != signature
+                    ) {
+                        throw new Error("Invalid unstoppable authorization.")
+                        // let error = `Invalid unstoppable authorization.`;
+                        // return `/challenger/quest-redirect?error=${error}`;
+                    }
+
                     return {
                         address,
                         isAdmin: false,
                         userId: user?.userId,
                         uauthUser: uathUser,
-                        originalAddress,
-                        originalMessage,
-                        originalSignature,
                     };
                 } catch (error) {
                     console.log(error);
@@ -229,23 +232,6 @@ export const authOptions = {
                     let error = `Unstoppable domain ${uathUser} is not linked.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
-
-                let credentials = user?.credentials;
-                let userInfo = user?.user;
-
-                console.log(credentials)
-                console.log(userInfo)
-                if (
-                    credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
-                    credentials.message != userInfo.message ||
-                    credentials.signature != userInfo.signature
-                ) {
-                    console.log("Invalid unstoppable authorization.")
-                    let error = `Invalid unstoppable authorization.`;
-                    return `/challenger/quest-redirect?error=${error}`;
-                }
-
-
 
                 return true;
             }

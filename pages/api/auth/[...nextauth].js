@@ -176,21 +176,16 @@ export const authOptions = {
 
                     console.log("Authenticated as user successfully");
 
-                    if (
-                        originalAddress.toLowerCase() != address.toLowerCase() ||
-                        originalMessage != message ||
-                        originalSignature != signature
-                    ) {
-                        throw new Error("Invalid unstoppable authorization.")
-                        // let error = `Invalid unstoppable authorization.`;
-                        // return `/challenger/quest-redirect?error=${error}`;
-                    }
-
                     return {
                         address,
+                        message,
+                        signature,
                         isAdmin: false,
                         userId: user?.userId,
                         uauthUser: uathUser,
+                        originalAddress,
+                        originalMessage,
+                        originalSignature,
                     };
                 } catch (error) {
                     console.log(error);
@@ -232,6 +227,25 @@ export const authOptions = {
                     let error = `Unstoppable domain ${uathUser} is not linked.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
+
+                let credentials = user?.credentials;
+                let userInfo = user?.user;
+
+                console.log(credentials.message)
+                console.log(credentials.signature)
+                console.log(userInfo.message)
+                console.log(userInfo.signature)
+                if (
+                    // credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
+                    credentials.message != userInfo.message ||
+                    credentials.signature != userInfo.signature
+                ) {
+                    console.log("Invalid unstoppable authorization.")
+                    let error = `Invalid unstoppable authorization.`;
+                    return `/challenger/quest-redirect?error=${error}`;
+                }
+
+
 
                 return true;
             }

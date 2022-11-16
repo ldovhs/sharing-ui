@@ -152,7 +152,7 @@ export const authOptions = {
                         console.log("Missing unstoppable info")
                         throw new Error("Missing unstoppable info");
                     }
-
+                    console.log("test");
                     if (utils.getAddress(address) && !utils.isAddress(address))
                         throw new Error("Invalid address");
 
@@ -216,15 +216,15 @@ export const authOptions = {
                 let credentials = user.credentials;
                 let userInfo = user.user;
                 console.log("test")
-                if (
-                    credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
-                    credentials.message != userInfo.message ||
-                    credentials.signature != userInfo.signature
-                ) {
-                    console.log("Invalid unstoppable authorization.")
-                    let error = `Invalid unstoppable authorization.`;
-                    return `/challenger/quest-redirect?error=${error}`;
-                }
+                // if (
+                //     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
+                //     credentials.message != userInfo.message ||
+                //     credentials.signature != userInfo.signature
+                // ) {
+                //     console.log("Invalid unstoppable authorization.")
+                //     let error = `Invalid unstoppable authorization.`;
+                //     return `/challenger/quest-redirect?error=${error}`;
+                // }
                 let uathUser = user.credentials.uathUser;
                 const existingUser = await prisma.whiteList.findFirst({
                     where: {
@@ -233,7 +233,7 @@ export const authOptions = {
                 });
 
                 if (!existingUser) {
-                    console.log("Unstoppable domain ${uathUser} is not linked.")
+                    console.log("Unstoppable domain is not linked.")
                     let error = `Unstoppable domain ${uathUser} is not linked.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }

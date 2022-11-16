@@ -167,7 +167,7 @@ export const authOptions = {
                         address: originalAddress,
                         message: originalMessage,
                         signature: originalSignature,
-                    } = uauth.getAuthorizationAccount(
+                    } = await uauth.getAuthorizationAccount(
                         {
                             authorization,
                             type: "sig",

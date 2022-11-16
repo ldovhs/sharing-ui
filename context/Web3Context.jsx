@@ -410,6 +410,19 @@ export function Web3Provider({ session, children }) {
                 // let message = "";
                 // let signature = "";
 
+                const {
+                    address: originalAddress,
+                    message: originalMessage,
+                    signature: originalSignature,
+                } = await uauth.getAuthorizationAccount({
+                    authorization,
+                    type: "sig",
+                    version: "v1",
+                });
+                console.log(originalAddress);
+                console.log(originalMessage);
+                console.log(originalSignature);
+
                 signIn("unstoppable-authenticate", {
                     redirect: false,
                     uathUser,
@@ -433,6 +446,7 @@ export function Web3Provider({ session, children }) {
                 setWeb3Error("Cannot authenticate with unstoppable");
             }
         } catch (error) {
+            console.log(error);
             setWeb3Error(error.message);
         }
     };

@@ -145,15 +145,15 @@ export const authOptions = {
             type: "credentials",
             authorize: async (credentials, req) => {
                 try {
-                    console.log(credentials)
+
                     console.log("Authenticating as unstoppable user");
                     let { uathUser, address, message, signature, authorizationUath } = credentials;
 
-                    if (!address || !uathUser || !authorizationUath) {
-                        console.log("Missing unstoppable info");
-                        throw new Error("Missing unstoppable info");
-                    }
-                    console.log("test");
+                    // if (!address || !uathUser || !authorizationUath) {
+                    //     console.log("Missing unstoppable info");
+                    //     throw new Error("Missing unstoppable info");
+                    // }
+
                     if (utils.getAddress(address) && !utils.isAddress(address))
                         throw new Error("Invalid address");
 
@@ -163,10 +163,13 @@ export const authOptions = {
                         },
                     });
 
-                    console.log(test);
                     let type = "sig",
                         version = "v1";
 
+
+                    // let originalAddress = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
+                    // let originalMessage = "";
+                    // let originalSignature = "";
                     const {
                         address: originalAddress,
                         message: originalMessage,
@@ -213,8 +216,20 @@ export const authOptions = {
             // console.log("Provider: " + user?.account?.provider);
 
             if (user?.account?.provider === "unstoppable-authenticate") {
-                let credentials = user.credentials;
-                let userInfo = user.user;
+                let uathUser = user.credentials.uathUser;
+                const existingUser = await prisma.whiteList.findFirst({
+                    where: {
+                        uathUser: uathUser,
+                    },
+                });
+                if (!existingUser) {
+                    console.log("Unstoppable domain is not linked.");
+                    let error = `Unstoppable domain ${uathUser} is not linked.`;
+                    return `/challenger/quest-redirect?error=${error}`;
+                }
+
+                let credentials = user?.credentials;
+                let userInfo = user?.user;
 
                 if (
                     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
@@ -225,18 +240,9 @@ export const authOptions = {
                     let error = `Invalid unstoppable authorization.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }
-                let uathUser = user.credentials.uathUser;
-                const existingUser = await prisma.whiteList.findFirst({
-                    where: {
-                        uathUser: uathUser,
-                    },
-                });
 
-                if (!existingUser) {
-                    console.log("Unstoppable domain is not linked.");
-                    let error = `Unstoppable domain ${uathUser} is not linked.`;
-                    return `/challenger/quest-redirect?error=${error}`;
-                }
+
+
                 return true;
             }
             if (user?.account?.provider === "discord") {

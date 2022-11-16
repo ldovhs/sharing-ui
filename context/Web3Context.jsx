@@ -395,7 +395,7 @@ export function Web3Provider({ session, children }) {
     const tryConnectAsUnstoppable = async () => {
         try {
             const authorization = await uauth.loginWithPopup();
-            console.log(authorization);
+            // console.log(authorization);
             // let authorization = true;
             if (authorization) {
                 let user = await uauth.user();

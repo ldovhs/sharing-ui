@@ -168,9 +168,11 @@ export const authOptions = {
                         message: originalMessage,
                         signature: originalSignature,
                     } = uauth.getAuthorizationAccount(
-                        authorization,
-                        type = "sig",
-                        version = "v1"
+                        {
+                            authorization,
+                            type: "sig",
+                            version: "v1"
+                        }
                     );
 
                     console.log("Authenticated as user successfully");

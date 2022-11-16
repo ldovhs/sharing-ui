@@ -233,6 +233,8 @@ export const authOptions = {
                 let credentials = user?.credentials;
                 let userInfo = user?.user;
 
+                console.log(credentials)
+                console.log(userInfo)
                 if (
                     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
                     credentials.message != userInfo.message ||

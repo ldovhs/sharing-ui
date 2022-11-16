@@ -393,8 +393,6 @@ export function Web3Provider({ session, children }) {
     };
 
     const tryConnectAsUnstoppable = async () => {
-        // const address = "0xe90344F1526B04a59294d578e85a8a08D4fD6e0b";
-
         try {
             const authorization = await uauth.loginWithPopup();
             // console.log(authorization);
@@ -406,6 +404,11 @@ export function Web3Provider({ session, children }) {
                 let address = user?.wallet_address;
                 let message = user?.eip4361_message;
                 let signature = user?.eip4361_message;
+
+                // let uathUser = "quan612.wallet";
+                // let address = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
+                // let message = "";
+                // let signature = "";
 
                 signIn("unstoppable-authenticate", {
                     redirect: true,

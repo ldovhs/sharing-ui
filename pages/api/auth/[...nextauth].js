@@ -146,7 +146,7 @@ export const authOptions = {
 
                     const user = await prisma.whiteList.findFirst({
                         where: {
-                            uathUser: { equals: uathUser, mode: "insensitive" },
+                            uathUser: uathUser,
                         },
                     });
 
@@ -156,7 +156,7 @@ export const authOptions = {
 
                     console.log("Authenticated as user successfully");
 
-                    return { address: user.address, isAdmin: false, userId: user.userId, uauthUser: uathUser };
+                    return { address: user.wallet, isAdmin: false, userId: user.userId, uauthUser: uathUser };
                 } catch (error) {
                     console.log(error);
                 }
@@ -183,6 +183,7 @@ export const authOptions = {
     },
     callbacks: {
         signIn: async (user, account, profile) => {
+            console.log("Provider: " + user?.account?.provider);
             if (user?.account?.provider === "discord") {
                 let discordId = user.account.providerAccountId;
                 const existingUser = await prisma.whiteList.findFirst({
@@ -229,7 +230,7 @@ export const authOptions = {
             return token;
         },
         async session({ session, token }) {
-            let userQuery;
+
 
             if (token.provider === "admin-authenticate") {
                 session.profile = token.profile || null;
@@ -238,7 +239,7 @@ export const authOptions = {
                 return session;
             }
             else {
-
+                let userQuery;
                 if (token.provider === "twitter") {
                     userQuery = await prisma.whiteList.findFirst({
                         where: {
@@ -262,7 +263,7 @@ export const authOptions = {
 
                     session.user.address = userQuery.wallet || "";
                     session.user.userId = userQuery.userId;
-                    session.user.uathUser = userQuery.uauthUser || "";
+                    session.user.uathUser = userQuery.uathUser || "";
                 }
                 return session;
             }

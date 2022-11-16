@@ -161,7 +161,10 @@ export const authOptions = {
                             uathUser,
                         },
                     });
-                    console.log(user);
+                    console.log(authorization);
+                    const test = await uauth.getVerifiedAccounts(authorization);
+
+                    console.log(test);
                     let type = "sig",
                         version = "v1";
 

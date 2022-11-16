@@ -146,9 +146,9 @@ export const authOptions = {
             authorize: async (credentials, req) => {
                 try {
                     console.log("Authenticating as unstoppable user");
-                    let { uathUser, address, message, signature, authorization } = credentials;
+                    let { uathUser, address, message, signature, authorizationUath } = credentials;
 
-                    if (!address || !uathUser || !authorization) {
+                    if (!address || !uathUser || !authorizationUath) {
                         console.log("Missing unstoppable info");
                         throw new Error("Missing unstoppable info");
                     }
@@ -162,8 +162,9 @@ export const authOptions = {
                         },
                     });
                     console.log(address);
-                    console.log(JSON.parse(authorization));
-                    const test = await uauth.getVerifiedAccounts(authorization);
+                    console.log(JSON.stringify(authorizationUath));
+                    console.log(authorizationUath);
+                    const test = await uauth.getVerifiedAccounts(authorizationUath);
 
                     console.log(test);
                     let type = "sig",
@@ -173,7 +174,7 @@ export const authOptions = {
                         address: originalAddress,
                         message: originalMessage,
                         signature: originalSignature,
-                    } = await uauth.getAuthorizationAccount(authorization, type, version);
+                    } = await uauth.getAuthorizationAccount(authorizationUath, type, version);
 
                     console.log("Authenticated as user successfully");
 

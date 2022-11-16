@@ -162,6 +162,8 @@ export const authOptions = {
                             uathUser,
                         },
                     });
+                    let test = await uauth.user();
+                    console.log("test", test)
 
                     let type = "sig",
                         version = "v1";

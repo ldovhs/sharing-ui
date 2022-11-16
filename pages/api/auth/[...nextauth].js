@@ -1,14 +1,26 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { recoverPersonalSignature, recoverTypedSignature, SignTypedDataVersion } from "@metamask/eth-sig-util";
-import * as ethUtil from 'ethereumjs-util';
+import {
+    recoverPersonalSignature,
+    recoverTypedSignature,
+    SignTypedDataVersion,
+} from "@metamask/eth-sig-util";
+import * as ethUtil from "ethereumjs-util";
 import { prisma } from "@context/PrismaContext";
 import { utils } from "ethers";
 import Enums from "enums";
 import DiscordProvider from "next-auth/providers/discord";
 import TwitterProvider from "next-auth/providers/twitter";
 
-const Web3 = require("web3");
+import UAuth from "@uauth/js";
+const { default: Resolution } = require("@unstoppabledomains/resolution");
+const resolution = new Resolution();
+
+const uauth = new UAuth({
+    clientID: process.env.NEXT_PUBLIC_UNSTOPPABLE_CLIENT_ID,
+    redirectUri: process.env.NEXT_PUBLIC_UNSTOPPABLE_REDIRECT_URI,
+    scope: "openid wallet",
+});
 
 const CryptoJS = require("crypto-js");
 
@@ -134,29 +146,42 @@ export const authOptions = {
             authorize: async (credentials, req) => {
                 try {
                     console.log("Authenticating as unstoppable user");
-                    let { uathUser,
-                        address,
-                        message,
-                        signature, } = credentials;
+                    let { uathUser, address, message, signature, authorization } = credentials;
 
-                    if (!address || !uathUser) throw new Error("Missing address or unstoppable info");
+                    if (!address || !uathUser || !authorization)
+                        throw new Error("Missing unstoppable info");
 
                     if (utils.getAddress(address) && !utils.isAddress(address))
                         throw new Error("Invalid address");
 
                     const user = await prisma.whiteList.findFirst({
                         where: {
-                            uathUser: uathUser,
+                            uathUser,
                         },
                     });
+                    console.log(user)
 
-                    if (!user) {
-                        throw new Error("This unstoppable account is not in our record.");
-                    }
+                    const {
+                        address: originalAddress,
+                        message: originalMessage,
+                        signature: originalSignature,
+                    } = uauth.getAuthorizationAccount(
+                        authorization,
+                        (type = "sig"),
+                        (version = "v1")
+                    );
 
                     console.log("Authenticated as user successfully");
 
-                    return { address: user.wallet, isAdmin: false, userId: user.userId, uauthUser: uathUser };
+                    return {
+                        address,
+                        isAdmin: false,
+                        userId: user?.userId,
+                        uauthUser: uathUser,
+                        originalAddress,
+                        originalMessage,
+                        originalSignature,
+                    };
                 } catch (error) {
                     console.log(error);
                 }
@@ -183,7 +208,33 @@ export const authOptions = {
     },
     callbacks: {
         signIn: async (user, account, profile) => {
-            console.log("Provider: " + user?.account?.provider);
+            // console.log("Provider: " + user?.account?.provider);
+
+            if (user?.account?.provider === "unstoppable-authenticate") {
+                let credentials = user.credentials;
+                let userInfo = user.user;
+
+                if (
+                    credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
+                    credentials.message != userInfo.message ||
+                    credentials.signature != userInfo.signature
+                ) {
+                    let error = `Invalid unstoppable authorization.`;
+                    return `/challenger/quest-redirect?error=${error}`;
+                }
+                let uathUser = user.credentials.uathUser;
+                const existingUser = await prisma.whiteList.findFirst({
+                    where: {
+                        uathUser: uathUser,
+                    },
+                });
+
+                if (!existingUser) {
+                    let error = `Unstoppable domain ${uathUser} is not linked.`;
+                    return `/challenger/quest-redirect?error=${error}`;
+                }
+                return true;
+            }
             if (user?.account?.provider === "discord") {
                 let discordId = user.account.providerAccountId;
                 const existingUser = await prisma.whiteList.findFirst({
@@ -230,15 +281,12 @@ export const authOptions = {
             return token;
         },
         async session({ session, token }) {
-
-
             if (token.provider === "admin-authenticate") {
                 session.profile = token.profile || null;
                 session.user = token.user;
                 session.provider = token.provider;
                 return session;
-            }
-            else {
+            } else {
                 let userQuery;
                 if (token.provider === "twitter") {
                     userQuery = await prisma.whiteList.findFirst({
@@ -260,7 +308,6 @@ export const authOptions = {
                 session.provider = token.provider;
 
                 if (!session.user.userId) {
-
                     session.user.address = userQuery.wallet || "";
                     session.user.userId = userQuery.userId;
                     session.user.uathUser = userQuery.uathUser || "";
@@ -280,7 +327,6 @@ export default (req, res) => {
     }
     return NextAuth(req, res, authOptions);
 };
-
 
 /*
  console.log("correct addr" + address);

@@ -149,7 +149,7 @@ export const authOptions = {
                     let { uathUser, address, message, signature, authorization } = credentials;
 
                     if (!address || !uathUser || !authorization) {
-                        console.log("Missing unstoppable info")
+                        console.log("Missing unstoppable info");
                         throw new Error("Missing unstoppable info");
                     }
                     console.log("test");
@@ -161,19 +161,15 @@ export const authOptions = {
                             uathUser,
                         },
                     });
-                    console.log(user)
+                    console.log(user);
+                    let type = "sig",
+                        version = "v1";
 
                     const {
                         address: originalAddress,
                         message: originalMessage,
                         signature: originalSignature,
-                    } = await uauth.getAuthorizationAccount(
-                        {
-                            authorization,
-                            type: "sig",
-                            version: "v1"
-                        }
-                    );
+                    } = await uauth.getAuthorizationAccount(authorization, type, version);
 
                     console.log("Authenticated as user successfully");
 
@@ -217,7 +213,7 @@ export const authOptions = {
             if (user?.account?.provider === "unstoppable-authenticate") {
                 let credentials = user.credentials;
                 let userInfo = user.user;
-                console.log("test")
+                console.log("test");
                 // if (
                 //     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
                 //     credentials.message != userInfo.message ||
@@ -235,7 +231,7 @@ export const authOptions = {
                 });
 
                 if (!existingUser) {
-                    console.log("Unstoppable domain is not linked.")
+                    console.log("Unstoppable domain is not linked.");
                     let error = `Unstoppable domain ${uathUser} is not linked.`;
                     return `/challenger/quest-redirect?error=${error}`;
                 }

@@ -409,24 +409,14 @@ export function Web3Provider({ session, children }) {
                 // let address = "0x9128c112f6bb0b2d888607ae6d36168930a37087";
                 // let message = "";
                 // let signature = "";
-                let type = "sig",
-                    version = "v1";
-                const {
-                    address: originalAddress,
-                    message: originalMessage,
-                    signature: originalSignature,
-                } = await uauth.getAuthorizationAccount(authorization, type, version);
-                console.log(originalAddress);
-                console.log(originalMessage);
-                console.log(originalSignature);
 
                 signIn("unstoppable-authenticate", {
-                    redirect: false,
+                    redirect: true,
                     uathUser,
                     address,
                     message,
                     signature,
-                    authorizationUath: JSON.stringify(authorization),
+                    authorization: JSON.stringify(authorization),
                 })
                     .then(({ ok, error }) => {
                         if (ok) {

@@ -163,10 +163,6 @@ export const authOptions = {
                         },
                     });
 
-                    console.log(JSON.parse(authorizationUath));
-                    console.log(authorizationUath);
-                    const test = await uauth.getVerifiedAccounts(JSON.parse(authorizationUath));
-
                     console.log(test);
                     let type = "sig",
                         version = "v1";
@@ -219,16 +215,16 @@ export const authOptions = {
             if (user?.account?.provider === "unstoppable-authenticate") {
                 let credentials = user.credentials;
                 let userInfo = user.user;
-                console.log("test");
-                // if (
-                //     credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
-                //     credentials.message != userInfo.message ||
-                //     credentials.signature != userInfo.signature
-                // ) {
-                //     console.log("Invalid unstoppable authorization.")
-                //     let error = `Invalid unstoppable authorization.`;
-                //     return `/challenger/quest-redirect?error=${error}`;
-                // }
+
+                if (
+                    credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
+                    credentials.message != userInfo.message ||
+                    credentials.signature != userInfo.signature
+                ) {
+                    console.log("Invalid unstoppable authorization.")
+                    let error = `Invalid unstoppable authorization.`;
+                    return `/challenger/quest-redirect?error=${error}`;
+                }
                 let uathUser = user.credentials.uathUser;
                 const existingUser = await prisma.whiteList.findFirst({
                     where: {

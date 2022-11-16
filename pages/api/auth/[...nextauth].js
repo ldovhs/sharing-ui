@@ -165,7 +165,7 @@ export const authOptions = {
 
                     console.log(JSON.parse(authorizationUath));
                     console.log(authorizationUath);
-                    const test = await uauth.getVerifiedAccounts(authorizationUath);
+                    const test = await uauth.getVerifiedAccounts(JSON.parse(authorizationUath));
 
                     console.log(test);
                     let type = "sig",
@@ -175,7 +175,7 @@ export const authOptions = {
                         address: originalAddress,
                         message: originalMessage,
                         signature: originalSignature,
-                    } = await uauth.getAuthorizationAccount(authorizationUath, type, version);
+                    } = await uauth.getAuthorizationAccount(JSON.parse(authorizationUath), type, version);
 
                     console.log("Authenticated as user successfully");
 

@@ -145,6 +145,7 @@ export const authOptions = {
             type: "credentials",
             authorize: async (credentials, req) => {
                 try {
+                    console.log(credentials)
                     console.log("Authenticating as unstoppable user");
                     let { uathUser, address, message, signature, authorizationUath } = credentials;
 

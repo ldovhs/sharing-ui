@@ -426,7 +426,7 @@ export function Web3Provider({ session, children }) {
                     address,
                     message,
                     signature,
-                    authorizationUath,
+                    authorizationUath: authorization,
                 })
                     .then(({ ok, error }) => {
                         if (ok) {

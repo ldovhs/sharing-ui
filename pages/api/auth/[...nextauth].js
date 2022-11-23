@@ -199,7 +199,8 @@ export const authOptions = {
         }),
         DiscordProvider({
             // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
-            clientId: await getVariableTest(),//NEXT_PUBLIC_DISCORD_CLIENT_ID,
+            // clientId: await getVariableTest(),//NEXT_PUBLIC_DISCORD_CLIENT_ID,
+            clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,//,
             clientSecret: DISCORD_CLIENT_SECRET,
         }),
         TwitterProvider({

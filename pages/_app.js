@@ -4,13 +4,13 @@ import "../sass/admin/adminBootstrap.css";
 import { Web3Provider } from "@context/Web3Context";
 import { SessionProvider } from "next-auth/react";
 import { AdminGuard } from "containers/admin/AdminGuard";
-import { QueryClient, QueryClientProvider, } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Script from "next/script";
 import * as gtag from "../lib/ga/gtag";
 import { useRouter } from "next/router";
-import { ChakraProvider } from '@chakra-ui/react'
-import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading"
-import { Analytics } from '@vercel/analytics/react';
+import { ChakraProvider } from "@chakra-ui/react";
+import { useChallengerPageLoading } from "lib/hooks/useChallengerPageLoading";
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
 
@@ -29,8 +29,12 @@ function MyApp({ Component, pageProps }) {
     }, [router.events]);
 
     return (
-
-        <SessionProvider session={pageProps.session} basePath={`/challenger/api/auth`}>
+        <SessionProvider
+            session={pageProps.session}
+            basePath={`/challenger/api/auth`}
+            refetchInterval={3600} // Re-fetches session when window is focused
+            refetchOnWindowFocus={true}
+        >
             <Web3Provider session={pageProps.session}>
                 <QueryClientProvider client={queryClient}>
                     <StrictMode>
@@ -52,24 +56,21 @@ function MyApp({ Component, pageProps }) {
                         <ChakraProvider>
                             {Component.requireAdmin ? (
                                 <Component.Layout>
-                                    <AdminGuard >
+                                    <AdminGuard>
                                         <Component {...pageProps} />
                                     </AdminGuard>
                                 </Component.Layout>
                             ) : (
-
                                 <>
                                     <Component {...pageProps} />
                                     <Analytics />
                                 </>
-
                             )}
                         </ChakraProvider>
                     </StrictMode>
                 </QueryClientProvider>
             </Web3Provider>
         </SessionProvider>
-
     );
 }
 

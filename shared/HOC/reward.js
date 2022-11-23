@@ -111,7 +111,7 @@ export const useUserRewardQuery = (session) => {
             .get(`${USER_GET_CLAIMED_REWARD}/${userId}`)
             .then((r) => r.data);
 
-    }, { staleTime: 5 * 60, enabled: userId });
+    }, { staleTime: 5 * 60, enabled: userId !== undefined });
 
     return [data, isLoading];
 };

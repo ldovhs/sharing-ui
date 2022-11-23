@@ -13,6 +13,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import TwitterProvider from "next-auth/providers/twitter";
 
 import UAuth from "@uauth/js";
+import { getVariableTest } from "repositories/config";
 const { default: Resolution } = require("@unstoppabledomains/resolution");
 const resolution = new Resolution();
 
@@ -31,6 +32,8 @@ const {
     NEXT_PUBLIC_TWITTER_CLIENT_ID,
     TWITTER_CLIENT_SECRET,
 } = process.env;
+
+
 
 export const authOptions = {
     providers: [
@@ -133,6 +136,8 @@ export const authOptions = {
 
                     console.log("Authenticated as user successfully");
 
+
+
                     return { address: originalAddress, isAdmin: false, userId: user.userId };
                 } catch (error) {
                     console.log(error);
@@ -194,7 +199,7 @@ export const authOptions = {
         }),
         DiscordProvider({
             // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
-            clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,
+            clientId: await getVariableTest(),//NEXT_PUBLIC_DISCORD_CLIENT_ID,
             clientSecret: DISCORD_CLIENT_SECRET,
         }),
         TwitterProvider({
@@ -231,10 +236,10 @@ export const authOptions = {
                 let credentials = user?.credentials;
                 let userInfo = user?.user;
 
-                console.log(credentials.message)
-                console.log(credentials.signature)
-                console.log(userInfo.message)
-                console.log(userInfo.signature)
+                // console.log(credentials.message)
+                // console.log(credentials.signature)
+                // console.log(userInfo.message)
+                // console.log(userInfo.signature)
                 if (
                     // credentials.address.toLowerCase() != userInfo.address.toLowerCase() ||
                     credentials.message != userInfo.message ||

@@ -13,7 +13,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import TwitterProvider from "next-auth/providers/twitter";
 
 import UAuth from "@uauth/js";
-import { getVariableTest } from "repositories/config";
+import { getVariableConfig } from "repositories/config";
 const { default: Resolution } = require("@unstoppabledomains/resolution");
 const resolution = new Resolution();
 
@@ -27,10 +27,6 @@ const CryptoJS = require("crypto-js");
 
 const {
     NEXT_PUBLIC_NEXTAUTH_SECRET,
-    NEXT_PUBLIC_DISCORD_CLIENT_ID,
-    DISCORD_CLIENT_SECRET,
-    NEXT_PUBLIC_TWITTER_CLIENT_ID,
-    TWITTER_CLIENT_SECRET,
 } = process.env;
 
 
@@ -198,14 +194,13 @@ export const authOptions = {
             },
         }),
         DiscordProvider({
-            // default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth
-            // clientId: await getVariableTest(),//NEXT_PUBLIC_DISCORD_CLIENT_ID,
-            clientId: NEXT_PUBLIC_DISCORD_CLIENT_ID,//,
-            clientSecret: DISCORD_CLIENT_SECRET,
+            /* default should be [origin]/api/auth/callback/[provider] ~ https://next-auth.js.org/configuration/providers/oauth */
+            clientId: await getVariableConfig("discordId"),
+            clientSecret: await getVariableConfig("discordSecret")
         }),
         TwitterProvider({
-            clientId: NEXT_PUBLIC_TWITTER_CLIENT_ID,
-            clientSecret: TWITTER_CLIENT_SECRET,
+            clientId: await getVariableConfig("twitterId"),
+            clientSecret: await getVariableConfig("twitterSecret"),
             version: "2.0",
         }),
     ],

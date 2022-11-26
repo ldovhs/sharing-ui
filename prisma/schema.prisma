@@ -141,7 +141,6 @@ model AnomuraPartImage {
     url    String?
 }
 
-
 model AnomuraEquipmentContractLog {
     id                  Int                 @id @default(autoincrement())
     eventLogId          String
@@ -152,7 +151,6 @@ model AnomuraEquipmentContractLog {
     data                Json?
     createdAt           DateTime            @default(now())
     updatedAt           DateTime            @default(now()) @updatedAt
-
 }
 
 model AnomuraContractLog {
@@ -173,11 +171,6 @@ model MoralisNftData {
   contractData        Json?
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @default(now()) @updatedAt
-}
-
-model TeamListAddress {
-    id                Int                 @id @default(autoincrement())
-    wallet            String              @unique
 }
 
 model WhiteListAddress {
@@ -231,7 +224,6 @@ model AnomuraPartSVG {
     svg         String?
 }
 
-
 enum EquipmentType {
   BODY
   CLAWS
@@ -248,7 +240,6 @@ enum EquipmentRarity {
   LEGENDARY 
 }
 
-
 model EquipmentCollection {
   id                      Int                 @id @default(autoincrement())
   collectionAddress       String
@@ -264,4 +255,17 @@ model EquipmentCollection {
   createdAt               DateTime            @default(now())
   updatedAt               DateTime            @default(now()) @updatedAt
   @@unique([collectionAddress, equipmentId])            
+}
+
+model QuestVariables{
+  id                      Int                 @id @default(autoincrement())
+  vercel_env              String
+  discordId               String
+  discordSecret           String
+  discordBackend          String 
+  discordBackendSecret    String
+  twitterId               String
+  twitterSecret           String
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @default(now()) @updatedAt
 }

@@ -12,7 +12,7 @@ export const questUpsert = async (
     isRequired,
     extendedQuestData
 ) => {
-    console.log(questTypeId)
+
     return await prisma.quest.upsert({
         where: {
             id: questId || -1,

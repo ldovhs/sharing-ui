@@ -11,7 +11,7 @@ import { updateDiscordUserAndAddRewardTransaction } from "repositories/transacti
 const TOKEN_DISCORD_AUTH_URL = "https://discord.com/api/oauth2/token";
 const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } =
+const { NEXT_PUBLIC_WEBSITE_HOST } =
     process.env;
 
 // @dev this is used for discord auth quest only
@@ -25,20 +25,26 @@ export default async function discordRedirect(req, res) {
 
                 let whiteListUser = await isWhiteListUser(session);
 
-                // if (!session || !whiteListUser) {
-                //     let error = "Attempt to access without authenticated.";
-                //     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                // }
-
                 const { code } = req.query;
                 if (!code) {
                     let error = "Missing auth code. Please contact the administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+
+                let allConfigs = await prisma.questVariables.findMany();
+                let discordIdConfig = allConfigs?.discordIdConfig;
+                let discordSecret = allConfigs?.discordSecret;
+
+
+                if (!discordIdConfig || !discordSecret) {
+                    let error = "Missing Discord Client Configuration. Please contact the administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
                 const formData = new url.URLSearchParams({
-                    client_id: NEXT_PUBLIC_DISCORD_CLIENT_ID,
-                    client_secret: DISCORD_CLIENT_SECRET,
+                    client_id: discordIdConfig,
+                    client_secret: discordSecret,
                     grant_type: "authorization_code",
                     code: code.toString(),
                     redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/discord/redirect`,

@@ -68,7 +68,19 @@ const IndividualQuestBoard = ({
 
     const doQuest = useCallback(
         async (quest) => {
-            await doQuestUtility(router, quest, currentQuests, onSubmit);
+            try {
+                await doQuestUtility(router, quest, currentQuests, onSubmit);
+            } catch (error) {
+                console.log(error);
+                toast({
+                    title: "Exception",
+                    description: `Catch error at quest: ${quest.text}. Please contact admin.`,
+                    position: "top-right",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
         },
         [currentQuests]
     );

@@ -67,11 +67,13 @@ function SignUp({ session }) {
         // sign up through social medioa
         else {
             if (typeOfSignUp === Enums.DISCORD_AUTH) {
-                return window.open(getDiscordAuthLink(), "_self");
+                let discordLink = await getDiscordAuthLink();
+                return window.open(discordLink, "_self");
             }
 
             if (typeOfSignUp === Enums.TWITTER_AUTH) {
-                return window.open(getTwitterAuthLink(), "_self");
+                let twitterLink = await getTwitterAuthLink();
+                return window.open(twitterLink, "_self");
             }
         }
 
@@ -331,18 +333,11 @@ function SignUp({ session }) {
     );
 }
 
-const getDiscordAuthLink = () => {
-    return `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
-};
-
-const getTwitterAuthLink = () => {
-    return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
-};
-
 export default SignUp;
 
 import { unstable_getServerSession } from "next-auth/next"
 import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { getDiscordAuthLink, getTwitterAuthLink } from "@utils/helpers";
 export async function getServerSideProps(context) {
     const session = await unstable_getServerSession(
         context.req,

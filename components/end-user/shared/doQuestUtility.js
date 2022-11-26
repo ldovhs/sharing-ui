@@ -1,12 +1,7 @@
 import Enums from "enums";
+import axios from "axios";
+import { getDiscordAuthLink, getTwitterAuthLink } from "@utils/helpers";
 
-const getDiscordAuthLink = () => {
-  return `https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
-};
-
-const getTwitterAuthLink = () => {
-  return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
-};
 
 /*@dev
  * if DISCORD_AUTH || TWITTER_AUTH, we do separated quest through redirect links
@@ -35,10 +30,12 @@ export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => 
     }
   }
   if (type.name === Enums.DISCORD_AUTH) {
-    return window.open(getDiscordAuthLink(), "_self");
+    let discordLink = await getDiscordAuthLink();
+    return window.open(discordLink, "_self");
   }
   if (type.name === Enums.TWITTER_AUTH) {
-    return window.open(getTwitterAuthLink(), "_self");
+    let twitterLink = await getTwitterAuthLink();
+    return window.open(twitterLink, "_self");
   }
   if (type.name === Enums.JOIN_DISCORD) {
     let discordServer = extendedQuestData.discordServer;
@@ -72,6 +69,6 @@ export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => 
     return await onSubmit(submission, currentQuests);
 
   } catch (error) {
-    console.log(error);
+    throw error
   }
 };

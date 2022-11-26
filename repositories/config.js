@@ -1,6 +1,12 @@
 import { prisma } from "../context/PrismaContext";
 
-export const getVariableTest = async () => {
-  let test = await prisma.rewardType.findMany();
-  return "a"
+export const getVariableConfig = async (property) => {
+  let config = await prisma.questVariables.findFirst();
+  let configProperty = config[property];
+  if (!configProperty) {
+    throw new Error(`Cannot find property of `)
+  }
+  console.log("Getting variable config")
+
+  return configProperty
 };

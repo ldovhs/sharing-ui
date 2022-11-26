@@ -248,15 +248,7 @@ export const withUserImageQuestSubmit =
             );
         };
 
-export const withAdminQuestQuery =
-    (Component) =>
-        ({ ...props }) => {
-            const { data, error, status, isLoading } = useQuery("adminQueryQuest", () =>
-                axios.get(ADMIN_QUEST_QUERY)
-            );
 
-            return <Component {...props} isLoading={isLoading} quests={data?.data} error={error} />;
-        };
 
 export const withUserQuestQuery =
     (Component) =>
@@ -408,6 +400,16 @@ export const useAdminQuestSoftDelete = () => {
 
     return [data, isLoading, handleOnDelete];
 };
+
+export const withAdminQuestQuery =
+    (Component) =>
+        ({ ...props }) => {
+            const { data, error, status, isLoading } = useQuery("adminQueryQuest", () =>
+                axios.get(ADMIN_QUEST_QUERY)
+            );
+
+            return <Component {...props} isLoading={isLoading} quests={data?.data} error={error} />;
+        };
 
 function isNotDoneFirst(a, b) {
     return Number(a.isDone) - Number(b.isDone);

@@ -11,7 +11,7 @@ import { prisma } from "@context/PrismaContext";
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NEXT_PUBLIC_TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET } =
+const { NEXT_PUBLIC_WEBSITE_HOST } =
     process.env;
 
 const ROUTE = "/api/auth/twitter/redirect";
@@ -26,10 +26,6 @@ export default async function twitterRedirect(req, res) {
 
                 let whiteListUser = await isWhiteListUser(session);
 
-                // if (!session || !whiteListUser) {
-                //     let error = "Attempt to access without authenticated.";
-                //     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
-                // }
 
                 const { code } = req.query;
                 if (!code) {
@@ -37,9 +33,18 @@ export default async function twitterRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
+                let allConfigs = await prisma.questVariables.findMany();
+                let twitterId = allConfigs?.twitterId;
+                let twitterSecret = allConfigs?.twitterSecret;
+
+                if (!twitterId || !twitterSecret) {
+                    let error = "Missing Twitter Client Configuration. Please contact the administrator.";
+                    return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
+                }
+
                 const formData = new url.URLSearchParams({
-                    client_id: NEXT_PUBLIC_TWITTER_CLIENT_ID,
-                    client_secret: TWITTER_CLIENT_SECRET,
+                    client_id: twitterId,
+                    client_secret: twitterSecret,
                     grant_type: "authorization_code",
                     code: code.toString(),
                     redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect`,

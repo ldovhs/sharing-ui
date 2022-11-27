@@ -13,7 +13,7 @@ const EnvironmentConfig = () => {
         let queryConfig = await axios
             .get(`${Enums.BASEPATH}/api/admin/configs/`)
             .then((r) => r.data);
-        console.log("queryConfig", queryConfig);
+
         setLoading(false);
         setConfigs(queryConfig);
     }, []);
@@ -27,6 +27,8 @@ const EnvironmentConfig = () => {
         twitterId: configs?.twitterId || "",
         twitterSecret: configs?.twitterSecret || "",
     };
+
+    console.log("window.location.host", window.location.host);
 
     return (
         <>

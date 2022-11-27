@@ -11,8 +11,7 @@ import { prisma } from "@context/PrismaContext";
 const TOKEN_TWITTER_AUTH_URL = "https://api.twitter.com/2/oauth2/token";
 const USERINFO_TWITTER_URL = "https://api.twitter.com/2/users/me";
 
-const { NEXT_PUBLIC_WEBSITE_HOST } =
-    process.env;
+
 
 const ROUTE = "/api/auth/twitter/redirect";
 // @dev this is used for twitter auth quest only
@@ -41,13 +40,14 @@ export default async function twitterRedirect(req, res) {
                     let error = "Missing Twitter Client Configuration. Please contact the administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
+                let currentDomain = window.location.host;
 
                 const formData = new url.URLSearchParams({
                     client_id: twitterId,
                     client_secret: twitterSecret,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect`,
+                    redirect_uri: `${currentDomain}/challenger/api/auth/twitter/redirect`,
                     code_verifier: "challenge",
                 });
 

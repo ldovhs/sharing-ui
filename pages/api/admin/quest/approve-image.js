@@ -2,7 +2,7 @@ import { prisma } from "@context/PrismaContext";
 import adminMiddleware from "middlewares/adminMiddleware";
 import axios from "axios";
 
-const { NEXT_PUBLIC_WEBSITE_HOST, NODEJS_SECRET, DISCORD_NODEJS } = process.env;
+const { NODEJS_SECRET, DISCORD_NODEJS } = process.env;
 
 const approveImageQuestAPI = async (req, res) => {
     const { method } = req;

@@ -11,8 +11,8 @@ export const getDiscordAuthLink = async () => {
   if (!discordIdConfig) {
     throw new Error("Cannot find Discord Id from Config.")
   }
-
-  return `https://discord.com/api/oauth2/authorize?client_id=${discordIdConfig}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
+  let currentDomain = window.location.host;
+  return `https://discord.com/api/oauth2/authorize?client_id=${discordIdConfig}&redirect_uri=${currentDomain}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
 };
 
 export const getTwitterAuthLink = async () => {
@@ -24,5 +24,6 @@ export const getTwitterAuthLink = async () => {
   if (!twitterIdConfig) {
     throw new Error("Cannot find Twitter Id from Config.")
   }
-  return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${twitterIdConfig}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
+  let currentDomain = window.location.host;
+  return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${twitterIdConfig}&redirect_uri=${currentDomain}/challenger/api/auth/twitter/redirect&scope=tweet.read%20users.read&state=state&code_challenge=challenge&code_challenge_method=plain`;
 };

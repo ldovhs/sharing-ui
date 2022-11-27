@@ -11,9 +11,6 @@ import { updateDiscordUserAndAddRewardTransaction } from "repositories/transacti
 const TOKEN_DISCORD_AUTH_URL = "https://discord.com/api/oauth2/token";
 const USERINFO_DISCORD_AUTH_URL = "https://discord.com/api/users/@me";
 
-const { NEXT_PUBLIC_WEBSITE_HOST } =
-    process.env;
-
 // @dev this is used for discord auth quest only
 export default async function discordRedirect(req, res) {
     const { method } = req;
@@ -41,13 +38,13 @@ export default async function discordRedirect(req, res) {
                     let error = "Missing Discord Client Configuration. Please contact the administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
-
+                let currentDomain = window.location.host;
                 const formData = new url.URLSearchParams({
                     client_id: discordId,
                     client_secret: discordSecret,
                     grant_type: "authorization_code",
                     code: code.toString(),
-                    redirect_uri: `${NEXT_PUBLIC_WEBSITE_HOST}/challenger/api/auth/discord/redirect`,
+                    redirect_uri: `${currentDomain}/challenger/api/auth/discord/redirect`,
                 });
 
                 const response = await axios.post(TOKEN_DISCORD_AUTH_URL, formData.toString(), {

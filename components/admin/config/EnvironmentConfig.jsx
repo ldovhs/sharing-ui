@@ -9,10 +9,8 @@ import axios from "axios";
 const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mutationError }) => {
     const [configs, setConfigs] = useState(null);
     const [selectType, setSelectedType] = useState(null);
-    const handleOnSelectChange = (e) => {
-        setSelectedType(e.target.value);
-    };
-    const [loading, setLoading] = useState(false);
+
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(async () => {
         setLoading(true);

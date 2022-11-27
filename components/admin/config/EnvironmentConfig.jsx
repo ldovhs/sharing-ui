@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, array, string, number } from "yup";
-import { utils } from "ethers";
-import { withRewardTypeQuery, withPendingRewardSubmit } from "shared/HOC/reward";
 import Enums from "enums";
 import axios from "axios";
 
-const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mutationError }) => {
+const EnvironmentConfig = () => {
     const [configs, setConfigs] = useState(null);
-    const [selectType, setSelectedType] = useState(null);
-
     const [isLoading, setLoading] = useState(false);
 
     useEffect(async () => {
@@ -20,7 +16,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
         console.log("queryConfig", queryConfig);
         setLoading(false);
         setConfigs(queryConfig);
-    }, [selectType]);
+    }, []);
 
     const initialValues = {
         id: configs?.id || null,
@@ -30,14 +26,13 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
         discordBackendSecret: configs?.discordBackendSecret || "",
         twitterId: configs?.twitterId || "",
         twitterSecret: configs?.twitterSecret || "",
-        vercelEnv: configs?.env || "",
     };
 
     return (
         <>
             <div className="col-6 mb-3">
                 <label className="form-label">
-                    Environment Type: {configs?.vercel_env || "Development"}
+                    Environment Type: {configs?.env || "Development"}
                 </label>
             </div>
             <Formik
@@ -48,7 +43,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
                 onSubmit={async (fields, { setErrors, resetForm }) => {
                     //alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
                     const payload = { ...fields };
-
+                    setLoading(true);
                     const res = await axios.post(
                         `${Enums.BASEPATH}/api/admin/configs/upsert`,
                         payload
@@ -56,6 +51,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
                     if (res.isError) {
                         setErrors(res.message);
                     }
+                    setLoading(false);
                 }}
             >
                 {({ errors, status, touched }) => (
@@ -215,7 +211,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
     );
 };
 
-const firstHOC = withPendingRewardSubmit(EnvironmentConfig);
-export default withRewardTypeQuery(firstHOC);
+// const firstHOC = withPendingRewardSubmit(EnvironmentConfig);
+// export default withRewardTypeQuery(firstHOC);
 
 // export default EnvironmentConfig

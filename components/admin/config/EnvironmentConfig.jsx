@@ -12,12 +12,14 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
     const handleOnSelectChange = (e) => {
         setSelectedType(e.target.value);
     };
+    const [loading, setLoading] = useState(false);
 
     useEffect(async () => {
+        setLoading(true);
         let queryConfig = await axios
             .get(`${Enums.BASEPATH}/api/admin/configs/`)
             .then((r) => r.data);
-
+        setLoading(false);
         setConfigs(queryConfig[0]);
     }, [selectType]);
 
@@ -29,13 +31,14 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
         discordBackendSecret: configs?.discordBackendSecret || "",
         twitterId: configs?.twitterId || "",
         twitterSecret: configs?.twitterSecret || "",
+        vercelEnv: configs?.vercel_env || "",
     };
 
     return (
         <>
             <div className="col-6 mb-3">
                 <label className="form-label">
-                    Environment Type: {process.env.VERCEL_ENV || "Development"}
+                    Environment Type: {configs?.vercel_env || "Development"}
                 </label>
             </div>
             <Formik
@@ -203,7 +206,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
                                 className="btn btn-primary mr-2 w-100"
                                 disabled={isSubmittingConfigs}
                             >
-                                {isSubmittingConfigs ? "Submitting..." : "Submit"}
+                                {isSubmittingConfigs || isLoading ? "Loading..." : "Submit"}
                             </button>
                         </div>
                     </Form>

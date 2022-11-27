@@ -33,7 +33,7 @@ export default async function twitterRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-                let allConfigs = await prisma.questVariables.findMany();
+                let allConfigs = await prisma.questVariables.findFirst();
                 let twitterId = allConfigs?.twitterId;
                 let twitterSecret = allConfigs?.twitterSecret;
 

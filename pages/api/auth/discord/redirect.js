@@ -32,9 +32,10 @@ export default async function discordRedirect(req, res) {
                 }
 
 
-                let allConfigs = await prisma.questVariables.findMany();
+                let allConfigs = await prisma.questVariables.findFirst();
                 let discordId = allConfigs?.discordId;
                 let discordSecret = allConfigs?.discordSecret;
+                console.log("allConfigs", allConfigs)
 
                 if (!discordId || !discordSecret) {
                     let error = "Missing Discord Client Configuration. Please contact the administrator.";

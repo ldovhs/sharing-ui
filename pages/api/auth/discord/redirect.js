@@ -33,9 +33,8 @@ export default async function discordRedirect(req, res) {
 
 
                 let allConfigs = await prisma.questVariables.findMany();
-                let discordIdConfig = allConfigs?.discordIdConfig;
+                let discordId = allConfigs?.discordId;
                 let discordSecret = allConfigs?.discordSecret;
-
 
                 if (!discordIdConfig || !discordSecret) {
                     let error = "Missing Discord Client Configuration. Please contact the administrator.";
@@ -43,7 +42,7 @@ export default async function discordRedirect(req, res) {
                 }
 
                 const formData = new url.URLSearchParams({
-                    client_id: discordIdConfig,
+                    client_id: discordId,
                     client_secret: discordSecret,
                     grant_type: "authorization_code",
                     code: code.toString(),

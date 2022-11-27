@@ -17,8 +17,9 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
         let queryConfig = await axios
             .get(`${Enums.BASEPATH}/api/admin/configs/`)
             .then((r) => r.data);
+        console.log("queryConfig", queryConfig);
         setLoading(false);
-        setConfigs(queryConfig[0]);
+        setConfigs(queryConfig);
     }, [selectType]);
 
     const initialValues = {
@@ -29,7 +30,7 @@ const EnvironmentConfig = ({ isLoadingConfigs, isSubmittingConfigs, onSubmit, mu
         discordBackendSecret: configs?.discordBackendSecret || "",
         twitterId: configs?.twitterId || "",
         twitterSecret: configs?.twitterSecret || "",
-        vercelEnv: configs?.vercel_env || "",
+        vercelEnv: configs?.env || "",
     };
 
     return (

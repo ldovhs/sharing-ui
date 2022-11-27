@@ -8,8 +8,15 @@ const AdminConfigsQueryAPI = async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        let allConfigs = await prisma.questVariables.findMany();
+        let allConfigs = await prisma.questVariables.findFirst();
 
+        if (!allConfigs) {
+          let result = {};
+          result.env = process.env.VERCEL_ENV || "Develop";
+          return res.status(200).json(result);
+        }
+        allConfigs.env = process.env.VERCEL_ENV;
+        console.log(allConfigs)
         return res.status(200).json(allConfigs);
       } catch (err) {
         console.log(err);

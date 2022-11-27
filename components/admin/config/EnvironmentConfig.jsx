@@ -199,9 +199,9 @@ const EnvironmentConfig = () => {
                             <button
                                 type="submit"
                                 className="btn btn-primary mr-2 w-100"
-                                disabled={isSubmittingConfigs}
+                                disabled={isLoading}
                             >
-                                {isSubmittingConfigs || isLoading ? "Loading..." : "Submit"}
+                                {isLoading ? "Loading..." : "Submit"}
                             </button>
                         </div>
                     </Form>
@@ -211,7 +211,4 @@ const EnvironmentConfig = () => {
     );
 };
 
-// const firstHOC = withPendingRewardSubmit(EnvironmentConfig);
-// export default withRewardTypeQuery(firstHOC);
-
-// export default EnvironmentConfig
+export default EnvironmentConfig;

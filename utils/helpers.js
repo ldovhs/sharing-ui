@@ -11,6 +11,7 @@ export const getDiscordAuthLink = async () => {
   if (!discordIdConfig) {
     throw new Error("Cannot find Discord Id from Config.")
   }
+
   return `https://discord.com/api/oauth2/authorize?client_id=${discordIdConfig}&redirect_uri=${process.env.NEXT_PUBLIC_WEBSITE_HOST}%2Fchallenger%2Fapi%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
 };
 

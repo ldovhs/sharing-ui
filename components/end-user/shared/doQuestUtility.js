@@ -31,6 +31,7 @@ export const doQuestUtility = async (router, quest, currentQuests, onSubmit) => 
   }
   if (type.name === Enums.DISCORD_AUTH) {
     let discordLink = await getDiscordAuthLink();
+
     return window.open(discordLink, "_self");
   }
   if (type.name === Enums.TWITTER_AUTH) {

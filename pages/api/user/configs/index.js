@@ -10,7 +10,8 @@ const UserConfigsQueryAPI = async (req, res) => {
     case "GET":
       try {
         const { type } = req.query;
-        if (type !== "discordId" || type !== "twitterId") {
+        console.log(type)
+        if (type !== "discordId" && type !== "twitterId") {
           return res.status(200).json({ isError: true, message: "Only for querying Id" });
         }
         let configs = await prisma.questVariables.findFirst();

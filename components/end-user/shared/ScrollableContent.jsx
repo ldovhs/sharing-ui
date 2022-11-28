@@ -14,7 +14,7 @@ function ScrollableContent({
         canScrollDown: true,
     });
     const scrollRef = useRef();
-    // console.log(currentQuests);
+
     useEffect(() => {
         if (currentQuests?.length <= 3) {
             setScroll((prevState) => ({

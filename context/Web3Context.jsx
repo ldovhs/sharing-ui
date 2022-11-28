@@ -71,8 +71,6 @@ export function Web3Provider({ session, children }) {
             provider.on("end", (e) => console.error("WS End", e));
 
             provider.on("accountsChanged", async (accounts) => {
-                console.log("On account changed, would need to login again");
-
                 SignOut();
             });
 
@@ -337,8 +335,8 @@ export function Web3Provider({ session, children }) {
                 return;
             }
             let doQuest = await walletAuth(providerInstance, addresses[0]).catch((err) => {
-                console.log(err);
-                setWeb3Error(err);
+                console.log(err.message);
+                setWeb3Error(err.message);
                 return false;
             });
 
@@ -420,10 +418,8 @@ export function Web3Provider({ session, children }) {
                 })
                     .then(({ ok, error }) => {
                         if (ok) {
-                            console.log("ok");
                             return true;
                         } else {
-                            console.log("Authentication failed");
                             return false;
                         }
                     })

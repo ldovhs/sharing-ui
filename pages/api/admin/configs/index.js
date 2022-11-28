@@ -16,11 +16,11 @@ const AdminConfigsQueryAPI = async (req, res) => {
           return res.status(200).json(result);
         }
         allConfigs.env = process.env.VERCEL_ENV;
-        console.log(allConfigs)
+
         return res.status(200).json(allConfigs);
       } catch (err) {
         console.log(err);
-        res.status(500).json({ err });
+        res.status(500).json({ isError: true, message: err.message });
       }
       break;
 

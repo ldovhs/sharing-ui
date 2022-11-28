@@ -8,7 +8,6 @@ export function SiteProvider({ children }) {
     function handleAccountsChanged(accounts) {
         if (accounts.length === 0) {
             // MetaMask is locked or the user has not connected any accounts
-            console.log("Please connect to MetaMask.");
         } else if (accounts[0] !== currentAccount) {
             return accounts[0];
         }
@@ -25,7 +24,6 @@ export function SiteProvider({ children }) {
             if (accounts.length) {
                 return accounts[0];
             } else {
-                console.log("No accounts found");
             }
         } catch (error) {
             throw new error("No ethereum object from Metamask");
@@ -45,7 +43,6 @@ export function SiteProvider({ children }) {
                 if (err.code === 4001) {
                     // EIP-1193 userRejectedRequest error
                     // If this happens, the user rejected the connection request.
-                    console.log("Please connect to MetaMask.");
                 } else {
                     console.error(err);
                 }

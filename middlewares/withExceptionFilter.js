@@ -8,7 +8,7 @@ const withExceptionFilter = (handler) => {
             await handler(req, res)
 
         } catch (exception) {
-            console.log("catch error " + exception.message)
+
             const { url, headers } = req;
             const statusCode = getExceptionStatus(exception);
             const message = getExceptionMessage(exception);

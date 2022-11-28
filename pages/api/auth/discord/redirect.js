@@ -38,7 +38,7 @@ export default async function discordRedirect(req, res) {
                     let error = "Missing Discord Client Configuration. Please contact the administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
-                let currentDomain = window.location.host;
+                let currentDomain = process.env.NEXT_PUBLIC_WEBSITE_HOST;
                 const formData = new url.URLSearchParams({
                     client_id: discordId,
                     client_secret: discordSecret,

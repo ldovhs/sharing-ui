@@ -28,8 +28,6 @@ const EnvironmentConfig = () => {
         twitterSecret: configs?.twitterSecret || "",
     };
 
-    console.log("window.location.host", window.location.host);
-
     return (
         <>
             <div className="col-6 mb-3">

@@ -40,7 +40,7 @@ export default async function twitterRedirect(req, res) {
                     let error = "Missing Twitter Client Configuration. Please contact the administrator.";
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
-                let currentDomain = window.location.host;
+                let currentDomain = process.env.NEXT_PUBLIC_WEBSITE_HOST;
 
                 const formData = new url.URLSearchParams({
                     client_id: twitterId,

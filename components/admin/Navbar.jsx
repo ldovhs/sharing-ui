@@ -93,6 +93,11 @@ export default function AdminNavbar() {
                                                     <a className="nav-link">Stats</a>
                                                 </Link>
                                             </li>
+                                            <li className="nav-item">
+                                                <Link href="/admin/config">
+                                                    <a className="nav-link">Config</a>
+                                                </Link>
+                                            </li>
                                         </ul>
                                     </div>
 

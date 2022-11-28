@@ -16,7 +16,7 @@ const InstagramFollowQuest = ({
 }) => {
     const initialValues = {
         type: Enums.FOLLOW_INSTAGRAM,
-        extendedQuestData: quest?.extendedQuestData ?? { followAccount: "" },
+        extendedQuestData: quest?.extendedQuestData ?? { followAccount: "", collaboration: "" },
         text: quest?.text || "Follow Instagram Account",
         description: quest?.description ?? "Require the user to follow an Instagram Account",
         completedText: quest?.completedText || "Completed",
@@ -85,6 +85,30 @@ const InstagramFollowQuest = ({
                                         className="invalid-feedback"
                                     />
                                 </div>
+                            </div>
+
+                            <div className="col-xxl-6 col-xl-6 col-lg-6 mb-3">
+                                <label className="form-label">
+                                    Part of Collaboration (colormonsters, leave blank if not
+                                    collaborate)
+                                </label>
+                                <Field
+                                    name="extendedQuestData.collaboration"
+                                    type="text"
+                                    className={
+                                        "form-control" +
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData?.collaboration &&
+                                        touched?.extendedQuestData?.collaboration
+                                            ? " is-invalid"
+                                            : "")
+                                    }
+                                />
+                                <ErrorMessage
+                                    name="extendedQuestData.collaboration"
+                                    component="div"
+                                    className="invalid-feedback"
+                                />
                             </div>
                             <QuestFormTemplate
                                 values={values}

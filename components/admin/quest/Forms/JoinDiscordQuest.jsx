@@ -96,9 +96,9 @@ const JoinDiscordQuest = ({
                                     type="text"
                                     className={
                                         "form-control" +
-                                        (errors.extendedQuestData &&
-                                        errors.extendedQuestData.collaboration &&
-                                        touched.extendedQuestData.collaboration
+                                        (errors?.extendedQuestData &&
+                                        errors?.extendedQuestData.collaboration &&
+                                        touched?.extendedQuestData.collaboration
                                             ? " is-invalid"
                                             : "")
                                     }

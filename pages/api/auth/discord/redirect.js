@@ -28,11 +28,9 @@ export default async function discordRedirect(req, res) {
                     return res.status(200).redirect(`/challenger/quest-redirect?error=${error}`);
                 }
 
-
                 let allConfigs = await prisma.questVariables.findFirst();
                 let discordId = allConfigs?.discordId;
                 let discordSecret = allConfigs?.discordSecret;
-
 
                 if (!discordId || !discordSecret) {
                     let error = "Missing Discord Client Configuration. Please contact the administrator.";

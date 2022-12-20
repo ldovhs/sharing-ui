@@ -36,8 +36,8 @@ const adminUserStatsAPI = async (req, res) => {
             searchRes.shouldContinue = true;
         }
 
-        res.setHeader('Cache-Control', 'max-age=0, s-maxage=60, stale-while-revalidate');
-        return res.status(200).json(JSON.stringify(searchRes));
+        res.setHeader('Cache-Control', 'max-age=0, s-maxage=18000, stale-while-revalidate');
+        return res.status(200).json(searchRes);
     }
     throw new ApiError(400, `Method ${req.method} Not Allowed`)
 };

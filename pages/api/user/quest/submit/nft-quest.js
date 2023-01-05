@@ -90,7 +90,7 @@ const submitNftQuest = async (req, res) => {
                     let haveNft = false;
 
                     await Moralis.start({
-                        apiKey: process.env.NEXT_PUBLIC_MORALIS_APIKEY,
+                        apiKey: process.env.MORALIS_API_KEY,
                         // ...other configuration
                     });
 
